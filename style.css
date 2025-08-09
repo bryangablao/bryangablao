@@ -20,6 +20,13 @@ header {
     background: rgba(0,0,0,0.5);
 }
 
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    text-align: center;
+    flex: 1;
+}
+
 .hamburger {
     font-size: 24px;
     cursor: pointer;
@@ -56,30 +63,24 @@ header {
 .content-card {
     padding: 20px;
     display: flex;
-    align-items: flex-start;
-    gap: 30px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
 }
 
-.profile {
+.profile-info {
     flex: 1;
+    min-width: 250px;
 }
 
-.profile img {
-    width: 200px;
-    height: 200px;
-    border-radius: 50%; /* Circle */
-    border: 3px solid white;
-    cursor: pointer;
-    float: right; /* Moves to right side */
-}
-
-.profile p {
+.profile-info p {
     display: flex;
     justify-content: space-between;
     margin: 8px 0;
+    font-size: 1rem;
 }
 
-.profile p strong {
+.profile-info p strong {
     font-weight: bold;
 }
 
@@ -89,8 +90,17 @@ hr {
     margin: 8px 0;
 }
 
+.profile-pic-link img {
+    width: 200px;
+    height: 200px;
+    border-radius: 20px; /* round-square */
+    border: 3px solid white;
+    object-fit: cover;
+    float: right;
+}
+
 .family {
-    margin-top: 20px;
+    padding: 20px;
 }
 
 .family-list {
@@ -102,10 +112,30 @@ hr {
 .family-list img {
     width: 100px;
     height: 100px;
-    border-radius: 50%;
+    border-radius: 15px; /* round-square family photos */
     border: 2px solid white;
 }
 
 .family-list p {
     font-weight: bold;
+    text-align: center;
+}
+
+/* Mobile-friendly adjustments */
+@media (max-width: 600px) {
+    .content-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-info p {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-pic-link img {
+        float: none;
+        margin-top: 20px;
+    }
 }
