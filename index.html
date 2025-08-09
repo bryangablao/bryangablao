@@ -38,13 +38,13 @@
                     <p><strong>Gender:</strong> <span>Male</span></p>
                     <hr>
                 </div>
-                <a href="https://www.facebook.com/bryangablao" target="_blank">
+                <a href="https://www.facebook.com/bryangablao" target="_blank" class="profile-pic-link">
                     <img src="images/Bryan.jpg" alt="Bryan" class="profile-pic">
                 </a>
             </div>
 
             <div class="family">
-                <h3>Family Members</h3>
+                <h3 style="text-align:center;">Family Members</h3>
                 <div class="family-list">
                     <div>
                         <img src="images/father.jpg" alt="Evaristo C. Ablao">
@@ -81,7 +81,10 @@
         document.addEventListener('click', function(event) {
             const sidebar = document.getElementById('sidebar');
             const hamburger = document.querySelector('.hamburger');
-            if (!sidebar.contains(event.target) && !hamburger.contains(event.target)) {
+
+            if (sidebar.style.width === '250px' &&
+                !sidebar.contains(event.target) &&
+                !hamburger.contains(event.target)) {
                 sidebar.style.width = '0';
             }
         });
