@@ -1,8 +1,15 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(to bottom right, #380098, black);
+    background: radial-gradient(circle at top left, #380098, black);
+    background-size: 200% 200%;
+    animation: gradientMove 10s infinite alternate;
     color: white;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
 }
 
 header {
@@ -10,7 +17,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    background: rgba(0,0,0,0.3);
+    background: rgba(0,0,0,0.5);
 }
 
 .hamburger {
@@ -24,7 +31,7 @@ header {
     position: fixed;
     top: 0;
     right: 0;
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgba(0,0,0,0.95);
     overflow-x: hidden;
     transition: 0.3s;
     padding-top: 60px;
@@ -46,6 +53,35 @@ header {
     background: #380098;
 }
 
-main {
+.content-card {
     padding: 20px;
+}
+
+.profile {
+    text-align: left;
+}
+
+.profile img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid white;
+    cursor: pointer;
+}
+
+.family {
+    margin-top: 20px;
+}
+
+.family-list {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.family-list img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid white;
 }
