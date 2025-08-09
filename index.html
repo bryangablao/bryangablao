@@ -6,6 +6,74 @@
     <link rel="icon" type="image/png" href="images/Accx_Logo.png">
     <title>Bryan Gutierrez Ablao</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: radial-gradient(circle at top left, #e0f7fa, #80deea, #26c6da);
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #00838f;
+            color: white;
+            padding: 10px 20px;
+        }
+        .hamburger {
+            font-size: 24px;
+            cursor: pointer;
+        }
+        #sidebar {
+            display: none;
+            background-color: #004d40;
+            padding: 10px;
+        }
+        #sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        #sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 8px 0;
+        }
+        .profile {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .profile img {
+            border-radius: 50%;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+        .profile-info {
+            flex: 1;
+        }
+        .profile-info p {
+            display: flex;
+            justify-content: space-between;
+            max-width: 500px;
+        }
+        hr {
+            border: 0;
+            border-top: 1px solid #ccc;
+            margin: 8px 0;
+        }
+        .family img {
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        .family p {
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -26,18 +94,21 @@
     <main>
         <section id="about" class="content-card">
             <div class="profile">
+                <div class="profile-info">
+                    <p><strong>Address:</strong> <span>Sb.3 Barrangay 22-C Piape Boulevard Davao City</span></p>
+                    <p><strong>Mobile:</strong> <span>09928760990</span></p>
+                    <p><strong>Email:</strong> <span><a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a></span></p>
+                    <hr>
+                    <p><strong>Date of Birth:</strong> <span>April 04, 2000</span></p>
+                    <p><strong>Place of Birth:</strong> <span>Jose Fabella Hospital, Metro Manila City</span></p>
+                    <p><strong>Citizenship:</strong> <span>Filipino</span></p>
+                    <p><strong>Religion:</strong> <span>Born Again</span></p>
+                    <p><strong>Gender:</strong> <span>Male</span></p>
+                    <hr>
+                </div>
                 <a href="https://www.facebook.com/bryangablao" target="_blank">
                     <img src="Bryan.jpg" alt="Bryan">
                 </a>
-                <h2>Bryan Gutierrez Ablao</h2>
-                <p><strong>Address:</strong> Sb.3 Barrangay 22-C Piape Boulevard Davao City</p>
-                <p><strong>Mobile:</strong> 09928760990</p>
-                <p><strong>Email:</strong> <a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a></p>
-                <p><strong>Date of Birth:</strong> April 04, 2000</p>
-                <p><strong>Place of Birth:</strong> Jose Fabella Hospital, Metro Manila City</p>
-                <p><strong>Citizenship:</strong> Filipino</p>
-                <p><strong>Religion:</strong> Born Again</p>
-                <p><strong>Gender:</strong> Male</p>
             </div>
 
             <div class="family">
@@ -68,6 +139,11 @@
         </section>
     </main>
 
-    <script src="script.js"></script>
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.style.display = sidebar.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
 </body>
 </html>
