@@ -55,18 +55,38 @@ header {
 
 .content-card {
     padding: 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
 }
 
 .profile {
-    text-align: left;
+    flex: 1;
 }
 
 .profile img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%; /* Circle */
     border: 3px solid white;
     cursor: pointer;
+    float: right; /* Moves to right side */
+}
+
+.profile p {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+}
+
+.profile p strong {
+    font-weight: bold;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid white;
+    margin: 8px 0;
 }
 
 .family {
@@ -84,4 +104,8 @@ header {
     height: 100px;
     border-radius: 50%;
     border: 2px solid white;
+}
+
+.family-list p {
+    font-weight: bold;
 }
