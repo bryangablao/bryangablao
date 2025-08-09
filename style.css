@@ -20,13 +20,6 @@ header {
     background: rgba(0,0,0,0.5);
 }
 
-header h1 {
-    margin: 0;
-    font-size: 1.5rem;
-    text-align: center;
-    flex: 1;
-}
-
 .hamburger {
     font-size: 24px;
     cursor: pointer;
@@ -43,6 +36,10 @@ header h1 {
     transition: 0.3s;
     padding-top: 60px;
     z-index: 999;
+}
+
+#sidebar.open {
+    width: 250px;
 }
 
 #sidebar ul {
@@ -64,40 +61,29 @@ header h1 {
 .content-card {
     padding: 20px;
     display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
     gap: 20px;
 }
 
+.profile-pic-link img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid white;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
 .profile-info {
-    flex: 1;
-    min-width: 250px;
-    text-align: center; /* center the text */
+    text-align: center;
+    max-width: 500px;
 }
 
 .profile-info p {
     margin: 8px 0;
     font-size: 1rem;
-}
-
-.profile-info p strong {
-    font-weight: bold;
-}
-
-hr {
-    border: none;
-    border-top: 1px solid white;
-    margin: 8px 0;
-}
-
-.profile-pic-link img {
-    width: 150px; /* smaller for web */
-    height: 150px;
-    border-radius: 50%; /* fully round */
-    border: 3px solid white;
-    object-fit: cover;
-    display: block;
-    margin: 0 auto;
 }
 
 .family {
@@ -119,7 +105,7 @@ hr {
 .family-list img {
     width: 100px;
     height: 100px;
-    border-radius: 50%; /* fully round */
+    border-radius: 50%;
     border: 2px solid white;
     object-fit: cover;
 }
@@ -129,14 +115,13 @@ hr {
     text-align: center;
 }
 
-/* Mobile adjustments */
-@media (max-width: 600px) {
-    .content-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+hr {
+    border: none;
+    border-top: 1px solid white;
+    margin: 20px 0;
+}
 
+@media (max-width: 600px) {
     .profile-pic-link img {
         width: 200px;
         height: 200px;
