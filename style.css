@@ -42,6 +42,7 @@ header h1 {
     overflow-x: hidden;
     transition: 0.3s;
     padding-top: 60px;
+    z-index: 999;
 }
 
 #sidebar ul {
@@ -91,37 +92,15 @@ hr {
 }
 
 .profile-pic-link img {
-    width: 200px;
-    height: 200px;
-    border-radius: 20px; /* round-square */
+    width: 160px;
+    height: 160px;
+    border-radius: 15px; /* round-square */
     border: 3px solid white;
     object-fit: cover;
     float: right;
 }
 
-.family {
-    padding: 20px;
-}
-
-.family-list {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.family-list img {
-    width: 100px;
-    height: 100px;
-    border-radius: 15px; /* round-square family photos */
-    border: 2px solid white;
-}
-
-.family-list p {
-    font-weight: bold;
-    text-align: center;
-}
-
-/* Mobile-friendly adjustments */
+/* Mobile keeps bigger size */
 @media (max-width: 600px) {
     .content-card {
         flex-direction: column;
@@ -135,7 +114,32 @@ hr {
     }
 
     .profile-pic-link img {
+        width: 200px;
+        height: 200px;
         float: none;
         margin-top: 20px;
     }
+}
+
+.family {
+    padding: 20px;
+}
+
+.family-list {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.family-list img {
+    width: 100px;
+    height: 100px;
+    border-radius: 15px; /* round-square family photos */
+    border: 2px solid white;
+}
+
+.family-list p {
+    font-weight: bold;
+    text-align: center;
 }
