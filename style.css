@@ -64,7 +64,7 @@ header h1 {
 .content-card {
     padding: 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
 }
@@ -72,11 +72,10 @@ header h1 {
 .profile-info {
     flex: 1;
     min-width: 250px;
+    text-align: center; /* center the text */
 }
 
 .profile-info p {
-    display: flex;
-    justify-content: space-between;
     margin: 8px 0;
     font-size: 1rem;
 }
@@ -92,37 +91,22 @@ hr {
 }
 
 .profile-pic-link img {
-    width: 160px;
-    height: 160px;
-    border-radius: 15px; /* round-square */
+    width: 150px; /* smaller for web */
+    height: 150px;
+    border-radius: 50%; /* fully round */
     border: 3px solid white;
     object-fit: cover;
-    float: right;
-}
-
-/* Mobile keeps bigger size */
-@media (max-width: 600px) {
-    .content-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .profile-info p {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .profile-pic-link img {
-        width: 200px;
-        height: 200px;
-        float: none;
-        margin-top: 20px;
-    }
+    display: block;
+    margin: 0 auto;
 }
 
 .family {
     padding: 20px;
+    text-align: center;
+}
+
+.family h3 {
+    margin-bottom: 15px;
 }
 
 .family-list {
@@ -135,11 +119,26 @@ hr {
 .family-list img {
     width: 100px;
     height: 100px;
-    border-radius: 15px; /* round-square family photos */
+    border-radius: 50%; /* fully round */
     border: 2px solid white;
+    object-fit: cover;
 }
 
 .family-list p {
     font-weight: bold;
     text-align: center;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+    .content-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .profile-pic-link img {
+        width: 200px;
+        height: 200px;
+    }
 }
