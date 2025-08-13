@@ -52,6 +52,14 @@ header {
     display: block;
     color: white;
     text-decoration: none;
+    opacity: 0;
+    transform: translateX(20px);
+    transition: all 0.3s ease;
+}
+
+#sidebar.open ul li a {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 #sidebar ul li a:hover {
@@ -67,6 +75,17 @@ header {
     text-align: center;
 }
 
+/* Card for profile info */
+.profile-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #380098;
+    border-radius: 15px;
+    padding: 20px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 0 10px rgba(56, 0, 152, 0.6);
+}
+
 .profile-pic-link img {
     width: 150px;
     height: 150px;
@@ -78,7 +97,7 @@ header {
 }
 
 .profile-info {
-    max-width: 500px;
+    margin-top: 15px;
 }
 
 .profile-info p {
@@ -86,8 +105,13 @@ header {
     font-size: 1rem;
 }
 
-.family {
+/* Card for family members */
+.family-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #380098;
+    border-radius: 15px;
     padding: 20px;
+    box-shadow: 0 0 10px rgba(56, 0, 152, 0.6);
 }
 
 .family h3 {
