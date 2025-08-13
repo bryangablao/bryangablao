@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Medias - Bryan G. Ablao</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: radial-gradient(circle at top left, #380098, black);
+            background-size: 200% 200%;
+            animation: gradientMove 10s infinite alternate;
+            color: white;
+            text-align: center;
+        }
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+        header {
+            padding: 15px;
+            background: rgba(0,0,0,0.5);
+        }
+        h1 {
+            margin: 0;
+        }
+        .social-media {
+            padding: 20px;
+        }
+        .social-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .social-grid a img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .social-grid a img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 10px gold;
+        }
+        a.back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 15px;
+            background: gold;
+            color: black;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        a.back-link:hover {
+            background: orange;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>My Social Medias</h1>
+    </header>
+
+    <section class="social-media">
+        <div class="social-grid">
+            <a href="https://www.linkedin.com/in/bryan-ablao-636497189/" target="_blank">
+                <img src="images/linkedin.png" alt="LinkedIn">
+            </a>
+            <a href="https://www.youtube.com/@bryvngtz" target="_blank">
+                <img src="images/youtube.png" alt="YouTube">
+            </a>
+            <a href="https://www.tiktok.com/@bryvngtz" target="_blank">
+                <img src="images/tik-tok.png" alt="TikTok">
+            </a>
+            <a href="https://www.instagram.com/bryvngtz/#" target="_blank">
+                <img src="images/instagram.png" alt="Instagram">
+            </a>
+            <a href="https://t.me/bryvngtz" target="_blank">
+                <img src="images/telegram.png" alt="Telegram">
+            </a>
+            <a href="https://discord.com/channels/bryvngtz" target="_blank">
+                <img src="images/discord.png" alt="Discord">
+            </a>
+            <a href="https://www.snapchat.com/@bryan_ablao20" target="_blank">
+                <img src="images/snapchat.png" alt="Snapchat">
+            </a>
+            <a href="https://www.facebook.com/profile.php?id=61578207118456#" target="_blank">
+                <img src="images/facebook.png" alt="Facebook">
+            </a>
+        </div>
+        <a href="index.html" class="back-link">← Back to Home</a>
+    </section>
+
+</body>
+</html>
