@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Experience - Bryan G. Ablao</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1 style="text-align:center; margin:0;">Work Experience</h1>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </header>
+
+    <nav id="sidebar">
+        <ul>
+            <li><a href="index.html">About Me</a></li>
+            <li><a href="social.html">Social Medias</a></li>
+            <li><a href="work.html">Work Experience</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="content-card">
+            <h2 style="text-align:center;">My Work Experience</h2>
+            <hr>
+
+            <div class="profile-info">
+                <p><strong>January 2025 – Current:</strong> Call Center Agent at SixEleven</p>
+                <p><strong>February 2023 – January 2024:</strong> Encoder at GMALL Warehouse Buhangin</p>
+                <p><strong>May 2018 – January 2023:</strong> Production Staff at Vibrant Perception Graphics & Designs</p>
+                <p><strong>December 2017 – March 2018:</strong> Encoder at Realty Options Davao</p>
+                <p><strong>January 2016 – March 2017:</strong> Service Crew at Chowking SPMC</p>
+            </div>
+
+            <hr>
+
+            <div style="text-align:center;">
+                <a href="images/Ablao, Bryan G. Resume 2025.docx" download
+                   style="background:#380098; color:white; padding:10px 20px; text-decoration:none; border-radius:8px; font-weight:bold;">
+                   📄 Download My Resume
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleMenu() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const hamburger = document.querySelector('.hamburger');
+            if (sidebar.classList.contains('open') &&
+                !sidebar.contains(event.target) &&
+                !hamburger.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+    </script>
+</body>
+</html>
