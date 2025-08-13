@@ -36,12 +36,29 @@
             border-left: 5px solid gold;
             padding: 15px;
             border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
             transition: transform 0.2s, background 0.3s;
         }
 
         .job-card:hover {
             transform: translateY(-3px);
             background: rgba(255, 255, 255, 0.1);
+        }
+
+        .job-icon {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+            border-radius: 5px;
+            background: white;
+            padding: 5px;
+        }
+
+        .job-details {
+            display: flex;
+            flex-direction: column;
         }
 
         .job-date {
@@ -53,11 +70,17 @@
         .job-title {
             font-size: 1.1rem;
             font-weight: bold;
-            margin-top: 5px;
+            margin-top: 3px;
         }
 
-        .download-btn {
+        .btn-container {
             margin-top: 25px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
             background: gold;
             color: black;
             padding: 12px 20px;
@@ -70,7 +93,7 @@
             transition: background 0.3s;
         }
 
-        .download-btn:hover {
+        .btn:hover {
             background: #d4af37;
         }
     </style>
@@ -80,31 +103,49 @@
 
     <div class="work-experience">
         <div class="job-card">
-            <div class="job-date">January 2025 – Current</div>
-            <div class="job-title">Call Center Agent at SixEleven</div>
+            <img src="images/callcenter.png" alt="Call Center" class="job-icon">
+            <div class="job-details">
+                <div class="job-date">January 2025 – Current</div>
+                <div class="job-title">Call Center Agent at SixEleven</div>
+            </div>
         </div>
 
         <div class="job-card">
-            <div class="job-date">February 2023 – January 2024</div>
-            <div class="job-title">Encoder at GMALL Warehouse Buhangin</div>
+            <img src="images/encoder.png" alt="Encoder" class="job-icon">
+            <div class="job-details">
+                <div class="job-date">February 2023 – January 2024</div>
+                <div class="job-title">Encoder at GMALL Warehouse Buhangin</div>
+            </div>
         </div>
 
         <div class="job-card">
-            <div class="job-date">May 2018 – January 2023</div>
-            <div class="job-title">Production Staff at Vibrant Perception Graphics & Designs</div>
+            <img src="images/production.png" alt="Production Staff" class="job-icon">
+            <div class="job-details">
+                <div class="job-date">May 2018 – January 2023</div>
+                <div class="job-title">Production Staff at Vibrant Perception Graphics & Designs</div>
+            </div>
         </div>
 
         <div class="job-card">
-            <div class="job-date">December 2017 – March 2018</div>
-            <div class="job-title">Encoder at Realty Options Davao</div>
+            <img src="images/encoder.png" alt="Encoder" class="job-icon">
+            <div class="job-details">
+                <div class="job-date">December 2017 – March 2018</div>
+                <div class="job-title">Encoder at Realty Options Davao</div>
+            </div>
         </div>
 
         <div class="job-card">
-            <div class="job-date">January 2016 – March 2017</div>
-            <div class="job-title">Service Crew at Chowking SPMC</div>
+            <img src="images/servicecrew.png" alt="Service Crew" class="job-icon">
+            <div class="job-details">
+                <div class="job-date">January 2016 – March 2017</div>
+                <div class="job-title">Service Crew at Chowking SPMC</div>
+            </div>
         </div>
     </div>
 
-    <a href="images/Ablao, Bryan G. Resume 2025.docx" class="download-btn" download>Download Resume</a>
+    <div class="btn-container">
+        <a href="images/Ablao, Bryan G. Resume 2025.docx" class="btn" download>Download Resume</a>
+        <a href="index.html" class="btn">Back to Home</a>
+    </div>
 </body>
 </html>
