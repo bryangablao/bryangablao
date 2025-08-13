@@ -3,53 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Experience - Bryan G. Ablao</title>
+    <title>My Work Experience</title>
     <link rel="stylesheet" href="style.css">
     <style>
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
             background: radial-gradient(circle at top left, #380098, black);
             color: white;
+            margin: 0;
+            padding: 0;
             text-align: center;
-            padding: 20px;
         }
 
-        h1 {
-            margin-bottom: 20px;
-            border-bottom: 2px solid gold;
-            display: inline-block;
-            padding-bottom: 5px;
+        h2 {
+            margin-top: 20px;
+            font-size: 2em;
+            text-decoration: underline;
         }
 
-        .work-experience {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: left;
+        .experience-container {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
+            padding: 20px;
+            max-width: 700px;
+            margin: auto;
         }
 
-        .job-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-left: 5px solid gold;
-            padding: 15px;
-            border-radius: 8px;
+        .job {
             display: flex;
             align-items: center;
-            gap: 15px;
-            transition: transform 0.2s, background 0.3s;
-        }
-
-        .job-card:hover {
-            transform: translateY(-3px);
             background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            gap: 15px;
         }
 
         .job-icon {
-            width: 40px;
-            height: 40px;
+            width: 80px;
+            height: 80px;
             object-fit: contain;
             border-radius: 5px;
             background: white;
@@ -57,96 +49,80 @@
         }
 
         .job-details {
-            display: flex;
-            flex-direction: column;
+            text-align: left;
         }
 
-        .job-date {
-            color: gold;
-            font-weight: bold;
-            font-size: 0.95rem;
+        .job-details strong {
+            font-size: 1.1em;
+            color: #FFD700;
         }
 
-        .job-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-top: 3px;
-        }
-
-        .btn-container {
-            margin-top: 25px;
+        .buttons {
+            margin-top: 20px;
             display: flex;
             justify-content: center;
             gap: 15px;
         }
 
         .btn {
-            background: gold;
+            background: #FFD700;
             color: black;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
+            padding: 10px 15px;
             text-decoration: none;
-            display: inline-block;
-            transition: background 0.3s;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background 0.3s ease;
         }
 
         .btn:hover {
-            background: #d4af37;
+            background: orange;
         }
     </style>
 </head>
 <body>
-    <h1>My Work Experience</h1>
+    <h2>My Work Experience</h2>
 
-    <div class="work-experience">
-        <div class="job-card">
+    <div class="experience-container">
+        <div class="job">
             <img src="images/sixeleven.jpg" alt="SixEleven" class="job-icon">
             <div class="job-details">
-                <div class="job-date">January 2025 – Current</div>
-                <div class="job-title">Call Center Agent at SixEleven</div>
+                <strong>January 2025 – Current:</strong> Call Center Agent at SixEleven
             </div>
         </div>
 
-        <div class="job-card">
-            <img src="images/gaisano.png" alt="GMALL" class="job-icon">
+        <div class="job">
+            <img src="images/gaisano.png" alt="GMALL Warehouse Buhangin" class="job-icon">
             <div class="job-details">
-                <div class="job-date">February 2023 – January 2024</div>
-                <div class="job-title">Encoder at GMALL Warehouse Buhangin</div>
+                <strong>February 2023 – January 2024:</strong> Encoder at GMALL Warehouse Buhangin
             </div>
         </div>
 
-        <div class="job-card">
+        <div class="job">
             <a href="https://www.facebook.com/kcandarcprints" target="_blank">
                 <img src="images/kcarc.jpg" alt="KC & Arc Prints" class="job-icon">
             </a>
             <div class="job-details">
-                <div class="job-date">May 2018 – January 2023</div>
-                <div class="job-title">Production Staff at KC & Arc Prints</div>
+                <strong>May 2018 – January 2023:</strong> Production Staff at KC & Arc Prints
             </div>
         </div>
 
-        <div class="job-card">
+        <div class="job">
             <img src="images/roi.png" alt="Realty Options Davao" class="job-icon">
             <div class="job-details">
-                <div class="job-date">December 2017 – March 2018</div>
-                <div class="job-title">Encoder at Realty Options Davao</div>
+                <strong>December 2017 – March 2018:</strong> Encoder at Realty Options Davao
             </div>
         </div>
 
-        <div class="job-card">
+        <div class="job">
             <img src="images/chowking.png" alt="Chowking SPMC" class="job-icon">
             <div class="job-details">
-                <div class="job-date">January 2016 – March 2017</div>
-                <div class="job-title">Service Crew at Chowking SPMC</div>
+                <strong>January 2016 – March 2017:</strong> Service Crew at Chowking SPMC
             </div>
         </div>
     </div>
 
-    <div class="btn-container">
-        <a href="images/Ablao, Bryan G. Resume 2025.docx" class="btn" download>Download Resume</a>
+    <div class="buttons">
+        <a href="images/Ablao-Bryan-G.-Resume-2025 new.docx" download class="btn">Download Resume</a>
         <a href="index.html" class="btn">Back to Home</a>
     </div>
 </body>
