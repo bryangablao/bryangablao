@@ -1,22 +1,18 @@
+// Toggle the sidebar menu
 function toggleMenu() {
     const sidebar = document.getElementById("sidebar");
-    // Toggle open/close
-    if (sidebar.style.width === "250px") {
-        sidebar.style.width = "0";
-    } else {
-        sidebar.style.width = "250px";
-    }
+    sidebar.classList.toggle("open");
 }
 
-// Close menu when clicking outside
+// Close menu when clicking outside of it
 document.addEventListener("click", function (event) {
     const sidebar = document.getElementById("sidebar");
     const hamburger = document.querySelector(".hamburger");
 
-    // If sidebar is open and clicking outside both sidebar & hamburger
-    if (sidebar.style.width === "250px" && 
-        !sidebar.contains(event.target) && 
+    // If the sidebar is open and the click is outside both sidebar and hamburger
+    if (sidebar.classList.contains("open") &&
+        !sidebar.contains(event.target) &&
         !hamburger.contains(event.target)) {
-        sidebar.style.width = "0";
+        sidebar.classList.remove("open");
     }
 });
