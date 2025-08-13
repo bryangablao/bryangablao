@@ -6,62 +6,6 @@
     <link rel="icon" type="image/png" href="images/Accx_Logo.png">
     <title>Bryan G. Ablao</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Card style for sections */
-        .content-card {
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            padding: 15px;
-            background-color: #fff;
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-
-        .profile {
-            text-align: center;
-        }
-        .profile-pic {
-            border-radius: 10px;
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            border: 2px solid #ccc;
-        }
-        .profile-info {
-            margin-top: 15px;
-            line-height: 1.8;
-        }
-
-        /* Family members card */
-        .family-card {
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            padding: 15px;
-            background-color: #fff;
-            box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
-        }
-        .family-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 20px;
-            justify-items: center;
-            margin-top: 15px;
-        }
-        .family-list div {
-            text-align: center;
-        }
-        .family-list img {
-            border-radius: 15px;
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border: 2px solid #ccc;
-        }
-        .family-list p {
-            margin-top: 8px;
-            font-size: 14px;
-        }
-    </style>
 </head>
 <body>
     <header>
@@ -81,67 +25,82 @@
 
     <main>
         <section id="about" class="content-card">
-            <div class="profile">
-                <a href="https://www.facebook.com/bryangablao" target="_blank" class="profile-pic-link">
-                    <img src="images/Bryan.jpg" alt="Bryan" class="profile-pic">
-                </a>
+
+            <!-- Profile Card -->
+            <div class="profile-card">
+                <div class="profile">
+                    <a href="https://www.facebook.com/bryangablao" target="_blank" class="profile-pic-link">
+                        <img src="images/Bryan.jpg" alt="Bryan">
+                    </a>
+                </div>
+
+                <hr>
+
+                <div class="profile-info">
+                    <p><strong>Address:</strong> Sb.3 Barrangay 22-C Piape Boulevard Davao City</p>
+                    <p><strong>Mobile:</strong> 09928760990</p>
+                    <p><strong>Email:</strong> <a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a></p>
+                    <p><strong>Date of Birth:</strong> April 04, 2000</p>
+                    <p><strong>Place of Birth:</strong> Jose Fabella Hospital, Metro Manila City</p>
+                    <p><strong>Citizenship:</strong> Filipino</p>
+                    <p><strong>Religion:</strong> Born Again</p>
+                    <p><strong>Gender:</strong> Male</p>
+                </div>
             </div>
 
-            <div class="profile-info">
-                <p><strong>Address:</strong> Sb.3 Barrangay 22-C Piape Boulevard Davao City</p>
-                <p><strong>Mobile:</strong> 09928760990</p>
-                <p><strong>Email:</strong> <a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a></p>
-                <p><strong>Date of Birth:</strong> April 04, 2000</p>
-                <p><strong>Place of Birth:</strong> Jose Fabella Hospital, Metro Manila City</p>
-                <p><strong>Citizenship:</strong> Filipino</p>
-                <p><strong>Religion:</strong> Born Again</p>
-                <p><strong>Gender:</strong> Male</p>
-            </div>
-        </section>
+            <hr>
 
-        <!-- Family Members Card -->
-        <section class="family-card family">
-            <h3>Family Members</h3>
-            <div class="family-list">
-                <div>
-                    <img src="images/father.png" alt="Evaristo C. Ablao">
-                    <p>Evaristo C. Ablao<br><small>Father</small></p>
-                </div>
-                <div>
-                    <img src="images/mother.png" alt="Annalie G. Ablao">
-                    <p>Annalie G. Ablao<br><small>Mother</small></p>
-                </div>
-                <div>
-                    <a href="https://www.facebook.com/kenneth.ablao.12" target="_blank">
-                        <img src="images/Kenneth.jpg" alt="Kenneth Ablao">
-                    </a>
-                    <p>Kenneth Ablao<br><small>Brother</small></p>
-                </div>
-                <div>
-                    <a href="https://www.facebook.com/rizevan.ablao.73" target="_blank">
-                        <img src="images/RizEvan.jpg" alt="Riz Evan Ablao">
-                    </a>
-                    <p>Riz Evan Ablao<br><small>Brother</small></p>
-                </div>
-                <div>
-                    <a href="https://www.facebook.com/erene.gimena#" target="_blank">
-                        <img src="images/in in.jpg" alt="In-In Gimena">
-                    </a>
-                    <p>In-In Gimena<br><small>Wife of Kenneth</small></p>
-                </div>
-                <div>
-                    <a href="https://www.facebook.com/jonahfayemarie.lenaming.5#" target="_blank">
-                        <img src="images/jonafaye.jpg" alt="Jonahfaye Marie Lenaming">
-                    </a>
-                    <p>Jonahfaye Marie Lenaming<br><small>GF of Riz Evan</small></p>
-                </div>
-                <div>
-                    <a href="https://www.facebook.com/marajoy.yonson" target="_blank">
-                        <img src="images/mara.jpg" alt="Mara Joy Pingki Yonson">
-                    </a>
-                    <p>Mara Joy Pingki Yonson<br><small>Future Wife</small></p>
+            <!-- Family Card -->
+            <div class="family-card">
+                <div class="family">
+                    <h3>Family Members</h3>
+                    <div class="family-list">
+                        <div>
+                            <img src="images/father.png" alt="Evaristo C. Ablao">
+                            <p>Evaristo C. Ablao - Father</p>
+                        </div>
+                        <div>
+                            <img src="images/mother.png" alt="Annalie G. Ablao">
+                            <p>Annalie G. Ablao - Mother</p>
+                        </div>
+                    </div>
+                    <div class="family-list">
+                        <div>
+                            <a href="https://www.facebook.com/kenneth.ablao.12" target="_blank">
+                                <img src="images/Kenneth.jpg" alt="Kenneth Ablao">
+                            </a>
+                            <p>Kenneth Ablao - Brother</p>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/rizevan.ablao.73" target="_blank">
+                                <img src="images/RizEvan.jpg" alt="Riz Evan Ablao">
+                            </a>
+                            <p>Riz Evan Ablao - Brother</p>
+                        </div>
+                    </div>
+                    <div class="family-list">
+                        <div>
+                            <a href="https://www.facebook.com/erene.gimena#" target="_blank">
+                                <img src="images/in in.jpg" alt="In-In Gimena">
+                            </a>
+                            <p>In-In Gimena - Kenneth’s Wife</p>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/jonahfayemarie.lenaming.5#" target="_blank">
+                                <img src="images/jonafaye.jpg" alt="Jonahfaye Marie Lenaming">
+                            </a>
+                            <p>Jonahfaye Marie Lenaming - Riz Evan’s Partner</p>
+                        </div>
+                        <div>
+                            <a href="https://www.facebook.com/marajoy.yonson" target="_blank">
+                                <img src="images/mara.jpg" alt="Mara Joy Pingki Yonson">
+                            </a>
+                            <p>Mara Joy Pingki Yonson - My Partner</p>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </section>
     </main>
 
