@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Bryan G. Ablao</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+    <header>
+        <h1 style="text-align:center; margin:0;">My Gallery</h1>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </header>
+
+    <main>
+        <!-- Category Buttons -->
+        <div class="category-buttons">
+            <button onclick="loadGallery('Friends')">Friends</button>
+            <button onclick="loadGallery('Family')">Family</button>
+            <button onclick="loadGallery('Colleagues')">Colleagues</button>
+            <button onclick="loadGallery('Me')">Me</button>
+            <button onclick="loadGallery('Others')">Others</button>
+        </div>
+
+        <!-- Image Grid -->
+        <div id="gallery-container" class="gallery-grid"></div>
+    </main>
+
+    <!-- Modal -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img id="modalImage" class="modal-content" alt="">
+        <a id="downloadBtn" download>Download</a>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="gallery.js"></script>
+</body>
+</html>
 
