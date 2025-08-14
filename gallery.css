@@ -2,7 +2,8 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #380098, #6a0dad); /* changed background */
+    background: linear-gradient(135deg, #380098, #6a0dad); /* Fixed gradient background */
+    background-attachment: fixed;
     color: #fff;
 }
 
@@ -30,7 +31,7 @@ header h1 {
 }
 
 /* Sidebar */
-.sidebar {
+#sidebar {
     width: 220px;
     max-width: 80%;
     background: #4b0082;
@@ -44,27 +45,26 @@ header h1 {
     z-index: 1001;
 }
 
-.sidebar ul {
+#sidebar ul {
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.sidebar ul li {
+#sidebar ul li {
     padding: 15px 20px;
     cursor: pointer;
     transition: background 0.3s ease;
 }
 
-.sidebar ul li:hover,
-.sidebar ul li.active {
+#sidebar ul li:hover,
+#sidebar ul li.active {
     background: #6a0dad;
 }
 
 /* Main Content */
 .main-content {
     padding: 20px;
-    margin-left: 0;
 }
 
 /* Gallery Grid */
