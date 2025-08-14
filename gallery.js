@@ -1,7 +1,7 @@
 const sidebar = document.getElementById("sidebar");
 
 // Toggle sidebar when hamburger clicked
-function toggleMenu() {
+function toggleSidebar() {
     if (sidebar.style.left === "0px") {
         sidebar.style.left = "-250px";
     } else {
