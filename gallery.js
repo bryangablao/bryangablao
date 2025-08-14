@@ -1,34 +1,23 @@
-// Modal
-function openModal(imgElement) {
-    var modal = document.getElementById("imageModal");
-    var modalImg = document.getElementById("modalImg");
-    var downloadBtn = document.getElementById("downloadBtn");
+// Modal Functionality
+function openModal(img) {
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImg");
+    const downloadBtn = document.getElementById("downloadBtn");
 
     modal.style.display = "block";
-    modalImg.src = imgElement.src;
-    downloadBtn.href = imgElement.src;
+    modalImg.src = img.src;
+    downloadBtn.href = img.src;
 }
 
 function closeModal() {
-    document.getElementById("imageModal").style.display = "none";
+    const modal = document.getElementById("imageModal");
+    modal.style.display = "none";
 }
 
-// Gallery Filter
-const filterButtons = document.querySelectorAll('.gallery-filters button');
-const sections = document.querySelectorAll('.gallery-section');
-
-filterButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        filterButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const target = btn.getAttribute('data-target');
-        sections.forEach(sec => {
-            if(target === 'all') {
-                sec.style.display = 'block';
-            } else {
-                sec.id === target ? sec.style.display = 'block' : sec.style.display = 'none';
-            }
-        });
-    });
-});
+// Close modal if clicked outside the image
+window.onclick = function(event) {
+    const modal = document.getElementById("imageModal");
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
