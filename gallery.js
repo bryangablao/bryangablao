@@ -1,5 +1,6 @@
 const sidebar = document.getElementById("sidebar");
 
+// Toggle sidebar
 function toggleSidebar() {
     if (sidebar.style.left === "0px") {
         sidebar.style.left = "-250px";
@@ -8,6 +9,7 @@ function toggleSidebar() {
     }
 }
 
+// Filter gallery sections
 function filterGallery(category) {
     const sections = document.querySelectorAll(".gallery-section");
     sections.forEach(sec => {
@@ -18,13 +20,13 @@ function filterGallery(category) {
         }
     });
 
-    // Highlight active category with smooth transition
+    // Highlight active category
     const items = sidebar.querySelectorAll("ul li");
     items.forEach(li => li.classList.remove("active"));
     const selected = Array.from(items).find(li => li.textContent.toLowerCase() === category);
     if (selected) selected.classList.add("active");
 
-    // Close sidebar on mobile after selection
+    // Close sidebar on mobile
     if (window.innerWidth <= 600) {
         sidebar.style.left = "-250px";
     }
@@ -44,3 +46,8 @@ function openModal(img) {
 function closeModal() {
     document.getElementById("imageModal").style.display = "none";
 }
+
+// Close modal on click outside image
+document.getElementById("imageModal").addEventListener("click", function(e) {
+    if (e.target.id === "imageModal") closeModal();
+});
