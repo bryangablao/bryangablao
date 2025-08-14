@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f0f0f0;
+    background: linear-gradient(135deg, #380098, #6a0dad); /* changed background */
     color: #fff;
 }
 
@@ -37,7 +37,7 @@ header h1 {
     color: white;
     position: fixed;
     top: 0;
-    left: -250px;
+    left: -250px; /* hidden by default */
     height: 100%;
     padding-top: 60px;
     transition: left 0.3s ease;
@@ -65,7 +65,6 @@ header h1 {
 .main-content {
     padding: 20px;
     margin-left: 0;
-    transition: margin-left 0.3s ease;
 }
 
 /* Gallery Grid */
