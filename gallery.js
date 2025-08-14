@@ -16,9 +16,26 @@ function closeModal() {
 // Sidebar toggle for mobile
 function toggleSidebar() {
     var sidebar = document.getElementById("sidebar");
-    if (sidebar.style.width === "220px" || sidebar.style.width === "") {
-        sidebar.style.width = "0";
-    } else {
-        sidebar.style.width = "220px";
-    }
+    sidebar.classList.toggle("open");
 }
+
+// Highlight active section as you scroll
+const sections = document.querySelectorAll(".gallery-section");
+const navLinks = document.querySelectorAll(".sidebar ul li a");
+
+window.addEventListener("scroll", () => {
+    let current = "";
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop - 80; // adjust offset
+        if (pageYOffset >= sectionTop) {
+            current = section.getAttribute("id");
+        }
+    });
+
+    navLinks.forEach(link => {
+        link.classList.remove("active");
+        if (link.getAttribute("href").includes(current)) {
+            link.classList.add("active");
+        }
+    });
+});
