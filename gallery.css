@@ -1,99 +1,111 @@
+/* General */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top left, #380098, black);
+    background-size: 200% 200%;
+    animation: gradientMove 10s infinite alternate;
+    color: white;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+/* Header */
+header {
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: rgba(0,0,0,0.5);
+}
+
+header h1 {
+    margin: 0;
+}
+
+.hamburger {
+    font-size: 24px;
+    cursor: pointer;
 }
 
 /* Sidebar */
-.sidebar {
-    background-color: #333;
-    color: white;
-    width: 220px;
-    height: 100vh;
-    padding: 15px;
+#sidebar {
+    height: 100%;
+    width: 0;
     position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(56,0,152,0.95);
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+    z-index: 999;
 }
 
-.sidebar h2 {
-    text-align: center;
-}
-
-.sidebar ul {
+#sidebar ul {
     list-style: none;
     padding: 0;
 }
 
-.sidebar ul li {
+#sidebar ul li {
     margin: 15px 0;
 }
 
-.sidebar ul li a {
+#sidebar ul li a {
     color: white;
     text-decoration: none;
     font-weight: bold;
+    padding: 10px 20px;
+    display: block;
 }
 
-.sidebar ul li a:hover {
-    text-decoration: underline;
+#sidebar ul li a:hover {
+    background-color: rgba(255,255,255,0.1);
 }
 
-.back-btn {
-    background-color: #ff5733;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    margin-bottom: 20px;
-    cursor: pointer;
-    width: 100%;
-    border-radius: 5px;
-}
-
-.back-btn:hover {
-    background-color: #e14e2d;
-}
-
-/* Main Content */
-.main-content {
-    margin-left: 240px;
-    padding: 20px;
-    flex-grow: 1;
-}
-
-h2 {
-    border-bottom: 2px solid #ccc;
-    padding-bottom: 5px;
+.back-link {
+    margin-top: 20px;
+    display: block;
+    text-align: center;
 }
 
 /* Gallery Grid */
 .gallery-grid {
+    margin-left: 0;
+    padding: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 10px;
+    gap: 15px;
 }
 
 .gallery-grid img {
-    width: 100%;
-    height: auto;
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
     cursor: pointer;
-    border-radius: 5px;
-    transition: transform 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .gallery-grid img:hover {
     transform: scale(1.05);
+    box-shadow: 0 0 15px gold;
 }
 
 /* Modal */
 .modal {
     display: none;
     position: fixed;
-    z-index: 999;
+    z-index: 9999;
     padding-top: 60px;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgba(0,0,0,0.95);
 }
 
 .modal-content {
@@ -101,6 +113,7 @@ h2 {
     margin: auto;
     max-width: 90%;
     max-height: 80%;
+    border-radius: 8px;
 }
 
 .close {
@@ -115,14 +128,15 @@ h2 {
 .download-btn {
     display: block;
     text-align: center;
-    margin-top: 20px;
-    background-color: #4CAF50;
+    margin: 20px auto;
+    background-color: gold;
     padding: 10px;
-    color: white;
+    color: black;
     text-decoration: none;
     border-radius: 5px;
+    font-weight: bold;
 }
 
 .download-btn:hover {
-    background-color: #45a049;
+    background-color: orange;
 }
