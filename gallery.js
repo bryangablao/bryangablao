@@ -19,9 +19,20 @@ function toggleSidebar() {
     sidebar.classList.toggle("open");
 }
 
-// Highlight active section as you scroll
-const sections = document.querySelectorAll(".gallery-section");
+// Smooth scroll when clicking sidebar links
 const navLinks = document.querySelectorAll(".sidebar ul li a");
+navLinks.forEach(link => {
+    link.addEventListener("click", function(e) {
+        if (this.getAttribute("href").startsWith("#")) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute("href"));
+            target.scrollIntoView({ behavior: "smooth" });
+        }
+    });
+});
+
+// Highlight active section on scroll
+const sections = document.querySelectorAll(".gallery-section");
 
 window.addEventListener("scroll", () => {
     let current = "";
