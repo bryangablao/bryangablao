@@ -2,7 +2,7 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #380098, #6a0dad); /* Fixed gradient background */
+    background: linear-gradient(135deg, #380098, #6a0dad);
     background-attachment: fixed;
     color: #fff;
 }
@@ -34,11 +34,11 @@ header h1 {
 #sidebar {
     width: 220px;
     max-width: 80%;
-    background: #4b0082;
+    background: linear-gradient(180deg, rgba(0,0,0,0.7), rgba(106,13,173,0.9));
     color: white;
     position: fixed;
     top: 0;
-    left: -250px; /* hidden by default */
+    left: -250px;
     height: 100%;
     padding-top: 60px;
     transition: left 0.3s ease;
@@ -59,7 +59,7 @@ header h1 {
 
 #sidebar ul li:hover,
 #sidebar ul li.active {
-    background: #6a0dad;
+    background: rgba(255, 255, 255, 0.1);
 }
 
 /* Main Content */
@@ -74,7 +74,7 @@ header h1 {
     gap: 10px;
 }
 
-.gallery-grid img, .gallery-grid .no-photo {
+.gallery-grid img {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
@@ -88,12 +88,10 @@ header h1 {
 }
 
 .no-photo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #ccc;
-    color: #333;
+    color: #fff;
     font-weight: bold;
+    text-align: center;
+    padding: 10px 0;
 }
 
 /* Modal */
