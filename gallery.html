@@ -11,12 +11,11 @@
 
 <header>
     <h1>Gallery</h1>
-    <div class="hamburger" onclick="toggleSidebar()">☰</div>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
 </header>
 
 <!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-    <h2>Categories</h2>
+<nav id="sidebar">
     <ul>
         <li onclick="filterGallery('friends')">Friends</li>
         <li onclick="filterGallery('family')">Family</li>
@@ -25,10 +24,10 @@
         <li onclick="filterGallery('others')">Others</li>
         <li onclick="window.location.href='index.html'">← Back to Home</li>
     </ul>
-</div>
+</nav>
 
 <!-- Main Content -->
-<div class="main-content">
+<main class="main-content">
     <section id="friends" class="gallery-section">
         <h2>Friends</h2>
         <div class="gallery-grid">
@@ -84,7 +83,7 @@
             <div class="no-photo">No Photo Available</div>
         </div>
     </section>
-</div>
+</main>
 
 <!-- Modal -->
 <div id="imageModal" class="modal">
