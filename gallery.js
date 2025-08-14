@@ -1,8 +1,8 @@
-// Modal Functionality
+// Modal functionality
 function openModal(img) {
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("modalImg");
-    const downloadBtn = document.getElementById("downloadBtn");
+    var modal = document.getElementById("imageModal");
+    var modalImg = document.getElementById("modalImg");
+    var downloadBtn = document.getElementById("downloadBtn");
 
     modal.style.display = "block";
     modalImg.src = img.src;
@@ -10,14 +10,15 @@ function openModal(img) {
 }
 
 function closeModal() {
-    const modal = document.getElementById("imageModal");
-    modal.style.display = "none";
+    document.getElementById("imageModal").style.display = "none";
 }
 
-// Close modal if clicked outside the image
-window.onclick = function(event) {
-    const modal = document.getElementById("imageModal");
-    if (event.target === modal) {
-        modal.style.display = "none";
+// Sidebar toggle for mobile
+function toggleSidebar() {
+    var sidebar = document.getElementById("sidebar");
+    if (sidebar.style.width === "220px" || sidebar.style.width === "") {
+        sidebar.style.width = "0";
+    } else {
+        sidebar.style.width = "220px";
     }
 }
