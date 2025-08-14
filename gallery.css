@@ -3,62 +3,75 @@ body {
     font-family: Arial, sans-serif;
     background: radial-gradient(circle at top left, #380098, black);
     color: white;
+    text-align: center;
+}
+
+header {
+    padding: 15px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    margin: 0;
 }
 
 .category-buttons {
-    text-align: center;
-    margin: 20px 0;
+    margin: 20px;
 }
 
 .category-buttons button {
     background: gold;
+    color: black;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 15px;
     margin: 5px;
     border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s;
 }
 
 .category-buttons button:hover {
     background: orange;
 }
 
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 15px;
     padding: 20px;
 }
 
-.gallery-grid img {
-    width: 100%;
+.gallery img {
+    width: 150px;
     height: 150px;
     object-fit: cover;
     border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
     cursor: pointer;
-    transition: transform 0.3s;
 }
 
-.gallery-grid img:hover {
-    transform: scale(1.05);
+.gallery img:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 10px gold;
 }
 
-/* Modal */
+/* Modal Styles */
 .modal {
     display: none;
     position: fixed;
-    z-index: 100;
+    z-index: 10;
     padding-top: 50px;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9);
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.9);
 }
 
 .modal-content {
-    display: block;
     margin: auto;
+    display: block;
     max-width: 80%;
     max-height: 80%;
 }
@@ -66,25 +79,24 @@ body {
 .close {
     position: absolute;
     top: 15px;
-    right: 35px;
+    right: 30px;
     color: white;
     font-size: 40px;
     font-weight: bold;
     cursor: pointer;
 }
 
-#downloadBtn {
+.download-btn {
     display: block;
     margin: 20px auto;
-    padding: 10px 20px;
+    padding: 10px 15px;
     background: gold;
     color: black;
     text-decoration: none;
-    font-weight: bold;
     border-radius: 8px;
+    font-weight: bold;
 }
 
-#downloadBtn:hover {
+.download-btn:hover {
     background: orange;
 }
-
