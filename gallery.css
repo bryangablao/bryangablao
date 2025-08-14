@@ -1,135 +1,170 @@
+/* General Body */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #380098;
+    background-color: #111;
     color: white;
 }
 
 /* Header */
 header {
-    text-align: center;
-    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background-color: #222;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 header h1 {
     margin: 0;
+    font-size: 1.5rem;
 }
 
-.back-btn {
-    background-color: gold;
-    color: black;
-    border: none;
-    padding: 8px 12px;
+.hamburger {
+    font-size: 1.8rem;
     cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
 }
 
-.back-btn:hover {
-    background-color: orange;
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    left: -250px;
+    top: 0;
+    width: 220px;
+    height: 100%;
+    background-color: #333;
+    padding-top: 60px;
+    transition: 0.3s;
+    z-index: 1000;
 }
 
-/* Gallery Filters */
-.gallery-filters {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    padding: 15px 0;
+.sidebar.active {
+    left: 0;
 }
 
-.gallery-filters button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: rgba(255,255,255,0.2);
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 15px 0;
+}
+
+.sidebar ul li a {
     color: white;
-    font-weight: bold;
-    cursor: pointer;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 8px 20px;
+    display: block;
     transition: 0.3s;
 }
 
-.gallery-filters button.active,
-.gallery-filters button:hover {
-    background-color: gold;
-    color: black;
+.sidebar ul li a:hover {
+    background-color: #575757;
+    border-radius: 5px;
 }
 
-/* Gallery Container */
+/* Main Gallery */
 .gallery-container {
-    padding: 10px 20px 50px 20px;
+    margin-left: 0;
+    padding: 20px;
+    transition: margin-left 0.3s;
 }
 
-/* Gallery Grid */
+.sidebar.active ~ .gallery-container {
+    margin-left: 220px;
+}
+
+/* Gallery Sections */
+.gallery-section {
+    margin-bottom: 40px;
+}
+
+.gallery-section h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Grid */
 .gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 10px;
-    justify-items: center;
 }
 
-.gallery-grid img, .no-photo {
-    width: 180px;
-    height: 180px;
-    object-fit: cover;
-    border-radius: 5px;
+.gallery-grid img {
+    width: 100%;
     cursor: pointer;
-    transition: transform 0.2s;
+    border-radius: 8px;
+    transition: transform 0.3s;
 }
 
 .gallery-grid img:hover {
     transform: scale(1.05);
 }
 
+.no-photo {
+    background-color: #444;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
 /* Modal */
 .modal {
     display: none;
     position: fixed;
-    z-index: 999;
+    z-index: 2000;
+    padding-top: 60px;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
+    overflow: auto;
     background-color: rgba(0,0,0,0.9);
-    padding-top: 50px;
 }
 
 .modal-content {
-    display: block;
     margin: auto;
+    display: block;
     max-width: 90%;
-    max-height: 80%;
-    border-radius: 5px;
+    max-height: 80vh;
+    border-radius: 8px;
 }
 
 .close {
     position: absolute;
-    top: 20px;
-    right: 35px;
-    font-size: 40px;
+    top: 15px;
+    right: 25px;
     color: white;
+    font-size: 2rem;
+    font-weight: bold;
     cursor: pointer;
 }
 
 .download-btn {
     display: block;
-    text-align: center;
-    margin: 20px auto;
-    background-color: gold;
+    margin: 15px auto;
+    padding: 8px 15px;
+    background: #FFD700;
     color: black;
-    padding: 10px 15px;
-    border-radius: 5px;
     text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
 }
 
-/* Responsive Mobile */
+/* Responsive */
 @media (max-width: 600px) {
     .gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 5px;
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
     }
-    .gallery-grid img, .no-photo {
-        width: 100px;
-        height: 100px;
+
+    header h1 {
+        font-size: 1.2rem;
     }
 }
