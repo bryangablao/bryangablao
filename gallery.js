@@ -1,5 +1,4 @@
 const sidebar = document.getElementById("sidebar");
-let activeCategory = null;
 
 function toggleSidebar() {
     if (sidebar.style.left === "0px") {
@@ -19,11 +18,16 @@ function filterGallery(category) {
         }
     });
 
-    // Highlight active category
+    // Highlight active category with smooth transition
     const items = sidebar.querySelectorAll("ul li");
     items.forEach(li => li.classList.remove("active"));
     const selected = Array.from(items).find(li => li.textContent.toLowerCase() === category);
     if (selected) selected.classList.add("active");
+
+    // Close sidebar on mobile after selection
+    if (window.innerWidth <= 600) {
+        sidebar.style.left = "-250px";
+    }
 }
 
 // Modal functions
