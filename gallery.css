@@ -1,9 +1,12 @@
+/* General Body */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #f0f0f0;
+    color: #fff;
 }
 
+/* Header */
 header {
     display: flex;
     justify-content: space-between;
@@ -26,6 +29,7 @@ header h1 {
     cursor: pointer;
 }
 
+/* Sidebar */
 .sidebar {
     width: 220px;
     max-width: 80%;
@@ -43,6 +47,7 @@ header h1 {
 .sidebar ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
 .sidebar ul li {
@@ -56,12 +61,14 @@ header h1 {
     background: #6a0dad;
 }
 
+/* Main Content */
 .main-content {
     padding: 20px;
     margin-left: 0;
     transition: margin-left 0.3s ease;
 }
 
+/* Gallery Grid */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -90,6 +97,7 @@ header h1 {
     font-weight: bold;
 }
 
+/* Modal */
 .modal {
     display: none;
     position: fixed;
@@ -98,18 +106,25 @@ header h1 {
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0,0,0,0.8);
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    flex-direction: column;
+    padding: 20px;
 }
 
 .modal-content {
-    width: 80%;
-    max-width: 300px;
+    width: 60%;
+    max-width: 500px;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 6px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.modal-content:hover {
+    transform: scale(1.02);
 }
 
 .close {
@@ -122,13 +137,12 @@ header h1 {
 }
 
 .download-btn {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 8px 12px;
+    padding: 10px 15px;
     background: #6a0dad;
     color: white;
     border-radius: 5px;
     text-decoration: none;
+    font-weight: bold;
 }
 
 /* Mobile Responsive */
@@ -147,6 +161,7 @@ header h1 {
     }
 
     .modal-content {
-        max-width: 90%;
+        width: 80%;
+        max-width: 300px;
     }
 }
