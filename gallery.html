@@ -7,26 +7,64 @@
     <link rel="stylesheet" href="gallery.css">
 </head>
 <body>
-    <header>
-        <h1>My Gallery</h1>
-    </header>
 
-    <main>
-        <div class="category-buttons">
-            <button onclick="showCategory('Friends')">Friends</button>
-            <button onclick="showCategory('Family')">Family</button>
-            <button onclick="showCategory('Colleagues')">Colleagues</button>
-            <button onclick="showCategory('Me')">Me</button>
-            <button onclick="showCategory('Others')">Others</button>
-        </div>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Gallery</h2>
+        <button onclick="window.location.href='index.html'" class="back-btn">← Back to Home</button>
+        <ul>
+            <li><a href="#friends">Friends</a></li>
+            <li><a href="#family">Family</a></li>
+            <li><a href="#colleagues">Colleagues</a></li>
+            <li><a href="#me">Me</a></li>
+            <li><a href="#others">Others</a></li>
+        </ul>
+    </div>
 
-        <div id="gallery-container" class="gallery"></div>
-    </main>
+    <!-- Main Content -->
+    <div class="main-content">
+        <section id="friends">
+            <h2>Friends</h2>
+            <div class="gallery-grid">
+                <img src="images/Gallery/Friends/friend1.jpg" alt="Friend 1" onclick="openModal(this)">
+                <img src="images/Gallery/Friends/friend2.jpg" alt="Friend 2" onclick="openModal(this)">
+            </div>
+        </section>
 
-    <!-- Modal for full image view -->
+        <section id="family">
+            <h2>Family</h2>
+            <div class="gallery-grid">
+                <img src="images/Gallery/Family/family1.jpg" alt="Family 1" onclick="openModal(this)">
+                <img src="images/Gallery/Family/family2.jpg" alt="Family 2" onclick="openModal(this)">
+            </div>
+        </section>
+
+        <section id="colleagues">
+            <h2>Colleagues</h2>
+            <div class="gallery-grid">
+                <img src="images/Gallery/Colleagues/colleague1.jpg" alt="Colleague 1" onclick="openModal(this)">
+            </div>
+        </section>
+
+        <section id="me">
+            <h2>Me</h2>
+            <div class="gallery-grid">
+                <img src="images/Gallery/Me/me1.jpg" alt="Me 1" onclick="openModal(this)">
+            </div>
+        </section>
+
+        <section id="others">
+            <h2>Others</h2>
+            <div class="gallery-grid">
+                <img src="images/Gallery/Others/other1.jpg" alt="Other 1" onclick="openModal(this)">
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal -->
     <div id="imageModal" class="modal">
         <span class="close" onclick="closeModal()">&times;</span>
-        <img id="modalImage" class="modal-content">
+        <img id="modalImg" class="modal-content">
         <a id="downloadBtn" class="download-btn" download>Download</a>
     </div>
 
