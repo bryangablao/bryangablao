@@ -1,4 +1,3 @@
-
 const imageFolders = {
     Friends: "images/Gallery/Friends",
     Family: "images/Gallery/Family",
@@ -7,29 +6,25 @@ const imageFolders = {
     Others: "images/Gallery/Others"
 };
 
-// Preload image lists (replace numbers with actual count of images in each folder)
-const imageCounts = {
-    Friends: 5,
-    Family: 5,
-    Colleagues: 5,
-    Me: 5,
-    Others: 5
-};
-
 function loadGallery(category) {
     const container = document.getElementById("gallery-container");
-    container.innerHTML = "";
+    container.innerHTML = "<p>Loading...</p>";
 
-    const folder = imageFolders[category];
-    const count = imageCounts[category];
-
-    for (let i = 1; i <= count; i++) {
-        let img = document.createElement("img");
-        img.src = `${folder}/${i}.jpg`; // Image format: 1.jpg, 2.jpg, etc.
-        img.alt = `${category} ${i}`;
-        img.onclick = () => openModal(img.src);
-        container.appendChild(img);
-    }
+    fetch(`load_images.php?category=${category}`)
+        .then(response => response.json())
+        .then(images => {
+            container.innerHTML = "";
+            images.forEach(src => {
+                let img = document.createElement("img");
+                img.src = src;
+                img.alt = category;
+                img.onclick = () => openModal(src);
+                container.appendChild(img);
+            });
+        })
+        .catch(() => {
+            container.innerHTML = "<p>Failed to load images.</p>";
+        });
 }
 
 function openModal(src) {
