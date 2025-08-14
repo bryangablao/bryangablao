@@ -1,6 +1,6 @@
 const sidebar = document.getElementById("sidebar");
 
-// Toggle sidebar
+// Toggle sidebar when hamburger clicked
 function toggleSidebar() {
     if (sidebar.style.left === "0px") {
         sidebar.style.left = "-250px";
@@ -26,7 +26,7 @@ function filterGallery(category) {
     const selected = Array.from(items).find(li => li.textContent.toLowerCase() === category);
     if (selected) selected.classList.add("active");
 
-    // Close sidebar on mobile
+    // Close sidebar after selection on mobile
     if (window.innerWidth <= 600) {
         sidebar.style.left = "-250px";
     }
