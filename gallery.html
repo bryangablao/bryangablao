@@ -8,25 +8,26 @@
     <link rel="stylesheet" href="gallery.css">
 </head>
 <body>
-
     <!-- Header -->
     <header>
         <h1>Gallery</h1>
-        <button onclick="window.location.href='index.html'" class="back-btn">← Back to Home</button>
+        <div class="hamburger" onclick="toggleMenu()">☰</div>
     </header>
 
-    <!-- Gallery Filters -->
-    <nav class="gallery-filters">
-        <button data-target="all" class="active">All</button>
-        <button data-target="friends">Friends</button>
-        <button data-target="family">Family</button>
-        <button data-target="colleagues">Colleagues</button>
-        <button data-target="me">Me</button>
-        <button data-target="others">Others</button>
+    <!-- Sidebar Menu -->
+    <nav id="sidebar" class="sidebar">
+        <ul>
+            <li><a href="#friends">Friends</a></li>
+            <li><a href="#family">Family</a></li>
+            <li><a href="#colleagues">Colleagues</a></li>
+            <li><a href="#me">Me</a></li>
+            <li><a href="#others">Others</a></li>
+            <li><a href="index.html">← Back to Home</a></li>
+        </ul>
     </nav>
 
     <!-- Gallery Content -->
-    <div class="gallery-container">
+    <main class="gallery-container">
 
         <!-- Friends -->
         <section id="friends" class="gallery-section">
@@ -88,7 +89,7 @@
                 <div class="no-photo">No Photo Available</div>
             </div>
         </section>
-    </div>
+    </main>
 
     <!-- Modal -->
     <div id="imageModal" class="modal">
@@ -98,5 +99,10 @@
     </div>
 
     <script src="gallery.js"></script>
+    <script>
+        function toggleMenu() {
+            document.getElementById("sidebar").classList.toggle("active");
+        }
+    </script>
 </body>
 </html>
