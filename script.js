@@ -16,3 +16,18 @@ document.addEventListener("click", function (event) {
         sidebar.classList.remove("open");
     }
 });
+// Handle submenu toggle
+document.querySelectorAll(".submenu-toggle").forEach(toggle => {
+    toggle.addEventListener("click", function (e) {
+        e.preventDefault();
+        let submenu = this.nextElementSibling;
+        submenu.classList.toggle("active");
+
+        // Change caret direction
+        if (submenu.classList.contains("active")) {
+            this.innerHTML = this.innerHTML.replace("▸", "▾");
+        } else {
+            this.innerHTML = this.innerHTML.replace("▾", "▸");
+        }
+    });
+});
