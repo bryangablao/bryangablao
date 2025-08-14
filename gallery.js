@@ -2,18 +2,14 @@ const sidebar = document.getElementById("sidebar");
 
 // Toggle sidebar when hamburger clicked
 function toggleMenu() {
-    if (sidebar.style.left === "0px") {
-        sidebar.style.left = "-250px";
-    } else {
-        sidebar.style.left = "0px";
-    }
+    sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
 }
 
 // Filter gallery sections
 function filterGallery(category) {
     const sections = document.querySelectorAll(".gallery-section");
     sections.forEach(sec => {
-        if (sec.id === category || category === "all") {
+        if (category === "all" || sec.id === category) {
             sec.style.display = "block";
         } else {
             sec.style.display = "none";
@@ -23,10 +19,10 @@ function filterGallery(category) {
     // Highlight active category
     const items = sidebar.querySelectorAll("ul li");
     items.forEach(li => li.classList.remove("active"));
-    const selected = Array.from(items).find(li => li.textContent.toLowerCase() === category);
+    const selected = Array.from(items).find(li => li.getAttribute("data-category") === category);
     if (selected) selected.classList.add("active");
 
-    // Close sidebar after selection on mobile
+    // Close sidebar on mobile
     if (window.innerWidth <= 600) {
         sidebar.style.left = "-250px";
     }
@@ -47,7 +43,7 @@ function closeModal() {
     document.getElementById("imageModal").style.display = "none";
 }
 
-// Close modal on click outside image
+// Close modal if clicking outside the image
 document.getElementById("imageModal").addEventListener("click", function(e) {
     if (e.target.id === "imageModal") closeModal();
 });
