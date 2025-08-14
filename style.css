@@ -150,3 +150,23 @@ hr {
         height: 200px;
     }
 }
+
+/* Hide all submenus by default */
+.submenu {
+    display: none;
+    padding-left: 15px;
+}
+
+/* Show when active */
+.submenu.active {
+    display: block;
+}
+
+/* Styling the caret/arrow */
+.submenu-toggle {
+    cursor: pointer;
+    display: block;
+}
+.submenu-toggle::after {
+    content: "";
+}
