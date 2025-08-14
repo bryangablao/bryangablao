@@ -17,13 +17,15 @@
 <!-- Sidebar -->
 <nav id="sidebar" class="sidebar">
     <ul>
-        <li onclick="filterGallery('friends')">Friends</li>
-        <li onclick="filterGallery('family')">Family</li>
-        <li onclick="filterGallery('colleagues')">Colleagues</li>
-        <li onclick="filterGallery('me')">Me</li>
-        <li onclick="filterGallery('others')">Others</li>
-        <li onclick="window.location.href='index.html'">← Back to Home</li>
-    </ul>
+    <li data-category="all" onclick="filterGallery('all')">All Photo</li>
+    <li data-category="friends" onclick="filterGallery('friends')">Friends</li>
+    <li data-category="family" onclick="filterGallery('family')">Family</li>
+    <li data-category="colleagues" onclick="filterGallery('colleagues')">Colleagues</li>
+    <li data-category="me" onclick="filterGallery('me')">Me</li>
+    <li data-category="others" onclick="filterGallery('others')">Others</li>
+    <li onclick="window.location.href='index.html'">← Back to Home</li>
+</ul>
+
 </nav>
 
 <!-- Main Content -->
