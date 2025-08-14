@@ -37,6 +37,7 @@ header h1 {
     padding-top: 60px;
     transition: left 0.3s ease;
     z-index: 1001;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.3);
 }
 
 .sidebar ul {
@@ -47,6 +48,7 @@ header h1 {
 .sidebar ul li {
     padding: 15px 20px;
     cursor: pointer;
+    transition: background 0.3s;
 }
 
 .sidebar ul li:hover,
@@ -56,7 +58,6 @@ header h1 {
 
 .main-content {
     padding: 20px;
-    margin-left: 0;
     transition: margin-left 0.3s ease;
 }
 
@@ -66,12 +67,18 @@ header h1 {
     gap: 10px;
 }
 
-.gallery-grid img, .gallery-grid .no-photo {
+.gallery-grid img,
+.gallery-grid .no-photo {
     width: 100%;
     aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 6px;
     cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.05);
 }
 
 .no-photo {
@@ -97,8 +104,9 @@ header h1 {
 }
 
 .modal-content {
-    width: 300px;
-    height: 300px;
+    width: 80%;
+    max-width: 300px;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     border-radius: 6px;
 }
@@ -120,4 +128,15 @@ header h1 {
     color: white;
     border-radius: 5px;
     text-decoration: none;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 180px;
+        padding-top: 50px;
+    }
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
 }
