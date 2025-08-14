@@ -1,24 +1,8 @@
-// Hamburger Menu
-function toggleMenu() {
-    const sidebar = document.getElementById("sidebar");
-    sidebar.style.width = sidebar.style.width === "250px" ? "0" : "250px";
-}
-
-// Close menu on outside click
-document.addEventListener("click", function(event) {
-    const sidebar = document.getElementById("sidebar");
-    const hamburger = document.querySelector(".hamburger");
-
-    if (!sidebar.contains(event.target) && !hamburger.contains(event.target)) {
-        sidebar.style.width = "0";
-    }
-});
-
 // Modal
 function openModal(imgElement) {
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("modalImg");
-    const downloadBtn = document.getElementById("downloadBtn");
+    var modal = document.getElementById("imageModal");
+    var modalImg = document.getElementById("modalImg");
+    var downloadBtn = document.getElementById("downloadBtn");
 
     modal.style.display = "block";
     modalImg.src = imgElement.src;
@@ -29,14 +13,22 @@ function closeModal() {
     document.getElementById("imageModal").style.display = "none";
 }
 
-// Show category
-function showCategory(category) {
-    const images = document.querySelectorAll(".gallery-grid img");
-    images.forEach(img => {
-        if (category === "all" || img.dataset.category === category) {
-            img.style.display = "block";
-        } else {
-            img.style.display = "none";
-        }
+// Gallery Filter
+const filterButtons = document.querySelectorAll('.gallery-filters button');
+const sections = document.querySelectorAll('.gallery-section');
+
+filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filterButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const target = btn.getAttribute('data-target');
+        sections.forEach(sec => {
+            if(target === 'all') {
+                sec.style.display = 'block';
+            } else {
+                sec.id === target ? sec.style.display = 'block' : sec.style.display = 'none';
+            }
+        });
     });
-}
+});
