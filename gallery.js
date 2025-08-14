@@ -1,40 +1,46 @@
-const imageFolders = {
-    Friends: "images/Gallery/Friends",
-    Family: "images/Gallery/Family",
-    Colleagues: "images/Gallery/Colleagues",
-    Me: "images/Gallery/Me",
-    Others: "images/Gallery/Others"
+// Gallery categories and images
+const galleryData = {
+    "Friends": [
+        "images/Gallery/Friends/friend1.jpg",
+        "images/Gallery/Friends/friend2.jpg"
+    ],
+    "Family": [
+        "images/Gallery/Family/family1.jpg",
+        "images/Gallery/Family/family2.jpg"
+    ],
+    "Colleagues": [
+        "images/Gallery/Colleagues/colleague1.jpg",
+        "images/Gallery/Colleagues/colleague2.jpg"
+    ],
+    "Me": [
+        "images/Gallery/Me/me1.jpg",
+        "images/Gallery/Me/me2.jpg"
+    ],
+    "Others": [
+        "images/Gallery/Others/other1.jpg",
+        "images/Gallery/Others/other2.jpg"
+    ]
 };
 
-function loadGallery(category) {
-    const container = document.getElementById("gallery-container");
-    container.innerHTML = "<p>Loading...</p>";
+// Show images based on category
+function showCategory(category) {
+    const gallery = document.getElementById("gallery-container");
+    gallery.innerHTML = ""; // Clear previous images
 
-    fetch(`load_images.php?category=${category}`)
-        .then(response => response.json())
-        .then(images => {
-            container.innerHTML = "";
-            images.forEach(src => {
-                let img = document.createElement("img");
-                img.src = src;
-                img.alt = category;
-                img.onclick = () => openModal(src);
-                container.appendChild(img);
-            });
-        })
-        .catch(() => {
-            container.innerHTML = "<p>Failed to load images.</p>";
-        });
+    galleryData[category].forEach(imgSrc => {
+        let img = document.createElement("img");
+        img.src = imgSrc;
+        img.alt = category;
+        img.onclick = () => openModal(imgSrc);
+        gallery.appendChild(img);
+    });
 }
 
+// Modal handling
 function openModal(src) {
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("modalImage");
-    const downloadBtn = document.getElementById("downloadBtn");
-
-    modal.style.display = "block";
-    modalImg.src = src;
-    downloadBtn.href = src;
+    document.getElementById("imageModal").style.display = "block";
+    document.getElementById("modalImage").src = src;
+    document.getElementById("downloadBtn").href = src;
 }
 
 function closeModal() {
@@ -42,4 +48,4 @@ function closeModal() {
 }
 
 // Load default category
-window.onload = () => loadGallery("Friends");
+showCategory("Friends");
