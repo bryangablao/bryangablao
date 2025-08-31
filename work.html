@@ -3,179 +3,291 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery - Bryan G. Ablao</title>
   <link rel="icon" type="image/png" href="images/Accx_Logo.png">
-  <title>My Work Experience</title>
-  <link rel="stylesheet" href="style.css">
+
   <style>
+    /* General Body */
     body {
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top left, #380098, black);
-      color: white;
       margin: 0;
-      padding: 0;
-      text-align: center;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #380098, #6a0dad);
+      background-attachment: fixed;
+      color: #fff;
     }
 
-    /* Match header style with index/social */
+    /* Header */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.5);
+      padding: 15px 25px;
+      background: linear-gradient(90deg, #380098, #6a0dad);
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     header h1 {
-      font-size: 1.5rem;
       margin: 0;
-      line-height: 1.2;
+      font-size: 1.5rem;
     }
 
-    /* Sidebar consistency */
-    #sidebar ul {
-      text-align: left;
+    .hamburger {
+      font-size: 1.8rem;
+      cursor: pointer;
     }
 
-    #sidebar ul li a {
-      display: block;
-      padding: 10px 20px;
+    /* Sidebar */
+    #sidebar {
+      width: 220px;
+      max-width: 80%;
+      background: linear-gradient(180deg, rgba(0,0,0,0.85), rgba(106,13,173,0.95));
       color: white;
-      text-decoration: none;
-      text-align: left;
+      position: fixed;
+      top: 0;
+      left: -250px;
+      height: 100%;
+      padding-top: 60px;
+      transition: left 0.3s ease;
+      z-index: 1001;
     }
 
-    h2 {
-      margin-top: 20px;
-      font-size: 2em;
-      text-decoration: underline;
+    #sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
 
-    .experience-container {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      padding: 20px;
-      max-width: 700px;
-      margin: 0 auto 0 auto; /* remove bottom margin */
-    }
-
-    .job:last-child {
-      margin-bottom: 0; /* remove extra space below last job */
-    }
-
-    .job {
-      display: flex;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 15px;
-      border-radius: 10px;
-      gap: 15px;
-    }
-
-    .job-icon {
-      width: 80px;
-      height: 80px;
-      object-fit: contain;
-      border-radius: 5px;
-      background: white;
-      padding: 5px;
-    }
-
-    .job-details {
-      text-align: left;
-    }
-
-    .job-details strong {
-      font-size: 1.1em;
-      color: #FFD700;
-    }
-
-    .buttons {
-      margin: 20px auto 40px auto; /* space above AND below button */
-      display: flex;
-      justify-content: center;
-    }
-    
-    .btn {
-      background: #FFD700;
-      color: black;
-      padding: 10px 15px;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 5px;
+    #sidebar ul li {
+      padding: 15px 20px;
+      cursor: pointer;
       transition: background 0.3s ease;
     }
 
-    .btn:hover {
-      background: orange;
+    #sidebar ul li:hover,
+    #sidebar ul li.active {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Main Content */
+    .main-content {
+      padding: 20px;
+    }
+
+    /* Gallery Grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      gap: 10px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+    }
+
+    .no-photo {
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1002;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+    }
+
+    .modal-content {
+      width: 60%;
+      max-width: 500px;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .modal-content:hover {
+      transform: scale(1.02);
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 25px;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .download-btn {
+      padding: 10px 15px;
+      background: #6a0dad;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 600px) {
+      .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+        gap: 8px;
+      }
+
+      header h1 {
+        font-size: 1.2rem;
+      }
+
+      .hamburger {
+        font-size: 1.5rem;
+      }
+
+      .modal-content {
+        width: 80%;
+        max-width: 300px;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Header with sidebar toggle -->
   <header>
-    <h1>My Work Experience</h1>
+    <h1>Gallery</h1>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
   </header>
 
   <!-- Sidebar -->
-  <nav id="sidebar">
+  <nav id="sidebar" class="sidebar">
     <ul>
-      <li><a href="index.html#about">About Me</a></li>
-      <li><a href="social.html">Social Medias</a></li>
-      <li><a href="work.html">Work Experience</a></li>
-      <li><a href="index.html#journey-achievements">Achievements</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="projects.html">Projects</a></li>
+      <li data-category="all" onclick="filterGallery('all')">All Photo</li>
+      <li data-category="friends" onclick="filterGallery('friends')">Friends</li>
+      <li data-category="family" onclick="filterGallery('family')">Family</li>
+      <li data-category="colleagues" onclick="filterGallery('colleagues')">Colleagues</li>
+      <li data-category="me" onclick="filterGallery('me')">Me</li>
+      <li data-category="others" onclick="filterGallery('others')">Others</li>
     </ul>
   </nav>
 
-  <!-- Work experience section -->
-  <div class="experience-container">
-    <div class="job">
-      <img src="images/sixeleven.jpg" alt="SixEleven" class="job-icon">
-      <div class="job-details">
-        <strong>January 2025 – Current:</strong> Call Center Agent at SixEleven
+  <!-- Main Content -->
+  <main class="main-content">
+    <section id="friends" class="gallery-section">
+      <h2>Friends</h2>
+      <div class="gallery-grid">
+        <div class="no-photo">No Photo Available</div>
       </div>
-    </div>
+    </section>
 
-    <div class="job">
-      <img src="images/gaisano.png" alt="GMALL Warehouse Buhangin" class="job-icon">
-      <div class="job-details">
-        <strong>February 2023 – January 2024:</strong> Encoder at GMALL Warehouse Buhangin
+    <section id="family" class="gallery-section">
+      <h2>Family</h2>
+      <div class="gallery-grid">
+        <img src="images/Gallery/Family/528201286_1414712463163467_823296787216224938_n.jpg" onclick="openModal(this)">
+        <img src="images/Gallery/Family/528564722_24156980857277650_1989817620334163587_n.jpg" onclick="openModal(this)">
+        <!-- add more family photos -->
       </div>
-    </div>
+    </section>
 
-    <div class="job">
-      <a href="https://www.facebook.com/kcandarcprints" target="_blank">
-        <img src="images/kcarc.jpg" alt="KC & Arc Prints" class="job-icon">
-      </a>
-      <div class="job-details">
-        <strong>May 2018 – January 2023:</strong> Production Staff at KC & Arc Prints
+    <section id="colleagues" class="gallery-section">
+      <h2>Colleagues</h2>
+      <div class="gallery-grid">
+        <div class="no-photo">No Photo Available</div>
       </div>
-    </div>
+    </section>
 
-    <div class="job">
-      <img src="images/roi.png" alt="Realty Options Davao" class="job-icon">
-      <div class="job-details">
-        <strong>December 2017 – March 2018:</strong> Encoder at Realty Options Davao
+    <section id="me" class="gallery-section">
+      <h2>Me</h2>
+      <div class="gallery-grid">
+        <img src="images/Gallery/Me/512650182_1030561122557038_5102548029099842187_n.jpg" onclick="openModal(this)">
+        <img src="images/Gallery/Me/516813063_1679948856728733_6411984479831485584_n.jpg" onclick="openModal(this)">
+        <!-- add more me photos -->
       </div>
-    </div>
+    </section>
 
-    <div class="job">
-      <img src="images/chowking.png" alt="Chowking SPMC" class="job-icon">
-      <div class="job-details">
-        <strong>January 2016 – March 2017:</strong> Service Crew at Chowking SPMC
+    <section id="others" class="gallery-section">
+      <h2>Others</h2>
+      <div class="gallery-grid">
+        <div class="no-photo">No Photo Available</div>
       </div>
-    </div>
+    </section>
+  </main>
+
+  <!-- Modal -->
+  <div id="imageModal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img id="modalImg" class="modal-content">
+    <a id="downloadBtn" class="download-btn" download>Download</a>
   </div>
 
-  <!-- Only Resume button -->
-  <div class="buttons">
-    <a href="images/Ablao-Bryan-G.-Resume-2025 new.docx" download class="btn">Download Resume</a>
-  </div>
+  <script>
+    const sidebar = document.getElementById("sidebar");
 
-  <script src="script.js"></script>
+    // Toggle sidebar
+    function toggleMenu() {
+      sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
+    }
+
+    // Filter gallery
+    function filterGallery(category) {
+      const sections = document.querySelectorAll(".gallery-section");
+      sections.forEach(sec => {
+        if (category === "all" || sec.id === category) {
+          sec.style.display = "block";
+        } else {
+          sec.style.display = "none";
+        }
+      });
+
+      // Active state
+      const items = sidebar.querySelectorAll("ul li");
+      items.forEach(li => li.classList.remove("active"));
+      const selected = Array.from(items).find(li => li.getAttribute("data-category") === category);
+      if (selected) selected.classList.add("active");
+
+      if (window.innerWidth <= 600) {
+        sidebar.style.left = "-250px";
+      }
+    }
+
+    // Modal
+    function openModal(img) {
+      const modal = document.getElementById("imageModal");
+      const modalImg = document.getElementById("modalImg");
+      const downloadBtn = document.getElementById("downloadBtn");
+      modal.style.display = "flex";
+      modalImg.src = img.src;
+      downloadBtn.href = img.src;
+    }
+
+    function closeModal() {
+      document.getElementById("imageModal").style.display = "none";
+    }
+
+    document.getElementById("imageModal").addEventListener("click", function(e) {
+      if (e.target.id === "imageModal") closeModal();
+    });
+  </script>
 </body>
 </html>
