@@ -1,196 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gallery - Bryan G. Ablao</title>
-<link rel="icon" type="image/png" href="images/Accx_Logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/Accx_Logo.png">
+  <title>My Gallery</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top left, #380098, black);
+      color: white;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
 
-<style>
-/* General Body */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #380098, #6a0dad);
-    background-attachment: fixed;
-    color: #fff;
-}
-
-/* Header */
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background: linear-gradient(90deg, #380098, #6a0dad);
-    color: white;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 1.5rem;
-}
-
-.hamburger {
-    font-size: 1.8rem;
-    cursor: pointer;
-}
-
-/* Sidebar */
-#sidebar {
-    width: 220px;
-    max-width: 80%;
-    background: linear-gradient(180deg, rgba(0,0,0,0.7), rgba(106,13,173,0.9));
-    color: white;
-    position: fixed;
-    top: 0;
-    left: -250px;
-    height: 100%;
-    padding-top: 60px;
-    transition: left 0.3s ease;
-    z-index: 1001;
-}
-
-#sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-#sidebar ul li {
-    padding: 15px 20px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-#sidebar ul li:hover,
-#sidebar ul li.active {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* Main Content */
-.main-content {
-    padding: 20px;
-}
-
-/* Gallery Grid */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-    gap: 10px;
-}
-
-.gallery-grid img {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
-
-.gallery-grid img:hover {
-    transform: scale(1.05);
-}
-
-.no-photo {
-    color: #fff;
-    font-weight: bold;
-    text-align: center;
-    padding: 10px 0;
-}
-
-/* Modal */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1002;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.8);
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-}
-
-.modal-content {
-    width: 60%;
-    max-width: 500px;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    border-radius: 6px;
-    margin-bottom: 15px;
-    transition: transform 0.3s ease;
-}
-
-.modal-content:hover {
-    transform: scale(1.02);
-}
-
-.close {
-    position: absolute;
-    top: 15px;
-    right: 25px;
-    color: white;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-.download-btn {
-    padding: 10px 15px;
-    background: #6a0dad;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-/* Mobile Responsive */
-@media (max-width: 600px) {
-    .gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-        gap: 8px;
+    /* Match header style with work.html */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.5);
     }
 
     header h1 {
-        font-size: 1.2rem;
+      font-size: 1.5rem;
+      margin: 0;
+      line-height: 1.2;
     }
 
-    .hamburger {
-        font-size: 1.5rem;
+    /* Sidebar consistency */
+    #sidebar ul {
+      text-align: left;
     }
 
-    .modal-content {
-        width: 80%;
-        max-width: 300px;
+    #sidebar ul li a {
+      display: block;
+      padding: 10px 20px;
+      color: white;
+      text-decoration: none;
+      text-align: left;
     }
-}
-</style>
+
+    h2 {
+      margin-top: 20px;
+      font-size: 2em;
+      text-decoration: underline;
+    }
+
+    /* Gallery container */
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto 40px auto;
+    }
+
+    .gallery-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 10px;
+      border-radius: 10px;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      border-radius: 8px;
+    }
+  </style>
 </head>
 <body>
 
-<header>
-    <h1>Gallery</h1>
+  <!-- Header with sidebar toggle -->
+  <header>
+    <h1>My Gallery</h1>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
-</header>
+  </header>
 
-<!-- Sidebar -->
-<nav id="sidebar" class="sidebar">
+  <!-- Sidebar -->
+  <nav id="sidebar">
     <ul>
-        <li data-category="all" onclick="filterGallery('all')">All Photo</li>
-        <li data-category="friends" onclick="filterGallery('friends')">Friends</li>
-        <li data-category="family" onclick="filterGallery('family')">Family</li>
-        <li data-category="colleagues" onclick="filterGallery('colleagues')">Colleagues</li>
-        <li data-category="me" onclick="filterGallery('me')">Me</li>
-        <li data-category="others" onclick="filterGallery('others')">Others</li>
+      <li><a href="index.html#about">About Me</a></li>
+      <li><a href="social.html">Social Medias</a></li>
+      <li><a href="work.html">Work Experience</a></li>
+      <li><a href="index.html#journey-achievements">Achievements</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="projects.html">Projects</a></li>
     </ul>
-</nav>
+  </nav>
 
 <!-- Main Content -->
 <main class="main-content">
