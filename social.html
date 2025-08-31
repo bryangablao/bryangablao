@@ -20,12 +20,14 @@
             0% { background-position: 0% 50%; }
             100% { background-position: 100% 50%; }
         }
+
+        /* Header */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 15px 20px;
-            background: rgba(0,0,0,0.6);
+            background: rgba(0, 0, 0, 0.7); /* transparent black */
             color: white;
             position: relative;
             z-index: 1000;
@@ -39,6 +41,7 @@
             cursor: pointer;
             user-select: none;
         }
+
         /* Sidebar */
         #sidebar {
             position: fixed;
@@ -46,7 +49,7 @@
             left: -250px;
             width: 250px;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(56,0,152,0.95), rgba(0,0,0,0.9));
+            background: linear-gradient(to bottom, rgba(56,0,152,0.9), rgba(0,0,0,0.95));
             transition: left 0.3s ease;
             padding-top: 60px;
             z-index: 999;
@@ -64,14 +67,15 @@
         }
         #sidebar ul li a {
             text-decoration: none;
-            color: white;
+            color: #fff;
             font-size: 1.1rem;
             display: block;
             padding: 10px 20px;
-            transition: background 0.3s;
+            transition: background 0.3s, color 0.3s;
         }
         #sidebar ul li a:hover {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1);
+            color: gold;
         }
 
         /* Social Media Section */
