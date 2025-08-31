@@ -25,13 +25,32 @@
 
     /* Make header title same as index */
     header h1 {
-      font-size: 1.5rem;   /* same size as index’s natural flow */
+      font-size: 1.5rem;   /* same size as index */
+      line-height: 1.2;    /* controls the spacing above/below text */
       margin: 0;           /* remove default browser margins */
     }
 
+    /* Ensure the header bar matches index */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;       /* same padding as index */
+      background: rgba(0,0,0,0.5);
+    }
+
+
     /* Sidebar spacing consistency */
-    #sidebar ul li {
-      margin: 5px 0;
+    #sidebar ul {
+      text-align: left; /* Aligns all sidebar links to the left */
+    }
+
+    #sidebar ul li a {
+      display: block;
+      padding: 10px 20px;
+      color: white;
+      text-decoration: none;
+      text-align: left; /* Ensures link text matches index.html */
     }
 
     /* Social Media Section */
