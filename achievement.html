@@ -35,7 +35,7 @@
       cursor: pointer;
     }
 
-    /* Sidebar now on the RIGHT */
+    /* Sidebar (on the right) */
     #sidebar {
       position: fixed;
       top: 0;
@@ -63,14 +63,21 @@
       background: rgba(255,255,255,0.1);
     }
 
-    /* Grid for achievements */
+    /* Grid layout */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
       padding: 20px;
       margin-top: 20px;
     }
+    @media (max-width: 600px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Card thumbnails */
     .card {
       background: rgba(255,255,255,0.05);
       border-radius: 10px;
@@ -79,10 +86,10 @@
     }
     .card img {
       width: 100%;
-      aspect-ratio: 1 / 1;   /* makes it always square */
-      object-fit: cover;
+      height: auto;
       border-radius: 8px;
       cursor: pointer;
+      display: block;
     }
     .card h3 {
       margin: 10px 0 0;
@@ -107,20 +114,22 @@
       padding: 20px;
     }
     .modal-content {
+      position: relative;
       background: #111;
       border-radius: 10px;
-      max-width: 600px;
-      width: 100%;
+      max-width: 90%;
+      max-height: 90%;
       padding: 20px;
       color: white;
       text-align: left;
     }
     .modal img {
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
+      max-width: 100%;
+      max-height: 70vh;  /* keeps picture fully visible */
+      height: auto;
       border-radius: 10px;
       margin-bottom: 15px;
+      display: block;
     }
     .modal h2 {
       margin: 0 0 10px;
@@ -128,11 +137,14 @@
     }
     .close {
       position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 2rem;
+      top: 10px;
+      right: 10px; /* moved closer to picture */
+      font-size: 1.8rem;
       cursor: pointer;
       color: white;
+      background: rgba(0,0,0,0.5);
+      border-radius: 50%;
+      padding: 2px 8px;
     }
   </style>
 </head>
@@ -143,7 +155,7 @@
     <div class="hamburger" onclick="toggleMenu()">☰</div>
   </header>
 
-  <!-- Sidebar (slides from right) -->
+  <!-- Sidebar -->
   <nav id="sidebar">
     <ul>
       <li><a href="index.html#about">About Me</a></li>
@@ -168,8 +180,8 @@
 
   <!-- Modal -->
   <div class="modal" id="achievementModal">
-    <span class="close" onclick="closeModal()">&times;</span>
     <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
       <img id="modalImage" src="" alt="">
       <h2 id="modalTitle"></h2>
       <p id="modalDesc"></p>
