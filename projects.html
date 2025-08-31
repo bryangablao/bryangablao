@@ -130,8 +130,9 @@
 
   .project-card img {
     width: 100%;
-    aspect-ratio: 1/1; /* square */
-    object-fit: cover;
+    aspect-ratio: 1/1; /* square container */
+    object-fit: contain; /* do not cut the image */
+    background: rgba(255,255,255,0.05); /* optional background for empty space */
     border-radius: 10px;
   }
 
@@ -182,7 +183,7 @@
   <div class="projects-grid">
     <!-- Mini-Games Project -->
     <a class="project-card" href="https://docs.google.com/spreadsheets/d/1GSeaIqTHSbzt6eH0bkos2n6uaPTuHR2z0DsqLyuVVJ8/edit?usp=sharing" target="_blank">
-      <img src="images/Gallery/project/GGAMES.jpg" alt="Mini-Games Collection">
+      <img src="images/Gallery/project/GGAMES.png" alt="Mini-Games Collection">
       <h3>Mini-Games Collection</h3>
       <p>A collection of interactive mini-games including Sudoku, Guess Game, Word Scramble, Rock-Paper-Scissors, and Color Game — all playable in one experience.</p>
     </a>
