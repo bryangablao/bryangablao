@@ -1,1 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/Accx_Logo.png">
+  <title>Achievements - Bryan G. Ablao</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top left, #380098, black);
+      background-size: 200% 200%;
+      animation: gradientMove 10s infinite alternate;
+      color: white;
+      text-align: center;
+    }
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: rgba(0,0,0,0.5);
+    }
+    header h1 {
+      font-size: 1.5rem;
+      margin: 0;
+    }
+    .hamburger {
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 1000;
+    }
+    #sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #sidebar ul li a {
+      display: block;
+      padding: 12px 20px;
+      color: white;
+      text-decoration: none;
+    }
+    #sidebar ul li a:hover {
+      background: rgba(255,255,255,0.1);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .card h3 {
+      margin: 10px 0 0;
+      font-size: 1rem;
+      color: gold;
+    }
+    .card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    }
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .modal-content {
+      background: #111;
+      border-radius: 10px;
+      max-width: 600px;
+      width: 100%;
+      padding: 20px;
+      color: white;
+      text-align: left;
+    }
+    .modal img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    .modal h2 {
+      margin: 0 0 10px;
+      color: gold;
+    }
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
+      cursor: pointer;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>My Achievements</h1>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+  </header>
 
+  <!-- Sidebar -->
+  <nav id="sidebar">
+    <ul>
+      <li><a href="index.html#about">About Me</a></li>
+      <li><a href="social.html">Social Medias</a></li>
+      <li><a href="work.html">Work Experience</a></li>
+      <li><a href="achievement.html">Achievements</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="projects.html">Projects</a></li>
+    </ul>
+  </nav>
+
+  <!-- Achievements Grid -->
+  <section class="grid">
+    <div class="card" onclick="openModal('images/Gallery/Achievement/a1.jpg', 'Certificate of Award – SIXELEVEN Sportsfest 2025', 'Awarded for outstanding performance in the Chess Tournament, representing skill, strategy, and dedication during the company’s annual Sportsfest.')">
+      <img src="images/Gallery/Achievement/a1.jpg" alt="Achievement 1">
+      <h3>Certificate of Award – SIXELEVEN Sportsfest 2025</h3>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal" id="achievementModal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="">
+      <h2 id="modalTitle"></h2>
+      <p id="modalDesc"></p>
+    </div>
+  </div>
+
+  <script>
+    function toggleMenu() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
+    }
+    function openModal(image, title, desc) {
+      document.getElementById("achievementModal").style.display = "flex";
+      document.getElementById("modalImage").src = image;
+      document.getElementById("modalTitle").textContent = title;
+      document.getElementById("modalDesc").textContent = desc;
+    }
+    function closeModal() {
+      document.getElementById("achievementModal").style.display = "none";
+    }
+  </script>
+</body>
+</html>
