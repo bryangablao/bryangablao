@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" type="image/png" href="images/Accx_Logo.png">
 <title>Projects - Bryan G. Ablao</title>
-
 <style>
   body {
     margin: 0;
@@ -109,7 +108,7 @@
   /* Projects grid */
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     margin-top: 20px;
   }
@@ -121,6 +120,8 @@
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
     text-align: center;
+    text-decoration: none;
+    color: inherit;
   }
 
   .project-card:hover {
@@ -131,25 +132,19 @@
   .project-card img {
     width: 100%;
     aspect-ratio: 1/1; /* square container */
-    object-fit: contain; /* do not cut the image */
-    background: rgba(255,255,255,0.05); /* optional background for empty space */
+    object-fit: contain; /* do not cut image */
     border-radius: 10px;
   }
 
-    .project-card a {
-    text-decoration: none !important; /* remove underline completely */
-    color: inherit !important;        /* inherit color from child h3/p */
-  }
-
-  .project-card a h3 {
-    color: gold;       /* yellow title */
-    text-decoration: none !important; /* just in case */
+  .project-card h3 {
+    color: gold !important; /* yellow title */
+    text-decoration: none !important; /* remove underline */
     margin: 10px 0 5px 0;
   }
 
-  .project-card a p {
-    color: #ccc;       /* keep description light gray */
-    text-decoration: none !important; /* remove underline from text */
+  .project-card p {
+    color: #ccc !important;
+    text-decoration: none !important;
   }
 
   .footer-text {
@@ -158,10 +153,17 @@
     margin-top: 40px;
   }
 
+  @media (max-width: 1024px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   @media (max-width: 768px) {
     .projects-grid {
       grid-template-columns: 1fr;
     }
+  }
 </style>
 </head>
 <body>
@@ -187,16 +189,15 @@
 <main>
   <h2>My Projects</h2>
   <div class="projects-grid">
-    <!-- Mini-Games Project -->
     <a class="project-card" href="https://docs.google.com/spreadsheets/d/1GSeaIqTHSbzt6eH0bkos2n6uaPTuHR2z0DsqLyuVVJ8/edit?usp=sharing" target="_blank">
-      <img src="images/Gallery/project/GGAMES.png" alt="Mini-Games Collection">
+      <img src="images/Gallery/project/GGAMES.jpg" alt="Mini-Games Collection">
       <h3>G-GAMES</h3>
       <p>A collection of interactive mini-games including Sudoku, Guess Game, Word Scramble, Rock-Paper-Scissors, and Color Game — all playable in one experience.</p>
     </a>
   </div>
 </main>
 
-<div class="footer-text">🚀 Developed by Accx Creations</div>
+<div class="footer-text">🚀 Crafted by Accx Creations</div>
 
 <script>
   function toggleMenu() {
@@ -211,5 +212,6 @@
     document.getElementById("sidebarOverlay").style.display = "none";
   }
 </script>
+
 </body>
 </html>
