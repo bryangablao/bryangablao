@@ -6,7 +6,6 @@
   <link rel="icon" type="image/png" href="images/Accx_Logo.png">
   <title>Social Medias - Bryan G. Ablao</title>
   <link rel="stylesheet" href="style.css">
-
   <style>
     body {
       margin: 0;
@@ -23,18 +22,74 @@
       100% { background-position: 100% 50%; }
     }
 
+    /* Header - same as index */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      height: 60px; /* match index */
+      position: relative;
+      z-index: 1000;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5rem;
+    }
+    .hamburger {
+      font-size: 1.8rem;
+      cursor: pointer;
+      user-select: none;
+      color: white;
+    }
+
+    /* Sidebar - same as index */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(56,0,152,0.95));
+      transition: left 0.3s ease;
+      padding-top: 60px; /* pushes below header */
+      z-index: 999;
+    }
+    #sidebar.active {
+      left: 0;
+    }
+    #sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    #sidebar ul li {
+      margin: 15px 0;
+    }
+    #sidebar ul li a {
+      text-decoration: none;
+      color: white;
+      font-size: 1.1rem;
+      display: block;
+      padding: 10px 20px;
+      transition: background 0.3s;
+    }
+    #sidebar ul li a:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
     /* Social Media Section */
     .social-media {
       padding: 20px;
     }
-
     .description {
       font-size: 1.1rem;
       margin-top: 10px;
       margin-bottom: 20px;
       color: gold;
     }
-
     .social-grid {
       display: flex;
       flex-wrap: wrap;
@@ -42,7 +97,6 @@
       justify-content: center;
       margin-top: 15px;
     }
-
     .social-grid a img {
       width: 60px;
       height: 60px;
@@ -50,7 +104,6 @@
       border-radius: 10px;
       transition: transform 0.3s, box-shadow 0.3s;
     }
-
     .social-grid a img:hover {
       transform: scale(1.1);
       box-shadow: 0 0 10px gold;
@@ -58,14 +111,11 @@
   </style>
 </head>
 <body>
-
-  <!-- Header copied from index.html -->
   <header>
     <h1>My Social Medias</h1>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
   </header>
 
-  <!-- Sidebar copied from index.html -->
   <nav id="sidebar">
     <ul>
       <li><a href="index.html#about">About Me</a></li>
@@ -81,7 +131,6 @@
     <p class="description">
       Connect with me online! Follow, subscribe, or send me a message — I’d love to hear from you.
     </p>
-
     <div class="social-grid">
       <a href="https://www.linkedin.com/in/bryan-ablao-636497189/" target="_blank">
         <img src="images/linkedin.png" alt="LinkedIn">
@@ -110,6 +159,10 @@
     </div>
   </section>
 
-  <script src="script.js"></script>
+  <script>
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+  </script>
 </body>
 </html>
