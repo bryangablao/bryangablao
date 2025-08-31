@@ -93,6 +93,24 @@
       justify-content: center;
     }
 
+    /* Move the Download Resume button closer */
+    .buttons {
+       margin-top: 0;       /* remove big gap above */
+       padding-top: 10px;   /* small breathing room */
+       display: flex;
+       justify-content: center;
+    }
+
+/* Reduce space below the last job card */
+.experience-container {
+    margin-bottom: 10px; /* keeps jobs tight above button */
+}
+
+.job:last-child {
+    margin-bottom: 5px;  /* no extra gap at bottom */
+}
+
+
     .btn {
       background: #FFD700;
       color: black;
