@@ -129,12 +129,11 @@
       border-radius: 10px;
     }
 
-    /* Modal */
+        /* Modal */
     .modal {
       display: none;
       position: fixed;
       z-index: 2000;
-      padding-top: 60px;
       left: 0;
       top: 0;
       width: 100%;
@@ -142,12 +141,14 @@
       background-color: rgba(0,0,0,0.9);
       justify-content: center;
       align-items: center;
+      flex-direction: column;
     }
 
     .modal-content {
       max-width: 90%;
       max-height: 80%;
       border-radius: 10px;
+      margin-bottom: 20px;
     }
 
     .close {
@@ -158,21 +159,31 @@
       font-weight: bold;
       color: #fff;
       cursor: pointer;
+      transition: 0.2s;
     }
 
+    .close:hover {
+      color: #aaa;
+    }
+
+    /* Download button styled like floating button */
     .download-btn {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 10px 20px;
+      position: absolute;
+      bottom: 30px;
+      right: 40px;
+      padding: 12px 20px;
       background: #380098;
       color: white;
-      border-radius: 8px;
+      border-radius: 30px;
       text-decoration: none;
       font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      transition: background 0.3s ease, transform 0.2s ease;
     }
 
     .download-btn:hover {
       background: #5200d6;
+      transform: scale(1.05);
     }
   </style>
 </head>
