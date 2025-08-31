@@ -16,13 +16,16 @@
       text-align: center;
     }
 
-    /* Match header style with work.html */
+    /* Header */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 15px;
       background: rgba(0, 0, 0, 0.5);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     header h1 {
@@ -31,17 +34,46 @@
       line-height: 1.2;
     }
 
-    /* Sidebar consistency */
+    .hamburger {
+      font-size: 1.8rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* Sidebar */
+    #sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px; /* hidden by default */
+      width: 250px;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      transition: left 0.3s ease;
+      padding-top: 60px;
+      z-index: 999;
+    }
+
     #sidebar ul {
-      text-align: left;
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
 
     #sidebar ul li a {
       display: block;
-      padding: 10px 20px;
+      padding: 12px 20px;
       color: white;
       text-decoration: none;
       text-align: left;
+    }
+
+    #sidebar ul li a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Main content */
+    main {
+      padding: 20px;
     }
 
     h2 {
@@ -50,31 +82,85 @@
       text-decoration: underline;
     }
 
-    /* Gallery container */
-    .gallery-container {
+    /* Gallery Grid */
+    .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
       gap: 15px;
       padding: 20px;
       max-width: 1000px;
       margin: 0 auto 40px auto;
     }
 
-    .gallery-item {
+    .gallery-grid img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.05);
+    }
+
+    .no-photo {
+      padding: 40px;
       background: rgba(255, 255, 255, 0.1);
-      padding: 10px;
       border-radius: 10px;
     }
 
-    .gallery-item img {
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
       width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+    }
+
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      font-size: 40px;
+      font-weight: bold;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #380098;
+      color: white;
       border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .download-btn:hover {
+      background: #5200d6;
     }
   </style>
 </head>
 <body>
 
-  <!-- Header with sidebar toggle -->
+  <!-- Header -->
   <header>
     <h1>My Gallery</h1>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
@@ -92,123 +178,81 @@
     </ul>
   </nav>
 
-<!-- Main Content -->
-<main class="main-content">
+  <!-- Main Content -->
+  <main class="main-content">
     <section id="friends" class="gallery-section">
-        <h2>Friends</h2>
-        <div class="gallery-grid">
-            <div class="no-photo">No Photo Available</div>
-        </div>
+      <h2>Friends</h2>
+      <div class="gallery-grid">
+        <div class="no-photo">No Photo Available</div>
+      </div>
     </section>
 
     <section id="family" class="gallery-section">
-        <h2>Family</h2>
-        <div class="gallery-grid">
-            <img src="images/Gallery/Family/527452223_1119051590118048_7584841627031562836_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Family/528201286_1414712463163467_823296787216224938_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Family/528564722_24156980857277650_1989817620334163587_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Family/528579519_1827942958156500_9066878588142031822_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Family/528945808_595295430326990_2495007725531082246_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Family/528970922_4015653788647986_294092571949191240_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Family/529535656_1521322472171640_6197228771268789931_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Family/529975864_1320417122499135_6809084384567886654_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Family/530234250_1405555130672902_206629684508599946_n.jpg" alt="" onclick="openModal(this)">
-        </div>
+      <h2>Family</h2>
+      <div class="gallery-grid">
+        <img src="images/Gallery/Family/527452223_1119051590118048_7584841627031562836_n.jpg" alt="" onclick="openModal(this)">
+        <img src="images/Gallery/Family/528201286_1414712463163467_823296787216224938_n.jpg" alt="" onclick="openModal(this)">
+        <img src="images/Gallery/Family/528564722_24156980857277650_1989817620334163587_n.jpg" alt="" onclick="openModal(this)">
+        <!-- Add more images as needed -->
+      </div>
     </section>
 
     <section id="colleagues" class="gallery-section">
-        <h2>Colleagues</h2>
-        <div class="gallery-grid">
-            <div class="no-photo">No Photo Available</div>
-        </div>
+      <h2>Colleagues</h2>
+      <div class="gallery-grid">
+        <div class="no-photo">No Photo Available</div>
+      </div>
     </section>
 
     <section id="me" class="gallery-section">
-        <h2>Me</h2>
-        <div class="gallery-grid">
-            <img src="images/Gallery/Me/512650182_1030561122557038_5102548029099842187_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Me/512669144_1479674900061005_6631383579220380322_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Me/513560568_1080106760722193_4712434104620513643_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Me/516813063_1679948856728733_6411984479831485584_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Me/527015568_4431837203768436_206275864118151171_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Me/527027273_777237361514479_3214664506071306295_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Me/527458414_3702371983232677_8966184996691474134_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Me/527920139_3290240134465747_6607549781087499359_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Me/528158692_1258352892188293_3411594106504667486_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Me/528639413_1135269134679989_6319131686027990909_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Me/528991092_2590174688008393_1930083364309592938_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Me/529251448_3625154127617906_2137946363110929318_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Me/530849010_637411352735664_9029550789082022234_n.jpg" alt="" onclick="openModal(this)">
-            <img src="images/Gallery/Me/531657268_1332247148466755_5923348568279400563_n.jpg" alt="" onclick="openModal(this)">
-        </div>
+      <h2>Me</h2>
+      <div class="gallery-grid">
+        <img src="images/Gallery/Me/512650182_1030561122557038_5102548029099842187_n.jpg" alt="" onclick="openModal(this)">
+        <img src="images/Gallery/Me/512669144_1479674900061005_6631383579220380322_n.jpg" alt="" onclick="openModal(this)">
+        <!-- Add more images -->
+      </div>
     </section>
 
     <section id="others" class="gallery-section">
-        <h2>Others</h2>
-        <div class="gallery-grid">
-            <div class="no-photo">No Photo Available</div>
-        </div>
+      <h2>Others</h2>
+      <div class="gallery-grid">
+        <div class="no-photo">No Photo Available</div>
+      </div>
     </section>
-</main>
+  </main>
 
-<!-- Modal -->
-<div id="imageModal" class="modal">
+  <!-- Modal -->
+  <div id="imageModal" class="modal">
     <span class="close" onclick="closeModal()">&times;</span>
     <img id="modalImg" class="modal-content">
     <a id="downloadBtn" class="download-btn" download>Download</a>
-</div>
+  </div>
 
-<script>
-// Sidebar Toggle
-const sidebar = document.getElementById("sidebar");
+  <script>
+    const sidebar = document.getElementById("sidebar");
 
-function toggleMenu() {
-    sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
-}
-
-// Filter Gallery
-function filterGallery(category) {
-    const sections = document.querySelectorAll(".gallery-section");
-    sections.forEach(sec => {
-        if (category === "all" || sec.id === category) {
-            sec.style.display = "block";
-        } else {
-            sec.style.display = "none";
-        }
-    });
-
-    // Highlight active
-    const items = sidebar.querySelectorAll("ul li");
-    items.forEach(li => li.classList.remove("active"));
-    const selected = Array.from(items).find(li => li.getAttribute("data-category") === category);
-    if (selected) selected.classList.add("active");
-
-    // Close sidebar on mobile
-    if (window.innerWidth <= 600) {
-        sidebar.style.left = "-250px";
+    function toggleMenu() {
+      sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
     }
-}
 
-// Modal
-function openModal(img) {
-    const modal = document.getElementById("imageModal");
-    const modalImg = document.getElementById("modalImg");
-    const downloadBtn = document.getElementById("downloadBtn");
+    function openModal(img) {
+      const modal = document.getElementById("imageModal");
+      const modalImg = document.getElementById("modalImg");
+      const downloadBtn = document.getElementById("downloadBtn");
 
-    modal.style.display = "flex";
-    modalImg.src = img.src;
-    downloadBtn.href = img.src;
-}
+      modal.style.display = "flex";
+      modalImg.src = img.src;
+      downloadBtn.href = img.src;
+    }
 
-function closeModal() {
-    document.getElementById("imageModal").style.display = "none";
-}
+    function closeModal() {
+      document.getElementById("imageModal").style.display = "none";
+    }
 
-// Close modal when clicking outside
-document.getElementById("imageModal").addEventListener("click", function(e) {
-    if (e.target.id === "imageModal") closeModal();
-});
-</script>
-
+    // Close modal when clicking outside image
+    document.getElementById("imageModal").addEventListener("click", function(e) {
+      if (e.target.id === "imageModal") closeModal();
+    });
+  </script>
 </body>
 </html>
