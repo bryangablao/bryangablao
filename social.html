@@ -6,125 +6,14 @@
     <link rel="icon" type="image/png" href="images/Accx_Logo.png">
     <title>Social Medias - Bryan G. Ablao</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: radial-gradient(circle at top left, #380098, black);
-        background-size: 200% 200%;
-        animation: gradientMove 10s infinite alternate;
-        color: white;
-        text-align: center;
-    }
-
-    @keyframes gradientMove {
-        0% { background-position: 0% 50%; }
-        100% { background-position: 100% 50%; }
-    }
-
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 15px 20px;
-        background: rgba(0,0,0,0.6);
-        color: white;
-        position: relative;
-        z-index: 1000;
-    }
-
-    header h1 {
-        margin: 0;
-        font-size: 1.5rem;
-    }
-
-    .hamburger {
-        font-size: 1.8rem;
-        cursor: pointer;
-        user-select: none;
-    }
-
-    /* Sidebar */
-    #sidebar {
-        position: fixed;
-        top: 0;
-        left: -250px;
-        width: 250px;
-        height: 100%;
-        background: rgba(0,0,0,0.85); /* 🔥 Transparent black */
-        transition: left 0.3s ease;
-        padding-top: 60px;
-        z-index: 999;
-    }
-
-    #sidebar.active {
-        left: 0;
-    }
-
-    #sidebar ul {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-    }
-
-    #sidebar ul li {
-        margin: 15px 0;
-    }
-
-    #sidebar ul li a {
-        text-decoration: none;
-        color: #fff; /* 🔥 White text */
-        font-size: 1.1rem;
-        display: block;
-        padding: 10px 20px;
-        transition: background 0.3s;
-    }
-
-    #sidebar ul li a:hover {
-        background: rgba(255,255,255,0.2);
-    }
-
-    /* Social Media Section */
-    .social-media {
-        padding: 20px;
-    }
-
-    .description {
-        font-size: 1.1rem;
-        margin-top: 10px;
-        margin-bottom: 20px;
-        color: gold;
-    }
-
-    .social-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-        justify-content: center;
-        margin-top: 15px;
-    }
-
-    .social-grid a img {
-        width: 60px;
-        height: 60px;
-        object-fit: contain;
-        border-radius: 10px;
-        transition: transform 0.3s, box-shadow 0.3s;
-    }
-
-    .social-grid a img:hover {
-        transform: scale(1.1);
-        box-shadow: 0 0 10px gold;
-    }
-</style>
 </head>
 <body>
-
     <header>
-        <h1>My Social Medias</h1>
+        <h1 style="text-align:center; margin:0;">Bryan G. Ablao</h1>
         <div class="hamburger" onclick="toggleMenu()">☰</div>
     </header>
 
+    <!-- Sidebar Navigation -->
     <nav id="sidebar">
         <ul>
             <li><a href="index.html#about">About Me</a></li>
@@ -136,43 +25,31 @@
         </ul>
     </nav>
 
-    <section class="social-media">
-        <p class="description">
-            Connect with me online! Follow, subscribe, or send me a message — I’d love to hear from you.
-        </p>
+    <main>
+        <section class="social-media">
+            <h2>My Social Media Links</h2>
+            <p class="description">Follow me on my official pages:</p>
 
-        <div class="social-grid">
-            <a href="https://www.linkedin.com/in/bryan-ablao-636497189/" target="_blank">
-                <img src="images/linkedin.png" alt="LinkedIn">
-            </a>
-            <a href="https://www.youtube.com/@bryvngtz" target="_blank">
-                <img src="images/youtube.png" alt="YouTube">
-            </a>
-            <a href="https://www.tiktok.com/@bryvngtz" target="_blank">
-                <img src="images/tik-tok.png" alt="TikTok">
-            </a>
-            <a href="https://www.instagram.com/bryvngtz/#" target="_blank">
-                <img src="images/instagram.png" alt="Instagram">
-            </a>
-            <a href="https://t.me/bryvngtz" target="_blank">
-                <img src="images/telegram.png" alt="Telegram">
-            </a>
-            <a href="https://discord.com/channels/bryvngtz" target="_blank">
-                <img src="images/discord.png" alt="Discord">
-            </a>
-            <a href="https://www.snapchat.com/@bryan_ablao20" target="_blank">
-                <img src="images/snapchat.png" alt="Snapchat">
-            </a>
-            <a href="https://www.facebook.com/profile.php?id=61578207118456#" target="_blank">
-                <img src="images/facebook.png" alt="Facebook">
-            </a>
-        </div>
-    </section>
+            <div class="social-grid">
+                <a href="https://www.facebook.com/bryangablao" target="_blank">
+                    <img src="images/facebook.png" alt="Facebook">
+                </a>
+                <a href="https://www.instagram.com" target="_blank">
+                    <img src="images/instagram.png" alt="Instagram">
+                </a>
+                <a href="https://www.twitter.com" target="_blank">
+                    <img src="images/twitter.png" alt="Twitter">
+                </a>
+                <a href="https://www.linkedin.com" target="_blank">
+                    <img src="images/linkedin.png" alt="LinkedIn">
+                </a>
+                <a href="https://www.github.com" target="_blank">
+                    <img src="images/github.png" alt="GitHub">
+                </a>
+            </div>
+        </section>
+    </main>
 
-    <script>
-        function toggleMenu() {
-            document.getElementById("sidebar").classList.toggle("active");
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
