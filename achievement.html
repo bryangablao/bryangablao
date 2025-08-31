@@ -114,7 +114,6 @@
       padding: 20px;
     }
     .modal-content {
-      position: relative;
       background: #111;
       border-radius: 10px;
       max-width: 90%;
@@ -122,6 +121,7 @@
       padding: 20px;
       color: white;
       text-align: left;
+      position: relative;
     }
     .modal img {
       max-width: 100%;
@@ -135,16 +135,19 @@
       margin: 0 0 10px;
       color: gold;
     }
+
+    /* Close button outside */
     .close {
-      position: absolute;
-      top: 10px;
-      right: 10px; /* moved closer to picture */
-      font-size: 1.8rem;
+      position: fixed;
+      top: 20px;
+      right: 30px;
+      font-size: 2rem;
       cursor: pointer;
       color: white;
       background: rgba(0,0,0,0.5);
       border-radius: 50%;
-      padding: 2px 8px;
+      padding: 4px 12px;
+      z-index: 2100;
     }
   </style>
 </head>
@@ -180,8 +183,8 @@
 
   <!-- Modal -->
   <div class="modal" id="achievementModal">
+    <span class="close" onclick="closeModal()">&times;</span> <!-- now OUTSIDE -->
     <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
       <img id="modalImage" src="" alt="">
       <h2 id="modalTitle"></h2>
       <p id="modalDesc"></p>
