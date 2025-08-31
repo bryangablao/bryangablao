@@ -155,6 +155,16 @@
     .projects-grid {
       grid-template-columns: 1fr;
     }
+
+  .project-card a {
+    color: inherit;       /* keeps the title color same as text */
+    text-decoration: none; /* removes underline */
+  }
+
+  .project-card a:hover {
+    color: inherit;        /* optional: prevent hover color change */
+    text-decoration: none; /* remove underline on hover */
+    cursor: pointer
   }
 </style>
 </head>
@@ -169,10 +179,10 @@
 
 <nav id="sidebar">
   <ul>
-    <li><a href="index.html#about">About Me</a></li>
+    <li><a href="index.html">About Me</a></li>
     <li><a href="social.html">Social Medias</a></li>
     <li><a href="work.html">Work Experience</a></li>
-    <li><a href="index.html#journey-achievements">Achievements</a></li>
+    <li><a href="achievement.html">Achievements</a></li>
     <li><a href="gallery.html">Gallery</a></li>
     <li><a href="projects.html">Projects</a></li>
   </ul>
