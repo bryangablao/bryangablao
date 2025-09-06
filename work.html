@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="images/Accx_Logo.png">
   <title>Bryan G. Ablao</title>
-  <link rel="stylesheet" href="style.css">
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -16,7 +15,6 @@
       text-align: center;
     }
 
-    /* Match header style with index/social */
     header {
       display: flex;
       justify-content: space-between;
@@ -31,17 +29,52 @@
       line-height: 1.2;
     }
 
-    /* Sidebar consistency */
+    /* Hamburger same as index.html */
+    .hamburger {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* Sidebar style (copied from index.html) */
+    #sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: rgba(0,0,0,0.95);
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 999;
+    }
+
+    #sidebar.open {
+      width: 250px;
+    }
+
     #sidebar ul {
-      text-align: left;
+      list-style: none;
+      padding: 0;
     }
 
     #sidebar ul li a {
-      display: block;
       padding: 10px 20px;
+      display: block;
       color: white;
       text-decoration: none;
-      text-align: left;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: all 0.3s ease;
+    }
+
+    #sidebar.open ul li a {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    #sidebar ul li a:hover {
+      background: #380098;
     }
 
     h2 {
@@ -50,19 +83,14 @@
       text-decoration: underline;
     }
 
+    /* Work Experience cards */
     .experience-container {
       display: flex;
       flex-direction: column;
-      gap: 15px;        /* tighter gap between jobs */
       gap: 15px;
       padding: 20px;
       max-width: 700px;
-      margin: 0 auto 20px auto; /* auto left/right, 20px bottom only */
-      margin: 0 auto 0 auto; /* remove bottom margin */
-    }
-
-    .job:last-child {
-      margin-bottom: 0; /* remove extra space below last job */
+      margin: 0 auto;
     }
 
     .job {
@@ -93,8 +121,7 @@
     }
 
     .buttons {
-      margin-top: 5px;   /* closer to jobs */
-      margin: 20px auto 40px auto; /* space above AND below button */
+      margin: 20px auto 40px auto;
       display: flex;
       justify-content: center;
     }
@@ -179,6 +206,253 @@
     <a href="images/Ablao-Bryan-G.-Resume-2025 new.docx" download class="btn">Download Resume</a>
   </div>
 
-  <script src="script.js"></script>
+  <script>
+    // Toggle the sidebar menu
+    function toggleMenu() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("open");
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function (event) {
+      const sidebar = document.getElementById("sidebar");
+      const hamburger = document.querySelector(".hamburger");
+
+      if (sidebar.classList.contains("open") &&
+          !sidebar.contains(event.target) &&
+          !hamburger.contains(event.target)) {
+        sidebar.classList.remove("open");
+      }
+    });
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/Accx_Logo.png">
+  <title>Bryan G. Ablao</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top left, #380098, black);
+      color: white;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    /* Hamburger same as index.html */
+    .hamburger {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* Sidebar style (copied from index.html) */
+    #sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: rgba(0,0,0,0.95);
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 999;
+    }
+
+    #sidebar.open {
+      width: 250px;
+    }
+
+    #sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    #sidebar ul li a {
+      padding: 10px 20px;
+      display: block;
+      color: white;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: all 0.3s ease;
+    }
+
+    #sidebar.open ul li a {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    #sidebar ul li a:hover {
+      background: #380098;
+    }
+
+    h2 {
+      margin-top: 20px;
+      font-size: 2em;
+      text-decoration: underline;
+    }
+
+    /* Work Experience cards */
+    .experience-container {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding: 20px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .job {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      gap: 15px;
+    }
+
+    .job-icon {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      border-radius: 5px;
+      background: white;
+      padding: 5px;
+    }
+
+    .job-details {
+      text-align: left;
+    }
+
+    .job-details strong {
+      font-size: 1.1em;
+      color: #FFD700;
+    }
+
+    .buttons {
+      margin: 20px auto 40px auto;
+      display: flex;
+      justify-content: center;
+    }
+
+    .btn {
+      background: #FFD700;
+      color: black;
+      padding: 10px 15px;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background: orange;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header with sidebar toggle -->
+  <header>
+    <h1>Work Experience</h1>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+  </header>
+
+  <!-- Sidebar -->
+  <nav id="sidebar">
+    <ul>
+      <li><a href="index.html">About Me</a></li>
+      <li><a href="social.html">Social Medias</a></li>
+      <li><a href="work.html">Work Experience</a></li>
+      <li><a href="achievement.html">Achievements</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="projects.html">Projects</a></li>
+    </ul>
+  </nav>
+
+  <!-- Work experience section -->
+  <div class="experience-container">
+    <div class="job">
+      <img src="images/sixeleven.jpg" alt="SixEleven" class="job-icon">
+      <div class="job-details">
+        <strong>January 2025 – Current:</strong> Call Center Agent at SixEleven
+      </div>
+    </div>
+
+    <div class="job">
+      <img src="images/gaisano.png" alt="GMALL Warehouse Buhangin" class="job-icon">
+      <div class="job-details">
+        <strong>February 2023 – January 2024:</strong> Encoder at GMALL Warehouse Buhangin
+      </div>
+    </div>
+
+    <div class="job">
+      <a href="https://www.facebook.com/kcandarcprints" target="_blank">
+        <img src="images/kcarc.jpg" alt="KC & Arc Prints" class="job-icon">
+      </a>
+      <div class="job-details">
+        <strong>May 2018 – January 2023:</strong> Production Staff at KC & Arc Prints
+      </div>
+    </div>
+
+    <div class="job">
+      <img src="images/roi.png" alt="Realty Options Davao" class="job-icon">
+      <div class="job-details">
+        <strong>December 2017 – March 2018:</strong> Encoder at Realty Options Davao
+      </div>
+    </div>
+
+    <div class="job">
+      <img src="images/chowking.png" alt="Chowking SPMC" class="job-icon">
+      <div class="job-details">
+        <strong>January 2016 – March 2017:</strong> Service Crew at Chowking SPMC
+      </div>
+    </div>
+  </div>
+
+  <!-- Only Resume button -->
+  <div class="buttons">
+    <a href="images/Ablao-Bryan-G.-Resume-2025 new.docx" download class="btn">Download Resume</a>
+  </div>
+
+  <script>
+    // Toggle the sidebar menu
+    function toggleMenu() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("open");
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener("click", function (event) {
+      const sidebar = document.getElementById("sidebar");
+      const hamburger = document.querySelector(".hamburger");
+
+      if (sidebar.classList.contains("open") &&
+          !sidebar.contains(event.target) &&
+          !hamburger.contains(event.target)) {
+        sidebar.classList.remove("open");
+      }
+    });
+  </script>
 </body>
 </html>
