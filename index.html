@@ -1,105 +1,329 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="images/Accx_Logo.png">
-    <title>Bryan G. Ablao</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/Accx_Logo.png">
+  <title>Bryan G. Ablao</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: radial-gradient(circle at top left, #380098, black);
+      background-size: 200% 200%;
+      animation: gradientMove 10s infinite alternate;
+      color: white;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .hamburger {
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    #sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      right: 0;
+      background-color: rgba(0,0,0,0.95);
+      overflow-x: hidden;
+      transition: 0.3s;
+      padding-top: 60px;
+      z-index: 999;
+    }
+
+    #sidebar.open {
+      width: 250px;
+    }
+
+    #sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    #sidebar ul li a {
+      padding: 10px 20px;
+      display: block;
+      color: white;
+      text-decoration: none;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: all 0.3s ease;
+    }
+
+    #sidebar.open ul li a {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    #sidebar ul li a:hover {
+      background: #380098;
+    }
+
+    .content-card {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+    }
+
+    /* Card for profile info */
+    .profile-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid #380098;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 0 10px rgba(56, 0, 152, 0.6);
+    }
+
+    .profile-pic-link img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid white;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .profile-info {
+      margin-top: 15px;
+    }
+
+    .profile-info p {
+      margin: 8px 0;
+      font-size: 1rem;
+    }
+
+    /* Card for family members */
+    .family-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid #380098;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(56, 0, 152, 0.6);
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .family h3 {
+      margin-bottom: 15px;
+    }
+
+    /* Arrange family members neatly */
+    .family-list {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 20px;
+    }
+
+    .family-list div {
+      text-align: center;
+      flex: 1 1 200px; /* makes items equal width */
+      max-width: 200px;
+    }
+
+    .family-list img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid white;
+      object-fit: cover;
+    }
+
+    .family-list p {
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid white;
+      margin: 20px 0;
+    }
+
+    @media (max-width: 600px) {
+      .profile-pic-link img {
+        width: 200px;
+        height: 200px;
+      }
+      .family-list {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* Hide all submenus by default */
+    .submenu {
+      display: none;
+      padding-left: 15px;
+    }
+
+    /* Show when active */
+    .submenu.active {
+      display: block;
+    }
+
+    /* Styling the caret/arrow */
+    .submenu-toggle {
+      cursor: pointer;
+      display: block;
+    }
+    .submenu-toggle::after {
+      content: "";
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1 style="text-align:center; margin:0;">Bryan G. Ablao</h1>
-        <div class="hamburger" onclick="toggleMenu()">☰</div>
-    </header>
+  <header>
+    <h1 style="text-align:center; margin:0;">Bryan G. Ablao</h1>
+    <div class="hamburger" onclick="toggleMenu()">☰</div>
+  </header>
 
-    <!-- Sidebar Navigation -->
-    <nav id="sidebar">
-        <ul>
-            <li><a href="index.html">About Me</a></li>
-            <li><a href="social.html">Social Medias</a></li>
-            <li><a href="work.html">Work Experience</a></li>
-            <li><a href="achievement.html">Achievements</a></li>
-            <li><a href="gallery.html">Gallery</a></li>
-            <li><a href="projects.html">Projects</a></li>
-        </ul>
-    </nav>
+  <!-- Sidebar Navigation -->
+  <nav id="sidebar">
+    <ul>
+      <li><a href="index.html">About Me</a></li>
+      <li><a href="social.html">Social Medias</a></li>
+      <li><a href="work.html">Work Experience</a></li>
+      <li><a href="achievement.html">Achievements</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="projects.html">Projects</a></li>
+    </ul>
+  </nav>
 
-    <main>
-        <section id="about" class="content-card">
+  <main>
+    <section id="about" class="content-card">
+      <!-- Profile Card -->
+      <div class="profile-card">
+        <div class="profile">
+          <a href="https://www.facebook.com/bryangablao" target="_blank" class="profile-pic-link">
+            <img src="images/Bryan.jpg" alt="Bryan">
+          </a>
+        </div>
 
-            <!-- Profile Card -->
-            <div class="profile-card">
-                <div class="profile">
-                    <a href="https://www.facebook.com/bryangablao" target="_blank" class="profile-pic-link">
-                        <img src="images/Bryan.jpg" alt="Bryan">
-                    </a>
-                </div>
+        <hr>
 
-                <hr>
+        <div class="profile-info">
+          <p><strong>Address:</strong> Sb.3 Barrangay 22-C Piape Boulevard Davao City</p>
+          <p><strong>Mobile:</strong> 09928760990</p>
+          <p><strong>Email:</strong> <a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a></p>
+          <p><strong>Date of Birth:</strong> April 04, 2000</p>
+          <p><strong>Place of Birth:</strong> Jose Fabella Hospital, Metro Manila City</p>
+          <p><strong>Citizenship:</strong> Filipino</p>
+          <p><strong>Religion:</strong> Born Again</p>
+          <p><strong>Gender:</strong> Male</p>
+        </div>
+      </div>
 
-                <div class="profile-info">
-                    <p><strong>Address:</strong> Sb.3 Barrangay 22-C Piape Boulevard Davao City</p>
-                    <p><strong>Mobile:</strong> 09928760990</p>
-                    <p><strong>Email:</strong> <a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a></p>
-                    <p><strong>Date of Birth:</strong> April 04, 2000</p>
-                    <p><strong>Place of Birth:</strong> Jose Fabella Hospital, Metro Manila City</p>
-                    <p><strong>Citizenship:</strong> Filipino</p>
-                    <p><strong>Religion:</strong> Born Again</p>
-                    <p><strong>Gender:</strong> Male</p>
-                </div>
+      <hr>
+
+      <!-- Family Card -->
+      <div class="family-card">
+        <div class="family">
+          <h3>Family Members</h3>
+
+          <!-- Parents -->
+          <div class="family-list">
+            <div>
+              <img src="images/father.png" alt="Evaristo C. Ablao">
+              <p>Evaristo C. Ablao - Father</p>
             </div>
-
-            <hr>
-
-            <!-- Family Card -->
-            <div class="family-card">
-                <div class="family">
-                    <h3>Family Members</h3>
-                    <div class="family-list">
-                        <div>
-                            <img src="images/father.png" alt="Evaristo C. Ablao">
-                            <p>Evaristo C. Ablao - Father</p>
-                        </div>
-                        <div>
-                            <img src="images/mother.png" alt="Annalie G. Ablao">
-                            <p>Annalie G. Ablao - Mother</p>
-                        </div>
-                    </div>
-                    <div class="family-list">
-                        <div>
-                            <a href="https://www.facebook.com/kenneth.ablao.12" target="_blank">
-                                <img src="images/Kenneth.jpg" alt="Kenneth Ablao">
-                            </a>
-                            <p>Kenneth Ablao - Brother</p>
-                        </div>
-                        <div>
-                            <a href="https://www.facebook.com/rizevan.ablao.73" target="_blank">
-                                <img src="images/RizEvan.jpg" alt="Riz Evan Ablao">
-                            </a>
-                            <p>Riz Evan Ablao - Brother</p>
-                        </div>
-                    </div>
-                    <div class="family-list">
-                        <div>
-                            <a href="https://www.facebook.com/erene.gimena#" target="_blank">
-                                <img src="images/in in.jpg" alt="In-In Gimena">
-                            </a>
-                            <p>In-In Gimena - Kenneth’s Wife</p>
-                        </div>
-                        <div>
-                            <a href="https://www.facebook.com/jonahfayemarie.lenaming.5#" target="_blank">
-                                <img src="images/jonafaye.jpg" alt="Jonahfaye Marie Lenaming">
-                            </a>
-                            <p>Jonahfaye Marie Lenaming - Riz Evan’s Partner</p>
-                        </div>
-                    </div>
-                </div>
+            <div>
+              <img src="images/mother.png" alt="Annalie G. Ablao">
+              <p>Annalie G. Ablao - Mother</p>
             </div>
+          </div>
 
-        </section>
-    </main>
+          <!-- Siblings -->
+          <div class="family-list">
+            <div>
+              <a href="https://www.facebook.com/kenneth.ablao.12" target="_blank">
+                <img src="images/Kenneth.jpg" alt="Kenneth Ablao">
+              </a>
+              <p>Kenneth Ablao (Brother)</p>
+            </div>
+            <div>
+              <a href="https://www.facebook.com/rizevan.ablao.73" target="_blank">
+                <img src="images/RizEvan.jpg" alt="Riz Evan Ablao">
+              </a>
+              <p>Riz Evan Ablao (Brother)</p>
+            </div>
+          </div>
 
-    <script src="script.js"></script>
+          <!-- Partners -->
+          <div class="family-list">
+            <div>
+              <a href="https://www.facebook.com/erene.gimena#" target="_blank">
+                <img src="images/in in.jpg" alt="In-In Gimena">
+              </a>
+              <p>In-In Gimena (Kenneth’s Wife)</p>
+            </div>
+            <div>
+              <a href="https://www.facebook.com/jonahfayemarie.lenaming.5#" target="_blank">
+                <img src="images/jonafaye.jpg" alt="Jonahfaye Marie Lenaming">
+              </a>
+              <p>Jonahfaye Marie Lenaming (Riz Evan’s GF)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Toggle the sidebar menu
+    function toggleMenu() {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("open");
+    }
+
+    // Close menu when clicking outside of it
+    document.addEventListener("click", function (event) {
+      const sidebar = document.getElementById("sidebar");
+      const hamburger = document.querySelector(".hamburger");
+
+      if (sidebar.classList.contains("open") &&
+          !sidebar.contains(event.target) &&
+          !hamburger.contains(event.target)) {
+        sidebar.classList.remove("open");
+      }
+    });
+
+    // Handle submenu toggle
+    document.querySelectorAll(".submenu-toggle").forEach(toggle => {
+      toggle.addEventListener("click", function (e) {
+        e.preventDefault();
+        let submenu = this.nextElementSibling;
+        submenu.classList.toggle("active");
+
+        if (submenu.classList.contains("active")) {
+          this.innerHTML = this.innerHTML.replace("▸", "▾");
+        } else {
+          this.innerHTML = this.innerHTML.replace("▾", "▸");
+        }
+      });
+    });
+  </script>
 </body>
 </html>
