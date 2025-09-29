@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/png" href="images/Accx_Logo.png" />
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/Accx_Logo.png">
   <title>Bryan G. Ablao</title>
   <style>
     body {
@@ -14,6 +12,7 @@
       animation: gradientMove 10s infinite alternate;
       color: white;
     }
+
     @keyframes gradientMove {
       0% { background-position: 0% 50%; }
       100% { background-position: 100% 50%; }
@@ -44,8 +43,16 @@
       padding-top: 60px;
       z-index: 999;
     }
-    #sidebar.open { width: 250px; }
-    #sidebar ul { list-style: none; padding: 0; margin: 0; }
+
+    #sidebar.open {
+      width: 250px;
+    }
+
+    #sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
     #sidebar ul li a {
       padding: 10px 20px;
       display: block;
@@ -55,8 +62,15 @@
       transform: translateX(20px);
       transition: all 0.3s ease;
     }
-    #sidebar.open ul li a { opacity: 1; transform: translateX(0); }
-    #sidebar ul li a:hover { background: #380098; }
+
+    #sidebar.open ul li a {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    #sidebar ul li a:hover {
+      background: #380098;
+    }
 
     .content-card {
       padding: 20px;
@@ -67,6 +81,7 @@
       text-align: center;
     }
 
+    /* Card for profile info */
     .profile-card {
       background: rgba(255, 255, 255, 0.05);
       border: 2px solid #380098;
@@ -79,7 +94,7 @@
 
     .profile-pic-link img {
       width: 150px;
-      aspect-ratio: 1/1;
+      height: 150px;
       border-radius: 50%;
       border: 3px solid white;
       object-fit: cover;
@@ -87,9 +102,16 @@
       margin: 0 auto;
     }
 
-    .profile-info { margin-top: 15px; }
-    .profile-info p { margin: 8px 0; font-size: 1rem; }
+    .profile-info {
+      margin-top: 15px;
+    }
 
+    .profile-info p {
+      margin: 8px 0;
+      font-size: 1rem;
+    }
+
+    /* Card for family members */
     .family-card {
       background: rgba(255, 255, 255, 0.05);
       border: 2px solid #380098;
@@ -98,134 +120,75 @@
       box-shadow: 0 0 10px rgba(56, 0, 152, 0.6);
       width: 100%;
       max-width: 900px;
-      margin: 0 auto;
     }
 
-    .family h3 { margin-bottom: 25px; }
-
-    /* ---------- Family Tree ---------- */
-    .tree {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 50px;
-      position: relative;
+    .family h3 {
+      margin-bottom: 15px;
     }
 
-    /* Parents row */
-    .parents {
-      display: flex;
-      gap: 50px;
-      position: relative;
-      z-index: 2;
-    }
-
-    /* Horizontal line between parents */
-    .parents::before {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: white;
-      z-index: 0;
-    }
-
-    /* Vertical line from parents to children */
-    .parents::after {
-      content: "";
-      position: absolute;
-      bottom: -25px;
-      left: 50%;
-      width: 2px;
-      height: 25px;
-      background: white;
-      transform: translateX(-50%);
-      z-index: 1;
-    }
-
-    .children {
+    /* Arrange family members neatly */
+    .family-list {
       display: flex;
       justify-content: center;
-      gap: 50px;
-      position: relative;
-      z-index: 2;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-bottom: 20px;
     }
 
-    /* Horizontal line connecting children */
-    .children::before {
-      content: "";
-      position: absolute;
-      top: -25px;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: white;
-      z-index: 0;
+    .family-list div {
+      text-align: center;
+      flex: 1 1 200px; /* makes items equal width */
+      max-width: 200px;
     }
 
-    /* Child or child+partner */
-    .person, .person-with-partner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      position: relative;
-    }
-
-    /* Vertical line from child up to siblings horizontal line */
-    .person::before, .person-with-partner::before {
-      content: "";
-      position: absolute;
-      top: -25px;
-      left: 50%;
-      width: 2px;
-      height: 25px;
-      background: white;
-      transform: translateX(-50%);
-      z-index: 1;
-    }
-
-    .person img, .partner img {
+    .family-list img {
       width: 100px;
-      aspect-ratio: 1/1;
+      height: 100px;
       border-radius: 50%;
       border: 2px solid white;
       object-fit: cover;
-      display: block;
-      margin: 0 auto;
     }
 
-    .person p, .partner p {
+    .family-list p {
       font-weight: bold;
       margin-top: 8px;
-      line-height: 1.1;
     }
 
-    /* Horizontal marriage line between child and partner */
-    .person-with-partner {
-      display: flex;
-      flex-direction: row; /* side by side */
-      align-items: center;
-      gap: 10px;
-      position: relative;
+    hr {
+      border: none;
+      border-top: 1px solid white;
+      margin: 20px 0;
     }
 
-    /* Vertical line from child down to partner line */
-    .person-with-partner::after {
+    @media (max-width: 600px) {
+      .profile-pic-link img {
+        width: 200px;
+        height: 200px;
+      }
+      .family-list {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    /* Hide all submenus by default */
+    .submenu {
+      display: none;
+      padding-left: 15px;
+    }
+
+    /* Show when active */
+    .submenu.active {
+      display: block;
+    }
+
+    /* Styling the caret/arrow */
+    .submenu-toggle {
+      cursor: pointer;
+      display: block;
+    }
+    .submenu-toggle::after {
       content: "";
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      width: calc(100% + 10px); /* span to partner */
-      height: 2px;
-      background: white;
-      transform: translateX(-50%);
-    }
-
-    @media (max-width: 700px) {
-      .parents, .children, .person-with-partner { flex-direction: column; gap: 20px; }
-      .person-with-partner::after { width: 2px; height: 20px; top: 100%; left: 50%; transform: translateX(-50%); }
     }
   </style>
 </head>
@@ -256,7 +219,9 @@
             <img src="images/Bryan.jpg" alt="Bryan">
           </a>
         </div>
+
         <hr>
+
         <div class="profile-info">
           <p><strong>Address:</strong> Sb.3 Barrangay 22-C Piape Boulevard Davao City</p>
           <p><strong>Mobile:</strong> 09928760990</p>
@@ -269,56 +234,54 @@
         </div>
       </div>
 
-      <hr />
+      <hr>
 
-      <!-- Family Tree -->
+      <!-- Family Card -->
       <div class="family-card">
         <div class="family">
-          <h3>Family Tree</h3>
-          <div class="tree">
-            <!-- Parents -->
-            <div class="parents">
-              <div class="person">
-                <img src="images/father.png" alt="Evaristo C. Ablao">
-                <p>Father<br>Evaristo C. Ablao</p>
-              </div>
-              <div class="person">
-                <img src="images/mother.png" alt="Annalie G. Ablao">
-                <p>Mother<br>Annalie G. Ablao</p>
-              </div>
+          <h3>Family Members</h3>
+
+          <!-- Parents -->
+          <div class="family-list">
+            <div>
+              <img src="images/father.png" alt="Evaristo C. Ablao">
+              <p>Evaristo C. Ablao - Father</p>
             </div>
+            <div>
+              <img src="images/mother.png" alt="Annalie G. Ablao">
+              <p>Annalie G. Ablao - Mother</p>
+            </div>
+          </div>
 
-            <!-- Children -->
-            <div class="children">
-              <!-- Bryan -->
-              <div class="person">
-                <img src="images/Bryan.jpg" alt="Bryan Ablao">
-                <p>You: Bryan</p>
-              </div>
+          <!-- Siblings -->
+          <div class="family-list">
+            <div>
+              <a href="https://www.facebook.com/kenneth.ablao.12" target="_blank">
+                <img src="images/Kenneth.jpg" alt="Kenneth Ablao">
+              </a>
+              <p>Kenneth Ablao (Brother)</p>
+            </div>
+            <div>
+              <a href="https://www.facebook.com/rizevan.ablao.73" target="_blank">
+                <img src="images/RizEvan.jpg" alt="Riz Evan Ablao">
+              </a>
+              <p>Riz Evan Ablao (Brother)</p>
+            </div>
+          </div>
 
-              <!-- Kenneth + In-In -->
-              <div class="person-with-partner">
-                <div class="person">
-                  <img src="images/Kenneth.jpg" alt="Kenneth Ablao">
-                  <p>Kenneth</p>
-                </div>
-                <div class="partner">
-                  <img src="images/in in.jpg" alt="In-In">
-                  <p>In-In</p>
-                </div>
-              </div>
-
-              <!-- Riz Evan + Jonahfaye -->
-              <div class="person-with-partner">
-                <div class="person">
-                  <img src="images/RizEvan.jpg" alt="Riz Evan Ablao">
-                  <p>Riz Evan</p>
-                </div>
-                <div class="partner">
-                  <img src="images/jonafaye.jpg" alt="Jonahfaye">
-                  <p>Jonahfaye</p>
-                </div>
-              </div>
+          <!-- Partners -->
+          <div class="family-list">
+            <div>
+              <a href="https://www.facebook.com/erene.gimena#" target="_blank">
+                <img src="images/in in.jpg" alt="In-In Gimena">
+              </a>
+              <p>In-In Gimena (Kenneth’s Wife)</p>
+            </div>
+            <div>
+              <a href="https://www.facebook.com/jonahfayemarie.lenaming.5#" target="_blank">
+                <img src="images/jonafaye.jpg" alt="Jonahfaye Marie Lenaming">
+              </a>
+              <p>Jonahfaye Marie Lenaming (Riz Evan’s GF)</p>
             </div>
           </div>
         </div>
@@ -327,11 +290,13 @@
   </main>
 
   <script>
+    // Toggle the sidebar menu
     function toggleMenu() {
       const sidebar = document.getElementById("sidebar");
       sidebar.classList.toggle("open");
     }
 
+    // Close menu when clicking outside of it
     document.addEventListener("click", function (event) {
       const sidebar = document.getElementById("sidebar");
       const hamburger = document.querySelector(".hamburger");
@@ -342,6 +307,21 @@
         sidebar.classList.remove("open");
       }
     });
+
+    // Handle submenu toggle
+    document.querySelectorAll(".submenu-toggle").forEach(toggle => {
+      toggle.addEventListener("click", function (e) {
+        e.preventDefault();
+        let submenu = this.nextElementSibling;
+        submenu.classList.toggle("active");
+
+        if (submenu.classList.contains("active")) {
+          this.innerHTML = this.innerHTML.replace("▸", "▾");
+        } else {
+          this.innerHTML = this.innerHTML.replace("▾", "▸");
+        }
+      });
+    });
   </script>
-</body>
-</html>
+
+</body></html>
