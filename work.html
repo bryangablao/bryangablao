@@ -21,6 +21,9 @@
       align-items: center;
       padding: 15px;
       background: rgba(0, 0, 0, 0.5);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
     header h1 {
@@ -29,52 +32,59 @@
       line-height: 1.2;
     }
 
-    /* Hamburger same as index.html */
     .hamburger {
-      font-size: 24px;
+      font-size: 1.8rem;
       cursor: pointer;
+      user-select: none;
     }
 
-    /* Sidebar style (copied from index.html) */
-    #sidebar {
-      height: 100%;
-      width: 0;
+    /* Sidebar overlay */
+    #sidebarOverlay {
       position: fixed;
       top: 0;
-      right: 0;
-      background-color: rgba(0,0,0,0.95);
-      overflow-x: hidden;
-      transition: 0.3s;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.4);
+      display: none;
+      z-index: 1000;
+    }
+
+    /* Sidebar (updated like gallery.html) */
+    #sidebar {
+      width: 220px;
+      max-width: 80%;
+      background: rgba(0,0,0,0.9);
+      color: white;
+      position: fixed;
+      top: 0;
+      right: -220px; /* hidden */
+      height: 100%;
       padding-top: 60px;
-      z-index: 999;
+      transition: right 0.3s ease;
+      z-index: 1001;
     }
 
     #sidebar.open {
-      width: 250px;
+      right: 0;
     }
 
     #sidebar ul {
       list-style: none;
       padding: 0;
+      margin: 0;
     }
 
     #sidebar ul li a {
-      padding: 10px 20px;
       display: block;
+      padding: 12px 20px;
       color: white;
       text-decoration: none;
-      opacity: 0;
-      transform: translateX(20px);
-      transition: all 0.3s ease;
-    }
-
-    #sidebar.open ul li a {
-      opacity: 1;
-      transform: translateX(0);
+      text-align: left;
     }
 
     #sidebar ul li a:hover {
-      background: #380098;
+      background: rgba(255,255,255,0.15);
     }
 
     h2 {
@@ -143,11 +153,14 @@
 </head>
 <body>
 
-  <!-- Header with sidebar toggle -->
+  <!-- Header -->
   <header>
     <h1>Work Experience</h1>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
   </header>
+
+  <!-- Sidebar Overlay -->
+  <div id="sidebarOverlay" onclick="closeMenu()"></div>
 
   <!-- Sidebar -->
   <nav id="sidebar">
@@ -201,29 +214,23 @@
     </div>
   </div>
 
-  <!-- Only Resume button -->
+  <!-- Resume button -->
   <div class="buttons">
     <a href="images/Ablao-Bryan-G.-Resume-2025 new.docx" download class="btn">Download Resume</a>
   </div>
 
   <script>
-    // Toggle the sidebar menu
     function toggleMenu() {
       const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("sidebarOverlay");
       sidebar.classList.toggle("open");
+      overlay.style.display = sidebar.classList.contains("open") ? "block" : "none";
     }
 
-    // Close menu when clicking outside
-    document.addEventListener("click", function (event) {
-      const sidebar = document.getElementById("sidebar");
-      const hamburger = document.querySelector(".hamburger");
-
-      if (sidebar.classList.contains("open") &&
-          !sidebar.contains(event.target) &&
-          !hamburger.contains(event.target)) {
-        sidebar.classList.remove("open");
-      }
-    });
+    function closeMenu() {
+      document.getElementById("sidebar").classList.remove("open");
+      document.getElementById("sidebarOverlay").style.display = "none";
+    }
   </script>
 </body>
 </html>
