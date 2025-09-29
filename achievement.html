@@ -35,11 +35,11 @@
       cursor: pointer;
     }
 
-    /* Sidebar (on the right) */
+    /* Sidebar (on the left now) */
     #sidebar {
       position: fixed;
       top: 0;
-      right: -250px;
+      left: -250px;   /* hidden by default */
       width: 250px;
       height: 100%;
       background: rgba(0,0,0,0.9);
@@ -193,7 +193,7 @@
   <script>
     function toggleMenu() {
       const sidebar = document.getElementById("sidebar");
-      sidebar.style.right = (sidebar.style.right === "0px") ? "-250px" : "0px";
+      sidebar.style.left = (sidebar.style.left === "0px") ? "-250px" : "0px";
     }
     function openModal(image, title, desc) {
       document.getElementById("achievementModal").style.display = "flex";
