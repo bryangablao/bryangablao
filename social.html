@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="images/Accx_Logo.png">
-  <title>Bryan G. Ablao</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="images/Accx_Logo.png" />
+  <title>Social Media – Bryan G. Ablao</title>
   <style>
     body {
       margin: 0;
@@ -13,6 +13,7 @@
       background-size: 200% 200%;
       animation: gradientMove 10s infinite alternate;
       color: white;
+      overflow-x: hidden;
       text-align: center;
     }
 
@@ -21,23 +22,43 @@
       100% { background-position: 100% 50%; }
     }
 
+    /* Header */
     header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 15px;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0, 0, 0, 0.5);
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 1002;
     }
 
     header h1 {
-      font-size: 1.5rem;
+      font-size: 1.8rem;
       margin: 0;
       line-height: 1.2;
+      color: #fff;
+      text-shadow: 0 0 5px #ffffff80, 0 0 10px #ffffff40, 0 0 20px #a76fff50;
+      animation: flickerText 3s infinite;
     }
 
+    @keyframes flickerText {
+      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 6px #fff, 0 0 10px #fff, 0 0 20px #a76fff80, 0 0 30px #38009890;
+      }
+      20%, 22%, 55% {
+        opacity: 0.7;
+        text-shadow: 0 0 3px #fff, 0 0 8px #a76fff40;
+      }
+      24% {
+        opacity: 0.4;
+        text-shadow: 0 0 2px #fff, 0 0 5px #a76fff20;
+      }
+    }
+
+    /* Hamburger */
     .hamburger {
       font-size: 1.8rem;
       cursor: pointer;
@@ -51,12 +72,12 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.4); /* transparent black */
+      background: rgba(0,0,0,0.4);
       display: none;
       z-index: 1000;
     }
 
-    /* Sidebar (same as gallery.html) */
+    /* Sidebar */
     #sidebar {
       width: 220px;
       max-width: 80%;
@@ -64,23 +85,16 @@
       color: white;
       position: fixed;
       top: 0;
-      right: -220px;   /* hidden off-screen */
+      right: -220px;
       height: 100%;
       padding-top: 60px;
       transition: right 0.3s ease;
       z-index: 1001;
     }
 
-    #sidebar.open {
-      right: 0; /* slide in */
-    }
+    #sidebar.open { right: 0; }
 
-    #sidebar ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
+    #sidebar ul { list-style: none; padding: 0; margin: 0; }
     #sidebar ul li a {
       display: block;
       padding: 12px 20px;
@@ -88,14 +102,15 @@
       text-decoration: none;
       text-align: left;
     }
+    #sidebar ul li a:hover { background: rgba(255, 255, 255, 0.15); }
 
-    #sidebar ul li a:hover {
-      background: rgba(255, 255, 255, 0.15);
-    }
-
-    /* Social Media Section */
+    /* Social Section */
     .social-media {
       padding: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
 
     .description {
@@ -125,9 +140,25 @@
       transform: scale(1.1);
       box-shadow: 0 0 10px gold;
     }
+
+    /* Background Canvases */
+    #starsCanvas, #rippleCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+    }
+    #starsCanvas { z-index: 0; }
+    #rippleCanvas { z-index: 0; }
   </style>
 </head>
 <body>
+
+  <!-- Background canvases -->
+  <canvas id="starsCanvas"></canvas>
+  <canvas id="rippleCanvas"></canvas>
 
   <!-- Header -->
   <header>
@@ -150,7 +181,7 @@
     </ul>
   </nav>
 
-  <!-- Social section -->
+  <!-- Social Section -->
   <section class="social-media">
     <p class="description">
       Connect with me online! Follow, subscribe, or send me a message — I’d love to hear from you.
@@ -185,6 +216,7 @@
   </section>
 
   <script>
+    /* Sidebar toggle */
     function toggleMenu() {
       const sidebar = document.getElementById("sidebar");
       const overlay = document.getElementById("sidebarOverlay");
@@ -196,6 +228,133 @@
       document.getElementById("sidebar").classList.remove("open");
       document.getElementById("sidebarOverlay").style.display = "none";
     }
+
+    /* Starfield + meteor + ripple (from index.html) */
+    const starsCanvas = document.getElementById('starsCanvas');
+    const starsCtx = starsCanvas.getContext('2d');
+    let stars = [];
+    let meteor = null;
+
+    function resizeStarsCanvas() {
+      starsCanvas.width = window.innerWidth;
+      starsCanvas.height = window.innerHeight;
+      generateStars();
+    }
+
+    function generateStars() {
+      stars = [];
+      const numStars = 200;
+      for (let i = 0; i < numStars; i++) {
+        stars.push({
+          x: Math.random() * starsCanvas.width,
+          y: Math.random() * starsCanvas.height,
+          baseAlpha: Math.random() * 0.7 + 0.3,
+          alpha: Math.random() * 0.7 + 0.3,
+          radius: Math.random() * 1.5 + 0.5,
+          flickerSpeed: Math.random() * 0.05 + 0.02
+        });
+      }
+    }
+
+    function drawMeteor() {
+      if (!meteor) return;
+      starsCtx.save();
+      const grad = starsCtx.createLinearGradient(meteor.x, meteor.y, meteor.x - meteor.vx*10, meteor.y - meteor.vy*10);
+      grad.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
+      grad.addColorStop(1, `rgba(255,255,255,0)`);
+      starsCtx.strokeStyle = grad;
+      starsCtx.lineWidth = 2;
+      starsCtx.beginPath();
+      starsCtx.moveTo(meteor.x, meteor.y);
+      starsCtx.lineTo(meteor.x - meteor.vx * 20, meteor.y - meteor.vy * 20);
+      starsCtx.stroke();
+      starsCtx.restore();
+    }
+
+    function animateStars() {
+      starsCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+      stars.forEach(star => {
+        star.alpha += star.flickerSpeed * (Math.random() < 0.5 ? -1 : 1);
+        if (star.alpha < 0.1) star.alpha = 0.1;
+        if (star.alpha > 1) star.alpha = 1;
+
+        starsCtx.beginPath();
+        starsCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        starsCtx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        starsCtx.fill();
+      });
+
+      if (meteor) {
+        meteor.x += meteor.vx;
+        meteor.y += meteor.vy;
+        meteor.alpha -= 0.01;
+        drawMeteor();
+        if (meteor.alpha <= 0 || meteor.x < -50 || meteor.y > starsCanvas.height + 50) {
+          meteor = null;
+          setTimeout(spawnMeteor, Math.random() * 5000 + 3000);
+        }
+      }
+
+      requestAnimationFrame(animateStars);
+    }
+
+    function spawnMeteor() {
+      meteor = {
+        x: Math.random() * starsCanvas.width,
+        y: -20,
+        vx: -(Math.random() * 4 + 2),
+        vy: Math.random() * 2 + 2,
+        alpha: 1
+      };
+    }
+
+    window.addEventListener('resize', resizeStarsCanvas);
+    resizeStarsCanvas();
+    animateStars();
+    setTimeout(spawnMeteor, 3000);
+
+    /* Ripple effect */
+    const rippleCanvas = document.getElementById('rippleCanvas');
+    const rippleCtx = rippleCanvas.getContext('2d');
+    let ripples = [];
+
+    function resizeRippleCanvas() {
+      rippleCanvas.width = window.innerWidth;
+      rippleCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeRippleCanvas);
+    resizeRippleCanvas();
+
+    window.addEventListener('mousemove', (e) => {
+      ripples.push({
+        x: e.clientX,
+        y: e.clientY,
+        radius: 0,
+        alpha: 0.3,
+        lineWidth: 1 + Math.random()
+      });
+      if (ripples.length > 20) ripples.shift();
+    });
+
+    function animateRipples() {
+      rippleCtx.clearRect(0, 0, rippleCanvas.width, rippleCanvas.height);
+      ripples.forEach((r, i) => {
+        r.radius += 1.5;
+        r.alpha -= 0.007;
+        if (r.alpha <= 0) {
+          ripples.splice(i, 1);
+          return;
+        }
+        rippleCtx.beginPath();
+        rippleCtx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+        rippleCtx.strokeStyle = `rgba(56, 0, 152, ${r.alpha})`;
+        rippleCtx.lineWidth = r.lineWidth;
+        rippleCtx.stroke();
+      });
+      requestAnimationFrame(animateRipples);
+    }
+    animateRipples();
   </script>
+
 </body>
 </html>
