@@ -141,6 +141,23 @@
   }
   .download-btn:hover { background: #5200d6; transform: scale(1.05); }
 
+  /* Footer */
+  footer {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px 0;
+    text-align: center;
+    color: #ccc;
+    font-size: 0.9rem;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    position: relative;
+    z-index: 2;
+  }
+
+  footer span {
+    color: #a76fff;
+    font-weight: bold;
+  }
+  
   #starsCanvas, #rippleCanvas {
     position: fixed; top:0; left:0;
     width:100vw; height:100vh;
@@ -186,6 +203,11 @@
   </div>
 </section>
 
+<!-- Footer -->
+<footer>
+  © 2025 All rights reserved | <span>Accx Creations</span>
+</footer>
+  
 <div id="imageModal" class="modal">
   <span class="close" onclick="closeModal()">×</span>
   <img id="modalImg" class="modal-content">
