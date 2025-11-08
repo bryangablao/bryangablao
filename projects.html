@@ -132,11 +132,22 @@
     color:#ccc !important; text-decoration:none !important;
   }
 
-  .footer-text {
-    font-size:0.8rem;
-    color:#aaa;
-    margin-top:40px;
+    .footer-text {
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-top: 60px;        /* add more spacing above */
+    margin-bottom: 30px;     /* adds space from bottom edge */
+    text-align: center;
+    opacity: 0.9;
+    transition: opacity 0.3s ease;
   }
+
+  .footer-text:hover {
+    opacity: 1;
+    color: gold;
+    text-shadow: 0 0 8px gold;
+  }
+
 
   @media (max-width:1024px) { .projects-grid { grid-template-columns:repeat(2,1fr); } }
   @media (max-width:768px) { .projects-grid { grid-template-columns:1fr; } }
@@ -178,12 +189,14 @@
     <a class="project-card" href="https://bryangablao.github.io/G-GAMES/index.html" target="_blank">
       <img src="images/Gallery/project/GGAMES.png" alt="Mini-Games Collection">
       <h3>G-GAMES</h3>
-      <p>An interactive single-player mini-games lobby featuring a 5x5 grid of square game cards, including Sudoku, Tic-Tac-Toe, Snake, Tetris, and more. Fully responsive and playable on desktop and mobile, Open to the public for casual gaming.</p>
+      <p>An interactive single-player mini-games lobby featuring a 5x5 grid of square game cards, including Sudoku, Tic-Tac-Toe, Snake, Flappy Bird, and more. Fully responsive and playable on desktop and mobile, with a starry background for a lively atmosphere. Open to the public for casual gaming.</p>
     </a>
   </div>
 </main>
 
-<div class="footer-text">🚀 Developed by Accx Creations</div>
+<footer class="footer-text">
+  🚀 Developed by <strong>Accx Creations</strong>
+</footer>
 
 <script>
 function toggleMenu() {
