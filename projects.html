@@ -207,34 +207,12 @@
     100% { transform: scale(1); opacity:1; }
   }
 
-  /* Modal stars canvas */
-#modalStarsCanvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 2001; /* above modal overlay */
-}
-
-#modalCursorCanvas {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 3000; /* above modal */
-  display: none; /* hidden by default */
-}
-
 </style>
 </head>
 <body>
 
 <canvas id="starsCanvas"></canvas>
 <canvas id="rippleCanvas"></canvas>
-<canvas id="modalStarsCanvas"></canvas>
-<canvas id="modalCursorCanvas"></canvas>
 
 <header>
   <h1>Projects</h1>
@@ -363,140 +341,6 @@ window.addEventListener('resize',resizeRippleCanvas); resizeRippleCanvas();
 window.addEventListener('mousemove',(e)=>{ripples.push({x:e.clientX,y:e.clientY,radius:0,alpha:0.3,lineWidth:1+Math.random()}); if(ripples.length>20) ripples.shift();});
 function animateRipples(){rippleCtx.clearRect(0,0,rippleCanvas.width,rippleCanvas.height); ripples.forEach((r,i)=>{r.radius+=1.5; r.alpha-=0.007; if(r.alpha<=0){ripples.splice(i,1);return;} rippleCtx.beginPath(); rippleCtx.arc(r.x,r.y,r.radius,0,Math.PI*2); rippleCtx.strokeStyle=`rgba(56,0,152,${r.alpha})`; rippleCtx.lineWidth=r.lineWidth; rippleCtx.stroke();}); requestAnimationFrame(animateRipples);}
 animateRipples();
-
-// Modal Stars
-const modalStarsCanvas = document.getElementById('modalStarsCanvas');
-const modalStarsCtx = modalStarsCanvas.getContext('2d');
-let modalStars = [];
-
-// Modal Stars Canvas
-function resizeModalStarsCanvas() {
-  modalStarsCanvas.width = window.innerWidth;
-  modalStarsCanvas.height = window.innerHeight;
-}
-
-// Make sure modal stars are regenerated when window resizes
-window.addEventListener('resize', () => {
-  resizeModalStarsCanvas();
-  generateModalStars(); // regenerate stars so they fill the new window size
-});
-
-// Modal Stars
-function generateModalStars() {
-  modalStars = [];
-  const cornerStarCount = 10; 
-  const randomStarCount = 40;  // more random stars
-
-  // Top-left corner
-  for (let i = 0; i < cornerStarCount; i++) {
-    modalStars.push({
-      x: Math.random() * 200,
-      y: Math.random() * 200,
-      radius: Math.random() * 2 + 1,
-      alpha: Math.random() * 0.7 + 0.3,
-      flickerSpeed: Math.random() * 0.02 + 0.01
-    });
-  }
-
-  // Bottom-right corner
-  for (let i = 0; i < cornerStarCount; i++) {
-    modalStars.push({
-      x: window.innerWidth - Math.random() * 200,
-      y: window.innerHeight - Math.random() * 200,
-      radius: Math.random() * 2 + 1,
-      alpha: Math.random() * 0.7 + 0.3,
-      flickerSpeed: Math.random() * 0.02 + 0.01
-    });
-  }
-
-  // Random stars
-  for (let i = 0; i < randomStarCount; i++) {
-    modalStars.push({
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      radius: Math.random() * 2 + 1,
-      alpha: Math.random() * 0.5 + 0.2,
-      flickerSpeed: Math.random() * 0.02 + 0.01
-    });
-  }
-}
-
-function animateModalStars() {
-  modalStarsCtx.clearRect(0, 0, modalStarsCanvas.width, modalStarsCanvas.height);
-  
-  modalStars.forEach(star => {
-    star.alpha += star.flickerSpeed * (Math.random() < 0.5 ? -1 : 1);
-    if(star.alpha < 0.1) star.alpha = 0.1;
-    if(star.alpha > 1) star.alpha = 1;
-
-    modalStarsCtx.beginPath();
-    modalStarsCtx.arc(star.x, star.y, star.radius, 0, Math.PI*2);
-    modalStarsCtx.fillStyle = `rgba(255,255,255,${star.alpha})`;
-    modalStarsCtx.fill();
-  });
-
-  if(hireModal.style.display === 'flex') {
-    requestAnimationFrame(animateModalStars);
-  }
-}
-
-// Cursor Glitter
-let cursorStars = [];
-let mouse = { x: -100, y: -100 };
-
-function animateCursorStars() {
-  modalCursorCtx.clearRect(0, 0, modalCursorCanvas.width, modalCursorCanvas.height);
-  cursorStars.forEach(star => {
-  star.x += star.dx;
-  star.y += star.dy;
-  star.alpha -= 0.02;  // fade out
-
-  modalCursorCtx.beginPath();
-  modalCursorCtx.arc(star.x, star.y, star.radius, 0, Math.PI*2);
-  modalCursorCtx.fillStyle = `rgba(255,255,255,${star.alpha})`;
-  modalCursorCtx.fill();
-});
-
-// Remove stars with alpha <= 0 after drawing
-cursorStars = cursorStars.filter(star => star.alpha > 0);
-  if (hireModal.style.display === 'flex') requestAnimationFrame(animateCursorStars);
-}
-
-// Track mouse
-hireModal.addEventListener('mousemove', (e) => {
-  mouse.x = e.clientX;
-  mouse.y = e.clientY;
-  for (let i = 0; i < 3; i++) {
-    cursorStars.push({
-      x: mouse.x,
-      y: mouse.y,
-      radius: Math.random() * 2 + 1,
-      alpha: Math.random() * 0.8 + 0.2,
-      dx: (Math.random() - 0.5) * 1.5,
-      dy: (Math.random() - 0.5) * 1.5
-    });
-  }
-
-  // Limit total stars to 100
-  if(cursorStars.length > 100) cursorStars.splice(0, cursorStars.length - 100);
-});
-
-// Start animation when modal opens
-hireBtn.addEventListener('click', () => {
-  modalCursorCanvas.style.display = 'block';
-  animateCursorStars();
-  generateModalStars();
-  animateModalStars();
-});
-
-// Hide everything when modal closes
-function closeHireModal() {
-  hireModal.style.display = 'none';
-  modalStarsCtx.clearRect(0, 0, modalStarsCanvas.width, modalStarsCanvas.height);
-  modalCursorCanvas.style.display = 'none';
-  cursorStars = [];
-}
-
 </script>
 
 </body>
