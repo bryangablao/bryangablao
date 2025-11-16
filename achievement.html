@@ -171,21 +171,6 @@
     }
     .modal h2 { margin: 0 0 10px; color: gold; }
 
-    /* Fix modal on mobile so it stays centered and not cut off */
-@media (max-width: 900px) {
-  .modal {
-    display: flex !important;        /* force modal to use flex even when opened */
-    justify-content: center;
-    align-items: center;             /* center vertically */
-    overflow-y: auto;                /* allow scrolling if modal is too tall */
-    padding: 20px;
-  }
-
-  .modal-content {
-    max-height: 90vh;                /* prevent modal from being taller than screen */
-  }
-}
-
     .close {
       position: absolute;
       top: -15px;
