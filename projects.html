@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="images/Accx_Logo.png" />
 <title>Bryan G. Ablao</title>
 <style>
   body {
@@ -43,9 +44,18 @@
   }
 
   @keyframes flickerText {
-    0%,19%,21%,23%,25%,54%,56%,100% { opacity:1; text-shadow:0 0 6px #fff,0 0 10px #fff,0 0 20px #a76fff80,0 0 30px #38009890; }
-    20%,22%,55% { opacity:0.7; text-shadow:0 0 3px #fff,0 0 8px #a76fff40; }
-    24% { opacity:0.4; text-shadow:0 0 2px #fff,0 0 5px #a76fff20; }
+    0%,19%,21%,23%,25%,54%,56%,100% {
+      opacity:1;
+      text-shadow:0 0 6px #fff,0 0 10px #fff,0 0 20px #a76fff80,0 0 30px #38009890;
+    }
+    20%,22%,55% {
+      opacity:0.7;
+      text-shadow:0 0 3px #fff,0 0 8px #a76fff40;
+    }
+    24% {
+      opacity:0.4;
+      text-shadow:0 0 2px #fff,0 0 5px #a76fff20;
+    }
   }
 
   .hamburger { font-size:1.8rem; cursor:pointer; user-select:none; }
@@ -105,7 +115,12 @@
     box-shadow: 0 0 15px #5200d6;
   }
 
-  .project-card img { width:100%; aspect-ratio:1/1; object-fit:contain; border-radius:10px; }
+  .project-card img {
+    width:100%; aspect-ratio:1/1;
+    object-fit:contain;
+    border-radius:10px;
+  }
+
   .project-card h3 { color: white !important; margin:10px 0 5px 0; text-decoration:none !important; }
   .project-card p { color:#ccc !important; text-decoration:none !important; }
 
@@ -124,11 +139,11 @@
   @media (max-width:768px) { .projects-grid { grid-template-columns:1fr; } }
 
   canvas { position: fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none; }
-
   #starsCanvas { z-index:0; }
   #rippleCanvas { z-index:1; }
   #modalStarsCanvas { z-index:2001; display:none; }
 
+  /* Hire Me Modal */
   .modal-overlay {
     position: fixed;
     top: 0; left: 0;
@@ -154,13 +169,9 @@
     animation: popIn 0.3s ease;
   }
 
-  .close-modal {
-    position:absolute;
-    top:10px; right:10px;
-    font-size:1.5rem;
-    cursor:pointer;
-    color:white;
-  }
+  .modal-box h2 { margin-top:0; margin-bottom:10px; }
+  .modal-box p { line-height:1.5; }
+  .close-modal { position:absolute; top:10px; right:10px; font-size:1.5rem; cursor:pointer; color:white; }
 
   @keyframes popIn { 0% { transform: scale(0.8); opacity:0; } 100% { transform: scale(1); opacity:1; } }
 
@@ -175,12 +186,26 @@
 <header>
   <h1>Projects</h1>
   <div style="display:flex; align-items:center; gap:10px;">
-    <button id="hireBtn">Hire Me</button>
+    <button id="hireBtn" style="
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.5);
+      padding:6px 12px;
+      border-radius:5px;
+      font-weight:bold;
+      cursor:pointer;
+      text-shadow: 0 0 4px rgba(255,255,255,0.6);
+      transition: all 0.3s ease;
+    "
+    onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px rgba(255,255,255,0.5)';"
+    onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0 4px rgba(255,255,255,0.3)';"
+    >Hire Me</button>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
   </div>
 </header>
 
 <div id="sidebarOverlay" onclick="closeMenu()"></div>
+
 <nav id="sidebar">
   <ul>
     <li><a href="index.html">About Me</a></li>
@@ -194,10 +219,10 @@
 
 <main>
   <div class="projects-grid">
-    <a class="project-card" href="#" target="_blank">
+    <a class="project-card" href="https://bryangablao.github.io/G-GAMES/index.html" target="_blank">
       <img src="images/Gallery/project/GGAMES.png" alt="Mini-Games Collection">
       <h3>G-GAMES</h3>
-      <p>An interactive mini-games lobby featuring Sudoku, Tic-Tac-Toe, Snake, Flappy Bird, etc.</p>
+      <p>An interactive single-player mini-games lobby featuring a 5x5 grid of square game cards, including Sudoku, Tic-Tac-Toe, Snake, Flappy Bird, and more. Fully responsive and playable on desktop and mobile, with a starry background for a lively atmosphere. Open to the public for casual gaming.</p>
     </a>
   </div>
 </main>
@@ -206,21 +231,47 @@
   🚀 Developed by <strong>Accx Creations</strong>
 </footer>
 
+<!-- Hire Me Modal -->
 <div class="modal-overlay" id="hireModal">
   <div class="modal-box">
     <span class="close-modal" onclick="closeHireModal()">×</span>
     <h2>Website Creation Service</h2>
-    <p>We offer professional website creation services tailored to your needs.</p>
+    <p>
+      Are you interested in having your own customized website? We offer a professional service where we create your website tailored to your needs. 
+      Your website can be live within <strong>1–2 weeks</strong>.
+    </p>
+    <p>
+      <strong>Payment Options:</strong> 
+      <ul>
+        <li>You can pay a normal service fee directly to us for the creation and customization of your website.</li>
+        <li>If you already have a preferred domain or Google link, you can provide it, and we will connect your website to it.</li>
+      </ul>
+    </p>
+    <p>
+      <strong>Contact Us:</strong><br>
+      Phone: <a href="tel:+639928760990" style="color:gold;">+63 992 876 0990</a> (Dito)<br>
+      Email: <a href="mailto:ablaobryan4400@gmail.com" style="color:gold;">ablaobryan4400@gmail.com</a>
+    </p>
+    <p>We’ll handle everything professionally so you can focus on your content. Let’s make your website happen!</p>
   </div>
 </div>
 
 <script>
-/* Sidebar */
-function toggleMenu(){document.getElementById("sidebar").classList.toggle("open"); document.getElementById("sidebarOverlay").style.display=document.getElementById("sidebar").classList.contains("open")?'block':'none';}
+// Sidebar
+function toggleMenu(){const sidebar=document.getElementById("sidebar"); const overlay=document.getElementById("sidebarOverlay"); sidebar.classList.toggle("open"); overlay.style.display=sidebar.classList.contains("open")?'block':'none';}
 function closeMenu(){document.getElementById("sidebar").classList.remove("open"); document.getElementById("sidebarOverlay").style.display='none';}
 
-/* Stars background */
-const starsCanvas=document.getElementById('starsCanvas'), starsCtx=starsCanvas.getContext('2d'); let stars=[], meteor=null;
+// Hire Me Modal
+const hireBtn=document.getElementById('hireBtn'); 
+const hireModal=document.getElementById('hireModal'); 
+
+hireBtn.addEventListener('click',()=>{hireModal.style.display='flex'; modalStarsCanvas.style.display='block'; generateModalStars(); animateModalStars();});
+function closeHireModal(){ hireModal.style.display='none'; modalCtx.clearRect(0,0,modalStarsCanvas.width,modalStarsCanvas.height); cursorStars=[]; modalStarsCanvas.style.display='none'; }
+hireModal.addEventListener('click',(e)=>{if(e.target===hireModal) closeHireModal();});
+document.addEventListener('keydown',(e)=>{if(e.key==='Escape'&&hireModal.style.display==='flex') closeHireModal();});
+
+// Stars background + meteor
+const starsCanvas=document.getElementById('starsCanvas'); const starsCtx=starsCanvas.getContext('2d'); let stars=[], meteor=null;
 function resizeStarsCanvas(){starsCanvas.width=window.innerWidth; starsCanvas.height=window.innerHeight; generateStars();}
 function generateStars(){stars=[]; for(let i=0;i<200;i++){stars.push({x:Math.random()*starsCanvas.width,y:Math.random()*starsCanvas.height,radius:Math.random()*1.5+0.5,alpha:Math.random()*0.7+0.3,flickerSpeed:Math.random()*0.05+0.02});}}
 function drawMeteor(){if(!meteor)return; starsCtx.save(); const g=starsCtx.createLinearGradient(meteor.x,meteor.y,meteor.x-meteor.vx*10,meteor.y-meteor.vy*10); g.addColorStop(0,`rgba(255,255,255,${meteor.alpha})`); g.addColorStop(1,`rgba(255,255,255,0)`); starsCtx.strokeStyle=g; starsCtx.lineWidth=2; starsCtx.beginPath(); starsCtx.moveTo(meteor.x,meteor.y); starsCtx.lineTo(meteor.x-meteor.vx*20,meteor.y-meteor.vy*20); starsCtx.stroke(); starsCtx.restore();}
@@ -228,21 +279,19 @@ function animateStars(){starsCtx.clearRect(0,0,starsCanvas.width,starsCanvas.hei
 function spawnMeteor(){meteor={x:Math.random()*starsCanvas.width,y:-20,vx:-(Math.random()*4+2),vy:Math.random()*2+2,alpha:1};}
 window.addEventListener('resize',resizeStarsCanvas); resizeStarsCanvas(); animateStars(); setTimeout(spawnMeteor,3000);
 
-/* Ripple trail */
-const rippleCanvas=document.getElementById('rippleCanvas'), rippleCtx=rippleCanvas.getContext('2d'); let ripples=[];
+// Ripple trail
+const rippleCanvas=document.getElementById('rippleCanvas'); const rippleCtx=rippleCanvas.getContext('2d'); let ripples=[];
 function resizeRippleCanvas(){rippleCanvas.width=window.innerWidth; rippleCanvas.height=window.innerHeight;}
 window.addEventListener('resize',resizeRippleCanvas); resizeRippleCanvas();
 window.addEventListener('mousemove',e=>{ripples.push({x:e.clientX,y:e.clientY,radius:0,alpha:0.3,lineWidth:1+Math.random()}); if(ripples.length>20) ripples.shift();});
-function animateRipples(){rippleCtx.clearRect(0,0,rippleCanvas.width,rippleCanvas.height); ripples.forEach((r,i)=>{r.radius+=1.5; r.alpha-=0.007; if(r.alpha<=0){ripples.splice(i,1); return;} rippleCtx.beginPath(); rippleCtx.arc(r.x,r.y,r.radius,0,Math.PI*2); rippleCtx.strokeStyle=`rgba(56,0,152,${r.alpha})`; rippleCtx.lineWidth=r.lineWidth; rippleCtx.stroke();}); requestAnimationFrame(animateRipples);}
+function animateRipples(){rippleCtx.clearRect(0,0,rippleCanvas.width,rippleCanvas.height); ripples.forEach((r,i)=>{r.radius+=1.5; r.alpha-=0.007; if(r.alpha<=0){ripples.splice(i,1);return;} rippleCtx.beginPath(); rippleCtx.arc(r.x,r.y,r.radius,0,Math.PI*2); rippleCtx.strokeStyle=`rgba(56,0,152,${r.alpha})`; rippleCtx.lineWidth=r.lineWidth; rippleCtx.stroke();}); requestAnimationFrame(animateRipples);}
 animateRipples();
 
-/* Modal stars + cursor glitter */
-const hireBtn=document.getElementById('hireBtn'), hireModal=document.getElementById('hireModal');
-const modalStarsCanvas=document.getElementById('modalStarsCanvas'), modalCtx=modalStarsCanvas.getContext('2d');
+// Modal stars + cursor glitter
+const modalStarsCanvas=document.getElementById('modalStarsCanvas'); const modalCtx=modalStarsCanvas.getContext('2d');
 let modalStars=[], cursorStars=[];
 function resizeModalStarsCanvas(){modalStarsCanvas.width=window.innerWidth; modalStarsCanvas.height=window.innerHeight;}
 window.addEventListener('resize',resizeModalStarsCanvas); resizeModalStarsCanvas();
-
 function generateModalStars(){
   modalStars=[]; const cornerStarCount=10, randomStarCount=40;
   for(let i=0;i<cornerStarCount;i++){
@@ -253,24 +302,14 @@ function generateModalStars(){
     modalStars.push({x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,radius:Math.random()*2+1,alpha:Math.random()*0.5+0.2,flickerSpeed:Math.random()*0.02+0.01});
   }
 }
-
 function animateModalStars(){
   modalCtx.clearRect(0,0,modalStarsCanvas.width,modalStarsCanvas.height);
   modalStars.forEach(s=>{ s.alpha+=s.flickerSpeed*(Math.random()<0.5?-1:1); s.alpha=Math.max(0.1,Math.min(s.alpha,1)); modalCtx.beginPath(); modalCtx.arc(s.x,s.y,s.radius,0,Math.PI*2); modalCtx.fillStyle=`rgba(255,255,255,${s.alpha})`; modalCtx.fill(); });
   cursorStars.forEach((s,i)=>{ s.x+=s.dx; s.y+=s.dy; s.alpha-=0.02; modalCtx.beginPath(); modalCtx.arc(s.x,s.y,s.radius,0,Math.PI*2); modalCtx.fillStyle=`rgba(255,255,255,${s.alpha})`; modalCtx.fill(); });
-  cursorStars = cursorStars.filter(s=>s.alpha>0);
+  cursorStars=cursorStars.filter(s=>s.alpha>0);
   if(hireModal.style.display==='flex') requestAnimationFrame(animateModalStars);
 }
-
-hireModal.addEventListener('mousemove', e=>{ for(let i=0;i<3;i++){ cursorStars.push({ x:e.clientX, y:e.clientY, radius:Math.random()*2+1, alpha:Math.random()*0.8+0.2, dx:(Math.random()-0.5)*1.5, dy:(Math.random()-0.5)*1.5 }); } if(cursorStars.length>100) cursorStars.splice(0,cursorStars.length-100); });
-
-hireBtn.addEventListener('click', ()=>{ hireModal.style.display='flex'; modalStarsCanvas.style.display='block'; generateModalStars(); animateModalStars(); });
-
-function closeHireModal(){ hireModal.style.display='none'; modalCtx.clearRect(0,0,modalStarsCanvas.width,modalStarsCanvas.height); cursorStars=[]; modalStarsCanvas.style.display='none'; }
-
-hireModal.addEventListener('click', e=>{ if(e.target===hireModal) closeHireModal(); });
-document.addEventListener('keydown', e=>{ if(e.key==='Escape' && hireModal.style.display==='flex') closeHireModal(); });
-
+hireModal.addEventListener('mousemove',e=>{ for(let i=0;i<3;i++){ cursorStars.push({ x:e.clientX, y:e.clientY, radius:Math.random()*2+1, alpha:Math.random()*0.8+0.2, dx:(Math.random()-0.5)*1.5, dy:(Math.random()-0.5)*1.5 }); } if(cursorStars.length>100) cursorStars.splice(0,cursorStars.length-100); });
 </script>
 
 </body>
