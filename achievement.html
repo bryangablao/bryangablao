@@ -297,6 +297,21 @@
       document.getElementById("achievementModal").style.display = "none";
     }
 
+    // Close modal when clicking outside the modal content
+document.getElementById("achievementModal").addEventListener("click", function(e) {
+  const modalContent = document.querySelector(".modal-content");
+  if (!modalContent.contains(e.target)) {
+    closeModal();
+  }
+});
+
+// Close modal when pressing the Esc key
+document.addEventListener("keydown", function(e) {
+  if (e.key === "Escape") {  // "Escape" or "Esc" depending on browser
+    closeModal();
+  }
+});
+
     // Starfield + meteor + ripple
     const starsCanvas = document.getElementById('starsCanvas');
     const starsCtx = starsCanvas.getContext('2d');
