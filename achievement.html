@@ -160,13 +160,15 @@
     .modal-content {
   background: #111;
   border-radius: 10px;
-  width: 50%;
-  max-width: 90vw; /* fits small screens */
+  width: 90%;       /* take 90% of screen width on mobile */
+  max-width: 600px; /* max width for desktop */
+  max-height: 90vh; /* prevent modal from exceeding viewport height */
   padding: 20px;
   color: white;
   text-align: left;
   position: relative;
   box-sizing: border-box;
+  overflow-y: auto; /* scroll if content is taller than modal */
 }
 
 .close {
