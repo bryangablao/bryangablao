@@ -139,29 +139,45 @@
       box-shadow: 0 0 15px rgba(255,255,255,0.3);
     }
 
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.9);
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
-    .modal-content {
-      background: #111;
-      border-radius: 10px;
-      max-width: 600px;
-      width: 90%;
-      padding: 20px;
-      color: white;
-      text-align: left;
-      position: relative;
-    }
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background: #111;
+  border-radius: 10px;
+  max-width: 600px;
+  width: 90%;
+  padding: 20px;
+  color: white;
+  text-align: left;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.close {
+  position: absolute;
+  top: 10px;   /* moved inside modal */
+  right: 10px; /* moved inside modal */
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white;
+  background: rgba(0,0,0,0.7);
+  border-radius: 50%;
+  padding: 5px 10px;
+  z-index: 2100;
+}
+
     .modal img {
       width: 100%;
       height: auto;
@@ -170,19 +186,6 @@
       display: block;
     }
     .modal h2 { margin: 0 0 10px; color: gold; }
-
-    .close {
-      position: absolute;
-      top: -15px;
-      right: -15px;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: white;
-      background: rgba(0,0,0,0.7);
-      border-radius: 50%;
-      padding: 5px 10px;
-      z-index: 2100;
-    }
 
         /* Footer */
     footer {
