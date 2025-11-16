@@ -130,6 +130,7 @@
       padding: 15px;
       border-radius: 10px;
       gap: 15px;
+      cursor: pointer; /* Make clickable */
     }
 
     .job-icon {
@@ -170,7 +171,7 @@
 
     .btn:hover { background: orange; }
 
-       /* Footer */
+    /* Footer */
     footer {
       text-align: center;
       color: #aaa;
@@ -186,7 +187,44 @@
       color: gold;
       text-shadow: 0 0 8px gold;
     }
-    
+
+    /* Modal overlay and box */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .modal-box {
+      background: rgba(0,0,0,0.9);
+      color: white;
+      padding: 25px;
+      border-radius: 12px;
+      width: 85%;
+      max-width: 600px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.15);
+      text-align: left;
+      animation: popIn 0.3s ease;
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-close {
+      float: right;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
     /* Background Canvases */
     #starsCanvas, #rippleCanvas {
       position: fixed;
@@ -275,7 +313,58 @@
   <footer>
     © 2025 All rights reserved | <strong>Accx Creations</strong>
   </footer>
-  
+
+  <!-- Modals -->
+  <div class="modal-overlay" id="modalSixEleven">
+    <div class="modal-box">
+      <span class="modal-close" onclick="closeModal('modalSixEleven')">&times;</span>
+      <h2>SixEleven Global Services and Solutions, Inc.</h2>
+      <p><strong>Role:</strong> Call Center Agent</p>
+      <p><strong>Duration:</strong> January 2025 – Current</p>
+      <p>I handled international customer accounts, dispute management, and image annotation tasks. Developed strong communication and problem-solving skills.</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalGMall">
+    <div class="modal-box">
+      <span class="modal-close" onclick="closeModal('modalGMall')">&times;</span>
+      <h2>GMALL Warehouse Buhangin</h2>
+      <p><strong>Role:</strong> Encoder</p>
+      <p><strong>Duration:</strong> February 2023 – January 2024</p>
+      <p>Performed data entry tasks, organized inventory records, and maintained accurate documentation for warehouse operations.</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalKCArc">
+    <div class="modal-box">
+      <span class="modal-close" onclick="closeModal('modalKCArc')">&times;</span>
+      <h2>KC & Arc Prints</h2>
+      <p><strong>Role:</strong> Production Staff</p>
+      <p><strong>Duration:</strong> May 2018 – January 2023</p>
+      <p>Handled production workflows, print management, and customer orders while ensuring quality and deadlines were met.</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalROI">
+    <div class="modal-box">
+      <span class="modal-close" onclick="closeModal('modalROI')">&times;</span>
+      <h2>Realty Options Davao</h2>
+      <p><strong>Role:</strong> Encoder</p>
+      <p><strong>Duration:</strong> December 2017 – March 2018</p>
+      <p>Managed property listings, encoded client data, and assisted with administrative tasks in the real estate office.</p>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modalChowking">
+    <div class="modal-box">
+      <span class="modal-close" onclick="closeModal('modalChowking')">&times;</span>
+      <h2>Chowking SPMC</h2>
+      <p><strong>Role:</strong> Service Crew</p>
+      <p><strong>Duration:</strong> January 2016 – March 2017</p>
+      <p>Provided customer service, prepared food orders, and maintained cleanliness and organization in the restaurant.</p>
+    </div>
+  </div>
+
   <script>
     /* Sidebar toggle */
     function toggleMenu() {
@@ -415,6 +504,23 @@
       requestAnimationFrame(animateRipples);
     }
     animateRipples();
+
+    /* MODAL LOGIC */
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
+    }
+    document.querySelectorAll('.experience-container .job').forEach((job, index) => {
+      switch(index) {
+        case 0: job.onclick = () => openModal('modalSixEleven'); break;
+        case 1: job.onclick = () => openModal('modalGMall'); break;
+        case 2: job.onclick = () => openModal('modalKCArc'); break;
+        case 3: job.onclick = () => openModal('modalROI'); break;
+        case 4: job.onclick = () => openModal('modalChowking'); break;
+      }
+    });
   </script>
 
 </body>
