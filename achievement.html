@@ -139,37 +139,46 @@
       box-shadow: 0 0 15px rgba(255,255,255,0.3);
     }
 
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.9);
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
     .modal-content {
       background: #111;
       border-radius: 10px;
-      max-width: 600px;
-      width: 90%;
+      max-width: 600px;       /* Max width for desktop */
+      width: 90%;             /* Responsive width for mobile */
       padding: 20px;
       color: white;
       text-align: left;
       position: relative;
+      max-height: 90vh;       /* Prevent modal from going beyond viewport height */
+      overflow-y: auto;       /* Scroll inside modal if content is too tall */
     }
+    
     .modal img {
-      width: 100%;
-      height: auto;
+      width: 100%;      /* Full width of modal-content */
+      height: auto;     /* Maintain aspect ratio */
       border-radius: 10px;
       margin-bottom: 15px;
       display: block;
-    }
+      max-width: 100%;  /* Ensure it never exceeds modal width */
+    }    
+
+    @media (max-width: 400px) {
+  .modal-content {
+    width: 95%;
+    padding: 15px;
+  }
+  .modal h2 {
+    font-size: 1rem;
+  }
+  .modal p {
+    font-size: 0.9rem;
+  }
+}
+
     .modal h2 { margin: 0 0 10px; color: gold; }
+    body.modal-open {
+      overflow: hidden;
+    }
+
 
     .close {
       position: absolute;
@@ -280,12 +289,15 @@
     }
     function openModal(image, title, desc) {
       document.getElementById("achievementModal").style.display = "flex";
+      document.body.classList.add('modal-open'); // Prevent background scroll
       document.getElementById("modalImage").src = image;
       document.getElementById("modalTitle").textContent = title;
       document.getElementById("modalDesc").textContent = desc;
     }
+
     function closeModal() {
       document.getElementById("achievementModal").style.display = "none";
+      document.body.classList.remove('modal-open'); // Re-enable background scroll
     }
 
     // Starfield + meteor + ripple
