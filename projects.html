@@ -126,18 +126,18 @@
   }
 
   .project-card h3 {
-    color: gold !important; margin:10px 0 5px 0; text-decoration:none !important;
+    color: white !important; margin:10px 0 5px 0; text-decoration:none !important;
   }
 
   .project-card p {
     color:#ccc !important; text-decoration:none !important;
   }
 
-    .footer-text {
+  .footer-text {
     font-size: 0.8rem;
     color: #aaa;
-    margin-top: 60px;        /* add more spacing above */
-    margin-bottom: 30px;     /* adds space from bottom edge */
+    margin-top: 60px;
+    margin-bottom: 30px;
     text-align: center;
     opacity: 0.9;
     transition: opacity 0.3s ease;
@@ -145,10 +145,9 @@
 
   .footer-text:hover {
     opacity: 1;
-    color: gold;
-    text-shadow: 0 0 8px gold;
+    color: white;
+    text-shadow: 0 0 8px white;
   }
-
 
   @media (max-width:1024px) { .projects-grid { grid-template-columns:repeat(2,1fr); } }
   @media (max-width:768px) { .projects-grid { grid-template-columns:1fr; } }
@@ -160,6 +159,54 @@
   }
   #starsCanvas { z-index:0; }
   #rippleCanvas { z-index:0; }
+
+  /* Hire Me Modal */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+  }
+
+  .modal-box {
+    position: relative;
+    background: rgba(0,0,0,0.9);
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    width: 85%;
+    max-width: 600px;
+    box-shadow: 0 0 20px rgba(255,255,255,0.15);
+    text-align: left;
+    animation: popIn 0.3s ease;
+  }
+
+  .modal-box h2 {
+    margin-top:0; margin-bottom:10px;
+  }
+
+  .modal-box p {
+    line-height:1.5;
+  }
+
+  .close-modal {
+    position:absolute;
+    top:10px; right:10px;
+    font-size:1.5rem;
+    cursor:pointer;
+    color:white;
+  }
+
+  @keyframes popIn {
+    0% { transform: scale(0.8); opacity:0; }
+    100% { transform: scale(1); opacity:1; }
+  }
+
 </style>
 </head>
 <body>
@@ -171,19 +218,22 @@
   <h1>Projects</h1>
   <div style="display:flex; align-items:center; gap:10px;">
     <button id="hireBtn" style="
-      background: gold; 
-      color: black; 
-      border:none; 
-      padding:6px 12px; 
-      border-radius:5px; 
-      font-weight:bold; 
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.5);
+      padding:6px 12px;
+      border-radius:5px;
+      font-weight:bold;
       cursor:pointer;
-      transition: transform 0.2s;
-    ">Hire Me</button>
+      text-shadow: 0 0 4px rgba(255,255,255,0.6);
+      transition: all 0.3s ease;
+    "
+    onmouseover="this.style.transform='scale(1.1)'; this.style.boxShadow='0 0 10px rgba(255,255,255,0.5)';"
+    onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0 4px rgba(255,255,255,0.3)';"
+    >Hire Me</button>
     <div class="hamburger" onclick="toggleMenu()">☰</div>
   </div>
 </header>
-
 
 <div id="sidebarOverlay" onclick="closeMenu()"></div>
 
@@ -197,31 +247,6 @@
     <li><a href="projects.html">Projects</a></li>
   </ul>
 </nav>
-
-<!-- Hire Me Modal -->
-<div class="modal" id="hireModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); justify-content:center; align-items:center; z-index:2000;">
-  <div class="modal-content" style="background:#111; border-radius:10px; width:90%; max-width:600px; max-height:90vh; padding:20px; color:white; text-align:left; position:relative; overflow-y:auto; box-sizing:border-box; transform:scale(0); transition:transform 0.3s ease-out;">
-    <span class="close" onclick="closeHireModal()" style="position:absolute; top:10px; right:10px; font-size:1.5rem; cursor:pointer; color:white; background:rgba(0,0,0,0.7); border-radius:50%; padding:5px 10px;">×</span>
-    <h2 style="color:gold;">Website Creation Service</h2>
-    <p>
-      Are you interested in having your own customized website? We offer a professional service where we create your website tailored to your needs. 
-      Your website can be live within <strong>1–2 weeks</strong>. 
-    </p>
-    <p>
-      <strong>Payment Options:</strong> 
-      <ul>
-        <li>You can pay a normal service fee directly to us for the creation and customization of your website.</li>
-        <li>If you already have a preferred domain or Google link, you can provide it, and we will connect your website to it.</li>
-      </ul>
-    </p>
-    <p>
-      <strong>Contact Us:</strong><br>
-      Phone: <a href="tel:+639928760990">+63 992 876 0990</a> (Dito)<br>
-      Email: <a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a>
-    </p>
-    <p>We’ll handle everything professionally so you can focus on your content. Let’s make your website happen!</p>
-  </div>
-</div>
 
 <main>
   <div class="projects-grid">
@@ -237,6 +262,31 @@
   🚀 Developed by <strong>Accx Creations</strong>
 </footer>
 
+<!-- Hire Me Modal -->
+<div class="modal-overlay" id="hireModal">
+  <div class="modal-box">
+    <span class="close-modal" onclick="closeHireModal()">×</span>
+    <h2>Website Creation Service</h2>
+    <p>
+      Are you interested in having your own customized website? We offer a professional service where we create your website tailored to your needs. 
+      Your website can be live within <strong>1–2 weeks</strong>.
+    </p>
+    <p>
+      <strong>Payment Options:</strong> 
+      <ul>
+        <li>You can pay a normal service fee directly to us for the creation and customization of your website.</li>
+        <li>If you already have a preferred domain or Google link, you can provide it, and we will connect your website to it.</li>
+      </ul>
+    </p>
+    <p>
+      <strong>Contact Us:</strong><br>
+      Phone: <a href="tel:+639928760990" style="color:gold;">+63 992 876 0990</a> (Dito)<br>
+      Email: <a href="mailto:ablaobryan4400@gmail.com" style="color:gold;">ablaobryan4400@gmail.com</a>
+    </p>
+    <p>We’ll handle everything professionally so you can focus on your content. Let’s make your website happen!</p>
+  </div>
+</div>
+
 <script>
 function toggleMenu() {
   const sidebar = document.getElementById("sidebar");
@@ -248,6 +298,28 @@ function closeMenu() {
   document.getElementById("sidebar").classList.remove("open");
   document.getElementById("sidebarOverlay").style.display = "none";
 }
+
+// Hire Me Modal
+const hireBtn = document.getElementById('hireBtn');
+const hireModal = document.getElementById('hireModal');
+
+hireBtn.addEventListener('click', () => {
+  hireModal.style.display = 'flex';
+});
+
+function closeHireModal() {
+  hireModal.style.display = 'none';
+}
+
+hireModal.addEventListener('click', (e) => {
+  if(e.target === hireModal) closeHireModal();
+});
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape' && hireModal.style.display === 'flex') {
+    closeHireModal();
+  }
+});
 
 // Starfield + meteor + ripple
 const starsCanvas = document.getElementById('starsCanvas');
@@ -269,34 +341,7 @@ window.addEventListener('resize',resizeRippleCanvas); resizeRippleCanvas();
 window.addEventListener('mousemove',(e)=>{ripples.push({x:e.clientX,y:e.clientY,radius:0,alpha:0.3,lineWidth:1+Math.random()}); if(ripples.length>20) ripples.shift();});
 function animateRipples(){rippleCtx.clearRect(0,0,rippleCanvas.width,rippleCanvas.height); ripples.forEach((r,i)=>{r.radius+=1.5; r.alpha-=0.007; if(r.alpha<=0){ripples.splice(i,1);return;} rippleCtx.beginPath(); rippleCtx.arc(r.x,r.y,r.radius,0,Math.PI*2); rippleCtx.strokeStyle=`rgba(56,0,152,${r.alpha})`; rippleCtx.lineWidth=r.lineWidth; rippleCtx.stroke();}); requestAnimationFrame(animateRipples);}
 animateRipples();
-
-// Hire Me Modal
-const hireBtn = document.getElementById('hireBtn');
-const hireModal = document.getElementById('hireModal');
-const hireModalContent = hireModal.querySelector('.modal-content');
-
-hireBtn.addEventListener('click', () => {
-  hireModal.style.display = 'flex';
-  setTimeout(() => hireModalContent.style.transform = 'scale(1)', 10); // pop-up animation
-});
-
-function closeHireModal() {
-  hireModalContent.style.transform = 'scale(0)';
-  setTimeout(() => hireModal.style.display = 'none', 300);
-}
-
-// Close modal on clicking outside
-hireModal.addEventListener('click', (e) => {
-  if(e.target === hireModal) closeHireModal();
-});
-
-// Close modal on ESC key
-document.addEventListener('keydown', (e) => {
-  if(e.key === 'Escape' && hireModal.style.display === 'flex') {
-    closeHireModal();
-  }
-});
-
 </script>
+
 </body>
 </html>
