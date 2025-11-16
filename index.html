@@ -194,10 +194,10 @@
       cursor: pointer;
     }
 
-    body.modal-open > *:not(.modal-overlay) {
-      filter: blur(6px);
-      pointer-events: none;
-    }
+    body.modal-open #mainContent {
+  filter: blur(6px);
+  pointer-events: none;
+}
 
     /* ---------- Background canvases ---------- */
     #starsCanvas, #rippleCanvas {
@@ -258,6 +258,7 @@
   </nav>
 
   <!-- Main Content -->
+  <div id="mainContent">
   <main>
     <section id="about" class="content-card">
       <!-- Profile Card -->
