@@ -15,11 +15,7 @@
     background-attachment: fixed;
     animation: gradientMove 10s infinite alternate;
     color: white;
-    overflow-x: hidden;
-    text-align: center;
-  }
-  @keyframes gradientMove { 0%{background-position:0% 50%}100%{background-position:100% 50%} }
-
+    overflow-x: hidden;`
   /* ---------- Header ---------- */
   header {
     display:flex; justify-content:space-between; align-items:center;
@@ -80,7 +76,13 @@
     box-shadow:0 0 20px #a76fff; position:relative;
   }
   .modal-close {position:absolute; top:10px; right:15px; font-size:1.5rem; cursor:pointer;}
-  body.modal-open #mainContent {filter:blur(6px); pointer-events:none;}
+  body.modal-open #mainContent {
+  filter: blur(6px);
+  transition: filter 0.3s ease;
+}
+body.modal-open {
+  overflow: hidden; /* prevent page scrolling */
+}
 
   /* ---------- Background canvases ---------- */
   #starsCanvas, #rippleCanvas{position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none;}
@@ -253,15 +255,14 @@
   function closeMenu(){document.getElementById("sidebar").classList.remove("open"); document.getElementById("sidebarOverlay").style.display="none";}
 
   function openModal(id){
-    document.getElementById(id).style.display='flex';
-    document.body.classList.add('modal-open');
-    document.body.style.overflow='hidden';
-  }
-  function closeModal(id){
-    document.getElementById(id).style.display='none';
-    document.body.classList.remove('modal-open');
-    document.body.style.overflow='auto';
-  }
+  document.getElementById(id).style.display='flex';
+  document.body.classList.add('modal-open');
+}
+
+function closeModal(id){
+  document.getElementById(id).style.display='none';
+  document.body.classList.remove('modal-open');
+}
   document.querySelectorAll('.modal-overlay').forEach(modal=>{
     modal.addEventListener('click', e=>{if(e.target===modal) closeModal(modal.id)});
   });
