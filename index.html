@@ -1,240 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="images/Accx_Logo.png" />
-  <title>Bryan G. Ablao</title>
-  <style>
-    /* ---------- Body & Background ---------- */
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top left, #380098, black);
-      background-size: cover;
-      background-attachment: fixed;
-      animation: gradientMove 10s infinite alternate;
-      color: white;
-      overflow-x: hidden;
-      text-align: center;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="icon" type="image/png" href="images/Accx_Logo.png" />
+<title>Bryan G. Ablao</title>
+<style>
+  /* ---------- Body & Background ---------- */
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at top left, #380098, black);
+    background-size: cover;
+    background-attachment: fixed;
+    animation: gradientMove 10s infinite alternate;
+    color: white;
+    overflow-x: hidden;
+    text-align: center;
+  }
+  @keyframes gradientMove { 0%{background-position:0% 50%}100%{background-position:100% 50%} }
 
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
+  /* ---------- Header ---------- */
+  header {
+    display:flex; justify-content:space-between; align-items:center;
+    padding:15px; background: rgba(0,0,0,0.5);
+    position: sticky; top:0; z-index:1002;
+  }
+  header h1 {
+    font-size:1.8rem; margin:0; color:#fff;
+    text-shadow:0 0 5px #ffffff80,0 0 10px #ffffff40,0 0 20px #a76fff50;
+    animation:flickerText 3s infinite;
+  }
+  @keyframes flickerText {
+    0%,19%,21%,23%,25%,54%,56%,100%{opacity:1; text-shadow:0 0 6px #fff,0 0 10px #fff,0 0 20px #a76fff80,0 0 30px #38009890;}
+    20%,22%,55%{opacity:0.7; text-shadow:0 0 3px #fff,0 0 8px #a76fff40;}
+    24%{opacity:0.4; text-shadow:0 0 2px #fff,0 0 5px #a76fff20;}
+  }
+  .hamburger { font-size:1.8rem; cursor:pointer; user-select:none; }
 
-    /* ---------- Header ---------- */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.5);
-      position: sticky;
-      top: 0;
-      z-index: 1002;
-    }
+  /* ---------- Sidebar ---------- */
+  #sidebarOverlay {
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.4); display:none; z-index:1000;
+  }
+  #sidebar {
+    width:220px; max-width:80%; background: rgba(0,0,0,0.9);
+    color:white; position:fixed; top:0; right:-220px; height:100%;
+    padding-top:60px; transition:right 0.3s ease; z-index:1001;
+  }
+  #sidebar.open{right:0;}
+  #sidebar ul{list-style:none; padding:0; margin:0;}
+  #sidebar ul li a{
+    display:block; padding:12px 20px; color:white; text-decoration:none; text-align:left;
+  }
+  #sidebar ul li a:hover{background: rgba(255,255,255,0.15);}
 
-    header h1 {
-      font-size: 1.8rem;
-      margin: 0;
-      color: #fff;
-      text-shadow: 0 0 5px #ffffff80, 0 0 10px #ffffff40, 0 0 20px #a76fff50;
-      animation: flickerText 3s infinite;
-    }
+  /* ---------- Content Cards ---------- */
+  .content-card{padding:20px; max-width:1000px; margin:20px auto; position:relative; z-index:1;}
+  .profile-card, .family-card{
+    background: rgba(255,255,255,0.05); border:2px solid #380098;
+    border-radius:15px; padding:20px; box-shadow:0 0 10px rgba(56,0,152,0.6); margin-bottom:20px;
+  }
+  .profile-pic-link img{width:150px;height:150px;border-radius:50%;border:3px solid white;object-fit:cover;margin:0 auto;display:block;}
+  .profile-info p{margin:8px 0;font-size:1rem;}
+  .family h3{margin-bottom:15px;}
+  .family-list{display:flex; justify-content:center; flex-wrap:wrap; gap:40px; margin-bottom:20px;}
+  .family-list div{text-align:center; flex:1 1 200px; max-width:200px;}
+  .family-list img{width:100px; height:100px; border-radius:50%; border:2px solid white; object-fit:cover;}
+  .family-list p{font-weight:bold;margin-top:8px;}
 
-    @keyframes flickerText {
-      0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-        opacity: 1;
-        text-shadow: 0 0 6px #fff, 0 0 10px #fff, 0 0 20px #a76fff80, 0 0 30px #38009890;
-      }
-      20%, 22%, 55% {
-        opacity: 0.7;
-        text-shadow: 0 0 3px #fff, 0 0 8px #a76fff40;
-      }
-      24% {
-        opacity: 0.4;
-        text-shadow: 0 0 2px #fff, 0 0 5px #a76fff20;
-      }
-    }
+  /* ---------- Modals ---------- */
+  .modal-overlay {
+    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:2000;
+  }
+  .modal-box {
+    background: rgba(0,0,0,0.9); padding:20px; border-radius:15px;
+    max-width:500px; width:90%; color:white; text-align:center;
+    box-shadow:0 0 20px #a76fff; position:relative;
+  }
+  .modal-close {position:absolute; top:10px; right:15px; font-size:1.5rem; cursor:pointer;}
+  body.modal-open #mainContent {filter:blur(6px); pointer-events:none;}
 
-    .hamburger {
-      font-size: 1.8rem;
-      cursor: pointer;
-      user-select: none;
-    }
+  /* ---------- Background canvases ---------- */
+  #starsCanvas, #rippleCanvas{position:fixed; top:0; left:0; width:100vw; height:100vh; pointer-events:none;}
+  #starsCanvas{z-index:0;} #rippleCanvas{z-index:0;}
 
-    /* ---------- Sidebar ---------- */
-    #sidebarOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.4);
-      display: none;
-      z-index: 1000;
-    }
-
-    #sidebar {
-      width: 220px;
-      max-width: 80%;
-      background: rgba(0,0,0,0.9);
-      color: white;
-      position: fixed;
-      top: 0;
-      right: -220px;
-      height: 100%;
-      padding-top: 60px;
-      transition: right 0.3s ease;
-      z-index: 1001;
-    }
-
-    #sidebar.open { right: 0; }
-    #sidebar ul { list-style: none; padding: 0; margin: 0; }
-    #sidebar ul li a {
-      display: block;
-      padding: 12px 20px;
-      color: white;
-      text-decoration: none;
-      text-align: left;
-    }
-    #sidebar ul li a:hover { background: rgba(255, 255, 255, 0.15); }
-
-    /* ---------- Content Cards ---------- */
-    .content-card {
-      padding: 20px;
-      max-width: 1000px;
-      margin: 20px auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    .profile-card, .family-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 2px solid #380098;
-      border-radius: 15px;
-      padding: 20px;
-      box-shadow: 0 0 10px rgba(56, 0, 152, 0.6);
-      margin-bottom: 20px;
-    }
-
-    .profile-pic-link img {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 3px solid white;
-      object-fit: cover;
-      display: block;
-      margin: 0 auto;
-    }
-
-    .profile-info p {
-      margin: 8px 0;
-      font-size: 1rem;
-    }
-
-    .family h3 { margin-bottom: 15px; }
-    .family-list {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 40px;
-      margin-bottom: 20px;
-    }
-
-    .family-list div {
-      text-align: center;
-      flex: 1 1 200px;
-      max-width: 200px;
-    }
-
-    .family-list img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      border: 2px solid white;
-      object-fit: cover;
-    }
-
-    .family-list p { font-weight: bold; margin-top: 8px; }
-
-    /* ---------- Modals ---------- */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-    }
-
-    .modal-box {
-      background: rgba(0,0,0,0.9);
-      padding: 20px;
-      border-radius: 15px;
-      max-width: 500px;
-      width: 90%;
-      color: white;
-      text-align: center;
-      box-shadow: 0 0 20px #a76fff;
-      position: relative;
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
-    body.modal-open #mainContent {
-  filter: blur(6px);
-  pointer-events: none;
-}
-
-    /* ---------- Background canvases ---------- */
-    #starsCanvas, #rippleCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-    }
-    #starsCanvas { z-index: 0; }
-    #rippleCanvas { z-index: 0; }
-
-    /* ---------- Footer ---------- */
-    footer {
-      position: relative;
-      z-index: 1;
-      text-align: center;
-      color: #aaa;
-      font-size: 0.9rem;
-      margin-top: 60px;
-      margin-bottom: 30px;
-      opacity: 0.9;
-      transition: opacity 0.3s ease, color 0.3s ease;
-    }
-
-    footer:hover {
-      opacity: 1;
-      color: gold;
-      text-shadow: 0 0 8px gold;
-    }
-  </style>
+  /* ---------- Footer ---------- */
+  footer{position:relative; z-index:1; text-align:center; color:#aaa; font-size:0.9rem; margin-top:60px; margin-bottom:30px; opacity:0.9; transition: opacity 0.3s ease, color 0.3s ease;}
+  footer:hover{opacity:1;color:gold;text-shadow:0 0 8px gold;}
+</style>
 </head>
 <body>
-  <!-- Background canvases -->
-  <canvas id="starsCanvas"></canvas>
-  <canvas id="rippleCanvas"></canvas>
+<canvas id="starsCanvas"></canvas>
+<canvas id="rippleCanvas"></canvas>
 
   <!-- Header -->
   <header>
@@ -385,37 +244,27 @@
 
   <!-- ---------- Scripts ---------- -->
   <script>
-    // Sidebar toggle
-    function toggleMenu() {
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("sidebarOverlay");
-      sidebar.classList.toggle("open");
-      overlay.style.display = sidebar.classList.contains("open") ? "block" : "none";
-    }
+  function toggleMenu(){
+    const sidebar = document.getElementById("sidebar");
+    const overlay = document.getElementById("sidebarOverlay");
+    sidebar.classList.toggle("open");
+    overlay.style.display = sidebar.classList.contains("open") ? "block":"none";
+  }
+  function closeMenu(){document.getElementById("sidebar").classList.remove("open"); document.getElementById("sidebarOverlay").style.display="none";}
 
-    function closeMenu() {
-      document.getElementById("sidebar").classList.remove("open");
-      document.getElementById("sidebarOverlay").style.display = "none";
-    }
-
-    // Modal logic
-    function openModal(id) {
-  document.getElementById(id).style.display = 'flex';
-  document.body.classList.add('modal-open'); // add blur
-  document.body.style.overflow = 'hidden';
-}
-
-function closeModal(id) {
-  document.getElementById(id).style.display = 'none';
-  document.body.classList.remove('modal-open'); // remove blur
-  document.body.style.overflow = 'auto';
-}
-
-    document.querySelectorAll('.modal-overlay').forEach(modal => {
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal(modal.id);
-      });
-    });
+  function openModal(id){
+    document.getElementById(id).style.display='flex';
+    document.body.classList.add('modal-open');
+    document.body.style.overflow='hidden';
+  }
+  function closeModal(id){
+    document.getElementById(id).style.display='none';
+    document.body.classList.remove('modal-open');
+    document.body.style.overflow='auto';
+  }
+  document.querySelectorAll('.modal-overlay').forEach(modal=>{
+    modal.addEventListener('click', e=>{if(e.target===modal) closeModal(modal.id)});
+  });
 
     // Starfield + Meteor
     const starsCanvas = document.getElementById('starsCanvas');
