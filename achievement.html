@@ -171,6 +171,19 @@
     }
     .modal h2 { margin: 0 0 10px; color: gold; }
 
+    @media (max-width: 900px) {
+    .modal {
+      justify-content: center;
+      align-items: center;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .modal-content {
+      max-height: 90vh;
+    }
+  }
+
     .close {
       position: absolute;
       top: -15px;
