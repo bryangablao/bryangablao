@@ -161,7 +161,11 @@
       color: white;
       text-align: left;
       position: relative;
+
+      box-sizing: border-box;     /* <-- FIX #1 */
+      margin: 0 auto;             /* <-- FIX #2 */
     }
+
     .modal img {
       width: 100%;
       height: auto;
@@ -300,6 +304,20 @@
     function closeModal() {
       document.getElementById("achievementModal").style.display = "none";
     }
+
+    // Close modal when clicking outside the modal-content
+    window.addEventListener("click", function(e) {
+      const modal = document.getElementById("achievementModal");
+      if (e.target === modal) {
+      closeModal();
+      }
+    });
+
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape") {
+      closeModal();
+      }
+    });
 
     // Starfield + meteor + ripple
     const starsCanvas = document.getElementById('starsCanvas');
