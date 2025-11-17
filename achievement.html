@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="images/Accx_Logo.png" />
   <title>Bryan G. Ablao</title>
+  
   <style>
     body {
       margin: 0;
@@ -139,38 +140,41 @@
       box-shadow: 0 0 15px rgba(255,255,255,0.3);
     }
 
-    .modal {
-  display: none; /* hidden by default */
+    /* New Modal Overlay (blur + dark fade) */
+.modal {
+  display: none;
   position: fixed;
-  z-index: 2000;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
   justify-content: center;
   align-items: center;
-
-  padding: 10px;
-  box-sizing: border-box;
-  overflow: auto;
+  z-index: 2000;
 }
 
-    .modal-content {
-  background: #111;
-  border-radius: 10px;
-  width: 90%;       /* take 90% of screen width on mobile */
-  max-width: 600px; /* max width for desktop */
-  max-height: 90vh; /* prevent modal from exceeding viewport height */
-  padding: 20px;
+/* New Modal Box (glowing black container) */
+.modal-content {
+  background: rgba(0,0,0,0.9);
+  width: 90%;
+  max-width: 600px;
+  border-radius: 12px;
+  padding: 25px;
   color: white;
-  text-align: left;
   position: relative;
-  box-sizing: border-box;
-  overflow-y: auto; /* scroll if content is taller than modal */
+  box-shadow: 0 0 20px rgba(255,255,255,0.15);
+  animation: popIn 0.3s ease;
+  overflow-y: auto;
+  max-height: 90vh;
 }
 
+/* Pop animation */
+@keyframes popIn {
+  0% { transform: scale(0.8); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Close Button */
 .close {
   position: absolute;
   top: 10px;
@@ -178,20 +182,29 @@
   font-size: 1.5rem;
   cursor: pointer;
   color: white;
-  background: rgba(0,0,0,0.7);
+  background: rgba(255,255,255,0.2);
   border-radius: 50%;
   padding: 5px 10px;
-  z-index: 2100;
+  transition: 0.2s ease;
+}
+.close:hover {
+  transform: scale(1.15);
+  background: rgba(255,255,255,0.35);
 }
 
-    .modal img {
-      width: 100%;
-      height: auto;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      display: block;
-    }
-    .modal h2 { margin: 0 0 10px; color: gold; }
+/* Modal Image */
+.modal img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* Modal Title */
+.modal h2 {
+  margin: 0 0 10px;
+  color: gold;
+}
 
         /* Footer */
     footer {
@@ -268,13 +281,13 @@
 
   <!-- Modal -->
   <div class="modal" id="achievementModal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal()">×</span>
-      <img id="modalImage" src="" alt="">
-      <h2 id="modalTitle"></h2>
-      <p id="modalDesc"></p>
-    </div>
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">×</span>
+    <img id="modalImage" src="" alt="">
+    <h2 id="modalTitle"></h2>
+    <p id="modalDesc"></p>
   </div>
+</div>
 
   <script>
     function toggleMenu() {
@@ -288,28 +301,25 @@
       document.getElementById("sidebarOverlay").style.display = "none";
     }
     function openModal(image, title, desc) {
-      document.getElementById("achievementModal").style.display = "flex";
-      document.getElementById("modalImage").src = image;
-      document.getElementById("modalTitle").textContent = title;
-      document.getElementById("modalDesc").textContent = desc;
-    }
-    function closeModal() {
-      document.getElementById("achievementModal").style.display = "none";
-    }
+  const modal = document.getElementById("achievementModal");
+  document.getElementById("modalImage").src = image;
+  document.getElementById("modalTitle").textContent = title;
+  document.getElementById("modalDesc").textContent = desc;
+  modal.style.display = "flex";
+}
 
-    // Close modal when clicking outside the modal content
+function closeModal() {
+  document.getElementById("achievementModal").style.display = "none";
+}
+
+// Close modal when clicking outside content
 document.getElementById("achievementModal").addEventListener("click", function(e) {
-  const modalContent = document.querySelector(".modal-content");
-  if (!modalContent.contains(e.target)) {
-    closeModal();
-  }
+  if (e.target === this) closeModal();
 });
 
-// Close modal when pressing the Esc key
+// ESC key close
 document.addEventListener("keydown", function(e) {
-  if (e.key === "Escape") {  // "Escape" or "Esc" depending on browser
-    closeModal();
-  }
+  if (e.key === "Escape") closeModal();
 });
 
     // Starfield + meteor + ripple
