@@ -132,7 +132,7 @@
           <!-- Profile Card -->
           <div class="profile-card">
             <div class="profile">
-              <a href="https://www.facebook.com/bryangablao" target="_blank" class="profile-pic-link">
+              <a href="#" onclick="openModal('modalBryan')" class="profile-pic-link">
                 <img src="images/Bryan.jpg" alt="Bryan">
               </a>
             </div>
@@ -190,6 +190,34 @@
   </div>
 
       <!-- Modals -->
+
+<!-- Bryan Modal -->
+<div class="modal-overlay" id="modalBryan">
+  <div class="modal-box">
+    <span class="modal-close" onclick="closeModal('modalBryan')">&times;</span>
+
+    <!-- Click image inside modal → Facebook -->
+    <a href="https://www.facebook.com/bryangablao" target="_blank">
+      <img src="images/Bryan.jpg" alt="Bryan G. Ablao"
+           style="width:150px;height:150px;border-radius:50%;display:block;margin:0 auto;cursor:pointer;">
+    </a>
+
+    <h3>Bryan G. Ablao</h3>
+
+    <p>
+      I am a dedicated and passionate individual with a strong sense of responsibility,
+      creativity, and perseverance. I strive to continuously grow both personally and
+      professionally, valuing integrity, hard work, and meaningful connections with people.
+      My journey is driven by faith, determination, and the desire to make a positive impact
+      in everything I do.
+    </p>
+
+    <p style="font-size:0.9rem; color:gold;">
+      (Click my photo to visit my Facebook profile)
+    </p>
+  </div>
+</div>
+  
       <div class="modal-overlay" id="modalFather">
         <div class="modal-box">
           <span class="modal-close" onclick="closeModal('modalFather')">&times;</span>
