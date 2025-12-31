@@ -211,18 +211,7 @@ footer:hover {
 @media (max-width: 768px) {
 
   .version-header {
-    padding: 16px 0 18px;
-  }
-
-  .header-container {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .back-link {
-    position: static;
-    margin-bottom: 4px;
-    font-size: 0.9rem;
+    padding: 26px 0 28px; /* taller header */
   }
 
   .version-header h1 {
@@ -231,9 +220,17 @@ footer:hover {
     text-align: center;
   }
 
-  /* Push content lower so it doesn't hide under fixed header */
+  /* Keep back button LEFT at all times */
+  .back-link {
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+  }
+
+  /* Push content lower so it never overlaps */
   .section-wrapper {
-    margin-top: 180px;
+    margin-top: 190px;
   }
 
   .faq-wrapper {
