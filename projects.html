@@ -124,16 +124,26 @@
   .project-card h3 { color: white !important; margin:10px 0 5px 0; text-decoration:none !important; }
   .project-card p { color:#ccc !important; text-decoration:none !important; }
 
-  .footer-text {
-    font-size: 0.8rem;
-    color: #aaa;
-    margin-top: 60px;
-    margin-bottom: 30px;
-    text-align: center;
-    opacity: 0.9;
-    transition: opacity 0.3s ease;
-  }
-  .footer-text:hover { opacity: 1; color: white; text-shadow: 0 0 8px white; }
+/* ===== FOOTER ===== */
+footer {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #aaa;
+  font-size: 0.9rem;
+  margin: 60px 0 30px 0;
+  opacity: 0.9;
+  transition: 0.3s;
+}
+
+footer:hover {
+  color: gold;
+  text-shadow: 0 0 8px gold;
+  opacity: 1;
+}
+
+.footer-link { color: #aaa; text-decoration: none; transition: 0.3s; }
+.footer-link:hover { color: gold; text-shadow: 0 0 8px gold; text-decoration: underline; }
 
   @media (max-width:1024px) { .projects-grid { grid-template-columns:repeat(2,1fr); } }
   @media (max-width:768px) { .projects-grid { grid-template-columns:1fr; } }
@@ -245,8 +255,10 @@ onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 0 4px rgba(
   </div>
 </main>
 
-<footer class="footer-text">
-  🚀 Developed by <strong>Accx Creations</strong>
+<footer>
+  © 2025 <strong>Accxs Creations</strong> · All rights reserved ·
+  <a href="version.html" class="footer-link">v0.0.8</a> ·
+  <a href="termsandprivacy.html" class="footer-link">Terms &amp; Privacy</a>
 </footer>
 
 <!-- Hire Me Modal -->
