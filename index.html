@@ -97,6 +97,28 @@
   /* ---------- Footer ---------- */
   footer{position:relative; z-index:1; text-align:center; color:#aaa; font-size:0.9rem; margin-top:60px; margin-bottom:30px; opacity:0.9; transition: opacity 0.3s ease, color 0.3s ease;}
   footer:hover{opacity:1;color:gold;text-shadow:0 0 8px gold;}
+
+  .footer-link {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.footer-link:hover {
+  color: gold;
+  text-shadow: 0 0 8px gold;
+  text-decoration: underline;
+}
+
+.profile-info a {
+  color: white;
+  text-decoration: none;
+}
+
+.profile-info a:hover {
+  text-decoration: underline;
+}
+  
 </style>
 </head>
 <body>
@@ -137,8 +159,7 @@
               </a>
             </div>
             <div class="profile-info">
-              <p><strong>Address:</strong><a href="https://maps.app.goo.gl/jkmMjCcP8nkFVy2j8" target="_blank" style="color:#a76fff; text-decoration:underline;">
-    Purok 3 Riverbed Barangay 22-C Piapi Boulevard Davao City</a></p>
+              <p><strong>Address:</strong><a href="https://maps.app.goo.gl/3qxbihk6F5TMQauo8" target="_blank">    Purok 3 Riverbed Barangay 22-C Piapi Boulevard Davao City  </a></p>
               <p><strong>Mobile:</strong> 09928760990</p>
               <p><strong>Email:</strong> <a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a></p>
               <p><strong>Date of Birth:</strong> April 04, 2000</p>
@@ -294,10 +315,11 @@
   </div>
 </div>
 
-
-  <footer>
-    © 2025 All rights reserved | <strong>Accx Creations</strong>
-  </footer>
+<footer>
+  © 2025 <strong>Accxs Creations</strong> · All rights reserved ·
+  <a href="version.html" class="footer-link">v0.0.8</a> ·
+  <a href="terms.html" class="footer-link">Terms &amp; Privacy</a>
+</footer>
 
 <script>
   // Sidebar toggle
