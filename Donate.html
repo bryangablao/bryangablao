@@ -182,14 +182,26 @@
       }
     }
 
-    footer {
-      margin-top: 60px;
-      margin-bottom: 30px;
-      color: #ccc;
-      font-size: 0.9rem;
-      position: relative;
-      z-index: 2;
-    }
+    /* ===== FOOTER ===== */
+footer {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #aaa;
+  font-size: 0.9rem;
+  margin: 60px 0 30px 0;
+  opacity: 0.9;
+  transition: 0.3s;
+}
+
+footer:hover {
+  color: gold;
+  text-shadow: 0 0 8px gold;
+  opacity: 1;
+}
+
+.footer-link { color: #aaa; text-decoration: none; transition: 0.3s; }
+.footer-link:hover { color: gold; text-shadow: 0 0 8px gold; text-decoration: underline; }
   </style>
 </head>
 <body>
@@ -250,7 +262,9 @@
 </section>
 
 <footer>
-  © 2025 All rights reserved | <strong>Accx Creations</strong>
+  © 2025 <strong>Accxs Creations</strong> · All rights reserved ·
+  <a href="version.html" class="footer-link">v0.0.8</a> ·
+  <a href="termsandprivacy.html" class="footer-link">Terms &amp; Privacy</a>
 </footer>
 
 <script>
