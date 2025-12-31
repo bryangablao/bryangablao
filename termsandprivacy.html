@@ -207,6 +207,40 @@ footer:hover {
   color: gold;
 }
 
+/* ===== RESPONSIVE HEADER FIX ===== */
+@media (max-width: 768px) {
+
+  .version-header {
+    padding: 16px 0 18px;
+  }
+
+  .header-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .back-link {
+    position: static;
+    margin-bottom: 4px;
+    font-size: 0.9rem;
+  }
+
+  .version-header h1 {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+
+  /* Push content lower so it doesn't hide under fixed header */
+  .section-wrapper {
+    margin-top: 180px;
+  }
+
+  .faq-wrapper {
+    margin-top: 60px;
+  }
+}
+  
 </style>
 </head>
 <body>
