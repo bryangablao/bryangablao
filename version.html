@@ -7,7 +7,6 @@
 <title>Version History</title>
 
 <style>
-/* ===== BODY & BACKGROUND ===== */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -25,7 +24,6 @@ body {
   100% { background-position: 100% 50%; }
 }
 
-/* ===== CANVAS ===== */
 canvas {
   position: fixed;
   top: 0;
@@ -36,7 +34,6 @@ canvas {
   z-index: 0;
 }
 
-/* ===== HEADER ===== */
 .version-header {
   position: sticky;
   top: 0;
@@ -65,7 +62,6 @@ canvas {
   55% { opacity: 1; }
 }
 
-/* ===== DIVIDER ===== */
 .section-divider {
   width: 80%;
   height: 2px;
@@ -76,13 +72,12 @@ canvas {
   z-index: 2;
 }
 
-/* ===== TIMELINE WRAPPER ===== */
 .timeline-wrapper {
   max-width: 1100px;
   margin: auto;
   padding: 40px 20px;
   position: relative;
-  z-index: 2; /* above canvas */
+  z-index: 2;
 }
 
 .version-timeline {
@@ -91,7 +86,6 @@ canvas {
   gap: 20px;
 }
 
-/* ===== VERSION CARD ===== */
 .version-card {
   background: rgba(0,0,0,0.65);
   backdrop-filter: blur(4px);
@@ -122,29 +116,12 @@ canvas {
   text-align: left;
 }
 
-.version-left h2 {
-  margin: 0;
-  color: gold;
-}
+.version-left h2 { margin: 0; color: gold; }
+.version-left span { font-size: 0.85rem; color: #ccc; }
 
-.version-left span {
-  font-size: 0.85rem;
-  color: #ccc;
-}
+.version-card ul { list-style: disc; padding-left: 20px; margin: 0; text-align: left; }
+.version-card li { line-height: 1.6; margin-bottom: 8px; }
 
-.version-card ul {
-  list-style: disc;
-  padding-left: 20px;
-  margin: 0;
-  text-align: left;
-}
-
-.version-card li {
-  line-height: 1.6;
-  margin-bottom: 8px;
-}
-
-/* ===== CURRENT VERSION ===== */
 .version-card.current {
   border-left-color: #ff79c6;
   box-shadow: 0 0 30px rgba(255,121,198,0.4);
@@ -156,7 +133,6 @@ canvas {
   50% { box-shadow: 0 0 35px rgba(255,121,198,0.55); }
 }
 
-/* ===== FOOTER ===== */
 footer {
   position: relative;
   z-index: 2;
@@ -174,20 +150,10 @@ footer:hover {
   opacity: 1;
 }
 
-.footer-link {
-  color: #aaa;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.footer-link:hover {
-  color: gold;
-  text-shadow: 0 0 8px gold;
-  text-decoration: underline;
-}
+.footer-link { color: #aaa; text-decoration: none; transition: 0.3s; }
+.footer-link:hover { color: gold; text-shadow: 0 0 8px gold; text-decoration: underline; }
 </style>
 </head>
-
 <body>
 <canvas id="starsCanvas"></canvas>
 
@@ -199,7 +165,7 @@ footer:hover {
 
 <div class="timeline-wrapper">
   <section class="version-timeline">
-    <!-- Version Cards -->
+    <!-- Add all your version cards here -->
     <div class="version-card">
     <div class="version-left">
       <h2>v0.0.0</h2>
@@ -337,109 +303,73 @@ footer:hover {
 
 <footer>
   © 2025 <strong>Accxs Creations</strong> ·
-  <a href="version.html" class="footer-link">v0.0.2</a> ·
+  <a href="version.html" class="footer-link">v0.0.8</a> ·
   <a href="termsandprivacy.html" class="footer-link">Terms & Privacy</a>
 </footer>
 
 <script>
-/* ===== STARFIELD + METEOR ===== */
 const canvas = document.getElementById("starsCanvas");
 const ctx = canvas.getContext("2d");
-let stars = [];
-let meteor = null;
+let stars = [], meteor = null;
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  generateStars();
+  stars = Array.from({length:200}, () => ({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    r: Math.random()*1.5+0.5,
+    a: Math.random(),
+    s: Math.random()*0.03+0.01
+  }));
 }
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
-function generateStars() {
-  stars = [];
-  for (let i = 0; i < 200; i++) {
-    stars.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.5 + 0.5,
-      a: Math.random(),
-      s: Math.random() * 0.03 + 0.01
-    });
-  }
-}
-
-function drawStars() {
-  stars.forEach(star => {
-    star.a += star.s * (Math.random() < 0.5 ? -1 : 1);
-    star.a = Math.max(0.2, Math.min(1, star.a));
+function drawStars(){
+  stars.forEach(star=>{
+    star.a += star.s*(Math.random()<0.5?-1:1);
+    star.a=Math.max(0.2,Math.min(1,star.a));
     ctx.beginPath();
-    ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255,255,255,${star.a})`;
+    ctx.arc(star.x,star.y,star.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${star.a})`;
     ctx.fill();
   });
 }
 
-function spawnMeteor() {
-  meteor = {
-    x: Math.random() * canvas.width,
-    y: -50,
-    vx: -(Math.random() * 4 + 2),
-    vy: Math.random() * 3 + 3,
-    a: 1
-  };
+function spawnMeteor(){ meteor={x:Math.random()*canvas.width,y:-50,vx:-(Math.random()*4+2),vy:Math.random()*3+3,a:1}; }
+function drawMeteor(){
+  if(!meteor) return;
+  const grad=ctx.createLinearGradient(meteor.x,meteor.y,meteor.x-meteor.vx*20,meteor.y-meteor.vy*20);
+  grad.addColorStop(0,`rgba(255,255,255,${meteor.a})`);
+  grad.addColorStop(1,"rgba(255,255,255,0)");
+  ctx.strokeStyle=grad; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.moveTo(meteor.x,meteor.y);
+  ctx.lineTo(meteor.x-meteor.vx*25,meteor.y-meteor.vy*25); ctx.stroke();
+  meteor.x+=meteor.vx; meteor.y+=meteor.vy; meteor.a-=0.01;
+  if(meteor.a<=0){ meteor=null; setTimeout(spawnMeteor,Math.random()*5000+3000); }
 }
 
-function drawMeteor() {
-  if (!meteor) return;
-  const grad = ctx.createLinearGradient(
-    meteor.x,
-    meteor.y,
-    meteor.x - meteor.vx * 20,
-    meteor.y - meteor.vy * 20
-  );
-  grad.addColorStop(0, `rgba(255,255,255,${meteor.a})`);
-  grad.addColorStop(1, "rgba(255,255,255,0)");
-  ctx.strokeStyle = grad;
-  ctx.lineWidth = 2;
-  ctx.beginPath();
-  ctx.moveTo(meteor.x, meteor.y);
-  ctx.lineTo(meteor.x - meteor.vx * 25, meteor.y - meteor.vy * 25);
-  ctx.stroke();
-  meteor.x += meteor.vx;
-  meteor.y += meteor.vy;
-  meteor.a -= 0.01;
-  if (meteor.a <= 0) {
-    meteor = null;
-    setTimeout(spawnMeteor, Math.random() * 5000 + 3000);
-  }
-}
-
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  drawStars();
-  drawMeteor();
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  drawStars(); drawMeteor();
   requestAnimationFrame(animate);
 }
-setTimeout(spawnMeteor, 3000);
-animate();
+setTimeout(spawnMeteor,3000); animate();
 
 /* ===== VERSION CARD FADE-IN ON SCROLL ===== */
 const cards = document.querySelectorAll(".version-card");
-
-function fadeCardsOnce() {
-  cards.forEach(card => {
+function fadeCardsOnce(){
+  cards.forEach(card=>{
     const rect = card.getBoundingClientRect();
-    if (rect.top < window.innerHeight - 50) {
-      card.classList.add("show"); // fade in
+    if(rect.top < window.innerHeight - 50){
+      card.classList.add("show");
     }
-    // Do NOT remove 'show' → card stays visible once it appears
   });
 }
-
 window.addEventListener("scroll", fadeCardsOnce);
 window.addEventListener("resize", fadeCardsOnce);
-fadeCardsOnce(); // trigger on load
+fadeCardsOnce();
 </script>
 </body>
 </html>
