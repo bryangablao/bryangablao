@@ -198,6 +198,21 @@ footer:hover {
   text-decoration: underline;
 }
 
+.timeline-wrapper {
+  position: relative;
+  max-width: 1100px;
+  margin: auto;
+  padding: 20px;
+
+  /* Fade effect at top */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 60%);
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 60%);
+  mask-repeat: no-repeat;
+  mask-size: 100% 100%;
+}
+
 </style>
 </head>
 
@@ -210,8 +225,8 @@ footer:hover {
 </header>
 
 <div class="section-divider"></div>
-
-<section class="version-timeline">
+<div class="timeline-wrapper">
+  <section class="version-timeline">
 
   <div class="version-card">
     <div class="version-left">
@@ -344,7 +359,8 @@ footer:hover {
     </ul>
   </div>
 
-</section>
+  </section>
+</div>
 
 <div class="section-divider"></div>
 
