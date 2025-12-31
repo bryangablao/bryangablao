@@ -35,11 +35,14 @@ canvas {
 }
 
 .version-header {
-  position: sticky;
+  position: fixed; /* FIXED instead of sticky */
   top: 0;
-  z-index: 5;
-  background: transparent;
+  left: 0;
+  width: 100%;
+  z-index: 10; /* above everything */
+  background: rgba(0,0,0,0.5); /* semi-transparent so animation shows behind */
   padding: 20px 0;
+  backdrop-filter: blur(4px); /* optional: smooth blur behind header */
 }
 
 .version-header h1 {
