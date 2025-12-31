@@ -431,6 +431,24 @@ function animate() {
 
 setTimeout(spawnMeteor, 3000);
 animate();
+
+/* ===== VERSION CARD SCROLL REVEAL ===== */
+const cards = document.querySelectorAll(".version-card");
+
+function revealCards() {
+  const triggerBottom = window.innerHeight * 0.9;
+  cards.forEach(card => {
+    const cardTop = card.getBoundingClientRect().top;
+    if (cardTop < triggerBottom) {
+      card.classList.add("show");
+    } else {
+      card.classList.remove("show"); // remove this line if you don't want fade out
+    }
+  });
+}
+
+window.addEventListener("scroll", revealCards);
+revealCards(); // trigger on page load
 </script>
 
 </body>
