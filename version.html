@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Animated Background</title>
+
+<style>
+  /* ===== BODY BACKGROUND ===== */
+  body {
+    margin: 0;
+    background: radial-gradient(circle at top left, #380098, black);
+    background-size: cover;
+    background-attachment: fixed;
+    animation: gradientMove 10s infinite alternate;
+    overflow: hidden;
+  }
+
+  @keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+  }
+
+  /* ===== CANVAS ===== */
+  canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+  }
+</style>
+</head>
+
+<body>
+
+<canvas id="starsCanvas"></canvas>
+
+<script>
+/* ===== STARFIELD + METEOR ===== */
+const canvas = document.getElementById("starsCanvas");
+const ctx = canvas.getContext("2d");
+
+let stars = [];
+let meteor = null;
+
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  generateStars();
+}
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
+function generateStars() {
+  stars = [];
+  const count = 200;
+  for (let i = 0; i < count; i++) {
+    stars.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.5 + 0.5,
+      alpha: Math.random(),
+      speed: Math.random() * 0.03 + 0.01
+    });
+  }
+}
+
+function drawStars() {
+  stars.forEach(s => {
+    s.alpha += s.speed * (Math.random() < 0.5 ? -1 : 1);
+    s.alpha = Math.max(0.2, Math.min(1, s.alpha));
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
+    ctx.fill();
+  });
+}
+
+/* ===== METEOR ===== */
+function spawnMeteor() {
+  meteor = {
+    x: Math.random() * canvas.width,
+    y: -50,
+    vx: -(Math.random() * 4 + 2),
+    vy: Math.random() * 3 + 3,
+    alpha: 1
+  };
+}
+
+function drawMeteor() {
+  if (!meteor) return;
+
+  ctx.save();
+  const grad = ctx.createLinearGradient(
+    meteor.x,
+    meteor.y,
+    meteor.x - meteor.vx * 15,
+    meteor.y - meteor.vy * 15
+  );
+
+  grad.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
+  grad.addColorStop(1, "rgba(255,255,255,0)");
+
+  ctx.strokeStyle = grad;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(meteor.x, meteor.y);
+  ctx.lineTo(
+    meteor.x - meteor.vx * 20,
+    meteor.y - meteor.vy * 20
+  );
+  ctx.stroke();
+  ctx.restore();
+
+  meteor.x += meteor.vx;
+  meteor.y += meteor.vy;
+  meteor.alpha -= 0.01;
+
+  if (
+    meteor.alpha <= 0 ||
+    meteor.x < -100 ||
+    meteor.y > canvas.height + 100
+  ) {
+    meteor = null;
+    setTimeout(spawnMeteor, Math.random() * 5000 + 3000);
+  }
+}
+
+/* ===== ANIMATION LOOP ===== */
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawStars();
+  drawMeteor();
+  requestAnimationFrame(animate);
+}
+
+setTimeout(spawnMeteor, 3000);
+animate();
+</script>
+
+</body>
+</html>
