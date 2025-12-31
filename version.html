@@ -94,13 +94,16 @@ canvas {
   background: rgba(0, 0, 0, 0.45);
   backdrop-filter: blur(8px);
   border-radius: 12px;
-  padding: 18px 22px; /* slightly tighter */
+  padding: 18px 22px;
   display: flex;
   gap: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-
   border-left: 4px solid #ff4fa3;
-  margin-bottom: 0; /* ← ADD THIS */
+  margin-bottom: 0;
+
+  /* Scroll reveal */
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out, transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .version-card:hover {
