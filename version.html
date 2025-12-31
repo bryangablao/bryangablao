@@ -427,18 +427,19 @@ animate();
 /* ===== VERSION CARD FADE-IN ON SCROLL ===== */
 const cards = document.querySelectorAll(".version-card");
 
-function fadeCards() {
+function fadeCardsOnce() {
   cards.forEach(card => {
     const rect = card.getBoundingClientRect();
     if (rect.top < window.innerHeight - 50) {
-      card.classList.add("show");
+      card.classList.add("show"); // fade in
     }
+    // Do NOT remove 'show' → card stays visible once it appears
   });
 }
 
-window.addEventListener("scroll", fadeCards);
-window.addEventListener("resize", fadeCards);
-fadeCards();
+window.addEventListener("scroll", fadeCardsOnce);
+window.addEventListener("resize", fadeCardsOnce);
+fadeCardsOnce(); // trigger on load
 </script>
 </body>
 </html>
