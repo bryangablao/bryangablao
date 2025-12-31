@@ -139,6 +139,74 @@ footer:hover {
 
 .footer-link { color: #aaa; text-decoration: none; transition: 0.3s; }
 .footer-link:hover { color: gold; text-shadow: 0 0 8px gold; text-decoration: underline; }
+
+/* ===== FAQ SECTION ===== */
+.faq-wrapper {
+  max-width: 900px;
+  margin: 80px auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.faq-title {
+  color: gold;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px gold;
+  margin-bottom: 30px;
+}
+
+.faq-card {
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin-bottom: 15px;
+  border-left: 4px solid #ff79c6;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.faq-card:hover {
+  box-shadow: 0 0 25px rgba(255,121,198,0.4);
+}
+
+.faq-question {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1.05rem;
+  text-align: left;
+}
+
+.faq-icon {
+  font-size: 1.5rem;
+  color: #ff79c6;
+  transition: transform 0.3s;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease;
+  opacity: 0;
+  text-align: left;
+  margin-top: 10px;
+  line-height: 1.6;
+  color: #ddd;
+}
+
+.faq-card.active .faq-answer {
+  max-height: 300px;
+  opacity: 1;
+}
+
+.faq-card.active .faq-icon {
+  transform: rotate(45deg);
+  color: gold;
+}
+
 </style>
 </head>
 <body>
@@ -181,6 +249,81 @@ footer:hover {
   <p>The Privacy Policy is designed to promote transparency and user safety while ensuring that the site owner can operate their professional website securely and without risk of misuse, harassment, or unauthorized exploitation of public information.</p>
   <p>By accessing and interacting with this website, visitors acknowledge that they have read, understood, and agreed to abide by this Privacy Policy and the responsible use of any information provided herein.</p>
 </div>
+
+<section class="faq-wrapper">
+  <h2 class="faq-title">Frequently Asked Questions (FAQs)</h2>
+
+  <div class="faq-card">
+    <div class="faq-question">
+      Is this website safe to browse?
+      <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-answer">
+      Yes, this website is safe to browse as it does not require account creation, login credentials, or password input, and all displayed information is intentionally shared publicly for professional and informational purposes only.
+    </div>
+  </div>
+
+  <div class="faq-card">
+    <div class="faq-question">
+      Does this website collect personal data from visitors?
+      <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-answer">
+      No personal data is automatically collected from visitors, as this website does not use forms that store data, databases, tracking scripts, or cookies intended for data harvesting or surveillance.
+    </div>
+  </div>
+
+  <div class="faq-card">
+    <div class="faq-question">
+      Why is personal information shown on this website?
+      <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-answer">
+      The personal information displayed, such as contact details, social media links, portfolio items, and achievements, is shared voluntarily to allow visitors to connect, inquire, or collaborate professionally.
+    </div>
+  </div>
+
+  <div class="faq-card">
+    <div class="faq-question">
+      Are my interactions with this website secure?
+      <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-answer">
+      Browsing this website is secure as there are no login systems or data submission processes that store sensitive user information, and all interactions occur through external platforms like email or social media.
+    </div>
+  </div>
+
+  <div class="faq-card">
+    <div class="faq-question">
+      Can visitors misuse the information shown here?
+      <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-answer">
+      While the website is public, visitors are expected to act respectfully and ethically, and any misuse, harassment, or malicious intent involving the shared information is strictly discouraged.
+    </div>
+  </div>
+
+  <div class="faq-card">
+    <div class="faq-question">
+      Does this website store usernames or passwords?
+      <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-answer">
+      No usernames, passwords, or authentication credentials are requested, stored, or processed anywhere on this website.
+    </div>
+  </div>
+
+  <div class="faq-card">
+    <div class="faq-question">
+      How can I contact the website owner safely?
+      <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-answer">
+      Visitors may safely contact the website owner through the provided email address, contact number, or linked social media platforms, all of which are intentionally made public for communication purposes.
+    </div>
+  </div>
+</section>
+
 <footer>
   © 2025 <strong>Accxs Creations</strong> · All rights reserved ·
   <a href="version.html" class="footer-link">v0.0.8</a> ·
@@ -246,6 +389,14 @@ function animate(){
 }
 setTimeout(spawnMeteor,3000);
 animate();
+
+/* ===== FAQ ACCORDION ===== */
+document.querySelectorAll(".faq-card").forEach(card => {
+  card.addEventListener("click", () => {
+    card.classList.toggle("active");
+  });
+});
+
 </script>
 </body>
 </html>
