@@ -7,14 +7,14 @@
 <title>Version History</title>
 
 <style>
-/* ===== BODY BACKGROUND ===== */
+/* ===== BODY & BACKGROUND ===== */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
   background: radial-gradient(circle at top left, #380098, black);
   background-size: cover;
   background-attachment: fixed;
-  animation: gradientMove 10s infinite alternate;
+  animation: gradientMove 12s infinite alternate;
   overflow-x: hidden;
   color: white;
   text-align: center;
@@ -36,15 +36,13 @@ canvas {
   z-index: 0;
 }
 
-/* ---------- Header ---------- */
+/* ===== HEADER ===== */
 .version-header {
   position: sticky;
   top: 0;
   z-index: 10;
-  background: transparent;   /* ← remove dark block */
-  backdrop-filter: none;     /* ← remove blur */
-  padding: 18px 0;
-  text-align: center;
+  background: transparent;
+  padding: 20px 0;
 }
 
 .version-header h1 {
@@ -56,9 +54,8 @@ canvas {
 }
 
 @keyframes floatText {
-  0% { transform: translateY(0); }
+  0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-4px); }
-  100% { transform: translateY(0); }
 }
 
 @keyframes flicker {
@@ -68,7 +65,7 @@ canvas {
   55% { opacity: 1; }
 }
 
-/* ---------- Divider Line ---------- */
+/* ===== DIVIDER ===== */
 .section-divider {
   width: 80%;
   height: 2px;
@@ -77,46 +74,32 @@ canvas {
   box-shadow: 0 0 10px gold;
 }
 
-/* ---------- Timeline ---------- */
-.version-timeline {
-  position: relative;
-  z-index: 1;
+/* ===== TIMELINE WRAPPER ===== */
+.timeline-wrapper {
   max-width: 1100px;
   margin: auto;
-  padding: 20px;
+  padding: 40px 20px;
+  position: relative;
+}
+
+.version-timeline {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
-.timeline-wrapper {
-  position: relative;
-  max-width: 1100px;
-  margin: auto;
-  padding: 60px 20px 20px; /* add top padding for spacing */
-
-  /* Fade effect at top */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-size: 100% 100%;
-  mask-image: linear-gradient(to bottom, transparent 0%, black 20%);
-  mask-repeat: no-repeat;
-  mask-size: 100% 100%;
-}
-
+/* ===== VERSION CARD ===== */
 .version-card {
-  background: rgba(0, 0, 0, 0.55); /* slightly stronger so blur looks cleaner */
-  backdrop-filter: blur(5px); /* reduce blur for first card clarity */
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
   border-radius: 12px;
   padding: 18px 22px;
   display: flex;
   gap: 20px;
   border-left: 4px solid #ff4fa3;
-  margin-bottom: 20px; /* add some spacing between cards */
-
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.6s ease-out, transform 0.3s ease, box-shadow 0.3s ease;
+  transition: opacity 0.6s ease-out, transform 0.4s ease, box-shadow 0.3s ease;
 }
 
 .version-card.show {
@@ -125,16 +108,14 @@ canvas {
 }
 
 .version-card:hover {
-  transform: translateY(-4px) scale(1.01);
-  box-shadow:
-    0 0 20px rgba(255, 105, 180, 0.35),
-    0 0 40px rgba(255, 121, 198, 0.15);
+  transform: translateY(-3px) scale(1.01);
+  box-shadow: 0 0 25px rgba(255,121,198,0.35);
   border-left-color: #ff79c6;
 }
 
-/* ---------- Left Info ---------- */
 .version-left {
   min-width: 130px;
+  text-align: left;
 }
 
 .version-left h2 {
@@ -147,62 +128,52 @@ canvas {
   color: #ccc;
 }
 
-/* ---------- Feature List ---------- */
 .version-card ul {
   list-style: disc;
   padding-left: 20px;
   margin: 0;
-  text-align: left; /* ← force left alignment */
+  text-align: left;
 }
 
 .version-card li {
-  text-align: left;
   line-height: 1.6;
   margin-bottom: 8px;
 }
 
-/* ---------- Current Version ---------- */
+/* ===== CURRENT VERSION ===== */
 .version-card.current {
-  border-left-color: #ff79c6; /* brighter pink */
-  box-shadow: 0 0 25px rgba(255, 121, 198, 0.4);
+  border-left-color: #ff79c6;
+  box-shadow: 0 0 30px rgba(255,121,198,0.4);
   animation: pulseGlow 3s infinite ease-in-out;
 }
 
 @keyframes pulseGlow {
-  0% {
-    box-shadow: 0 0 20px rgba(255, 121, 198, 0.35);
-  }
-  50% {
-    box-shadow: 0 0 30px rgba(255, 121, 198, 0.55);
-  }
-  100% {
-    box-shadow: 0 0 20px rgba(255, 121, 198, 0.35);
-  }
+  0%,100% { box-shadow: 0 0 20px rgba(255,121,198,0.35); }
+  50% { box-shadow: 0 0 35px rgba(255,121,198,0.55); }
 }
 
-/* ---------- Footer ---------- */
+/* ===== FOOTER ===== */
 footer {
   position: relative;
   z-index: 1;
   text-align: center;
   color: #aaa;
   font-size: 0.9rem;
-  margin-top: 60px;
-  margin-bottom: 30px;
+  margin: 60px 0 30px 0;
   opacity: 0.9;
-  transition: opacity 0.3s ease, color 0.3s ease;
+  transition: 0.3s;
 }
 
 footer:hover {
-  opacity: 1;
   color: gold;
   text-shadow: 0 0 8px gold;
+  opacity: 1;
 }
 
 .footer-link {
   color: #aaa;
   text-decoration: none;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+  transition: 0.3s;
 }
 
 .footer-link:hover {
@@ -210,12 +181,10 @@ footer:hover {
   text-shadow: 0 0 8px gold;
   text-decoration: underline;
 }
-
 </style>
 </head>
 
 <body>
-
 <canvas id="starsCanvas"></canvas>
 
 <header class="version-header">
@@ -223,10 +192,11 @@ footer:hover {
 </header>
 
 <div class="section-divider"></div>
+
 <div class="timeline-wrapper">
   <section class="version-timeline">
 
-  <div class="version-card">
+    <div class="version-card">
     <div class="version-left">
       <h2>v0.0.0</h2>
       <span>June 2025</span>
@@ -363,9 +333,9 @@ footer:hover {
 <div class="section-divider"></div>
 
 <footer>
-  © 2025 <strong>Accxs Creations</strong> · All rights reserved ·
+  © 2025 <strong>Accxs Creations</strong> ·
   <a href="version.html" class="footer-link">v0.0.8</a> ·
-  <a href="termsandprivacy.html" class="footer-link">Terms &amp; Privacy</a>
+  <a href="termsandprivacy.html" class="footer-link">Terms & Privacy</a>
 </footer>
 
 <script>
@@ -385,93 +355,63 @@ resizeCanvas();
 
 function generateStars() {
   stars = [];
-  for (let i = 0; i < 200; i++) {
-    stars.push({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      r: Math.random() * 1.5 + 0.5,
-      a: Math.random(),
-      s: Math.random() * 0.03 + 0.01
-    });
+  for (let i=0;i<200;i++){
+    stars.push({ x: Math.random()*canvas.width, y: Math.random()*canvas.height, r: Math.random()*1.5+0.5, a: Math.random(), s: Math.random()*0.03+0.01 });
   }
 }
 
-function drawStars() {
-  stars.forEach(star => {
-    star.a += star.s * (Math.random() < 0.5 ? -1 : 1);
-    star.a = Math.max(0.2, Math.min(1, star.a));
+function drawStars(){
+  stars.forEach(star=>{
+    star.a += star.s*(Math.random()<0.5?-1:1);
+    star.a=Math.max(0.2,Math.min(1,star.a));
     ctx.beginPath();
-    ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255,255,255,${star.a})`;
+    ctx.arc(star.x,star.y,star.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(255,255,255,${star.a})`;
     ctx.fill();
   });
 }
 
-function spawnMeteor() {
-  meteor = {
-    x: Math.random() * canvas.width,
-    y: -50,
-    vx: -(Math.random() * 4 + 2),
-    vy: Math.random() * 3 + 3,
-    a: 1
-  };
+function spawnMeteor(){
+  meteor={x:Math.random()*canvas.width,y:-50,vx:-(Math.random()*4+2),vy:Math.random()*3+3,a:1};
 }
 
-function drawMeteor() {
-  if (!meteor) return;
-  const grad = ctx.createLinearGradient(
-    meteor.x, meteor.y,
-    meteor.x - meteor.vx * 20,
-    meteor.y - meteor.vy * 20
-  );
-  grad.addColorStop(0, `rgba(255,255,255,${meteor.a})`);
-  grad.addColorStop(1, "rgba(255,255,255,0)");
-
-  ctx.strokeStyle = grad;
-  ctx.lineWidth = 2;
+function drawMeteor(){
+  if(!meteor)return;
+  const grad=ctx.createLinearGradient(meteor.x,meteor.y,meteor.x-meteor.vx*20,meteor.y-meteor.vy*20);
+  grad.addColorStop(0,`rgba(255,255,255,${meteor.a})`);
+  grad.addColorStop(1,"rgba(255,255,255,0)");
+  ctx.strokeStyle=grad;
+  ctx.lineWidth=2;
   ctx.beginPath();
-  ctx.moveTo(meteor.x, meteor.y);
-  ctx.lineTo(meteor.x - meteor.vx * 25, meteor.y - meteor.vy * 25);
+  ctx.moveTo(meteor.x,meteor.y);
+  ctx.lineTo(meteor.x-meteor.vx*25,meteor.y-meteor.vy*25);
   ctx.stroke();
-
-  meteor.x += meteor.vx;
-  meteor.y += meteor.vy;
-  meteor.a -= 0.01;
-
-  if (meteor.a <= 0) {
-    meteor = null;
-    setTimeout(spawnMeteor, Math.random() * 5000 + 3000);
-  }
+  meteor.x+=meteor.vx;
+  meteor.y+=meteor.vy;
+  meteor.a-=0.01;
+  if(meteor.a<=0){ meteor=null; setTimeout(spawnMeteor,Math.random()*5000+3000);}
 }
 
-function animate() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
   drawStars();
   drawMeteor();
   requestAnimationFrame(animate);
 }
-
-setTimeout(spawnMeteor, 3000);
+setTimeout(spawnMeteor,3000);
 animate();
 
 /* ===== VERSION CARD SCROLL REVEAL ===== */
-const cards = document.querySelectorAll(".version-card");
-
-function revealCards() {
-  const triggerBottom = window.innerHeight * 0.9;
-  cards.forEach(card => {
-    const cardTop = card.getBoundingClientRect().top;
-    if (cardTop < triggerBottom) {
-      card.classList.add("show");
-    } else {
-      card.classList.remove("show"); // remove this line if you don't want fade out
-    }
+const cards=document.querySelectorAll(".version-card");
+function revealCards(){
+  const triggerBottom=window.innerHeight*0.9;
+  cards.forEach(card=>{
+    const cardTop=card.getBoundingClientRect().top;
+    if(cardTop<triggerBottom)card.classList.add("show");
   });
 }
-
-window.addEventListener("scroll", revealCards);
-revealCards(); // trigger on page load
+window.addEventListener("scroll",revealCards);
+revealCards();
 </script>
-
 </body>
 </html>
