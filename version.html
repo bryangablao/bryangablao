@@ -3,33 +3,136 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Animated Background</title>
+<link rel="icon" type="image/png" href="images/Accx_Logo.png" />
+<title>Version History</title>
 
 <style>
-  /* ===== BODY BACKGROUND ===== */
-  body {
-    margin: 0;
-    background: radial-gradient(circle at top left, #380098, black);
-    background-size: cover;
-    background-attachment: fixed;
-    animation: gradientMove 10s infinite alternate;
-    overflow: hidden;
-  }
+/* ===== BODY BACKGROUND ===== */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top left, #380098, black);
+  background-size: cover;
+  background-attachment: fixed;
+  animation: gradientMove 10s infinite alternate;
+  overflow-x: hidden;
+  color: white;
+  text-align: center;
+}
 
-  @keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-  }
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
 
-  /* ===== CANVAS ===== */
-  canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
+/* ===== CANVAS ===== */
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== HEADER ===== */
+header {
+  position: relative;
+  z-index: 1;
+  padding: 40px 20px 20px;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  color: gold;
+  text-shadow: 0 0 10px gold;
+  animation: flicker 3s infinite;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 10px gold, 0 0 20px #ffcc66;
   }
+  20%, 24%, 55% {
+    opacity: 0.6;
+    text-shadow: 0 0 5px gold;
+  }
+}
+
+/* ===== VERSION CARDS ===== */
+.versions {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+.version-card {
+  background: rgba(0,0,0,0.6);
+  border-radius: 15px;
+  padding: 20px;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255,215,0,0.2);
+}
+
+.version-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 0 20px rgba(255,215,0,0.6);
+}
+
+.version-card h2 {
+  margin: 0 0 10px;
+  color: gold;
+}
+
+.version-card span {
+  font-size: 0.85rem;
+  color: #ccc;
+}
+
+.version-card p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+/* ---------- Footer ---------- */
+footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-top: 60px;
+  margin-bottom: 30px;
+  opacity: 0.9;
+  transition: opacity 0.3s ease, color 0.3s ease;
+}
+
+footer:hover {
+  opacity: 1;
+  color: gold;
+  text-shadow: 0 0 8px gold;
+}
+
+.footer-link {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.footer-link:hover {
+  color: gold;
+  text-shadow: 0 0 8px gold;
+  text-decoration: underline;
+}
 </style>
 </head>
 
@@ -37,11 +140,105 @@
 
 <canvas id="starsCanvas"></canvas>
 
+<header>
+  <h1>Version History</h1>
+</header>
+
+<section class="versions">
+  <div class="version-card">
+    <h2>v0.0.0</h2>
+    <span>June 2025</span>
+    <p>
+      Initial creation of the personal website. Built as a static page using
+      pure HTML and basic CSS. Published via GitHub Pages and made publicly
+      accessible for the first time.
+    </p>
+  </div>
+
+  <div class="version-card">
+    <h2>v0.0.1</h2>
+    <span>July 2025</span>
+    <p>
+      Improved layout readability and structure. Cleaned up text formatting
+      and adjusted spacing for better user experience.
+    </p>
+  </div>
+
+  <div class="version-card">
+    <h2>v0.0.2</h2>
+    <span>July 2025</span>
+    <p>
+      Added more sections and clearer navigation. Minor visual enhancements
+      to make content easier to understand.
+    </p>
+  </div>
+
+  <div class="version-card">
+    <h2>v0.0.3</h2>
+    <span>August 2025</span>
+    <p>
+      Introduced basic styling improvements and consistency across pages.
+      Focused on cleaner presentation.
+    </p>
+  </div>
+
+  <div class="version-card">
+    <h2>v0.0.4</h2>
+    <span>August 2025</span>
+    <p>
+      Started experimenting with JavaScript for simple interactions and
+      dynamic behavior.
+    </p>
+  </div>
+
+  <div class="version-card">
+    <h2>v0.0.5</h2>
+    <span>September 2025</span>
+    <p>
+      Added animations and transitions to make the website feel more alive
+      and engaging.
+    </p>
+  </div>
+
+  <div class="version-card">
+    <h2>v0.0.6</h2>
+    <span>September 2025</span>
+    <p>
+      UI refinements, improved responsiveness, and smoother animations
+      across devices.
+    </p>
+  </div>
+
+  <div class="version-card">
+    <h2>v0.0.7</h2>
+    <span>October 2025</span>
+    <p>
+      Visual polish pass. Added more personality through effects and
+      interactive elements.
+    </p>
+  </div>
+
+  <div class="version-card">
+    <h2>v0.0.8</h2>
+    <span>Current</span>
+    <p>
+      Latest ongoing version. Not final yet — continuously improving design,
+      adding JavaScript features, animations, and making the site more lively
+      and enjoyable for visitors.
+    </p>
+  </div>
+</section>
+
+<footer>
+  © 2025 <strong>Accxs Creations</strong> · All rights reserved ·
+  <a href="version.html" class="footer-link">v0.0.8</a> ·
+  <a href="termsandprivacy.html" class="footer-link">Terms &amp; Privacy</a>
+</footer>
+
 <script>
 /* ===== STARFIELD + METEOR ===== */
 const canvas = document.getElementById("starsCanvas");
 const ctx = canvas.getContext("2d");
-
 let stars = [];
 let meteor = null;
 
@@ -55,80 +252,65 @@ resizeCanvas();
 
 function generateStars() {
   stars = [];
-  const count = 200;
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i < 200; i++) {
     stars.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       r: Math.random() * 1.5 + 0.5,
-      alpha: Math.random(),
-      speed: Math.random() * 0.03 + 0.01
+      a: Math.random(),
+      s: Math.random() * 0.03 + 0.01
     });
   }
 }
 
 function drawStars() {
-  stars.forEach(s => {
-    s.alpha += s.speed * (Math.random() < 0.5 ? -1 : 1);
-    s.alpha = Math.max(0.2, Math.min(1, s.alpha));
+  stars.forEach(star => {
+    star.a += star.s * (Math.random() < 0.5 ? -1 : 1);
+    star.a = Math.max(0.2, Math.min(1, star.a));
     ctx.beginPath();
-    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(255,255,255,${s.alpha})`;
+    ctx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${star.a})`;
     ctx.fill();
   });
 }
 
-/* ===== METEOR ===== */
 function spawnMeteor() {
   meteor = {
     x: Math.random() * canvas.width,
     y: -50,
     vx: -(Math.random() * 4 + 2),
     vy: Math.random() * 3 + 3,
-    alpha: 1
+    a: 1
   };
 }
 
 function drawMeteor() {
   if (!meteor) return;
-
-  ctx.save();
   const grad = ctx.createLinearGradient(
-    meteor.x,
-    meteor.y,
-    meteor.x - meteor.vx * 15,
-    meteor.y - meteor.vy * 15
+    meteor.x, meteor.y,
+    meteor.x - meteor.vx * 20,
+    meteor.y - meteor.vy * 20
   );
-
-  grad.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
+  grad.addColorStop(0, `rgba(255,255,255,${meteor.a})`);
   grad.addColorStop(1, "rgba(255,255,255,0)");
 
   ctx.strokeStyle = grad;
   ctx.lineWidth = 2;
   ctx.beginPath();
   ctx.moveTo(meteor.x, meteor.y);
-  ctx.lineTo(
-    meteor.x - meteor.vx * 20,
-    meteor.y - meteor.vy * 20
-  );
+  ctx.lineTo(meteor.x - meteor.vx * 25, meteor.y - meteor.vy * 25);
   ctx.stroke();
-  ctx.restore();
 
   meteor.x += meteor.vx;
   meteor.y += meteor.vy;
-  meteor.alpha -= 0.01;
+  meteor.a -= 0.01;
 
-  if (
-    meteor.alpha <= 0 ||
-    meteor.x < -100 ||
-    meteor.y > canvas.height + 100
-  ) {
+  if (meteor.a <= 0) {
     meteor = null;
     setTimeout(spawnMeteor, Math.random() * 5000 + 3000);
   }
 }
 
-/* ===== ANIMATION LOOP ===== */
 function animate() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawStars();
