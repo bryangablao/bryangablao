@@ -36,71 +36,88 @@ canvas {
   z-index: 0;
 }
 
-/* ===== HEADER ===== */
-header {
+/* ---------- Header ---------- */
+.version-header {
   position: relative;
   z-index: 1;
   padding: 40px 20px 20px;
+  text-align: center;
 }
 
-header h1 {
+.version-header h1 {
   font-size: 2.5rem;
   color: gold;
-  text-shadow: 0 0 10px gold;
-  animation: flicker 3s infinite;
+  animation: flickerText 3s infinite;
 }
 
-@keyframes flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    opacity: 1;
-    text-shadow: 0 0 10px gold, 0 0 20px #ffcc66;
-  }
-  20%, 24%, 55% {
-    opacity: 0.6;
-    text-shadow: 0 0 5px gold;
-  }
+/* ---------- Divider Line ---------- */
+.section-divider {
+  width: 80%;
+  height: 2px;
+  margin: 20px auto 40px;
+  background: linear-gradient(to right, transparent, gold, transparent);
+  box-shadow: 0 0 10px gold;
 }
 
-/* ===== VERSION CARDS ===== */
-.versions {
+/* ---------- Timeline ---------- */
+.version-timeline {
   position: relative;
   z-index: 1;
   max-width: 1100px;
-  margin: 0 auto;
+  margin: auto;
   padding: 20px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  display: flex;
+  flex-direction: column;
   gap: 20px;
 }
 
+/* ---------- Version Card ---------- */
 .version-card {
-  background: rgba(0,0,0,0.6);
-  border-radius: 15px;
-  padding: 20px;
-  text-align: left;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(255,215,0,0.2);
+  display: flex;
+  gap: 25px;
+  align-items: center;
+  background: rgba(255,255,255,0.06);
+  border-left: 6px solid #380098;
+  border-radius: 14px;
+  padding: 20px 25px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .version-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 0 20px rgba(255,215,0,0.6);
+  transform: translateX(12px);
+  box-shadow: 0 0 25px rgba(255,215,0,0.6);
 }
 
-.version-card h2 {
-  margin: 0 0 10px;
+/* ---------- Left Info ---------- */
+.version-left {
+  min-width: 130px;
+}
+
+.version-left h2 {
+  margin: 0;
   color: gold;
 }
 
-.version-card span {
+.version-left span {
   font-size: 0.85rem;
   color: #ccc;
 }
 
-.version-card p {
+/* ---------- Feature List ---------- */
+.version-card ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.version-card li {
+  margin-bottom: 6px;
   font-size: 0.95rem;
-  line-height: 1.5;
-  margin-top: 10px;
+}
+
+/* ---------- Current Version ---------- */
+.version-card.current {
+  border-left-color: gold;
+  box-shadow: 0 0 30px rgba(255,215,0,0.4);
 }
 
 /* ---------- Footer ---------- */
@@ -140,94 +157,148 @@ footer:hover {
 
 <canvas id="starsCanvas"></canvas>
 
-<header>
+<header class="version-header">
   <h1>Version History</h1>
 </header>
 
-<section class="versions">
+<div class="section-divider"></div>
+
+<section class="version-timeline">
+
   <div class="version-card">
-    <h2>v0.0.0</h2>
-    <span>June 2025</span>
-    <p>
-      Initial creation of the personal website. Built as a static page using
-      pure HTML and basic CSS. Published via GitHub Pages and made publicly
-      accessible for the first time.
-    </p>
+    <div class="version-left">
+      <h2>v0.0.0</h2>
+      <span>June 2025</span>
+    </div>
+    <ul>
+      <li>Created the very first version of the website using plain HTML with no frameworks involved.</li>
+      <li>Implemented a simple static layout to test basic page structure and content flow.</li>
+      <li>Used basic CSS styling to define fonts, colors, and spacing across the page.</li>
+      <li>Focused on understanding how HTML elements interact visually on a browser.</li>
+      <li>Uploaded the project to GitHub Pages for the first time.</li>
+      <li>Enabled public access so the site could be viewed online by anyone.</li>
+    </ul>
   </div>
 
   <div class="version-card">
-    <h2>v0.0.1</h2>
-    <span>July 2025</span>
-    <p>
-      Improved layout readability and structure. Cleaned up text formatting
-      and adjusted spacing for better user experience.
-    </p>
+    <div class="version-left">
+      <h2>v0.0.1</h2>
+      <span>July 2025</span>
+    </div>
+    <ul>
+      <li>Improved overall text readability by adjusting font sizes and line spacing.</li>
+      <li>Reorganized content to make sections easier to understand at first glance.</li>
+      <li>Reduced visual clutter by removing unnecessary elements.</li>
+      <li>Applied more consistent spacing between headings and paragraphs.</li>
+      <li>Focused on making the layout feel less crowded and more beginner-friendly.</li>
+    </ul>
   </div>
 
   <div class="version-card">
-    <h2>v0.0.2</h2>
-    <span>July 2025</span>
-    <p>
-      Added more sections and clearer navigation. Minor visual enhancements
-      to make content easier to understand.
-    </p>
+    <div class="version-left">
+      <h2>v0.0.2</h2>
+      <span>July 2025</span>
+    </div>
+    <ul>
+      <li>Added more content sections to expand the purpose of the website.</li>
+      <li>Improved navigation flow so users can understand the site structure better.</li>
+      <li>Adjusted margins and padding for better visual balance.</li>
+      <li>Refined text alignment across different sections.</li>
+      <li>Started paying attention to overall user experience rather than just visuals.</li>
+      <li>Minor visual adjustments were applied for consistency.</li>
+    </ul>
   </div>
 
   <div class="version-card">
-    <h2>v0.0.3</h2>
-    <span>August 2025</span>
-    <p>
-      Introduced basic styling improvements and consistency across pages.
-      Focused on cleaner presentation.
-    </p>
+    <div class="version-left">
+      <h2>v0.0.3</h2>
+      <span>August 2025</span>
+    </div>
+    <ul>
+      <li>Unified styling across multiple pages to maintain visual consistency.</li>
+      <li>Improved alignment of elements to look more professional.</li>
+      <li>Cleaned up unused CSS rules and simplified styling logic.</li>
+      <li>Adjusted headers and text spacing for better hierarchy.</li>
+      <li>Focused on making the site feel more organized and structured.</li>
+    </ul>
   </div>
 
   <div class="version-card">
-    <h2>v0.0.4</h2>
-    <span>August 2025</span>
-    <p>
-      Started experimenting with JavaScript for simple interactions and
-      dynamic behavior.
-    </p>
+    <div class="version-left">
+      <h2>v0.0.4</h2>
+      <span>August 2025</span>
+    </div>
+    <ul>
+      <li>Introduced JavaScript for the first time to add interactivity.</li>
+      <li>Experimented with basic dynamic behaviors on the page.</li>
+      <li>Learned how JavaScript interacts with HTML elements.</li>
+      <li>Improved user feedback through simple scripted actions.</li>
+      <li>Marked the transition from a static site to a more dynamic experience.</li>
+    </ul>
   </div>
 
   <div class="version-card">
-    <h2>v0.0.5</h2>
-    <span>September 2025</span>
-    <p>
-      Added animations and transitions to make the website feel more alive
-      and engaging.
-    </p>
+    <div class="version-left">
+      <h2>v0.0.5</h2>
+      <span>September 2025</span>
+    </div>
+    <ul>
+      <li>Added animations and transitions to enhance visual engagement.</li>
+      <li>Introduced hover effects to make the site feel more responsive.</li>
+      <li>Improved the overall smoothness of UI interactions.</li>
+      <li>Focused on making the website feel more alive and modern.</li>
+      <li>Balanced animations to avoid overwhelming the user.</li>
+    </ul>
   </div>
 
   <div class="version-card">
-    <h2>v0.0.6</h2>
-    <span>September 2025</span>
-    <p>
-      UI refinements, improved responsiveness, and smoother animations
-      across devices.
-    </p>
+    <div class="version-left">
+      <h2>v0.0.6</h2>
+      <span>September 2025</span>
+    </div>
+    <ul>
+      <li>Improved responsiveness across different screen sizes.</li>
+      <li>Optimized layouts for mobile and tablet viewing.</li>
+      <li>Refined animations for smoother performance.</li>
+      <li>Adjusted font scaling for better readability on smaller screens.</li>
+      <li>Focused on usability and accessibility improvements.</li>
+      <li>Tested the site on multiple devices for consistency.</li>
+    </ul>
   </div>
 
   <div class="version-card">
-    <h2>v0.0.7</h2>
-    <span>October 2025</span>
-    <p>
-      Visual polish pass. Added more personality through effects and
-      interactive elements.
-    </p>
+    <div class="version-left">
+      <h2>v0.0.7</h2>
+      <span>October 2025</span>
+    </div>
+    <ul>
+      <li>Applied additional visual polish across all components.</li>
+      <li>Enhanced UI details to improve overall aesthetics.</li>
+      <li>Added more personality through subtle design effects.</li>
+      <li>Improved consistency in color usage and shadows.</li>
+      <li>Focused on making the site feel more complete and refined.</li>
+    </ul>
   </div>
 
-  <div class="version-card">
-    <h2>v0.0.8</h2>
-    <span>Current</span>
-    <p>
-      Latest ongoing version. Not final yet — continuously improving design,
-      adding JavaScript features, animations, and making the site more lively
-      and enjoyable for visitors.
-    </p>
+  <div class="version-card current">
+    <div class="version-left">
+      <h2>v0.0.8</h2>
+      <span>Current</span>
+    </div>
+    <ul>
+      <li>Implemented more advanced JavaScript logic and functions.</li>
+      <li>Added animated backgrounds and visual effects.</li>
+      <li>Improved overall user experience and interaction flow.</li>
+      <li>Enhanced performance and animation smoothness.</li>
+      <li>Refined UI elements for a more professional look.</li>
+      <li>Actively continuing development and feature upgrades.</li>
+      <li>Serving as the most stable and polished version so far.</li>
+    </ul>
   </div>
+
 </section>
+
+<div class="section-divider"></div>
 
 <footer>
   © 2025 <strong>Accxs Creations</strong> · All rights reserved ·
