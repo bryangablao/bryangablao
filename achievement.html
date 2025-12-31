@@ -206,22 +206,26 @@
   color: gold;
 }
 
-        /* Footer */
-    footer {
-      text-align: center;
-      color: #aaa;
-      font-size: 0.9rem;
-      margin-top: 60px;
-      margin-bottom: 30px;
-      opacity: 0.9;
-      transition: opacity 0.3s ease, color 0.3s ease;
-    }
+/* ===== FOOTER ===== */
+footer {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: #aaa;
+  font-size: 0.9rem;
+  margin: 60px 0 30px 0;
+  opacity: 0.9;
+  transition: 0.3s;
+}
 
-    footer:hover {
-      opacity: 1;
-      color: gold;
-      text-shadow: 0 0 8px gold;
-    }
+footer:hover {
+  color: gold;
+  text-shadow: 0 0 8px gold;
+  opacity: 1;
+}
+
+.footer-link { color: #aaa; text-decoration: none; transition: 0.3s; }
+.footer-link:hover { color: gold; text-shadow: 0 0 8px gold; text-decoration: underline; }
     
     #starsCanvas, #rippleCanvas {
       position: fixed;
@@ -283,9 +287,11 @@
     <!-- Add more cards as needed -->
   </section>
 
-  <footer>
-    © 2025 All rights reserved | <strong>Accx Creations</strong>
-  </footer>
+<footer>
+  © 2025 <strong>Accxs Creations</strong> · All rights reserved ·
+  <a href="version.html" class="footer-link">v0.0.8</a> ·
+  <a href="termsandprivacy.html" class="footer-link">Terms &amp; Privacy</a>
+</footer>
 
   <!-- Modal -->
   <div class="modal" id="achievementModal">
