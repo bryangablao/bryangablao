@@ -191,6 +191,35 @@ footer:hover {
 
 .footer-link { color: #aaa; text-decoration: none; transition: 0.3s; }
 .footer-link:hover { color: gold; text-shadow: 0 0 8px gold; text-decoration: underline; }
+
+/* ===== RESPONSIVE HEADER FIX (MATCH TERMS & PRIVACY) ===== */
+@media (max-width: 768px) {
+
+  .version-header {
+    padding: 26px 0 28px; /* taller header */
+  }
+
+  .version-header h1 {
+    font-size: 1.4rem;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+
+  /* Keep back button LEFT at all times */
+  .back-link {
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.9rem;
+  }
+
+  /* Push timeline lower so it never overlaps header */
+  .timeline-wrapper {
+    padding-top: 190px;
+  }
+}
+
+
 </style>
 </head>
 <body>
