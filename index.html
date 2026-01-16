@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="icon" type="image/png" href="images/Accx_Logo.png" />
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="images/Accx_Logo.png">
 <title>Bryan G. Ablao</title>
 <style>
   /* ---------- Body & Background ---------- */
@@ -98,7 +97,7 @@
   footer{position:relative; z-index:1; text-align:center; color:#aaa; font-size:0.9rem; margin-top:60px; margin-bottom:30px; opacity:0.9; transition: opacity 0.3s ease, color 0.3s ease;}
   footer:hover{opacity:1;color:gold;text-shadow:0 0 8px gold;}
 
-  .footer-link {
+.footer-link {
   color: #aaa;
   text-decoration: none;
   transition: color 0.3s ease, text-shadow 0.3s ease;
@@ -118,12 +117,12 @@
 .profile-info a:hover {
   text-decoration: underline;
 }
-  
+
 </style>
 </head>
 <body>
-<canvas id="starsCanvas"></canvas>
-<canvas id="rippleCanvas"></canvas>
+<canvas id="starsCanvas" width="273" height="740"></canvas>
+<canvas id="rippleCanvas" width="273" height="740"></canvas>
 
   <!-- Header -->
   <header>
@@ -132,10 +131,10 @@
   </header>
 
   <!-- Sidebar Overlay -->
-  <div id="sidebarOverlay" onclick="closeMenu()"></div>
+  <div id="sidebarOverlay" onclick="closeMenu()" style="display: none;"></div>
 
   <!-- Sidebar -->
-  <nav id="sidebar">
+  <nav id="sidebar" class="">
     <ul>
       <li><a href="index.html">About Me</a></li>
       <li><a href="social.html">Social Medias</a></li>
@@ -216,12 +215,11 @@
 <!-- Bryan Modal -->
 <div class="modal-overlay" id="modalBryan">
   <div class="modal-box">
-    <span class="modal-close" onclick="closeModal('modalBryan')">&times;</span>
+    <span class="modal-close" onclick="closeModal('modalBryan')">×</span>
 
     <!-- Click image inside modal → Facebook -->
     <a href="https://www.facebook.com/bryangablao" target="_blank">
-      <img src="images/Bryan.jpg" alt="Bryan G. Ablao"
-           style="width:150px;height:150px;border-radius:50%;display:block;margin:0 auto;cursor:pointer;">
+      <img src="images/Bryan.jpg" alt="Bryan G. Ablao" style="width:150px;height:150px;border-radius:50%;display:block;margin:0 auto;cursor:pointer;">
     </a>
 
     <h3>Bryan G. Ablao</h3>
@@ -235,10 +233,10 @@
     </p>
   </div>
 </div>
-  
+ 
       <div class="modal-overlay" id="modalFather">
         <div class="modal-box">
-          <span class="modal-close" onclick="closeModal('modalFather')">&times;</span>
+          <span class="modal-close" onclick="closeModal('modalFather')">×</span>
           <img src="images/father.png" alt="Evaristo C. Ablao" style="width:150px;height:150px;border-radius:50%;display:block;margin:0 auto;">
           <h3>Evaristo C. Ablao</h3>
           <p>He was not only my father but also a pillar of strength and guidance for our family. The last time I saw him was when I was just five years old, and his absence has left a lasting impact on my life. He lived with unwavering integrity, always placing the well-being of his family above everything else. His dedication as a husband, his sense of responsibility, and his commitment to providing for us were truly remarkable. Despite the brevity of the time I spent with him, his lessons, values, and the love he showed remain deeply ingrained in my heart. I carry forward his legacy of compassion, resilience, and care for others, and I will forever cherish the memories and the profound influence he had on shaping the person I am today.</p>
@@ -247,7 +245,7 @@
 
       <div class="modal-overlay" id="modalMother">
         <div class="modal-box">
-          <span class="modal-close" onclick="closeModal('modalMother')">&times;</span>
+          <span class="modal-close" onclick="closeModal('modalMother')">×</span>
           <a href="https://www.facebook.com/annaliegutierrez.ablao" target="_blank">
             <img src="images/mother.png" alt="Annalie G. Ablao" style="width:150px;height:150px;border-radius:50%;display:block;margin:0 auto;">
           </a>
@@ -259,19 +257,19 @@
       <!-- Kenneth Modal -->
 <div class="modal-overlay" id="modalKenneth">
   <div class="modal-box">
-    <span class="modal-close" onclick="closeModal('modalKenneth')">&times;</span>
+    <span class="modal-close" onclick="closeModal('modalKenneth')">×</span>
 
     <a href="https://www.facebook.com/kenneth.ablao.12" target="_blank">
       <img src="images/Kenneth.jpg" alt="Kenneth G. Ablao" style="width:150px;height:150px;border-radius:50%;display:block;margin:0 auto;">
     </a>
-    
+   
     <h3>Kenneth G. Ablao</h3>
-    
+   
     <p>
       Kenneth was born on January 11, 2002. He has always been a loving and responsible son, caring deeply for his family and always ready to help. Beyond his dedication to the family, he has built a beautiful life of his own with his wife,
       <a href="https://www.facebook.com/erene.gimena" target="_blank">Irene Mae G. Gimena</a>. They share the joy of parenting their daughter, Krystine Mae G. Gimena. Kenneth is not only a devoted son but also a loving husband and father.
     </p>
-    
+   
     <div style="display:flex;justify-content:center;gap:20px;margin-top:15px;">
       <div style="text-align:center;">
         <a href="https://www.facebook.com/erene.gimena" target="_blank">
@@ -291,19 +289,19 @@
 <!-- Riz Evan Modal -->
 <div class="modal-overlay" id="modalRizEvan">
   <div class="modal-box">
-    <span class="modal-close" onclick="closeModal('modalRizEvan')">&times;</span>
+    <span class="modal-close" onclick="closeModal('modalRizEvan')">×</span>
 
     <a href="https://www.facebook.com/rizevan.ablao.73" target="_blank">
       <img src="images/RizEvan.jpg" alt="Riz Evan G. Ablao" style="width:150px;height:150px;border-radius:50%;display:block;margin:0 auto;">
     </a>
-    
+   
     <h3>Riz Evan G. Ablao</h3>
-    
+   
     <p>
       Riz Evan, born December 30, 2003, is the youngest son in the family. Known for his vibrant humor and caring nature, he always uplifts those around him with laughter and love. Riz Evan is also in a meaningful relationship with his girlfriend
       <a href="https://www.facebook.com/jonahfayemarie.lenaming.5" target="_blank">Jonahfaye Marie Lenaming</a>.
     </p>
-    
+   
     <div style="display:flex;justify-content:center;gap:20px;margin-top:15px;">
       <div style="text-align:center;">
         <a href="https://www.facebook.com/jonahfayemarie.lenaming.5" target="_blank">
@@ -316,9 +314,9 @@
 </div>
 
 <footer>
-   © 2025 – 2026 <strong>Accxs Creations</strong> · All rights reserved ·
-   <a href="version.html" class="footer-link">v0.0.8</a> ·
-   <a href="terms.html" class="footer-link">Terms &amp; Privacy</a>
+  © 2025 <strong>Accxs Creations</strong> · All rights reserved ·
+  <a href="version.html" class="footer-link">v0.0.8</a> ·
+  <a href="terms.html" class="footer-link">Terms &amp; Privacy</a>
 </footer>
 
 <script>
@@ -330,7 +328,7 @@
     overlay.style.display = sidebar.classList.contains("open") ? "block":"none";
   }
   function closeMenu(){
-    document.getElementById("sidebar").classList.remove("open"); 
+    document.getElementById("sidebar").classList.remove("open");
     document.getElementById("sidebarOverlay").style.display="none";
   }
 
@@ -441,5 +439,6 @@
     }
     animateRipples();
   </script>
-</body>
-</html>
+
+
+</body></html>
