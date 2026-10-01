@@ -336,6 +336,44 @@
       color: var(--text-muted);
     }
 
+    /* Side-by-Side Grid Layout */
+.bg-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+
+@media (max-width: 850px) {
+  .bg-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.value-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  transition: var(--transition-smooth);
+}
+
+.value-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(167, 139, 250, 0.3);
+}
+
+.value-card h4 {
+  font-size: 1rem;
+  color: #a78bfa;
+  margin-bottom: 0.3rem;
+}
+
+.value-card p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
     /* ---------- Modals ---------- */
     .modal-overlay {
       display: none;
@@ -555,42 +593,74 @@
         </div>
       </section>
 
-      <!-- Family & Personal Background Card -->
-      <section class="glass-card">
-        <h3 class="section-title">Family Background</h3>
-        
-        <div class="family-group">
-          <div class="family-group-label">Parents</div>
-          <div class="family-grid">
-            <div class="family-member-card" onclick="openModal('modalFather')">
-              <img src="images/father.png" alt="Evaristo C. Ablao">
-              <h4>Evaristo C. Ablao</h4>
-              <p>Father</p>
-            </div>
-            <div class="family-member-card" onclick="openModal('modalMother')">
-              <img src="images/mother.png" alt="Annalie G. Ablao">
-              <h4>Annalie G. Ablao</h4>
-              <p>Mother</p>
-            </div>
+<!-- Family & Personal Background Section -->
+<section class="glass-card">
+  <div class="bg-grid">
+    
+    <!-- Left Side: Family Background -->
+    <div>
+      <h3 class="section-title">Family Background</h3>
+      
+      <div class="family-group">
+        <div class="family-group-label">Parents</div>
+        <div class="family-grid">
+          <div class="family-member-card" onclick="openModal('modalFather')">
+            <img src="images/father.png" alt="Evaristo C. Ablao">
+            <h4>Evaristo C. Ablao</h4>
+            <p>Father</p>
+          </div>
+          <div class="family-member-card" onclick="openModal('modalMother')">
+            <img src="images/mother.png" alt="Annalie G. Ablao">
+            <h4>Annalie G. Ablao</h4>
+            <p>Mother</p>
           </div>
         </div>
+      </div>
 
-        <div class="family-group">
-          <div class="family-group-label">Siblings</div>
-          <div class="family-grid">
-            <div class="family-member-card" onclick="openModal('modalKenneth')">
-              <img src="images/Kenneth.jpg" alt="Kenneth G. Ablao">
-              <h4>Kenneth G. Ablao</h4>
-              <p>Brother</p>
-            </div>
-            <div class="family-member-card" onclick="openModal('modalRizEvan')">
-              <img src="images/RizEvan.jpg" alt="Riz Evan G. Ablao">
-              <h4>Riz Evan G. Ablao</h4>
-              <p>Brother</p>
-            </div>
+      <div class="family-group">
+        <div class="family-group-label">Siblings</div>
+        <div class="family-grid">
+          <div class="family-member-card" onclick="openModal('modalKenneth')">
+            <img src="images/Kenneth.jpg" alt="Kenneth G. Ablao">
+            <h4>Kenneth G. Ablao</h4>
+            <p>Brother</p>
+          </div>
+          <div class="family-member-card" onclick="openModal('modalRizEvan')">
+            <img src="images/RizEvan.jpg" alt="Riz Evan G. Ablao">
+            <h4>Riz Evan G. Ablao</h4>
+            <p>Brother</p>
           </div>
         </div>
-      </section>
+      </div>
+    </div>
+
+    <!-- Right Side: Core Values & Mindset -->
+    <div>
+      <h3 class="section-title">Values & Guiding Principles</h3>
+
+      <div class="value-card">
+        <h4>Faith & Integrity</h4>
+        <p>Grounding every action and decision in strong ethical principles, guided by deep-rooted faith and authenticity.</p>
+      </div>
+
+      <div class="value-card">
+        <h4>Resilience & Perseverance</h4>
+        <p>Embracing challenges as growth opportunities, overcoming adversity with determination and optimism.</p>
+      </div>
+
+      <div class="value-card">
+        <h4>Continuous Learning</h4>
+        <p>Constantly striving to expand skills, knowledge, and perspectives to innovate and build meaningful outcomes.</p>
+      </div>
+
+      <div class="value-card">
+        <h4>Family & Community</h4>
+        <p>Valuing strong bonds, mutual support, and giving back to people and communities around me.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
 
     </main>
 
