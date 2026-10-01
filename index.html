@@ -6,10 +6,11 @@
   <link rel="icon" type="image/png" href="images/Gallery/MainLogo.png">
   <title>About Me | Bryan G. Ablao</title>
   
-  <!-- Modern Typography -->
+  <!-- Modern Typography & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     /* ---------- Theme & CSS Variables ---------- */
@@ -75,6 +76,18 @@
       opacity: 0.6;
     }
 
+    .ambient-glow-2 {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(0,0,0,0) 70%);
+      bottom: -200px;
+      right: -200px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     /* ---------- Navigation Bar ---------- */
     header {
       position: sticky;
@@ -107,10 +120,22 @@
       font-size: 0.9rem;
       color: var(--text-muted);
       font-weight: 500;
+      position: relative;
     }
 
     .desktop-nav a:hover, .desktop-nav a.active {
       color: var(--text-main);
+    }
+
+    .desktop-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+      border-radius: 2px;
     }
 
     .hamburger {
@@ -180,7 +205,7 @@
       gap: 2.5rem;
     }
 
-    /* Glass Card Standard */
+    /* Glass Card Standard & Reveal Animations */
     .glass-card {
       background: var(--glass-bg);
       backdrop-filter: blur(16px);
@@ -188,6 +213,14 @@
       border-radius: var(--radius-lg);
       padding: 2.5rem;
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .glass-card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Hero & Profile Section */
@@ -207,6 +240,13 @@
       padding: 4px;
       background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
       cursor: pointer;
+      box-shadow: 0 0 25px rgba(109, 40, 217, 0.5);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .profile-avatar-wrapper:hover {
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 0 40px rgba(167, 139, 250, 0.8);
     }
 
     .profile-avatar-wrapper img {
@@ -218,30 +258,71 @@
     }
 
     .profile-header h2 {
-      font-size: 2.25rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 0.2rem;
       letter-spacing: -0.02em;
     }
 
     .profile-header .subtitle {
       color: #a78bfa;
-      font-size: 1.1rem;
-      font-weight: 500;
+      font-size: 1.2rem;
+      font-weight: 600;
       margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .typing-text {
+      border-right: 2px solid #a78bfa;
+      white-space: nowrap;
+      animation: blink 0.75s step-end infinite;
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: #a78bfa; }
     }
 
     .profile-bio {
       color: var(--text-muted);
-      font-size: 0.95rem;
+      font-size: 0.98rem;
       margin-bottom: 1.5rem;
+      line-height: 1.7;
+    }
+
+    /* Stats Quick-Bar */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 1.5rem;
+      padding: 1.25rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      text-align: center;
+    }
+
+    .stat-box h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #a78bfa;
+    }
+
+    .stat-box p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
 
     .info-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
-      margin-top: 1.5rem;
       padding-top: 1.5rem;
       border-top: 1px solid var(--glass-border);
     }
@@ -251,7 +332,9 @@
     }
 
     .info-item span {
-      display: block;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       color: var(--text-muted);
       font-size: 0.75rem;
       text-transform: uppercase;
@@ -264,7 +347,7 @@
       text-decoration: underline;
     }
 
-    /* Family Section */
+    /* Section Headers */
     .section-title {
       font-size: 1.5rem;
       font-weight: 600;
@@ -275,6 +358,10 @@
       gap: 0.75rem;
     }
 
+    .section-title i {
+      color: #a78bfa;
+    }
+
     .section-title::after {
       content: '';
       flex: 1;
@@ -282,6 +369,99 @@
       background: var(--glass-border);
     }
 
+    /* Skill Bars Section */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-item {
+      background: rgba(255, 255, 255, 0.02);
+      padding: 1rem 1.25rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--glass-border);
+    }
+
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .skill-bar {
+      width: 100%;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .skill-progress {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+      border-radius: 4px;
+      transition: width 1.5s cubic-bezier(0.1, 0.42, 0.41, 0.99);
+    }
+
+    /* Timeline Section */
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 5px;
+      bottom: 5px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent-purple), var(--accent-blue));
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.75rem;
+      padding-left: 1.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -25px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent-purple);
+      border: 3px solid var(--bg-dark);
+      box-shadow: 0 0 10px var(--accent-purple);
+    }
+
+    .timeline-date {
+      font-size: 0.8rem;
+      color: #a78bfa;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .timeline-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Family Section */
     .family-group {
       margin-bottom: 2rem;
     }
@@ -311,9 +491,10 @@
     }
 
     .family-member-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-6px);
       background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(167, 139, 250, 0.3);
+      border-color: rgba(167, 139, 250, 0.5);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
     }
 
     .family-member-card img {
@@ -323,6 +504,11 @@
       object-fit: cover;
       margin-bottom: 0.75rem;
       border: 2px solid var(--glass-border);
+      transition: var(--transition-smooth);
+    }
+
+    .family-member-card:hover img {
+      border-color: var(--accent-purple);
     }
 
     .family-member-card h4 {
@@ -337,42 +523,46 @@
     }
 
     /* Side-by-Side Grid Layout */
-.bg-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2.5rem;
-}
+    .bg-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+    }
 
-@media (max-width: 850px) {
-  .bg-grid {
-    grid-template-columns: 1fr;
-  }
-}
+    @media (max-width: 850px) {
+      .bg-grid {
+        grid-template-columns: 1fr;
+      }
+    }
 
-.value-card {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
-  padding: 1rem 1.25rem;
-  margin-bottom: 1rem;
-  transition: var(--transition-smooth);
-}
+    .value-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-bottom: 1rem;
+      transition: var(--transition-smooth);
+    }
 
-.value-card:hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(167, 139, 250, 0.3);
-}
+    .value-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(167, 139, 250, 0.4);
+      transform: translateX(5px);
+    }
 
-.value-card h4 {
-  font-size: 1rem;
-  color: #a78bfa;
-  margin-bottom: 0.3rem;
-}
+    .value-card h4 {
+      font-size: 1rem;
+      color: #a78bfa;
+      margin-bottom: 0.3rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-.value-card p {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
+    .value-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
 
     /* ---------- Modals ---------- */
     .modal-overlay {
@@ -512,6 +702,7 @@
       }
       .desktop-nav { display: none; }
       .hamburger { display: block; }
+      .stats-container { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -519,6 +710,7 @@
 
   <!-- Animated Background Elements -->
   <div class="ambient-glow"></div>
+  <div class="ambient-glow-2"></div>
   <canvas id="starsCanvas"></canvas>
   <canvas id="rippleCanvas"></canvas>
 
@@ -556,7 +748,7 @@
     <main>
       
       <!-- Personal Overview & Bio Card -->
-      <section class="glass-card">
+      <section class="glass-card tilt-card">
         <div class="profile-layout">
           <div class="profile-avatar-wrapper" onclick="openModal('modalBryan')" title="Click for biography">
             <img src="images/Bryan.jpg" alt="Bryan G. Ablao">
@@ -564,28 +756,47 @@
           <div>
             <div class="profile-header">
               <h2>Bryan G. Ablao</h2>
-              <div class="subtitle">Personal Portfolio & Profile</div>
+              <div class="subtitle">
+                <span>I am a</span>
+                <span class="typing-text" id="typingText"></span>
+              </div>
             </div>
             <p class="profile-bio">
               A dedicated individual guided by responsibility, creativity, and perseverance. 
               Focused on continuous personal and professional growth, leveraging faith and determination to build meaningful connections and high-value solutions.
             </p>
+
+            <!-- Stats Bar Display -->
+            <div class="stats-container">
+              <div class="stat-box">
+                <h3 class="counter" data-target="3">0</h3>
+                <p>Years Experience</p>
+              </div>
+              <div class="stat-box">
+                <h3 class="counter" data-target="15">0</h3>
+                <p>Projects Crafted</p>
+              </div>
+              <div class="stat-box">
+                <h3 class="counter" data-target="100">0</h3>
+                <p>% Commitment</p>
+              </div>
+            </div>
             
             <div class="info-grid">
               <div class="info-item">
-                <span>Location</span>
+                <span><i class="fa-solid fa-location-dot"></i> Location</span>
                 <a href="https://maps.app.goo.gl/3qxbihk6F5TMQauo8" target="_blank" rel="noopener">Davao City, Philippines</a>
               </div>
               <div class="info-item">
-                <span>Email</span>
+                <span><i class="fa-solid fa-envelope"></i> Email</span>
                 <a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a>
               </div>
               <div class="info-item">
-                <span>Mobile</span>
+                <span><i class="fa-solid fa-phone"></i> Mobile</span>
                 <p>09928760990</p>
               </div>
               <div class="info-item">
-                <span>Citizenship</span>
+                <span><i class="fa-solid fa-flag"></i> Citizenship</span>
                 <p>Filipino</p>
               </div>
             </div>
@@ -593,74 +804,131 @@
         </div>
       </section>
 
-<!-- Family & Personal Background Section -->
-<section class="glass-card">
-  <div class="bg-grid">
-    
-    <!-- Left Side: Family Background -->
-    <div>
-      <h3 class="section-title">Family Background</h3>
-      
-      <div class="family-group">
-        <div class="family-group-label">Parents</div>
-        <div class="family-grid">
-          <div class="family-member-card" onclick="openModal('modalFather')">
-            <img src="images/father.png" alt="Evaristo C. Ablao">
-            <h4>Evaristo C. Ablao</h4>
-            <p>Father</p>
+      <!-- Technical Skills Showcase -->
+      <section class="glass-card">
+        <h3 class="section-title"><i class="fa-solid fa-laptop-code"></i> Core Expertise & Skills</h3>
+        <div class="skills-grid">
+          <div class="skill-item">
+            <div class="skill-info">
+              <span>Frontend Development (HTML / CSS / JS)</span>
+              <span>88%</span>
+            </div>
+            <div class="skill-bar"><div class="skill-progress" data-progress="88%"></div></div>
           </div>
-          <div class="family-member-card" onclick="openModal('modalMother')">
-            <img src="images/mother.png" alt="Annalie G. Ablao">
-            <h4>Annalie G. Ablao</h4>
-            <p>Mother</p>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span>UI/UX & Creative Design</span>
+              <span>82%</span>
+            </div>
+            <div class="skill-bar"><div class="skill-progress" data-progress="82%"></div></div>
           </div>
-        </div>
-      </div>
-
-      <div class="family-group">
-        <div class="family-group-label">Siblings</div>
-        <div class="family-grid">
-          <div class="family-member-card" onclick="openModal('modalKenneth')">
-            <img src="images/Kenneth.jpg" alt="Kenneth G. Ablao">
-            <h4>Kenneth G. Ablao</h4>
-            <p>Brother</p>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span>Problem Solving & Strategy</span>
+              <span>90%</span>
+            </div>
+            <div class="skill-bar"><div class="skill-progress" data-progress="90%"></div></div>
           </div>
-          <div class="family-member-card" onclick="openModal('modalRizEvan')">
-            <img src="images/RizEvan.jpg" alt="Riz Evan G. Ablao">
-            <h4>Riz Evan G. Ablao</h4>
-            <p>Brother</p>
+          <div class="skill-item">
+            <div class="skill-info">
+              <span>Adaptability & Continuous Growth</span>
+              <span>95%</span>
+            </div>
+            <div class="skill-bar"><div class="skill-progress" data-progress="95%"></div></div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
 
-    <!-- Right Side: Core Values & Mindset -->
-    <div>
-      <h3 class="section-title">Values & Guiding Principles</h3>
+      <!-- Family & Personal Background Section -->
+      <section class="glass-card">
+        <div class="bg-grid">
+          
+          <!-- Left Side: Family Background -->
+          <div>
+            <h3 class="section-title"><i class="fa-solid fa-people-roof"></i> Family Background</h3>
+            
+            <div class="family-group">
+              <div class="family-group-label">Parents</div>
+              <div class="family-grid">
+                <div class="family-member-card" onclick="openModal('modalFather')">
+                  <img src="images/father.png" alt="Evaristo C. Ablao">
+                  <h4>Evaristo C. Ablao</h4>
+                  <p>Father</p>
+                </div>
+                <div class="family-member-card" onclick="openModal('modalMother')">
+                  <img src="images/mother.png" alt="Annalie G. Ablao">
+                  <h4>Annalie G. Ablao</h4>
+                  <p>Mother</p>
+                </div>
+              </div>
+            </div>
 
-      <div class="value-card">
-        <h4>Faith & Integrity</h4>
-        <p>Grounding every action and decision in strong ethical principles, guided by deep-rooted faith and authenticity.</p>
-      </div>
+            <div class="family-group">
+              <div class="family-group-label">Siblings</div>
+              <div class="family-grid">
+                <div class="family-member-card" onclick="openModal('modalKenneth')">
+                  <img src="images/Kenneth.jpg" alt="Kenneth G. Ablao">
+                  <h4>Kenneth G. Ablao</h4>
+                  <p>Brother</p>
+                </div>
+                <div class="family-member-card" onclick="openModal('modalRizEvan')">
+                  <img src="images/RizEvan.jpg" alt="Riz Evan G. Ablao">
+                  <h4>Riz Evan G. Ablao</h4>
+                  <p>Brother</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <div class="value-card">
-        <h4>Resilience & Perseverance</h4>
-        <p>Embracing challenges as growth opportunities, overcoming adversity with determination and optimism.</p>
-      </div>
+          <!-- Right Side: Core Values & Guiding Principles -->
+          <div>
+            <h3 class="section-title"><i class="fa-solid fa-compass"></i> Guiding Principles</h3>
 
-      <div class="value-card">
-        <h4>Continuous Learning</h4>
-        <p>Constantly striving to expand skills, knowledge, and perspectives to innovate and build meaningful outcomes.</p>
-      </div>
+            <div class="value-card">
+              <h4><i class="fa-solid fa-cross"></i> Faith & Integrity</h4>
+              <p>Grounding every action and decision in strong ethical principles, guided by deep-rooted faith and authenticity.</p>
+            </div>
 
-      <div class="value-card">
-        <h4>Family & Community</h4>
-        <p>Valuing strong bonds, mutual support, and giving back to people and communities around me.</p>
-      </div>
-    </div>
+            <div class="value-card">
+              <h4><i class="fa-solid fa-mountain"></i> Resilience & Perseverance</h4>
+              <p>Embracing challenges as growth opportunities, overcoming adversity with determination and optimism.</p>
+            </div>
 
-  </div>
-</section>
+            <div class="value-card">
+              <h4><i class="fa-solid fa-brain"></i> Continuous Learning</h4>
+              <p>Constantly striving to expand skills, knowledge, and perspectives to innovate and build meaningful outcomes.</p>
+            </div>
+
+            <div class="value-card">
+              <h4><i class="fa-solid fa-heart"></i> Family & Community</h4>
+              <p>Valuing strong bonds, mutual support, and giving back to people and communities around me.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Personal Journey Timeline -->
+      <section class="glass-card">
+        <h3 class="section-title"><i class="fa-solid fa-timeline"></i> Life & Career Journey</h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">2025 – Present</div>
+            <div class="timeline-title">Founding & Building Accxs Creations</div>
+            <div class="timeline-desc">Leading digital innovation and designing cohesive interactive web solutions.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2023 – 2024</div>
+            <div class="timeline-title">Expanding Technical Mastery</div>
+            <div class="timeline-desc">Deepening expertise in front-end aesthetics, UX design, and interactive UI frameworks.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">Early Milestones</div>
+            <div class="timeline-title">Personal Foundation & Character Growth</div>
+            <div class="timeline-desc">Instilled core values of perseverance, family strength, and proactive problem solving.</div>
+          </div>
+        </div>
+      </section>
 
     </main>
 
@@ -767,6 +1035,69 @@
 
   <!-- Scripts -->
   <script>
+    // Dynamic Typing Effect
+    const words = ["Creative Designer", "Web Innovator", "Problem Solver", "Tech Enthusiast"];
+    let i = 0, j = 0, isDeleting = false;
+    
+    function typeEffect() {
+      const currentWord = words[i];
+      const typingElement = document.getElementById("typingText");
+      
+      if (isDeleting) {
+        typingElement.textContent = currentWord.substring(0, j - 1);
+        j--;
+      } else {
+        typingElement.textContent = currentWord.substring(0, j + 1);
+        j++;
+      }
+      
+      if (!isDeleting && j === currentWord.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, 1800);
+      } else if (isDeleting && j === 0) {
+        isDeleting = false;
+        i = (i + 1) % words.length;
+        setTimeout(typeEffect, 400);
+      } else {
+        setTimeout(typeEffect, isDeleting ? 50 : 100);
+      }
+    }
+    document.addEventListener("DOMContentLoaded", typeEffect);
+
+    // Intersection Observer for Reveal Animations & Animated Bars
+    const cards = document.querySelectorAll('.glass-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          
+          // Animate Skill Bars inside
+          entry.target.querySelectorAll('.skill-progress').forEach(bar => {
+            bar.style.width = bar.getAttribute('data-progress');
+          });
+
+          // Animate Counter Stats inside
+          entry.target.querySelectorAll('.counter').forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            let count = 0;
+            const updateCount = () => {
+              const increment = target / 40;
+              if (count < target) {
+                count += increment;
+                counter.innerText = Math.ceil(count) + (target === 100 ? '%' : '+');
+                setTimeout(updateCount, 30);
+              } else {
+                counter.innerText = target + (target === 100 ? '%' : '+');
+              }
+            };
+            updateCount();
+          });
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+
     // Navigation Control
     function toggleMenu() {
       const sidebar = document.getElementById("sidebar");
@@ -890,7 +1221,7 @@
     resizeRippleCanvas();
 
     window.addEventListener('mousemove', (e) => {
-      if (Math.random() > 0.3) return; // Throttle ripple creation for smoother performance
+      if (Math.random() > 0.3) return;
       ripples.push({ x: e.clientX, y: e.clientY, radius: 0, alpha: 0.25 });
       if (ripples.length > 15) ripples.shift();
     });
