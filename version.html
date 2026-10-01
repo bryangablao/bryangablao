@@ -1,459 +1,672 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="images/Gallery/MainLogo.png">
-<title>Version History</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/Gallery/MainLogo.png">
+  <title>Version History | Bryan G. Ablao</title>
 
-<style>
-  /* ---------- Body & Background ---------- */
-  body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    color: #fff;
-    background: radial-gradient(circle at top left, #380098, #000);
-    background-size: cover;
-    background-attachment: fixed;
-    animation: gradientMove 15s infinite alternate;
-  }
-  @keyframes gradientMove {
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
-  }
-  canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 0;
-  }
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  /* ---------- Version Container ---------- */
-  .version-page {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.55);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    z-index: 1002;
-  }
+  <style>
+    /* ---------- Theme & CSS Variables ---------- */
+    :root {
+      --bg-dark: #090a0f;
+      --accent-purple: #6d28d9;
+      --accent-purple-glow: rgba(109, 40, 217, 0.4);
+      --accent-blue: #3b82f6;
+      --glass-bg: rgba(18, 20, 29, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-  .version-header {
-  padding: 20px;
-  text-align: center;
-  font-size: 2rem;
-  font-weight: bold;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
-  color: #ffde59;
-  text-shadow: 0 0 8px #ffffffaa, 0 0 16px #ffffff55, 0 0 24px #ffffff33;
-  animation: neonGlow 2s infinite alternate;
+    /* ---------- Global Reset & Typography ---------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-}
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
 
-  @keyframes neonGlow {
-    0% { text-shadow: 0 0 6px #ffde59aa, 0 0 10px #ffde59aa, 0 0 20px #a76fff55; }
-    50% { text-shadow: 0 0 12px #ffde59ff, 0 0 18px #ffde59ff, 0 0 30px #a76fffaa; }
-    100% { text-shadow: 0 0 6px #ffde59aa, 0 0 10px #ffde59aa, 0 0 20px #a76fff55; }
-  }
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+    }
 
-  .version-content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 20px 40px;
-    scrollbar-width: thin;
-    scrollbar-color: #a76fff55 transparent;
-  }
+    /* Background Canvases */
+    #starsCanvas, #rippleCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+    }
+    #starsCanvas { z-index: 0; }
+    #rippleCanvas { z-index: 1; }
 
-  .version-content::-webkit-scrollbar {
-    width: 10px;
-  }
-  .version-content::-webkit-scrollbar-thumb {
-    background: #a76fff55;
-    border-radius: 5px;
-  }
-  .version-content::-webkit-scrollbar-track {
-    background: transparent;
-  }
+    /* Ambient Glow Effect */
+    .ambient-glow {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-purple-glow) 0%, rgba(0,0,0,0) 70%);
+      top: -150px;
+      left: -150px;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.6;
+    }
 
-  .version {
-    margin-bottom: 25px;
-    line-height: 1.6;
-    font-size: 1rem;
-    background: rgba(0,0,0,0.35);
-    border-left: 4px solid #a76fff;
-    border-radius: 10px;
-    padding: 15px 20px;
-    transition: all 0.4s ease;
-    position: relative;
-    box-shadow: 0 0 10px rgba(167,111,255,0.3);
-    opacity: 0;
-    transform: translateY(20px);
-  }
+    /* ---------- Navigation Bar ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background: rgba(9, 10, 15, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+    }
 
-  .version.show {
-    opacity: 1;
-    transform: translateY(0);
-    transition: all 0.6s ease;
-  }
+    .nav-brand {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-  .version:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 20px rgba(167,111,255,0.7);
-    background: rgba(0,0,0,0.55);
-  }
+    .desktop-nav {
+      display: flex;
+      gap: 1.5rem;
+    }
 
-  /* Particle effect on hover */
-  .version:hover::before {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    width: calc(100% + 10px);
-    height: calc(100% + 10px);
-    border-radius: 12px;
-    box-shadow: 0 0 15px rgba(167,111,255,0.5), 0 0 25px rgba(255,255,255,0.3);
-    pointer-events: none;
-    animation: glowPulse 1.5s infinite alternate;
-  }
-  @keyframes glowPulse {
-    0% { box-shadow: 0 0 15px rgba(167,111,255,0.3), 0 0 25px rgba(255,255,255,0.1); }
-    100% { box-shadow: 0 0 20px rgba(167,111,255,0.7), 0 0 35px rgba(255,255,255,0.3); }
-  }
+    .desktop-nav a {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
 
-  .version strong {
-    font-size: 1.2rem;
-    color: #a76fff;
-    display: block;
-    margin-bottom: 8px;
-  }
+    .desktop-nav a:hover, .desktop-nav a.active {
+      color: var(--text-main);
+    }
 
-  .version .date {
-    font-size: 0.95rem;
-    color: #ccc;
-    margin-bottom: 10px;
-    display: block;
-  }
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-main);
+    }
 
-  .version ul {
-    padding-left: 20px;
-    margin-top: 5px;
-  }
+    /* Mobile Sidebar Drawer */
+    #sidebarOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      z-index: 1000;
+    }
 
-  .version li {
-    margin-bottom: 6px;
-  }
+    #sidebar {
+      position: fixed;
+      top: 0;
+      right: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--bg-dark);
+      border-left: 1px solid var(--glass-border);
+      padding: 5rem 1.5rem 2rem;
+      transition: right 0.3s ease;
+      z-index: 1001;
+    }
 
-  /* ---------- Footer ---------- */
-  footer {
-    text-align: center;
-    padding: 20px;
-    font-size: 0.95rem;
-    color: #ccc;
-    background: rgba(0,0,0,0.45);
-    border-top: 1px solid rgba(255,255,255,0.2);
-    box-shadow: inset 0 1px 5px rgba(255,255,255,0.05);
-  }
+    #sidebar.open { right: 0; }
 
-  footer a.footer-link {
-    color: #ccc;
-    text-decoration: none;
-    margin: 0 5px;
-  }
+    #sidebar ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
 
-  footer a.footer-link:hover {
-    color: #a76fff;
-  }
+    #sidebar ul li a {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      display: block;
+      padding: 0.5rem 0;
+    }
 
-  @media screen and (max-width: 768px) {
-    .version-header { font-size: 1.6rem; }
-    .version-content { padding: 15px 20px; }
-    footer { font-size: 0.85rem; }
-    .version { padding: 12px 15px; font-size: 0.95rem; }
-  }
+    #sidebar ul li a:hover { color: var(--text-main); }
 
+    /* ---------- Main Layout ---------- */
+    #blur-container {
+      position: relative;
+      z-index: 2;
+    }
 
-/* ---------- Back Button ---------- */
-.back-btn {
-  position: absolute;
-  left: 20px;
-  background: transparent;
-  border: 2px solid #a76fff;
-  color: #ffde59;
-  padding: 6px 14px;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  cursor: pointer;
-  box-shadow: 0 0 8px rgba(167,111,255,0.6);
-  transition: all 0.3s ease;
-  touch-action: manipulation;
-}
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
 
-.back-btn:hover {
-  background: rgba(167,111,255,0.2);
-  box-shadow: 0 0 15px rgba(167,111,255,0.9);
-  transform: scale(1.05);
-}
+    /* ---------- Header / Title Area ---------- */
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
 
-.header-title {
-  pointer-events: none;
-}
+    .page-title-group h1 {
+      font-size: 2.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
 
-/* ---------- Small Phones ---------- */
-@media screen and (max-width: 480px) {
-  .version-header {
-    font-size: 1.4rem;
-    padding: 15px;
-  }
+    .page-title-group p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
 
-  .back-btn {
-    left: 10px;
-    padding: 5px 10px;
-    font-size: 0.85rem;
-  }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
 
-  .version-content {
-    padding: 12px;
-  }
+    .back-btn:hover {
+      background: rgba(167, 139, 250, 0.15);
+      border-color: rgba(167, 139, 250, 0.4);
+      color: #a78bfa;
+      transform: translateX(-2px);
+    }
 
-  .version {
-    font-size: 0.9rem;
-    padding: 10px 12px;
-  }
+    /* ---------- Glass Card Standard ---------- */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
 
-  .version strong {
-    font-size: 1.05rem;
-  }
+    /* ---------- Version Cards ---------- */
+    .version-timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
 
-  footer {
-    padding: 15px 10px;
-    font-size: 0.8rem;
-  }
-}
+    .version-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      transition: var(--transition-smooth);
+      opacity: 0;
+      transform: translateY(15px);
+    }
 
-</style>
+    .version-card.show {
+      opacity: 1;
+      transform: translateY(0);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .version-card:hover {
+      background: rgba(255, 255, 255, 0.04);
+      border-color: rgba(167, 139, 250, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(109, 40, 217, 0.15);
+    }
+
+    .version-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .version-tag {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #a78bfa;
+    }
+
+    .version-date {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .version-card ul {
+      padding-left: 1.25rem;
+      color: var(--text-muted);
+      font-size: 0.925rem;
+    }
+
+    .version-card li {
+      margin-bottom: 0.4rem;
+    }
+
+    .version-card li::marker {
+      color: #a78bfa;
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 3rem 1.5rem;
+      border-top: 1px solid var(--glass-border);
+      margin-top: 4rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .footer-link {
+      color: var(--text-muted);
+    }
+
+    .footer-link:hover, .footer-link.active {
+      color: var(--text-main);
+    }
+
+    /* ---------- Responsive Breakpoints ---------- */
+    @media (max-width: 850px) {
+      .desktop-nav { display: none; }
+      .hamburger { display: block; }
+    }
+
+    @media (max-width: 480px) {
+      main { padding: 2rem 1rem; }
+      .glass-card { padding: 1.25rem; }
+      .page-header { flex-direction: column-reverse; align-items: flex-start; }
+      .version-header { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+      .version-card { padding: 1.25rem; }
+    }
+  </style>
 </head>
 <body>
 
-<canvas id="starsCanvas"></canvas>
-<canvas id="rippleCanvas"></canvas>
+  <!-- Animated Background Elements -->
+  <div class="ambient-glow"></div>
+  <canvas id="starsCanvas"></canvas>
+  <canvas id="rippleCanvas"></canvas>
 
-<div class="version-page">
-  <div class="version-header">
-   <button class="back-btn" aria-label="Go back"
-    onclick="window.history.length > 1 ? history.back() : location.href='index.html'">
-    ← Back
-  </button>
-   <span class="header-title">Version History</span>
+  <!-- Sticky Header -->
+  <header>
+    <div class="nav-brand">Bryan G. Ablao</div>
+    <nav class="desktop-nav">
+      <a href="index.html">About</a>
+      <a href="work.html">Experience</a>
+      <a href="projects.html">Projects</a>
+      <a href="achievement.html">Achievements</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="social.html">Socials</a>
+    </nav>
+    <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Navigation">☰</div>
+  </header>
+
+  <!-- Mobile Drawer Overlay -->
+  <div id="sidebarOverlay" onclick="closeMenu()"></div>
+
+  <!-- Mobile Navigation Drawer -->
+  <nav id="sidebar">
+    <ul>
+      <li><a href="index.html">About Me</a></li>
+      <li><a href="work.html">Work Experience</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="achievement.html">Achievements</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="social.html">Social Medias</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content Area -->
+  <div id="blur-container">
+    <main>
+      
+      <!-- Page Title & Navigation Header -->
+      <div class="page-header">
+        <div class="page-title-group">
+          <h1>Version History</h1>
+          <p>Changelog and release notes for this website.</p>
+        </div>
+        <button class="back-btn" aria-label="Go back" onclick="window.history.length > 1 ? history.back() : location.href='index.html'">
+          ← Back
+        </button>
+      </div>
+
+      <!-- Version Container Card -->
+      <section class="glass-card">
+        <div class="version-timeline">
+
+          <div class="version-card" id="v0.0.8">
+            <div class="version-header">
+              <span class="version-tag">v0.0.8</span>
+              <span class="version-date">December 2025</span>
+            </div>
+            <ul>
+              <li>Finalized animations: stars, ripple, gradient background.</li>
+              <li>Full-screen version history with scrollable content.</li>
+              <li>Footer inside container with natural styling.</li>
+              <li>Hover animations & glowing effects applied to version cards.</li>
+            </ul>
+          </div>
+
+          <div class="version-card" id="v0.0.7">
+            <div class="version-header">
+              <span class="version-tag">v0.0.7</span>
+              <span class="version-date">November 2025</span>
+            </div>
+            <ul>
+              <li>Layout refined for smaller screens.</li>
+              <li>Modal interactions improved.</li>
+              <li>Hover & animation effects enhanced.</li>
+            </ul>
+          </div>
+
+          <div class="version-card" id="v0.0.6">
+            <div class="version-header">
+              <span class="version-tag">v0.0.6</span>
+              <span class="version-date">November 2025</span>
+            </div>
+            <ul>
+              <li>Starfield and meteor background animations added.</li>
+              <li>Canvas performance optimized.</li>
+              <li>Visual harmony improved.</li>
+            </ul>
+          </div>
+
+          <div class="version-card" id="v0.0.5">
+            <div class="version-header">
+              <span class="version-tag">v0.0.5</span>
+              <span class="version-date">October 2025</span>
+            </div>
+            <ul>
+              <li>Ripple effect animation on mouse movement added.</li>
+              <li>Smooth animations for interactive elements.</li>
+              <li>Minor visual consistency improvements.</li>
+            </ul>
+          </div>
+
+          <div class="version-card" id="v0.0.4">
+            <div class="version-header">
+              <span class="version-tag">v0.0.4</span>
+              <span class="version-date">September 2025</span>
+            </div>
+            <ul>
+              <li>Header and sidebar navigation implemented.</li>
+              <li>Responsive adjustments for mobile & tablet.</li>
+              <li>Optimized layout for readability.</li>
+            </ul>
+          </div>
+
+          <div class="version-card" id="v0.0.3">
+            <div class="version-header">
+              <span class="version-tag">v0.0.3</span>
+              <span class="version-date">August 2025</span>
+            </div>
+            <ul>
+              <li>Modals for family members and profile images introduced.</li>
+              <li>Subtle shadows and rounded borders added.</li>
+              <li>Tablet responsiveness improved.</li>
+            </ul>
+          </div>
+
+          <div class="version-card" id="v0.0.2">
+            <div class="version-header">
+              <span class="version-tag">v0.0.2</span>
+              <span class="version-date">July 2025</span>
+            </div>
+            <ul>
+              <li>Enhanced typography, spacing, alignment.</li>
+              <li>Basic JS navigation added.</li>
+              <li>Improved HTML semantics.</li>
+            </ul>
+          </div>
+
+          <div class="version-card" id="v0.0.1">
+            <div class="version-header">
+              <span class="version-tag">v0.0.1</span>
+              <span class="version-date">June 2025</span>
+            </div>
+            <ul>
+              <li>Added basic CSS styling and typography.</li>
+              <li>Family section layout introduced.</li>
+              <li>Improved content readability.</li>
+            </ul>
+          </div>
+
+          <div class="version-card" id="v0.0.0">
+            <div class="version-header">
+              <span class="version-tag">v0.0.0</span>
+              <span class="version-date">June 2025</span>
+            </div>
+            <ul>
+              <li>Initial site creation with basic HTML structure.</li>
+              <li>First public release, mostly text content.</li>
+              <li>Foundation for profile and family info set.</li>
+            </ul>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div>© 2025–2026 <strong>Accxs Creations</strong>. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="version.html" class="footer-link active">v0.0.8</a>
+        <span>·</span>
+        <a href="terms.html" class="footer-link">Terms &amp; Privacy</a>
+      </div>
+    </footer>
   </div>
-  <div class="version-content">
-    <!-- Versions -->
-    <div class="version" id="v0.0.0">
-      <strong>v0.0.0</strong>
-      <span class="date">June 2025</span>
-      <ul>
-        <li>Initial site creation with basic HTML structure.</li>
-        <li>First public release, mostly text content.</li>
-        <li>Foundation for profile and family info set.</li>
-      </ul>
-    </div>
 
-    <div class="version" id="v0.0.1">
-      <strong>v0.0.1</strong>
-      <span class="date">June 2025</span>
-      <ul>
-        <li>Added basic CSS styling and typography.</li>
-        <li>Family section layout introduced.</li>
-        <li>Improved content readability.</li>
-      </ul>
-    </div>
-
-    <div class="version" id="v0.0.2">
-      <strong>v0.0.2</strong>
-      <span class="date">July 2025</span>
-      <ul>
-        <li>Enhanced typography, spacing, alignment.</li>
-        <li>Basic JS navigation added.</li>
-        <li>Improved HTML semantics.</li>
-      </ul>
-    </div>
-
-    <div class="version" id="v0.0.3">
-      <strong>v0.0.3</strong>
-      <span class="date">August 2025</span>
-      <ul>
-        <li>Modals for family members and profile images introduced.</li>
-        <li>Subtle shadows and rounded borders added.</li>
-        <li>Tablet responsiveness improved.</li>
-      </ul>
-    </div>
-
-    <div class="version" id="v0.0.4">
-      <strong>v0.0.4</strong>
-      <span class="date">September 2025</span>
-      <ul>
-        <li>Header and sidebar navigation implemented.</li>
-        <li>Responsive adjustments for mobile & tablet.</li>
-        <li>Optimized layout for readability.</li>
-      </ul>
-    </div>
-
-    <div class="version" id="v0.0.5">
-      <strong>v0.0.5</strong>
-      <span class="date">October 2025</span>
-      <ul>
-        <li>Ripple effect animation on mouse movement added.</li>
-        <li>Smooth animations for interactive elements.</li>
-        <li>Minor visual consistency improvements.</li>
-      </ul>
-    </div>
-
-    <div class="version" id="v0.0.6">
-      <strong>v0.0.6</strong>
-      <span class="date">November 2025</span>
-      <ul>
-        <li>Starfield and meteor background animations added.</li>
-        <li>Canvas performance optimized.</li>
-        <li>Visual harmony improved.</li>
-      </ul>
-    </div>
-
-    <div class="version" id="v0.0.7">
-      <strong>v0.0.7</strong>
-      <span class="date">November 2025</span>
-      <ul>
-        <li>Layout refined for smaller screens.</li>
-        <li>Modal interactions improved.</li>
-        <li>Hover & animation effects enhanced.</li>
-      </ul>
-    </div>
-
-    <div class="version" id="v0.0.8">
-      <strong>v0.0.8</strong>
-      <span class="date">December 2025</span>
-      <ul>
-        <li>Finalized animations: stars, ripple, gradient background.</li>
-        <li>Full-screen version history with scrollable content.</li>
-        <li>Footer inside container with natural styling.</li>
-        <li>Hover animations & glowing effects applied to version cards.</li>
-      </ul>
-    </div>
-  </div>
-
-  <footer>
-   © 2025 – 2026 <strong>Accxs Creations</strong> · All rights reserved ·
-   <a href="version.html" class="footer-link">v0.0.8</a> ·
-   <a href="terms.html" class="footer-link">Terms & Privacy</a>
-  </footer>
-</div>
-
-<script>
-  // ---------- Scroll reveal animation ----------
-  const versions = document.querySelectorAll('.version');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting) {
-        entry.target.classList.add('show');
-      }
-    });
-  }, { threshold: 0.2 });
-
-  versions.forEach(v => observer.observe(v));
-
-  // ---------- Stars & Meteor ----------
-  const starsCanvas = document.getElementById('starsCanvas');
-  const starsCtx = starsCanvas.getContext('2d');
-  let stars = [], meteor = null;
-
-  function resizeStarsCanvas() {
-    starsCanvas.width = window.innerWidth;
-    starsCanvas.height = window.innerHeight;
-    generateStars();
-  }
-  function generateStars() {
-    stars = [];
-    for(let i=0;i<200;i++){
-      stars.push({x:Math.random()*starsCanvas.width,y:Math.random()*starsCanvas.height,alpha:Math.random()*0.7+0.3,radius:Math.random()*1.5+0.5,flickerSpeed:Math.random()*0.05+0.02});
+  <!-- ---------- Scripts ---------- -->
+  <script>
+    // Navigation Control
+    function toggleMenu() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("sidebarOverlay");
+      const isOpen = sidebar.classList.toggle("open");
+      overlay.style.display = isOpen ? "block" : "none";
     }
-  }
-  function spawnMeteor(){ meteor={x:Math.random()*starsCanvas.width,y:-20,vx:-(Math.random()*4+2),vy:Math.random()*2+2,alpha:1}; }
-  function drawMeteor(){
-    if(!meteor)return;
-    starsCtx.save();
-    const grad = starsCtx.createLinearGradient(meteor.x,meteor.y,meteor.x-meteor.vx*10,meteor.y-meteor.vy*10);
-    grad.addColorStop(0,`rgba(255,255,255,${meteor.alpha})`);
-    grad.addColorStop(1,'rgba(255,255,255,0)');
-    starsCtx.strokeStyle = grad;
-    starsCtx.lineWidth=2;
-    starsCtx.beginPath();
-    starsCtx.moveTo(meteor.x,meteor.y);
-    starsCtx.lineTo(meteor.x-meteor.vx*20,meteor.y-meteor.vy*20);
-    starsCtx.stroke();
-    starsCtx.restore();
-  }
-  function animateStars(){
-    starsCtx.clearRect(0,0,starsCanvas.width,starsCanvas.height);
-    stars.forEach(star=>{
-      star.alpha+=star.flickerSpeed*(Math.random()<0.5?-1:1);
-      star.alpha=Math.max(0.1,Math.min(1,star.alpha));
+
+    function closeMenu() {
+      document.getElementById("sidebar").classList.remove("open");
+      document.getElementById("sidebarOverlay").style.display = "none";
+    }
+
+    // Scroll Reveal Animation for Version Cards
+    const cards = document.querySelectorAll('.version-card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+
+    // Starfield Animation
+    const starsCanvas = document.getElementById('starsCanvas');
+    const starsCtx = starsCanvas.getContext('2d');
+    let stars = [], meteor = null;
+
+    function resizeStarsCanvas() {
+      starsCanvas.width = window.innerWidth;
+      starsCanvas.height = window.innerHeight;
+      generateStars();
+    }
+
+    function generateStars() {
+      stars = [];
+      const density = Math.floor((starsCanvas.width * starsCanvas.height) / 6000);
+      for (let i = 0; i < density; i++) {
+        stars.push({
+          x: Math.random() * starsCanvas.width,
+          y: Math.random() * starsCanvas.height,
+          alpha: Math.random() * 0.7 + 0.3,
+          radius: Math.random() * 1.2 + 0.4,
+          flickerSpeed: Math.random() * 0.02 + 0.005
+        });
+      }
+    }
+
+    function drawMeteor() {
+      if (!meteor) return;
+      starsCtx.save();
+      const grad = starsCtx.createLinearGradient(meteor.x, meteor.y, meteor.x - meteor.vx * 10, meteor.y - meteor.vy * 10);
+      grad.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
+      grad.addColorStop(1, `rgba(255,255,255,0)`);
+      starsCtx.strokeStyle = grad;
+      starsCtx.lineWidth = 1.5;
       starsCtx.beginPath();
-      starsCtx.arc(star.x,star.y,star.radius,0,Math.PI*2);
-      starsCtx.fillStyle=`rgba(255,255,255,${star.alpha})`;
-      starsCtx.fill();
-    });
-    if(meteor){
-      meteor.x+=meteor.vx;
-      meteor.y+=meteor.vy;
-      meteor.alpha-=0.01;
-      drawMeteor();
-      if(meteor.alpha<=0 || meteor.x<-50 || meteor.y>starsCanvas.height+50){
-        meteor=null;
-        setTimeout(spawnMeteor,Math.random()*5000+3000);
-      }
+      starsCtx.moveTo(meteor.x, meteor.y);
+      starsCtx.lineTo(meteor.x - meteor.vx * 15, meteor.y - meteor.vy * 15);
+      starsCtx.stroke();
+      starsCtx.restore();
     }
-    requestAnimationFrame(animateStars);
-  }
-  window.addEventListener('resize',resizeStarsCanvas);
-  resizeStarsCanvas();
-  animateStars();
-  setTimeout(spawnMeteor,3000);
 
-  // ---------- Ripple ----------
-  const rippleCanvas = document.getElementById('rippleCanvas');
-  const rippleCtx = rippleCanvas.getContext('2d');
-  let ripples=[];
-  function resizeRippleCanvas(){ rippleCanvas.width=window.innerWidth; rippleCanvas.height=window.innerHeight; }
-  window.addEventListener('resize',resizeRippleCanvas);
-  resizeRippleCanvas();
-  window.addEventListener('mousemove',e=>{
-    ripples.push({x:e.clientX,y:e.clientY,radius:0,alpha:0.3,lineWidth:1+Math.random()});
-    if(ripples.length>20) ripples.shift();
-  });
-  function animateRipples(){
-    rippleCtx.clearRect(0,0,rippleCanvas.width,rippleCanvas.height);
-    ripples.forEach((r,i)=>{
-      r.radius+=1.5;
-      r.alpha-=0.007;
-      if(r.alpha<=0){ ripples.splice(i,1); return; }
-      rippleCtx.beginPath();
-      rippleCtx.arc(r.x,r.y,r.radius,0,Math.PI*2);
-      rippleCtx.strokeStyle=`rgba(56,0,152,${r.alpha})`;
-      rippleCtx.lineWidth=r.lineWidth;
-      rippleCtx.stroke();
+    function animateStars() {
+      starsCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+      stars.forEach(star => {
+        star.alpha += star.flickerSpeed * (Math.random() < 0.5 ? -1 : 1);
+        star.alpha = Math.min(0.9, Math.max(0.2, star.alpha));
+        starsCtx.beginPath();
+        starsCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        starsCtx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+        starsCtx.fill();
+      });
+
+      if (meteor) {
+        meteor.x += meteor.vx;
+        meteor.y += meteor.vy;
+        meteor.alpha -= 0.012;
+        drawMeteor();
+        if (meteor.alpha <= 0 || meteor.x < -50 || meteor.y > starsCanvas.height + 50) {
+          meteor = null;
+          setTimeout(spawnMeteor, Math.random() * 4000 + 3000);
+        }
+      }
+      requestAnimationFrame(animateStars);
+    }
+
+    function spawnMeteor() {
+      meteor = {
+        x: Math.random() * starsCanvas.width,
+        y: -20,
+        vx: -(Math.random() * 3 + 2),
+        vy: Math.random() * 2 + 2,
+        alpha: 1
+      };
+    }
+
+    window.addEventListener('resize', resizeStarsCanvas);
+    resizeStarsCanvas();
+    animateStars();
+    setTimeout(spawnMeteor, 2000);
+
+    // Mouse Ripple Effect
+    const rippleCanvas = document.getElementById('rippleCanvas');
+    const rippleCtx = rippleCanvas.getContext('2d');
+    let ripples = [];
+
+    function resizeRippleCanvas() {
+      rippleCanvas.width = window.innerWidth;
+      rippleCanvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeRippleCanvas);
+    resizeRippleCanvas();
+
+    window.addEventListener('mousemove', (e) => {
+      if (Math.random() > 0.3) return;
+      ripples.push({ x: e.clientX, y: e.clientY, radius: 0, alpha: 0.25 });
+      if (ripples.length > 15) ripples.shift();
     });
-    requestAnimationFrame(animateRipples);
-  }
-  animateRipples();
-</script>
+
+    function animateRipples() {
+      rippleCtx.clearRect(0, 0, rippleCanvas.width, rippleCanvas.height);
+      ripples.forEach((r, i) => {
+        r.radius += 1.2;
+        r.alpha -= 0.008;
+        if (r.alpha <= 0) {
+          ripples.splice(i, 1);
+          return;
+        }
+        rippleCtx.beginPath();
+        rippleCtx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+        rippleCtx.strokeStyle = `rgba(167, 139, 250, ${r.alpha})`;
+        rippleCtx.lineWidth = 1;
+        rippleCtx.stroke();
+      });
+      requestAnimationFrame(animateRipples);
+    }
+    animateRipples();
+  </script>
 </body>
 </html>
