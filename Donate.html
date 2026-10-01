@@ -1,86 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" type="image/png" href="images/Gallery/MainLogo.png" />
-  <title>Donate to Bryan</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/Gallery/MainLogo.png">
+  <title>Donate | Bryan G. Ablao</title>
+
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
   <style>
+    /* ---------- Theme & CSS Variables ---------- */
+    :root {
+      --bg-dark: #090a0f;
+      --accent-purple: #6d28d9;
+      --accent-purple-glow: rgba(109, 40, 217, 0.4);
+      --accent-blue: #3b82f6;
+      --glass-bg: rgba(18, 20, 29, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* ---------- Global Reset & Typography ---------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: radial-gradient(circle at top left, #380098, black);
-      background-size: cover;
-      background-attachment: fixed;
-      animation: gradientMove 10s infinite alternate;
-      color: white;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
       overflow-x: hidden;
-      text-align: center;
+      line-height: 1.6;
+      min-height: 100vh;
     }
 
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.5);
-      position: sticky;
-      top: 0;
-      z-index: 1002;
-    }
-
-    header h1 {
-      font-size: 1.8rem;
-      margin: 0;
-      color: white;
-      text-shadow: 0 0 10px #a76fff;
-    }
-
-    .hamburger {
-      font-size: 1.8rem;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    #sidebarOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,0,0.4);
-      display: none;
-      z-index: 1000;
-    }
-
-    #sidebar {
-      width: 220px;
-      max-width: 80%;
-      background: rgba(0,0,0,0.9);
-      color: white;
-      position: fixed;
-      top: 0;
-      right: -220px;
-      height: 100%;
-      padding-top: 60px;
-      transition: right 0.3s ease;
-      z-index: 1001;
-    }
-    #sidebar.open { right: 0; }
-    #sidebar ul { list-style: none; padding: 0; margin: 0; }
-    #sidebar ul li a {
-      display: block;
-      padding: 12px 20px;
-      color: white;
+    a {
+      color: inherit;
       text-decoration: none;
-      text-align: left;
+      transition: var(--transition-smooth);
     }
-    #sidebar ul li a:hover { background: rgba(255, 255, 255, 0.15); }
 
     /* Background Canvases */
     #starsCanvas, #rippleCanvas {
@@ -92,338 +59,547 @@
       pointer-events: none;
     }
     #starsCanvas { z-index: 0; }
-    #rippleCanvas { z-index: 0; }
+    #rippleCanvas { z-index: 1; }
 
-    /* Donation Section */
-    .donate-section {
-      margin-top: 60px;
-      padding: 20px;
-      position: relative;
-      z-index: 2;
+    /* Ambient Glow Effects */
+    .ambient-glow {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-purple-glow) 0%, rgba(0,0,0,0) 70%);
+      top: -150px;
+      left: -150px;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.6;
     }
 
-    .donate-section h2 {
-      color: gold;
-      text-shadow: 0 0 10px gold;
-      font-size: 1.8rem;
+    /* ---------- Navigation Bar ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background: rgba(9, 10, 15, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
+    }
+
+    .nav-brand {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .desktop-nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .desktop-nav a {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .desktop-nav a:hover, .desktop-nav a.active {
+      color: var(--text-main);
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-main);
+    }
+
+    /* Mobile Sidebar Drawer */
+    #sidebarOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      z-index: 1000;
+    }
+
+    #sidebar {
+      position: fixed;
+      top: 0;
+      right: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--bg-dark);
+      border-left: 1px solid var(--glass-border);
+      padding: 5rem 1.5rem 2rem;
+      transition: right 0.3s ease;
+      z-index: 1001;
+    }
+
+    #sidebar.open { right: 0; }
+
+    #sidebar ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    #sidebar ul li a {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      display: block;
+      padding: 0.5rem 0;
+    }
+
+    #sidebar ul li a:hover { color: var(--text-main); }
+
+    /* ---------- Main Layout ---------- */
+    #blur-container {
+      position: relative;
+      z-index: 2;
+      transition: filter 0.3s ease;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    /* Glass Card Standard */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    /* ---------- Donation Page Content ---------- */
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .donate-intro {
+      color: var(--text-muted);
+      font-size: 0.975rem;
+      max-width: 800px;
+      line-height: 1.7;
+      margin-bottom: 2rem;
     }
 
     .qr-grid {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 30px;
-      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
     }
 
     .qr-box {
-      background: rgba(255,255,255,0.1);
-      padding: 20px;
-      border-radius: 15px;
-      width: 250px;
-      transition: 0.3s;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      text-align: center;
+      transition: var(--transition-smooth);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .qr-box:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px gold;
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(167, 139, 250, 0.4);
+      box-shadow: 0 10px 25px -5px rgba(109, 40, 217, 0.25);
+    }
+
+    .qr-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #a78bfa;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
     }
 
     .qr-box img {
       width: 100%;
-      border-radius: 10px;
+      max-width: 200px;
+      border-radius: var(--radius-md);
       cursor: pointer;
+      border: 1px solid var(--glass-border);
+      transition: var(--transition-smooth);
     }
 
-    .qr-label {
-      margin-bottom: 12px;   /* space BELOW the text (since it's now on top) */
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: gold;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+    .qr-box img:hover {
+      opacity: 0.9;
     }
 
-    /* Modal styles */
-    .modal {
-      display: none; 
-      position: fixed; 
-      z-index: 1003; 
-      left: 0; 
-      top: 0; 
-      width: 100%; 
-      height: 100%; 
-      background-color: rgba(0,0,0,0.85); 
-      justify-content: center; 
-      align-items: center; 
+    /* ---------- Image Modal Overlay ---------- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      padding: 1.5rem;
     }
 
-    .modal-content {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 15px;
+    .modal-box {
+      background: #11131f;
+      border: 1px solid var(--glass-border);
+      padding: 1.5rem;
+      border-radius: var(--radius-lg);
+      max-width: 480px;
+      width: 100%;
+      position: relative;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      animation: modalFade 0.25s ease-out;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .close-modal {
+    @keyframes modalFade {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .modal-close {
       position: absolute;
-      top: 15px;
-      right: 20px;
-      color: #fff;
-      font-size: 2rem;
-      font-weight: bold;
+      top: 0.75rem;
+      right: 1rem;
+      font-size: 1.75rem;
+      color: var(--text-muted);
       cursor: pointer;
-      z-index: 1004;
+      line-height: 1;
+      z-index: 10;
     }
 
-    @media (max-width: 600px) {
-      .modal-content {
-        max-width: 95%;
-        max-height: 95%;
-      }
+    .modal-close:hover { color: var(--text-main); }
+
+    .modal-content-img {
+      width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: var(--radius-md);
     }
 
-    /* ===== FOOTER ===== */
-footer {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  color: #aaa;
-  font-size: 0.9rem;
-  margin: 60px 0 30px 0;
-  opacity: 0.9;
-  transition: 0.3s;
-}
+    /* Body State When Modal Active */
+    body.modal-open #blur-container { filter: blur(6px); }
+    body.modal-open { overflow: hidden; }
 
-footer:hover {
-  color: gold;
-  text-shadow: 0 0 8px gold;
-  opacity: 1;
-}
+    /* ---------- Footer ---------- */
+    footer {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      padding: 3rem 1.5rem;
+      border-top: 1px solid var(--glass-border);
+      margin-top: 4rem;
+    }
 
-.footer-link { color: #aaa; text-decoration: none; transition: 0.3s; }
-.footer-link:hover { color: gold; text-shadow: 0 0 8px gold; text-decoration: underline; }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .footer-link {
+      color: var(--text-muted);
+    }
+
+    .footer-link:hover {
+      color: var(--text-main);
+    }
+
+    /* ---------- Responsive Breakpoints ---------- */
+    @media (max-width: 850px) {
+      .desktop-nav { display: none; }
+      .hamburger { display: block; }
+    }
+
+    @media (max-width: 480px) {
+      main { padding: 2rem 1rem; }
+      .glass-card { padding: 1.5rem; }
+      .qr-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- Background canvases -->
+  <!-- Animated Background Elements -->
+  <div class="ambient-glow"></div>
   <canvas id="starsCanvas"></canvas>
   <canvas id="rippleCanvas"></canvas>
 
-  <!-- Modal HTML -->
-  <div id="qrModal" class="modal">
-    <span class="close-modal" onclick="closeModal()">&times;</span>
-    <img class="modal-content" id="modalImage">
+  <!-- Sticky Header -->
+  <header>
+    <div class="nav-brand">Bryan G. Ablao</div>
+    <nav class="desktop-nav">
+      <a href="index.html">About</a>
+      <a href="work.html">Experience</a>
+      <a href="projects.html">Projects</a>
+      <a href="achievement.html">Achievements</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="social.html">Socials</a>
+    </nav>
+    <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Navigation">☰</div>
+  </header>
+
+  <!-- Mobile Drawer Overlay -->
+  <div id="sidebarOverlay" onclick="closeMenu()"></div>
+
+  <!-- Mobile Navigation Drawer -->
+  <nav id="sidebar">
+    <ul>
+      <li><a href="index.html">About Me</a></li>
+      <li><a href="work.html">Work Experience</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="achievement.html">Achievements</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li><a href="social.html">Social Medias</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content Area -->
+  <div id="blur-container">
+    <main>
+
+      <section class="glass-card">
+        <h2 class="section-title">Support My Work</h2>
+        <p class="donate-intro">
+          Scan any of the QR codes below to donate via GCash, Maya, AUB, or Cebuana. Your support helps me continue creating projects, improving my skills, and developing more content. Every contribution — big or small — means a lot. Thank you so much! 💛
+        </p>
+
+        <div class="qr-grid">
+          <div class="qr-box">
+            <div class="qr-label">GCASH</div>
+            <img src="images/GCASH QR.jpg" alt="GCash QR" />
+          </div>
+
+          <div class="qr-box">
+            <div class="qr-label">MAYA</div>
+            <img src="images/MAYA QR.jpg" alt="Maya QR" />
+          </div>
+
+          <div class="qr-box">
+            <div class="qr-label">AUB</div>
+            <img src="images/AUB QR.jpg" alt="AUB QR" />
+          </div>
+
+          <div class="qr-box">
+            <div class="qr-label">CEBUANA</div>
+            <img src="images/Cebuana.png" alt="Cebuana QR" />
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div>© 2025–2026 <strong>Accxs Creations</strong>. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="version.html" class="footer-link">v0.0.8</a>
+        <span>·</span>
+        <a href="terms.html" class="footer-link">Terms &amp; Privacy</a>
+      </div>
+    </footer>
   </div>
 
-<header>
-  <h1>Donate</h1>
-  <div class="hamburger" onclick="toggleMenu()">☰</div>
-</header>
-
-<div id="sidebarOverlay" onclick="closeMenu()"></div>
-
-<nav id="sidebar">
-  <ul>
-    <li><a href="index.html">About Me</a></li>
-    <li><a href="social.html">Social Medias</a></li>
-    <li><a href="work.html">Work Experience</a></li>
-    <li><a href="achievement.html">Achievements</a></li>
-    <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="projects.html">Projects</a></li>
-  </ul>
-</nav>
-
-<section class="donate-section">
-  <h2>Support My Work</h2>
-  <p>Scan any of the QR codes below to donate via GCash, Maya, or AUB. Your support helps me continue creating projects, improving my skills, and developing more content. Every contribution — big or small — means a lot. Thank you so much! 💛</p>
-
-  <div class="qr-grid">
-    <div class="qr-box">
-      <div class="qr-label">GCASH</div>
-      <img src="images/GCASH QR.jpg" alt="GCash QR" />
-    </div>
-
-    <div class="qr-box">
-      <div class="qr-label">MAYA</div>
-      <img src="images/MAYA QR.jpg" alt="Maya QR" />
-    </div>
-
-    <div class="qr-box">
-      <div class="qr-label">AUB</div>
-      <img src="images/AUB QR.jpg" alt="AUB QR" />
-    </div>
-
-    <div class="qr-box">
-      <div class="qr-label">CEBUANA</div>
-      <img src="images/Cebuana.png" alt="Cebuana QR" />
+  <!-- ---------- QR Code Lightbox Modal ---------- -->
+  <div class="modal-overlay" id="qrModal">
+    <div class="modal-box">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      <img class="modal-content-img" id="modalImage" alt="Expanded QR Code">
     </div>
   </div>
-</section>
 
-<footer>
-   © 2025 – 2026 <strong>Accxs Creations</strong> · All rights reserved ·
-   <a href="version.html" class="footer-link">v0.0.8</a> ·
-   <a href="terms.html" class="footer-link">Terms &amp; Privacy</a>
-</footer>
+  <!-- ---------- Scripts ---------- -->
+  <script>
+    // Navigation Control
+    function toggleMenu() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("sidebarOverlay");
+      const isOpen = sidebar.classList.toggle("open");
+      overlay.style.display = isOpen ? "block" : "none";
+    }
 
-<script>
-function toggleMenu() {
-  const sidebar = document.getElementById("sidebar");
-  const overlay = document.getElementById("sidebarOverlay");
-  sidebar.classList.toggle("open");
-  overlay.style.display = sidebar.classList.contains("open") ? "block" : "none";
-}
+    function closeMenu() {
+      document.getElementById("sidebar").classList.remove("open");
+      document.getElementById("sidebarOverlay").style.display = "none";
+    }
 
-function closeMenu() {
-  document.getElementById("sidebar").classList.remove("open");
-  document.getElementById("sidebarOverlay").style.display = "none";
-}
+    // Modal Control for QR Lightbox
+    const qrImages = document.querySelectorAll('.qr-box img');
+    const modal = document.getElementById('qrModal');
+    const modalImg = document.getElementById('modalImage');
 
-/* Stars, Meteor & Ripple effects */
-const starsCanvas = document.getElementById('starsCanvas');
-const starsCtx = starsCanvas.getContext('2d');
-let stars = [];
-let meteor = null;
-
-function resizeStarsCanvas() {
-  starsCanvas.width = window.innerWidth;
-  starsCanvas.height = window.innerHeight;
-  generateStars();
-}
-
-function generateStars() {
-  stars = [];
-  const numStars = 200;
-  for (let i = 0; i < numStars; i++) {
-    stars.push({
-      x: Math.random() * starsCanvas.width,
-      y: Math.random() * starsCanvas.height,
-      baseAlpha: Math.random() * 0.7 + 0.3,
-      alpha: Math.random() * 0.7 + 0.3,
-      radius: Math.random() * 1.5 + 0.5,
-      flickerSpeed: Math.random() * 0.05 + 0.02
+    qrImages.forEach(img => {
+      img.addEventListener('click', () => {
+        modal.style.display = 'flex';
+        modalImg.src = img.src;
+        document.body.classList.add('modal-open');
+      });
     });
-  }
-}
 
-function drawMeteor() {
-  if (!meteor) return;
-  starsCtx.save();
-  const grad = starsCtx.createLinearGradient(meteor.x, meteor.y, meteor.x - meteor.vx*10, meteor.y - meteor.vy*10);
-  grad.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
-  grad.addColorStop(1, `rgba(255,255,255,0)`);
-  starsCtx.strokeStyle = grad;
-  starsCtx.lineWidth = 2;
-  starsCtx.beginPath();
-  starsCtx.moveTo(meteor.x, meteor.y);
-  starsCtx.lineTo(meteor.x - meteor.vx * 20, meteor.y - meteor.vy * 20);
-  starsCtx.stroke();
-  starsCtx.restore();
-}
-
-function animateStars() {
-  starsCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
-  stars.forEach(star => {
-    star.alpha += star.flickerSpeed * (Math.random() < 0.5 ? -1 : 1);
-    if (star.alpha < 0.1) star.alpha = 0.1;
-    if (star.alpha > 1) star.alpha = 1;
-    starsCtx.beginPath();
-    starsCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-    starsCtx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
-    starsCtx.fill();
-  });
-
-  if (meteor) {
-    meteor.x += meteor.vx;
-    meteor.y += meteor.vy;
-    meteor.alpha -= 0.01;
-    drawMeteor();
-    if (meteor.alpha <= 0 || meteor.x < -50 || meteor.y > starsCanvas.height + 50) {
-      meteor = null;
-      setTimeout(spawnMeteor, Math.random() * 5000 + 3000);
+    function closeModal() {
+      modal.style.display = 'none';
+      document.body.classList.remove('modal-open');
     }
-  }
-  requestAnimationFrame(animateStars);
-}
 
-function spawnMeteor() {
-  meteor = {
-    x: Math.random() * starsCanvas.width,
-    y: -20,
-    vx: -(Math.random() * 4 + 2),
-    vy: Math.random() * 2 + 2,
-    alpha: 1
-  };
-}
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
 
-window.addEventListener('resize', resizeStarsCanvas);
-resizeStarsCanvas();
-animateStars();
-setTimeout(spawnMeteor, 3000);
+    // Starfield Animation
+    const starsCanvas = document.getElementById('starsCanvas');
+    const starsCtx = starsCanvas.getContext('2d');
+    let stars = [], meteor = null;
 
-/* Ripple effect */
-const rippleCanvas = document.getElementById('rippleCanvas');
-const rippleCtx = rippleCanvas.getContext('2d');
-let ripples = [];
-
-function resizeRippleCanvas() {
-  rippleCanvas.width = window.innerWidth;
-  rippleCanvas.height = window.innerHeight;
-}
-window.addEventListener('resize', resizeRippleCanvas);
-resizeRippleCanvas();
-
-window.addEventListener('mousemove', (e) => {
-  ripples.push({
-    x: e.clientX,
-    y: e.clientY,
-    radius: 0,
-    alpha: 0.3,
-    lineWidth: 1 + Math.random()
-  });
-  if (ripples.length > 20) ripples.shift();
-});
-
-function animateRipples() {
-  rippleCtx.clearRect(0, 0, rippleCanvas.width, rippleCanvas.height);
-  ripples.forEach((r, i) => {
-    r.radius += 1.5;
-    r.alpha -= 0.007;
-    if (r.alpha <= 0) {
-      ripples.splice(i, 1);
-      return;
+    function resizeStarsCanvas() {
+      starsCanvas.width = window.innerWidth;
+      starsCanvas.height = window.innerHeight;
+      generateStars();
     }
-    rippleCtx.beginPath();
-    rippleCtx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-    rippleCtx.strokeStyle = `rgba(56, 0, 152, ${r.alpha})`;
-    rippleCtx.lineWidth = r.lineWidth;
-    rippleCtx.stroke();
-  });
-  requestAnimationFrame(animateRipples);
-}
-animateRipples();
 
-/* QR Modal functionality */
-const qrImages = document.querySelectorAll('.qr-box img');
-const modal = document.getElementById('qrModal');
-const modalImg = document.getElementById('modalImage');
+    function generateStars() {
+      stars = [];
+      const density = Math.floor((starsCanvas.width * starsCanvas.height) / 6000);
+      for (let i = 0; i < density; i++) {
+        stars.push({
+          x: Math.random() * starsCanvas.width,
+          y: Math.random() * starsCanvas.height,
+          alpha: Math.random() * 0.7 + 0.3,
+          radius: Math.random() * 1.2 + 0.4,
+          flickerSpeed: Math.random() * 0.02 + 0.005
+        });
+      }
+    }
 
-qrImages.forEach(img => {
-  img.addEventListener('click', () => {
-    modal.style.display = 'flex';
-    modalImg.src = img.src;
-  });
-});
+    function drawMeteor() {
+      if (!meteor) return;
+      starsCtx.save();
+      const grad = starsCtx.createLinearGradient(meteor.x, meteor.y, meteor.x - meteor.vx * 10, meteor.y - meteor.vy * 10);
+      grad.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
+      grad.addColorStop(1, `rgba(255,255,255,0)`);
+      starsCtx.strokeStyle = grad;
+      starsCtx.lineWidth = 1.5;
+      starsCtx.beginPath();
+      starsCtx.moveTo(meteor.x, meteor.y);
+      starsCtx.lineTo(meteor.x - meteor.vx * 15, meteor.y - meteor.vy * 15);
+      starsCtx.stroke();
+      starsCtx.restore();
+    }
 
-function closeModal() {
-  modal.style.display = 'none';
-}
+    function animateStars() {
+      starsCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+      stars.forEach(star => {
+        star.alpha += star.flickerSpeed * (Math.random() < 0.5 ? -1 : 1);
+        star.alpha = Math.min(0.9, Math.max(0.2, star.alpha));
+        starsCtx.beginPath();
+        starsCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        starsCtx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+        starsCtx.fill();
+      });
 
-modal.addEventListener('click', (e) => {
-  if(e.target === modal) closeModal();
-});
-</script>
+      if (meteor) {
+        meteor.x += meteor.vx;
+        meteor.y += meteor.vy;
+        meteor.alpha -= 0.012;
+        drawMeteor();
+        if (meteor.alpha <= 0 || meteor.x < -50 || meteor.y > starsCanvas.height + 50) {
+          meteor = null;
+          setTimeout(spawnMeteor, Math.random() * 4000 + 3000);
+        }
+      }
+      requestAnimationFrame(animateStars);
+    }
 
+    function spawnMeteor() {
+      meteor = {
+        x: Math.random() * starsCanvas.width,
+        y: -20,
+        vx: -(Math.random() * 3 + 2),
+        vy: Math.random() * 2 + 2,
+        alpha: 1
+      };
+    }
+
+    window.addEventListener('resize', resizeStarsCanvas);
+    resizeStarsCanvas();
+    animateStars();
+    setTimeout(spawnMeteor, 2000);
+
+    // Mouse Ripple Effect
+    const rippleCanvas = document.getElementById('rippleCanvas');
+    const rippleCtx = rippleCanvas.getContext('2d');
+    let ripples = [];
+
+    function resizeRippleCanvas() {
+      rippleCanvas.width = window.innerWidth;
+      rippleCanvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeRippleCanvas);
+    resizeRippleCanvas();
+
+    window.addEventListener('mousemove', (e) => {
+      if (Math.random() > 0.3) return; // Throttle ripple creation for smooth rendering
+      ripples.push({ x: e.clientX, y: e.clientY, radius: 0, alpha: 0.25 });
+      if (ripples.length > 15) ripples.shift();
+    });
+
+    function animateRipples() {
+      rippleCtx.clearRect(0, 0, rippleCanvas.width, rippleCanvas.height);
+      ripples.forEach((r, i) => {
+        r.radius += 1.2;
+        r.alpha -= 0.008;
+        if (r.alpha <= 0) {
+          ripples.splice(i, 1);
+          return;
+        }
+        rippleCtx.beginPath();
+        rippleCtx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+        rippleCtx.strokeStyle = `rgba(167, 139, 250, ${r.alpha})`;
+        rippleCtx.lineWidth = 1;
+        rippleCtx.stroke();
+      });
+      requestAnimationFrame(animateRipples);
+    }
+    animateRipples();
+  </script>
 </body>
 </html>
