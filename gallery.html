@@ -6,10 +6,11 @@
   <link rel="icon" type="image/png" href="images/Gallery/MainLogo.png">
   <title>Gallery | Bryan G. Ablao</title>
   
-  <!-- Modern Typography -->
+  <!-- Modern Typography & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     /* ---------- Theme & CSS Variables ---------- */
@@ -75,6 +76,18 @@
       opacity: 0.6;
     }
 
+    .ambient-glow-2 {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(0,0,0,0) 70%);
+      bottom: -200px;
+      right: -200px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     /* ---------- Navigation Bar ---------- */
     header {
       position: sticky;
@@ -107,10 +120,22 @@
       font-size: 0.9rem;
       color: var(--text-muted);
       font-weight: 500;
+      position: relative;
     }
 
     .desktop-nav a:hover, .desktop-nav a.active {
       color: var(--text-main);
+    }
+
+    .desktop-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+      border-radius: 2px;
     }
 
     .hamburger {
@@ -180,7 +205,7 @@
       gap: 2.5rem;
     }
 
-    /* Glass Card Standard */
+    /* Glass Card Standard & Reveal Animation */
     .glass-card {
       background: var(--glass-bg);
       backdrop-filter: blur(16px);
@@ -188,6 +213,14 @@
       border-radius: var(--radius-lg);
       padding: 2.5rem;
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .glass-card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .section-title {
@@ -200,6 +233,8 @@
       gap: 0.75rem;
     }
 
+    .section-title i { color: #a78bfa; }
+
     .section-title::after {
       content: '';
       flex: 1;
@@ -207,27 +242,135 @@
       background: var(--glass-border);
     }
 
-    /* Gallery Grid */
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 1.25rem;
+    /* ---------- Controls (Search & Filter) ---------- */
+    .gallery-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
-    .gallery-grid img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: var(--radius-md);
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.04);
       border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      padding: 0.5rem 1.25rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 500;
       cursor: pointer;
       transition: var(--transition-smooth);
     }
 
-    .gallery-grid img:hover {
-      transform: translateY(-4px) scale(1.02);
+    .filter-btn:hover, .filter-btn.active {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
+    }
+
+    .search-box {
+      position: relative;
+      min-width: 220px;
+      flex: 1;
+      max-width: 300px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.5rem 1rem 0.5rem 2.4rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      border-radius: 30px;
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+      transition: var(--transition-smooth);
+    }
+
+    .search-box input:focus {
+      border-color: #a78bfa;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* ---------- Gallery Grid & Cards ---------- */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .gallery-item {
+      position: relative;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.02);
+      transition: var(--transition-smooth);
+      cursor: pointer;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-5px);
       border-color: rgba(167, 139, 250, 0.4);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: var(--transition-smooth);
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.05);
+    }
+
+    .gallery-item-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(9, 10, 15, 0.85) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1rem;
+      opacity: 0;
+      transition: var(--transition-smooth);
+    }
+
+    .gallery-item:hover .gallery-item-overlay {
+      opacity: 1;
+    }
+
+    .gallery-item-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .gallery-item-tag {
+      font-size: 0.75rem;
+      color: #a78bfa;
+      margin-top: 0.2rem;
     }
 
     /* ---------- Modals ---------- */
@@ -247,14 +390,22 @@
       padding: 1.5rem;
     }
 
+    .modal-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 900px;
+      width: 100%;
+    }
+
     .modal-content {
-      max-width: 90%;
-      max-height: 80vh;
+      max-width: 100%;
+      max-height: 70vh;
       border-radius: var(--radius-lg);
       border: 1px solid var(--glass-border);
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
       object-fit: contain;
-      margin-bottom: 1.5rem;
       animation: modalFade 0.25s ease-out;
     }
 
@@ -263,10 +414,59 @@
       to { opacity: 1; transform: scale(1); }
     }
 
+    .modal-caption {
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .modal-counter {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--glass-border);
+      color: #fff;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      z-index: 10;
+    }
+
+    .nav-arrow:hover {
+      background: var(--accent-purple);
+      border-color: transparent;
+    }
+
+    .nav-arrow.prev { left: -60px; }
+    .nav-arrow.next { right: -60px; }
+
     .close {
       position: absolute;
-      top: 1.5rem;
-      right: 2rem;
+      top: -40px;
+      right: 0;
       font-size: 2rem;
       color: var(--text-muted);
       cursor: pointer;
@@ -277,12 +477,15 @@
     .close:hover { color: var(--text-main); }
 
     .download-btn {
-      padding: 0.75rem 1.75rem;
+      padding: 0.6rem 1.5rem;
       background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
       color: white;
       border-radius: 30px;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       box-shadow: 0 4px 15px rgba(109, 40, 217, 0.4);
       transition: var(--transition-smooth);
     }
@@ -315,21 +518,20 @@
       margin-top: 0.5rem;
     }
 
-    .footer-link {
-      color: var(--text-muted);
-    }
-
-    .footer-link:hover {
-      color: var(--text-main);
-    }
+    .footer-link { color: var(--text-muted); }
+    .footer-link:hover { color: var(--text-main); }
 
     /* ---------- Responsive Breakpoints ---------- */
     @media (max-width: 850px) {
       .desktop-nav { display: none; }
       .hamburger { display: block; }
       .gallery-grid {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
       }
+      .gallery-item img { height: 150px; }
+      .nav-arrow.prev { left: 10px; top: 40%; }
+      .nav-arrow.next { right: 10px; top: 40%; }
+      .search-box { max-width: 100%; }
     }
   </style>
 </head>
@@ -337,6 +539,7 @@
 
   <!-- Animated Background Elements -->
   <div class="ambient-glow"></div>
+  <div class="ambient-glow-2"></div>
   <canvas id="starsCanvas"></canvas>
   <canvas id="rippleCanvas"></canvas>
 
@@ -373,20 +576,119 @@
   <div id="blur-container">
     <main>
       <section class="glass-card">
-        <h3 class="section-title">Photo Gallery</h3>
-        <div class="gallery-grid">
-          <img src="images/wpm.PNG" alt="Gallery Image" onclick="openModal(this)">
-          <img src="images/Gallery/Family/528945808_595295430326990_2495007725531082246_n.jpg" alt="Gallery Image" onclick="openModal(this)">
-          <img src="images/Gallery/Me/527920139_3290240134465747_6607549781087499359_n.jpg" alt="Gallery Image" onclick="openModal(this)">
-          <img src="images/Gallery/Me/530849010_637411352735664_9029550789082022234_n.jpg" alt="Gallery Image" onclick="openModal(this)">
-          <img src="images/Gallery/Me/Me.jpg" alt="Gallery Image" onclick="openModal(this)">
-          <img src="images/Gallery/Family/family.png" alt="Gallery Image" onclick="openModal(this)">
-          <img src="images/Gallery/Family/family1.jpg" alt="Gallery Image" onclick="openModal(this)">
-          <img src="images/ME1.jpg" alt="Gallery Image" onclick="openModal(this)">
-          <img src="images/sbi1.jfif" alt="Gallery Image" onclick="openModal(this)">
-          <img src="images/sbi2026.jpg" alt="Gallery Image" onclick="openModal(this)">
-          <img src="images/sbimen.jfif" alt="Gallery Image" onclick="openModal(this)">
-          <img src="images/Gallery/Friends/sbiall.jfif" alt="Gallery Image" onclick="openModal(this)">
+        <h3 class="section-title"><i class="fa-solid fa-images"></i> Interactive Photo Gallery</h3>
+        
+        <!-- Controls: Filters & Search -->
+        <div class="gallery-controls">
+          <div class="filter-tabs">
+            <button class="filter-btn active" onclick="filterGallery('all')">All</button>
+            <button class="filter-btn" onclick="filterGallery('me')">Personal</button>
+            <button class="filter-btn" onclick="filterGallery('family')">Family</button>
+            <button class="filter-btn" onclick="filterGallery('friends')">Work & Friends</button>
+          </div>
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="gallerySearch" placeholder="Search gallery..." oninput="searchGallery()">
+          </div>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="gallery-grid" id="galleryGrid">
+          <div class="gallery-item" data-category="friends" data-title="WPM Achievement" onclick="openLightbox(0)">
+            <img src="images/wpm.PNG" alt="WPM Achievement">
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-title">WPM Achievement</div>
+              <div class="gallery-item-tag">Work & Friends</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="family" data-title="Family Celebration" onclick="openLightbox(1)">
+            <img src="images/Gallery/Family/528945808_595295430326990_2495007725531082246_n.jpg" alt="Family Celebration">
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-title">Family Celebration</div>
+              <div class="gallery-item-tag">Family</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="me" data-title="Personal Portrait" onclick="openLightbox(2)">
+            <img src="images/Gallery/Me/527920139_3290240134465747_6607549781087499359_n.jpg" alt="Personal Portrait">
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-title">Personal Portrait</div>
+              <div class="gallery-item-tag">Personal</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="me" data-title="Casual Snapshot" onclick="openLightbox(3)">
+            <img src="images/Gallery/Me/530849010_637411352735664_9029550789082022234_n.jpg" alt="Casual Snapshot">
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-title">Casual Snapshot</div>
+              <div class="gallery-item-tag">Personal</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="me" data-title="Profile Photo" onclick="openLightbox(4)">
+            <img src="images/Gallery/Me/Me.jpg" alt="Profile Photo">
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-title">Profile Photo</div>
+              <div class="gallery-item-tag">Personal</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="family" data-title="Family Gathering" onclick="openLightbox(5)">
+            <img src="images/Gallery/Family/family.png" alt="Family Gathering">
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-title">Family Gathering</div>
+              <div class="gallery-item-tag">Family</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="family" data-title="Family Memories" onclick="openLightbox(6)">
+            <img src="images/Gallery/Family/family1.jpg" alt="Family Memories">
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-title">Family Memories</div>
+              <div class="gallery-item-tag">Family</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="me" data-title="Bryan Profile" onclick="openLightbox(7)">
+            <img src="images/ME1.jpg" alt="Bryan Profile">
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-title">Bryan Profile</div>
+              <div class="gallery-item-tag">Personal</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="friends" data-title="Team SBI Event 1" onclick="openLightbox(8)">
+            <img src="images/sbi1.jfif" alt="Team SBI Event 1">
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-title">Team SBI Event 1</div>
+              <div class="gallery-item-tag">Work & Friends</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="friends" data-title="SBI 2026 Milestone" onclick="openLightbox(9)">
+            <img src="images/sbi2026.jpg" alt="SBI 2026 Milestone">
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-title">SBI 2026 Milestone</div>
+              <div class="gallery-item-tag">Work & Friends</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="friends" data-title="SBI Men's Team" onclick="openLightbox(10)">
+            <img src="images/sbimen.jfif" alt="SBI Men's Team">
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-title">SBI Men's Team</div>
+              <div class="gallery-item-tag">Work & Friends</div>
+            </div>
+          </div>
+
+          <div class="gallery-item" data-category="friends" data-title="SBI Team Photo" onclick="openLightbox(11)">
+            <img src="images/Gallery/Friends/sbiall.jfif" alt="SBI Team Photo">
+            <div class="gallery-item-overlay">
+              <div class="gallery-item-title">SBI Team Photo</div>
+              <div class="gallery-item-tag">Work & Friends</div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
@@ -402,11 +704,24 @@
     </footer>
   </div>
 
-  <!-- Image Viewer Modal -->
+  <!-- Interactive Lightbox Modal -->
   <div id="imageModal" class="modal-overlay">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <img id="modalImg" class="modal-content" alt="Enlarged gallery view">
-    <a id="downloadBtn" class="download-btn" download="">Download</a>
+    <div class="modal-container">
+      <span class="close" onclick="closeModal()">&times;</span>
+      
+      <button class="nav-arrow prev" onclick="navigateLightbox(-1)" aria-label="Previous image"><i class="fa-solid fa-chevron-left"></i></button>
+      <img id="modalImg" class="modal-content" alt="Enlarged gallery view">
+      <button class="nav-arrow next" onclick="navigateLightbox(1)" aria-label="Next image"><i class="fa-solid fa-chevron-right"></i></button>
+
+      <div class="modal-caption">
+        <div class="modal-title" id="modalTitle">Image Title</div>
+        <div class="modal-counter" id="modalCounter">Image 1 of 12</div>
+      </div>
+
+      <div class="modal-actions">
+        <a id="downloadBtn" class="download-btn" download=""><i class="fa-solid fa-download"></i> Download</a>
+      </div>
+    </div>
   </div>
 
   <!-- Scripts -->
@@ -424,15 +739,82 @@
       document.getElementById("sidebarOverlay").style.display = "none";
     }
 
-    // Modal Control
-    function openModal(img) {
+    // Gallery Filtering & Interactive Functionality
+    let galleryItemsData = [];
+    let visibleIndices = [];
+    let currentLightboxIndex = 0;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const items = document.querySelectorAll('.gallery-item');
+      items.forEach((item, idx) => {
+        const img = item.querySelector('img');
+        const title = item.getAttribute('data-title');
+        const cat = item.getAttribute('data-category');
+        galleryItemsData.push({
+          element: item,
+          src: img.src,
+          title: title,
+          category: cat,
+          originalIndex: idx
+        });
+        visibleIndices.push(idx);
+      });
+    });
+
+    function filterGallery(category) {
+      // Toggle active button state
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      visibleIndices = [];
+      const searchTerm = document.getElementById('gallerySearch').value.toLowerCase();
+
+      galleryItemsData.forEach((item, index) => {
+        const matchesCategory = category === 'all' || item.category === category;
+        const matchesSearch = item.title.toLowerCase().includes(searchTerm);
+
+        if (matchesCategory && matchesSearch) {
+          item.element.style.display = 'block';
+          visibleIndices.push(index);
+        } else {
+          item.element.style.display = 'none';
+        }
+      });
+    }
+
+    function searchGallery() {
+      const activeBtn = document.querySelector('.filter-btn.active');
+      const activeCategory = activeBtn ? activeBtn.getAttribute('onclick').match(/'([^']+)'/)[1] : 'all';
+      filterGallery(activeCategory);
+    }
+
+    // Lightbox Control
+    function openLightbox(index) {
+      currentLightboxIndex = visibleIndices.indexOf(index);
+      if (currentLightboxIndex === -1) currentLightboxIndex = 0;
+      updateLightboxContent();
+      
       const modal = document.getElementById("imageModal");
-      const modalImg = document.getElementById("modalImg");
-      const downloadBtn = document.getElementById("downloadBtn");
       modal.style.display = "flex";
-      modalImg.src = img.src;
-      downloadBtn.href = img.src;
       document.body.classList.add("modal-open");
+    }
+
+    function updateLightboxContent() {
+      if (visibleIndices.length === 0) return;
+      const dataIndex = visibleIndices[currentLightboxIndex];
+      const item = galleryItemsData[dataIndex];
+
+      document.getElementById("modalImg").src = item.src;
+      document.getElementById("modalTitle").textContent = item.title;
+      document.getElementById("downloadBtn").href = item.src;
+      document.getElementById("modalCounter").textContent = `Image ${currentLightboxIndex + 1} of ${visibleIndices.length}`;
+    }
+
+    function navigateLightbox(direction) {
+      if (visibleIndices.length === 0) return;
+      currentLightboxIndex = (currentLightboxIndex + direction + visibleIndices.length) % visibleIndices.length;
+      updateLightboxContent();
     }
 
     function closeModal() {
@@ -443,6 +825,28 @@
     document.getElementById("imageModal").addEventListener("click", function(e) {
       if (e.target.id === "imageModal") closeModal();
     });
+
+    // Keyboard support for Lightbox
+    document.addEventListener("keydown", (e) => {
+      const modal = document.getElementById("imageModal");
+      if (modal.style.display === "flex") {
+        if (e.key === "ArrowLeft") navigateLightbox(-1);
+        if (e.key === "ArrowRight") navigateLightbox(1);
+        if (e.key === "Escape") closeModal();
+      }
+    });
+
+    // Intersection Observer for Reveal Animations
+    const cards = document.querySelectorAll('.glass-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
 
     // Starfield Animation
     const starsCanvas = document.getElementById('starsCanvas');
@@ -537,7 +941,7 @@
     resizeRippleCanvas();
 
     window.addEventListener('mousemove', (e) => {
-      if (Math.random() > 0.3) return; // Throttle ripple creation for smoother performance
+      if (Math.random() > 0.3) return;
       ripples.push({ x: e.clientX, y: e.clientY, radius: 0, alpha: 0.25 });
       if (ripples.length > 15) ripples.shift();
     });
