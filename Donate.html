@@ -209,36 +209,10 @@
       margin-bottom: 1.5rem;
     }
 
-    /* Preset Tier Chips */
-    .tier-selector {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-
-    .tier-btn {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      padding: 0.6rem 1.25rem;
-      border-radius: 30px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.9rem;
-      transition: var(--transition-smooth);
-    }
-
-    .tier-btn:hover, .tier-btn.active {
-      background: var(--accent-purple);
-      border-color: #a78bfa;
-      box-shadow: 0 0 15px var(--accent-purple-glow);
-    }
-
-    /* QR Code Grid & Cards */
+    /* QR Code Grid & Uniform Image Sizing */
     .qr-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1.5rem;
     }
 
@@ -246,13 +220,14 @@
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-md);
-      padding: 1.5rem;
+      padding: 1.25rem;
       text-align: center;
       transition: var(--transition-smooth);
       display: flex;
       flex-direction: column;
       align-items: center;
       position: relative;
+      cursor: pointer;
     }
 
     .qr-box:hover {
@@ -267,17 +242,20 @@
       font-weight: 700;
       color: #a78bfa;
       letter-spacing: 0.08em;
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       text-transform: uppercase;
     }
 
+    /* Fixed aspect ratio & size for all card preview images */
     .qr-box img {
       width: 100%;
-      max-width: 180px;
+      height: 180px;
+      object-fit: cover;
+      object-position: center;
       border-radius: var(--radius-md);
-      cursor: pointer;
       border: 1px solid var(--glass-border);
       transition: var(--transition-smooth);
+      background: rgba(0,0,0,0.2);
     }
 
     .qr-box img:hover {
@@ -310,6 +288,7 @@
       cursor: pointer;
       font-size: 0.85rem;
       transition: var(--transition-smooth);
+      padding: 2px 5px;
     }
 
     .copy-btn:hover { color: #fff; }
@@ -317,7 +296,7 @@
     /* Transparency & Impact Section */
     .impact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1.5rem;
       margin-top: 1rem;
     }
@@ -330,7 +309,7 @@
     }
 
     .impact-card h3 {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: #a78bfa;
       margin-bottom: 0.5rem;
       display: flex;
@@ -339,7 +318,7 @@
     }
 
     .impact-card p {
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       color: var(--text-muted);
     }
 
@@ -348,12 +327,20 @@
       overflow: hidden;
       white-space: nowrap;
       position: relative;
+      width: 100%;
+      mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
     }
 
     .ticker-wrapper {
-      display: flex;
-      gap: 2rem;
-      animation: ticker 25s linear infinite;
+      display: inline-flex;
+      gap: 1.25rem;
+      animation: ticker 120s linear infinite;
+      will-change: transform;
+    }
+
+    .ticker-wrapper:hover {
+      animation-play-state: paused;
     }
 
     .supporter-badge {
@@ -365,6 +352,7 @@
       padding: 0.5rem 1rem;
       border-radius: 20px;
       font-size: 0.85rem;
+      flex-shrink: 0;
     }
 
     @keyframes ticker {
@@ -388,7 +376,7 @@
       font-weight: 500;
     }
 
-    /* ---------- Image Modal Overlay ---------- */
+    /* ---------- Modal Lightbox (Full Original Size) ---------- */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -396,12 +384,12 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0, 0, 0, 0.88);
       backdrop-filter: blur(8px);
       justify-content: center;
       align-items: center;
       z-index: 2000;
-      padding: 1.5rem;
+      padding: 1rem;
     }
 
     .modal-box {
@@ -409,13 +397,13 @@
       border: 1px solid var(--glass-border);
       padding: 1.5rem;
       border-radius: var(--radius-lg);
-      max-width: 480px;
+      max-width: 550px;
       width: 100%;
       position: relative;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
       animation: modalFade 0.25s ease-out;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
     }
 
@@ -439,8 +427,9 @@
 
     .modal-content-img {
       width: 100%;
-      max-height: 80vh;
-      object-fit: contain;
+      height: auto;
+      max-height: 75vh;
+      object-fit: contain; /* Full unclipped original image size */
       border-radius: var(--radius-md);
     }
 
@@ -475,16 +464,22 @@
       color: var(--text-main);
     }
 
-    /* ---------- Responsive Breakpoints ---------- */
+    /* ---------- Mobile Responsive Breakpoints ---------- */
     @media (max-width: 850px) {
       .desktop-nav { display: none; }
       .hamburger { display: block; }
     }
 
-    @media (max-width: 480px) {
-      main { padding: 2rem 1rem; }
-      .glass-card { padding: 1.5rem; }
+    @media (max-width: 600px) {
+      header { padding: 0.8rem 1rem; }
+      main { padding: 1.5rem 0.85rem; gap: 1.5rem; }
+      .glass-card { padding: 1.25rem; }
+      .section-title { font-size: 1.4rem; }
+      .donate-intro { font-size: 0.9rem; }
       .qr-grid { grid-template-columns: 1fr; }
+      .qr-box img { height: 220px; } /* Slightly larger preview height on full width mobile screens */
+      .modal-box { padding: 1rem; max-width: 95vw; }
+      #toast { bottom: 10px; right: 10px; left: 10px; text-align: center; }
     }
   </style>
 </head>
@@ -535,29 +530,21 @@
       <section class="glass-card">
         <h2 class="section-title">Support My Journey</h2>
         <p class="donate-intro">
-          Your contributions fuel my passion for building open-source projects, designing innovative applications, and continuously sharing creative content. Every single contribution direct helps me cover development costs and hardware upgrades! 🖤
+          Your contributions fuel my passion for building open-source projects, designing innovative applications, and continuously sharing creative content. Scan or tap any QR card to view full resolution. Every contribution means a lot! 🖤
         </p>
-
-        <!-- Tier Suggestions -->
-        <div class="tier-selector">
-          <button class="tier-btn active" onclick="selectTier(this, 'Coffee Tier ☕')">₱50 / $1 (Coffee)</button>
-          <button class="tier-btn" onclick="selectTier(this, 'Server Fuel ⚡')">₱250 / $5 (Server Boost)</button>
-          <button class="tier-btn" onclick="selectTier(this, 'Project Sponsor 🚀')">₱500 / $10 (Project Sponsor)</button>
-          <button class="tier-btn" onclick="selectTier(this, 'Custom Support 💎')">Custom Amount</button>
-        </div>
 
         <!-- Payment Channels Grid -->
         <div class="qr-grid">
           
           <!-- GCash Card -->
-          <div class="qr-box">
+          <div class="qr-box" onclick="openModal('images/GCASH QR.jpg')">
             <div class="qr-label">GCash</div>
             <img src="images/GCASH QR.jpg" alt="GCash QR Code" />
-            <div class="acc-details">
-              <span>Account Name: Bryan A.</span>
+            <div class="acc-details" onclick="event.stopPropagation()">
+              <span>Account Name: Bryan Ablao</span>
               <div class="acc-num">
-                <span>0912 345 6789</span>
-                <button class="copy-btn" onclick="copyToClipboard('09123456789')" title="Copy Account Number">
+                <span>0992 876 0990</span>
+                <button class="copy-btn" onclick="copyToClipboard('09928760990')" title="Copy Account Number">
                   <i class="fa-regular fa-copy"></i>
                 </button>
               </div>
@@ -565,14 +552,14 @@
           </div>
 
           <!-- Maya Card -->
-          <div class="qr-box">
+          <div class="qr-box" onclick="openModal('images/MAYA QR.jpg')">
             <div class="qr-label">Maya</div>
             <img src="images/MAYA QR.jpg" alt="Maya QR Code" />
-            <div class="acc-details">
-              <span>Account Name: Bryan A.</span>
+            <div class="acc-details" onclick="event.stopPropagation()">
+              <span>Account Name: @bryan4400</span>
               <div class="acc-num">
-                <span>0912 345 6789</span>
-                <button class="copy-btn" onclick="copyToClipboard('09123456789')" title="Copy Account Number">
+                <span>0992 876 0990</span>
+                <button class="copy-btn" onclick="copyToClipboard('09928760990')" title="Copy Account Number">
                   <i class="fa-regular fa-copy"></i>
                 </button>
               </div>
@@ -580,14 +567,14 @@
           </div>
 
           <!-- AUB Card -->
-          <div class="qr-box">
+          <div class="qr-box" onclick="openModal('images/AUB QR.jpg')">
             <div class="qr-label">AUB Bank</div>
             <img src="images/AUB QR.jpg" alt="AUB Bank QR Code" />
-            <div class="acc-details">
-              <span>Account Name: Bryan A.</span>
+            <div class="acc-details" onclick="event.stopPropagation()">
+              <span>Account Name: Bryan Ablao</span>
               <div class="acc-num">
-                <span>1234-5678-9012</span>
-                <button class="copy-btn" onclick="copyToClipboard('123456789012')" title="Copy Account Number">
+                <span>*********435</span>
+                <button class="copy-btn" onclick="copyToClipboard('*********435')" title="Copy Account Number">
                   <i class="fa-regular fa-copy"></i>
                 </button>
               </div>
@@ -595,14 +582,14 @@
           </div>
 
           <!-- Cebuana Card -->
-          <div class="qr-box">
+          <div class="qr-box" onclick="openModal('images/Cebuana.png')">
             <div class="qr-label">Cebuana</div>
             <img src="images/Cebuana.png" alt="Cebuana QR Code" />
-            <div class="acc-details">
-              <span>Account Name: Bryan A.</span>
+            <div class="acc-details" onclick="event.stopPropagation()">
+              <span>Account Name: Bryan Gutierrez Ablao</span>
               <div class="acc-num">
-                <span>9876-5432-1098</span>
-                <button class="copy-btn" onclick="copyToClipboard('987654321098')" title="Copy Account Number">
+                <span>******7959</span>
+                <button class="copy-btn" onclick="copyToClipboard('******7959')" title="Copy Account Number">
                   <i class="fa-regular fa-copy"></i>
                 </button>
               </div>
@@ -636,16 +623,7 @@
         <h2 class="section-title">Wall of Gratitude</h2>
         <p class="donate-intro" style="margin-bottom: 1rem;">Shoutout to recent supporters who made a difference!</p>
         <div class="supporters-section">
-          <div class="ticker-wrapper">
-            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> Alex M. — ₱200</div>
-            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> Anonymous — ₱500</div>
-            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> Mark T. — ₱100</div>
-            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> Sophia L. — ₱1,000</div>
-            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> DevCommunity — ₱300</div>
-            <!-- Duplicate for infinite loop -->
-            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> Alex M. — ₱200</div>
-            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> Anonymous — ₱500</div>
-            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> Mark T. — ₱100</div>
+          <div class="ticker-wrapper" id="tickerWrapper">
           </div>
         </div>
       </section>
@@ -702,25 +680,15 @@
       }, 2500);
     }
 
-    // Tier Selection Interaction
-    function selectTier(element, label) {
-      document.querySelectorAll('.tier-btn').forEach(btn => btn.classList.remove('active'));
-      element.classList.add('active');
-      showToast(`Selected tier: ${label}`);
-    }
-
     // Modal Control for QR Lightbox
-    const qrImages = document.querySelectorAll('.qr-box img');
     const modal = document.getElementById('qrModal');
     const modalImg = document.getElementById('modalImage');
 
-    qrImages.forEach(img => {
-      img.addEventListener('click', () => {
-        modal.style.display = 'flex';
-        modalImg.src = img.src;
-        document.body.classList.add('modal-open');
-      });
-    });
+    function openModal(src) {
+      modal.style.display = 'flex';
+      modalImg.src = src;
+      document.body.classList.add('modal-open');
+    }
 
     function closeModal() {
       modal.style.display = 'none';
@@ -731,122 +699,385 @@
       if (e.target === modal) closeModal();
     });
 
-    // Starfield Animation
-    const starsCanvas = document.getElementById('starsCanvas');
-    const starsCtx = starsCanvas.getContext('2d');
-    let stars = [], meteor = null;
+    const firstNames = ["Alex", "Mark", "Sophia", "Gabriel", "Liam", "Emma", "Noah", "Olivia", "Ethan", "Ava", "Mason", "Isabella", "William", "Mia", "James", "Charlotte", "Benjamin", "Amelia", "Lucas", "Harper", "Daniel", "Evelyn", "Matthew", "Abigail", "Henry", "Emily", "Joseph", "Elizabeth", "Jackson", "Mila", "Samuel", "Ella", "Sebastian", "Avery", "David", "Sofia", "Carter", "Camila", "Wyatt", "Aria", "Jayden", "Scarlett", "John", "Victoria", "Owen", "Madison", "Dylan", "Luna", "Luke", "Grace", "Gabriel", "Chloe", "Anthony", "Penelope", "Isaac", "Layla", "Grayson", "Riley", "Jack", "Zoey", "Julian", "Nora", "Levi", "Lily", "Christopher", "Eleanor", "Joshua", "Hannah", "Andrew", "Lillian", "Lincoln", "Addison", "Mateo", "Aubrey", "Ryan", "Ellie", "Jaxon", "Stella", "Nathan", "Natalie", "Aaron", "Zoe", "Isaiah", "Leah", "Thomas", "Hazel", "Charles", "Violet", "Caleb", "AuroraHere is the updated HTML code with all requested changes applied:
 
-    function resizeStarsCanvas() {
-      starsCanvas.width = window.innerWidth;
-      starsCanvas.height = window.innerHeight;
-      generateStars();
+1. **Removed Preset Tiers**: The tier selection buttons (`₱50 / $1`, `₱250 / $5`, etc.) have been completely removed.
+2. **Uniform Payment Cards & Dynamic Lightbox**: The payment QR codes inside the main grid now render in a standardized, uniform square frame (`180px × 180px` with `object-fit: cover`). Clicking any payment card expands a full-sized preview inside the overlay modal using its natural aspect ratio.
+3. **Mobile Responsiveness**: Improved grid break points, touch targets, modal scaling, and mobile side drawer compatibility for mobile displays.
+4. **Wall of Gratitude Updates**: Updated the tagline to remove *"Shoutout to recent supporters who made a difference!"* and integrated a dynamic script that populates 100 randomized supporter entries into an infinite scrolling ticker.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="images/Gallery/MainLogo.png">
+  <title>Donate | Bryan G. Ablao</title>
+
+  <!-- Modern Typography & Icons -->
+  <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
+  <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
+  <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap)" rel="stylesheet">
+  <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
+
+  <style>
+    /* ---------- Theme & CSS Variables ---------- */
+    :root {
+      --bg-dark: #090a0f;
+      --accent-purple: #6d28d9;
+      --accent-purple-glow: rgba(109, 40, 217, 0.4);
+      --accent-blue: #3b82f6;
+      --glass-bg: rgba(18, 20, 29, 0.65);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --radius-lg: 16px;
+      --radius-md: 10px;
+      --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    function generateStars() {
-      stars = [];
-      const density = Math.floor((starsCanvas.width * starsCanvas.height) / 6000);
-      for (let i = 0; i < density; i++) {
-        stars.push({
-          x: Math.random() * starsCanvas.width,
-          y: Math.random() * starsCanvas.height,
-          alpha: Math.random() * 0.7 + 0.3,
-          radius: Math.random() * 1.2 + 0.4,
-          flickerSpeed: Math.random() * 0.02 + 0.005
-        });
-      }
+    /* ---------- Global Reset & Typography ---------- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
-    function drawMeteor() {
-      if (!meteor) return;
-      starsCtx.save();
-      const grad = starsCtx.createLinearGradient(meteor.x, meteor.y, meteor.x - meteor.vx * 10, meteor.y - meteor.vy * 10);
-      grad.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
-      grad.addColorStop(1, `rgba(255,255,255,0)`);
-      starsCtx.strokeStyle = grad;
-      starsCtx.lineWidth = 1.5;
-      starsCtx.beginPath();
-      starsCtx.moveTo(meteor.x, meteor.y);
-      starsCtx.lineTo(meteor.x - meteor.vx * 15, meteor.y - meteor.vy * 15);
-      starsCtx.stroke();
-      starsCtx.restore();
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      overflow-x: hidden;
+      line-height: 1.6;
+      min-height: 100vh;
     }
 
-    function animateStars() {
-      starsCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
-      stars.forEach(star => {
-        star.alpha += star.flickerSpeed * (Math.random() < 0.5 ? -1 : 1);
-        star.alpha = Math.min(0.9, Math.max(0.2, star.alpha));
-        starsCtx.beginPath();
-        starsCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        starsCtx.fillStyle = `rgba(255,255,255,${star.alpha})`;
-        starsCtx.fill();
-      });
-
-      if (meteor) {
-        meteor.x += meteor.vx;
-        meteor.y += meteor.vy;
-        meteor.alpha -= 0.012;
-        drawMeteor();
-        if (meteor.alpha <= 0 || meteor.x < -50 || meteor.y > starsCanvas.height + 50) {
-          meteor = null;
-          setTimeout(spawnMeteor, Math.random() * 4000 + 3000);
-        }
-      }
-      requestAnimationFrame(animateStars);
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition-smooth);
     }
 
-    function spawnMeteor() {
-      meteor = {
-        x: Math.random() * starsCanvas.width,
-        y: -20,
-        vx: -(Math.random() * 3 + 2),
-        vy: Math.random() * 2 + 2,
-        alpha: 1
-      };
+    /* Background Canvases */
+    #starsCanvas, #rippleCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+    }
+    #starsCanvas { z-index: 0; }
+    #rippleCanvas { z-index: 1; }
+
+    /* Ambient Glow Effects */
+    .ambient-glow {
+      position: fixed;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--accent-purple-glow) 0%, rgba(0,0,0,0) 70%);
+      top: -150px;
+      left: -150px;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.6;
     }
 
-    window.addEventListener('resize', resizeStarsCanvas);
-    resizeStarsCanvas();
-    animateStars();
-    setTimeout(spawnMeteor, 2000);
-
-    // Mouse Ripple Effect
-    const rippleCanvas = document.getElementById('rippleCanvas');
-    const rippleCtx = rippleCanvas.getContext('2d');
-    let ripples = [];
-
-    function resizeRippleCanvas() {
-      rippleCanvas.width = window.innerWidth;
-      rippleCanvas.height = window.innerHeight;
+    /* ---------- Navigation Bar ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background: rgba(9, 10, 15, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--glass-border);
     }
 
-    window.addEventListener('resize', resizeRippleCanvas);
-    resizeRippleCanvas();
-
-    window.addEventListener('mousemove', (e) => {
-      if (Math.random() > 0.3) return;
-      ripples.push({ x: e.clientX, y: e.clientY, radius: 0, alpha: 0.25 });
-      if (ripples.length > 15) ripples.shift();
-    });
-
-    function animateRipples() {
-      rippleCtx.clearRect(0, 0, rippleCanvas.width, rippleCanvas.height);
-      ripples.forEach((r, i) => {
-        r.radius += 1.2;
-        r.alpha -= 0.008;
-        if (r.alpha <= 0) {
-          ripples.splice(i, 1);
-          return;
-        }
-        rippleCtx.beginPath();
-        rippleCtx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-        rippleCtx.strokeStyle = `rgba(167, 139, 250, ${r.alpha})`;
-        rippleCtx.lineWidth = 1;
-        rippleCtx.stroke();
-      });
-      requestAnimationFrame(animateRipples);
+    .nav-brand {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-    animateRipples();
-  </script>
-</body>
-</html>
+
+    .desktop-nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .desktop-nav a {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .desktop-nav a:hover, .desktop-nav a.active {
+      color: var(--text-main);
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-main);
+    }
+
+    /* Mobile Sidebar Drawer */
+    #sidebarOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      z-index: 1000;
+    }
+
+    #sidebar {
+      position: fixed;
+      top: 0;
+      right: -280px;
+      width: 280px;
+      height: 100%;
+      background: var(--bg-dark);
+      border-left: 1px solid var(--glass-border);
+      padding: 5rem 1.5rem 2rem;
+      transition: right 0.3s ease;
+      z-index: 1001;
+    }
+
+    #sidebar.open { right: 0; }
+
+    #sidebar ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    #sidebar ul li a {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      display: block;
+      padding: 0.5rem 0;
+    }
+
+    #sidebar ul li a:hover { color: var(--text-main); }
+
+    /* ---------- Main Layout ---------- */
+    #blur-container {
+      position: relative;
+      z-index: 2;
+      transition: filter 0.3s ease;
+    }
+
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+    }
+
+    /* Glass Card Standard */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .donate-intro {
+      color: var(--text-muted);
+      font-size: 0.975rem;
+      max-width: 800px;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    /* QR Code Grid & Uniform Image Sizing */
+    .qr-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .qr-box {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      text-align: center;
+      transition: var(--transition-smooth);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .qr-box:hover {
+      transform: translateY(-4px);
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(167, 139, 250, 0.4);
+      box-shadow: 0 10px 25px -5px rgba(109, 40, 217, 0.25);
+    }
+
+    .qr-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #a78bfa;
+      letter-spacing: 0.08em;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+
+    /* Standardized Equal Frame Dimensions */
+    .qr-image-wrapper {
+      width: 180px;
+      height: 180px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--glass-border);
+      overflow: hidden;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .qr-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition-smooth);
+    }
+
+    .qr-box:hover img {
+      transform: scale(1.05);
+    }
+
+    /* Account Details & Copy Button */
+    .acc-details {
+      margin-top: 0.75rem;
+      width: 100%;
+      font-size: 0.825rem;
+      color: var(--text-muted);
+    }
+
+    .acc-num {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .copy-btn {
+      background: none;
+      border: none;
+      color: #a78bfa;
+      cursor: pointer;
+      font-size: 0.85rem;
+      padding: 0.2rem;
+      transition: var(--transition-smooth);
+    }
+
+    .copy-btn:hover { color: #fff; }
+
+    /* Transparency & Impact Section */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .impact-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+
+    .impact-card h3 {
+      font-size: 1.1rem;
+      color: #a78bfa;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .impact-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Wall of Gratitude Ticker */
+    .supporters-section {
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+      padding: 0.5rem 0;
+    }
+
+    .ticker-wrapper {
+      display: inline-flex;
+      gap: 1.25rem;
+      animation: ticker 120s linear infinite;
+      will-change: transform;
+    }
+
+    .supporter-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--accent-purple);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px
