@@ -6,10 +6,11 @@
   <link rel="icon" type="image/png" href="images/Gallery/MainLogo.png">
   <title>Projects | Bryan G. Ablao</title>
   
-  <!-- Modern Typography -->
+  <!-- Modern Typography & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     /* ---------- Theme & CSS Variables ---------- */
@@ -85,6 +86,18 @@
       opacity: 0.6;
     }
 
+    .ambient-glow-2 {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(0,0,0,0) 70%);
+      bottom: -200px;
+      right: -200px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     /* ---------- Navigation Bar ---------- */
     header {
       position: sticky;
@@ -111,7 +124,7 @@
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 1.5rem;
     }
 
     .desktop-nav {
@@ -124,10 +137,22 @@
       font-size: 0.9rem;
       color: var(--text-muted);
       font-weight: 500;
+      position: relative;
     }
 
     .desktop-nav a:hover, .desktop-nav a.active {
       color: var(--text-main);
+    }
+
+    .desktop-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+      border-radius: 2px;
     }
 
     .btn-action {
@@ -143,7 +168,7 @@
       transition: var(--transition-smooth);
       display: inline-flex;
       align-items: center;
-      justify-content: center;
+      gap: 0.4rem;
     }
 
     .btn-action:hover {
@@ -220,17 +245,134 @@
       gap: 2.5rem;
     }
 
+    /* Glass Card Standard & Reveal Animations */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .glass-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .section-title {
       font-size: 1.75rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
       letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title i {
+      color: #a78bfa;
     }
 
     .section-desc {
       color: var(--text-muted);
       font-size: 0.95rem;
       margin-bottom: 2rem;
+    }
+
+    /* Stats Counter Bar */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding: 1.25rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      text-align: center;
+    }
+
+    .stat-box h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #a78bfa;
+    }
+
+    .stat-box p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Controls Bar: Search & Category Filters */
+    .project-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.6rem 1rem 0.6rem 2.5rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition-smooth);
+    }
+
+    .search-box input:focus {
+      border-color: rgba(167, 139, 250, 0.6);
+      box-shadow: 0 0 12px rgba(109, 40, 217, 0.3);
+    }
+
+    .filter-buttons {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
     }
 
     /* Projects Grid */
@@ -241,33 +383,56 @@
     }
 
     .project-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
       padding: 1.25rem;
       display: flex;
       flex-direction: column;
-      text-decoration: none;
-      color: var(--text-main);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      position: relative;
+      overflow: hidden;
       transition: var(--transition-smooth);
     }
 
     .project-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(167, 139, 250, 0.4);
+      transform: translateY(-6px);
+      border-color: rgba(167, 139, 250, 0.5);
       box-shadow: 0 12px 30px rgba(109, 40, 217, 0.25);
+    }
+
+    .project-img-wrapper {
+      position: relative;
+      overflow: hidden;
+      border-radius: var(--radius-md);
+      margin-bottom: 1rem;
+      border: 1px solid var(--glass-border);
     }
 
     .project-card img {
       width: 100%;
       aspect-ratio: 1 / 1;
       object-fit: cover;
-      border-radius: var(--radius-md);
-      margin-bottom: 1rem;
-      border: 1px solid var(--glass-border);
       background: rgba(0, 0, 0, 0.2);
+      transition: transform 0.5s ease;
+    }
+
+    .project-card:hover img {
+      transform: scale(1.05);
+    }
+
+    .project-tag {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(9, 10, 15, 0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--glass-border);
+      color: #a78bfa;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.6rem;
+      border-radius: 12px;
+      text-transform: uppercase;
     }
 
     .project-card h3 {
@@ -281,6 +446,65 @@
       font-size: 0.85rem;
       color: var(--text-muted);
       line-height: 1.5;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .tech-stack-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .tech-pill {
+      font-size: 0.72rem;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-muted);
+      padding: 0.2rem 0.5rem;
+      border-radius: 6px;
+      border: 1px solid var(--glass-border);
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-card {
+      flex: 1;
+      text-align: center;
+      padding: 0.5rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      transition: var(--transition-smooth);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      cursor: pointer;
+    }
+
+    .btn-card-primary {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      color: #fff;
+    }
+
+    .btn-card-primary:hover {
+      box-shadow: 0 4px 15px rgba(109, 40, 217, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .btn-card-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+    }
+
+    .btn-card-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(167, 139, 250, 0.4);
     }
 
     /* ---------- Modals ---------- */
@@ -310,6 +534,8 @@
       position: relative;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
       animation: modalFade 0.25s ease-out;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     @keyframes modalFade {
@@ -354,6 +580,16 @@
       margin-bottom: 0.4rem;
     }
 
+    /* Dynamic Project Modal Specifics */
+    .modal-project-img {
+      width: 100%;
+      max-height: 220px;
+      object-fit: cover;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--glass-border);
+      margin-bottom: 1.25rem;
+    }
+
     /* Body State When Modal Active */
     body.modal-open #blur-container { filter: blur(6px); }
     body.modal-open { overflow: hidden; }
@@ -389,6 +625,8 @@
     @media (max-width: 850px) {
       .desktop-nav { display: none; }
       .hamburger { display: block; }
+      .stats-container { grid-template-columns: 1fr; }
+      .project-controls { flex-direction: column; align-items: stretch; }
     }
   </style>
 </head>
@@ -396,6 +634,7 @@
 
   <!-- Animated Background Elements -->
   <div class="ambient-glow"></div>
+  <div class="ambient-glow-2"></div>
   <canvas id="starsCanvas"></canvas>
   <canvas id="rippleCanvas"></canvas>
   <canvas id="modalStarsCanvas"></canvas>
@@ -414,8 +653,8 @@
         <a href="social.html">Socials</a>
       </nav>
 
-      <button id="hireBtn" class="btn-action">Hire Me</button>
-      <a href="Donate.html" class="btn-action">Donate</a>
+      <button id="hireBtn" class="btn-action"><i class="fa-solid fa-briefcase"></i> Hire Me</button>
+      <a href="Donate.html" class="btn-action"><i class="fa-solid fa-heart"></i> Donate</a>
 
       <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Navigation">☰</div>
     </div>
@@ -439,36 +678,141 @@
   <!-- Main Content Area -->
   <div id="blur-container">
     <main>
-      <section>
-        <h2 class="section-title">Projects Showcase</h2>
-        <p class="section-desc">Explore various interactive applications, web platforms, and digital experiences I've developed.</p>
+      
+      <!-- Projects Overview & Filter Glass Section -->
+      <section class="glass-card">
+        <h2 class="section-title"><i class="fa-solid fa-rocket"></i> Projects Showcase</h2>
+        <p class="section-desc">Explore interactive mini-games, web applications, community platforms, and custom portfolios I've built.</p>
 
-        <div class="projects-grid">
-          <a class="project-card" href="https://bryangablao.github.io/G-GAMES/" target="_blank" rel="noopener">
-            <img src="images/Gallery/project/GGAMES.png" alt="Mini-Games Collection">
+        <!-- Stats Bar Display -->
+        <div class="stats-container">
+          <div class="stat-box">
+            <h3 class="counter" data-target="4">0</h3>
+            <p>Featured Projects</p>
+          </div>
+          <div class="stat-box">
+            <h3 class="counter" data-target="100">0</h3>
+            <p>% Responsive</p>
+          </div>
+          <div class="stat-box">
+            <h3 class="counter" data-target="100">0</h3>
+            <p>% Custom Built</p>
+          </div>
+        </div>
+
+        <!-- Search & Category Filters -->
+        <div class="project-controls">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search projects by title or tech..." onkeyup="filterProjects()">
+          </div>
+
+          <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterCategory('all', this)">All</button>
+            <button class="filter-btn" onclick="filterCategory('games', this)">Games</button>
+            <button class="filter-btn" onclick="filterCategory('web', this)">Web Apps</button>
+            <button class="filter-btn" onclick="filterCategory('portfolio', this)">Portfolios</button>
+          </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid" id="projectsGrid">
+
+          <!-- Project Card 1 -->
+          <div class="project-card" data-category="games" data-title="G-GAMES Sudoku Snake Flappy Bird">
+            <div class="project-img-wrapper">
+              <img src="images/Gallery/project/GGAMES.png" alt="G-GAMES Showcase">
+              <span class="project-tag">Game Suite</span>
+            </div>
             <h3>G-GAMES</h3>
-            <p>An interactive single-player mini-games lobby featuring Sudoku, Snake, Flappy Bird, and more.</p>
-          </a>
+            <p>An interactive single-player mini-games lobby featuring Sudoku, Snake, Flappy Bird, and custom arcade titles.</p>
+            <div class="tech-stack-pills">
+              <span class="tech-pill">JavaScript</span>
+              <span class="tech-pill">HTML5 Canvas</span>
+              <span class="tech-pill">CSS3</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://bryangablao.github.io/G-GAMES/" target="_blank" rel="noopener" class="btn-card btn-card-primary">
+                <i class="fa-solid fa-play"></i> Play Now
+              </a>
+              <button onclick="openProjectModal('ggames')" class="btn-card btn-card-secondary">
+                <i class="fa-solid fa-circle-info"></i> Details
+              </button>
+            </div>
+          </div>
 
-          <a class="project-card" href="https://ict2026.github.io/kentvincemasanegra/" target="_blank" rel="noopener">
-            <img src="images/Gallery/project/kentlogo.png" alt="Kent Portfolio">
-            <h3>Kent Vince S. Masagnegra - Portfolio</h3>
+          <!-- Project Card 2 -->
+          <div class="project-card" data-category="portfolio" data-title="Kent Vince S. Masagnegra Portfolio">
+            <div class="project-img-wrapper">
+              <img src="images/Gallery/project/kentlogo.png" alt="Kent Portfolio Showcase">
+              <span class="project-tag">Portfolio</span>
+            </div>
+            <h3>Kent Vince S. Masagnegra</h3>
             <p>A personal portfolio presenting web development projects, ICT learning experiences, and interactive digital creations.</p>
-          </a>
+            <div class="tech-stack-pills">
+              <span class="tech-pill">HTML/CSS</span>
+              <span class="tech-pill">UI/UX</span>
+              <span class="tech-pill">Responsive</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://ict2026.github.io/kentvincemasanegra/" target="_blank" rel="noopener" class="btn-card btn-card-primary">
+                <i class="fa-solid fa-globe"></i> Visit Site
+              </a>
+              <button onclick="openProjectModal('kent')" class="btn-card btn-card-secondary">
+                <i class="fa-solid fa-circle-info"></i> Details
+              </button>
+            </div>
+          </div>
 
-          <a class="project-card" href="https://bryangablao.github.io/ChatPH/" target="_blank" rel="noopener">
-            <img src="images/Gallery/project/ChatPH.png" alt="Social Media">
+          <!-- Project Card 3 -->
+          <div class="project-card" data-category="web" data-title="ChatPH Social Media Platform">
+            <div class="project-img-wrapper">
+              <img src="images/Gallery/project/ChatPH.png" alt="ChatPH Showcase">
+              <span class="project-tag">Community</span>
+            </div>
             <h3>ChatPH</h3>
-            <p>ChatPH is an online community platform that brings Filipinos together to communicate, share experiences, and stay connected anytime, anywhere.</p>
-          </a>
+            <p>An online community platform bringing Filipinos together to communicate, share experiences, and stay connected.</p>
+            <div class="tech-stack-pills">
+              <span class="tech-pill">Web App</span>
+              <span class="tech-pill">Real-time</span>
+              <span class="tech-pill">Community</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://bryangablao.github.io/ChatPH/" target="_blank" rel="noopener" class="btn-card btn-card-primary">
+                <i class="fa-solid fa-comments"></i> Launch
+              </a>
+              <button onclick="openProjectModal('chatph')" class="btn-card btn-card-secondary">
+                <i class="fa-solid fa-circle-info"></i> Details
+              </button>
+            </div>
+          </div>
 
-          <a class="project-card" href="https://bryangablao.github.io/EmojiLegends/" target="_blank" rel="noopener">
-            <img src="images/Gallery/project/EmojiLegends.jfif" alt="RPG Game">
+          <!-- Project Card 4 -->
+          <div class="project-card" data-category="games" data-title="Emoji Legends Mythic Realms RPG Game">
+            <div class="project-img-wrapper">
+              <img src="images/Gallery/project/EmojiLegends.jfif" alt="Emoji Legends RPG Showcase">
+              <span class="project-tag">Action RPG</span>
+            </div>
             <h3>Emoji Legends: Mythic Realms</h3>
-            <p>In Emoji Legends: Mythic Realms, you control powerful emoji heroes to clear relentless waves of dark monsters and defeat massive mythic bosses using magical abilities and upgraded weapons.</p>
-          </a>
+            <p>Control powerful emoji heroes to clear relentless waves of dark monsters and defeat mythic bosses with magic.</p>
+            <div class="tech-stack-pills">
+              <span class="tech-pill">JavaScript</span>
+              <span class="tech-pill">Game Loop</span>
+              <span class="tech-pill">Graphics</span>
+            </div>
+            <div class="project-actions">
+              <a href="https://bryangablao.github.io/EmojiLegends/" target="_blank" rel="noopener" class="btn-card btn-card-primary">
+                <i class="fa-solid fa-gamepad"></i> Play RPG
+              </a>
+              <button onclick="openProjectModal('emojilegends')" class="btn-card btn-card-secondary">
+                <i class="fa-solid fa-circle-info"></i> Details
+              </button>
+            </div>
+          </div>
+
         </div>
       </section>
+
     </main>
 
     <!-- Footer -->
@@ -486,7 +830,7 @@
   <div class="modal-overlay" id="hireModal">
     <div class="modal-box">
       <span class="modal-close" onclick="closeHireModal()">&times;</span>
-      <h2>Website Creation Service</h2>
+      <h2><i class="fa-solid fa-wand-magic-sparkles" style="color: #a78bfa;"></i> Website Creation Service</h2>
       <p>
         Are you interested in having your own customized website? We offer a professional service where we create your website tailored to your needs. Your website can be live within <strong>1–2 weeks</strong>.
       </p>
@@ -497,15 +841,190 @@
       </ul>
       <p>
         <strong>Contact Us:</strong><br>
-        Phone: <a href="tel:+639928760990" style="color: #a78bfa;">+63 992 876 0990</a> (Dito)<br>
-        Email: <a href="mailto:ablaobryan4400@gmail.com" style="color: #a78bfa;">ablaobryan4400@gmail.com</a>
+        <i class="fa-solid fa-phone" style="color: #a78bfa;"></i> Phone: <a href="tel:+639928760990" style="color: #a78bfa;">+63 992 876 0990</a> (Dito)<br>
+        <i class="fa-solid fa-envelope" style="color: #a78bfa;"></i> Email: <a href="mailto:ablaobryan4400@gmail.com" style="color: #a78bfa;">ablaobryan4400@gmail.com</a>
       </p>
       <p>We’ll handle everything professionally so you can focus on your content. Let’s make your website happen!</p>
     </div>
   </div>
 
+  <!-- ---------- Interactive Dynamic Project Details Modal ---------- -->
+  <div class="modal-overlay" id="projectDetailsModal">
+    <div class="modal-box">
+      <span class="modal-close" onclick="closeProjectModal()">&times;</span>
+      <img id="modalProjectImg" class="modal-project-img" src="" alt="Project Image">
+      <h2 id="modalProjectTitle">Project Title</h2>
+      <p id="modalProjectDesc">Project Description</p>
+      <div style="margin-bottom: 1rem;">
+        <strong style="color: #a78bfa; font-size: 0.9rem;">Key Features:</strong>
+        <ul id="modalProjectFeatures" style="margin-top: 0.5rem;"></ul>
+      </div>
+      <div style="margin-bottom: 1.5rem;">
+        <strong style="color: #a78bfa; font-size: 0.9rem;">Technologies Used:</strong>
+        <div id="modalProjectTech" class="tech-stack-pills" style="margin-top: 0.5rem;"></div>
+      </div>
+      <a id="modalProjectLink" href="#" target="_blank" rel="noopener" class="btn-card btn-card-primary" style="display: inline-flex; width: 100%; text-align: center; justify-content: center; padding: 0.75rem;">
+        <i class="fa-solid fa-external-link-alt"></i> Open Project Live
+      </a>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script>
+    // Project Data for Interactive Details Modal
+    const projectData = {
+      ggames: {
+        title: "G-GAMES Hub",
+        img: "images/Gallery/project/GGAMES.png",
+        desc: "A browser-based mini-game hub featuring multiple interactive classics re-engineered with smooth canvas animations and high-score tracking.",
+        features: [
+          "Classic Sudoku solver & generator",
+          "Smooth HTML5 Canvas Snake game",
+          "Flappy Bird arcade clone with physics",
+          "Responsive mobile touch controls"
+        ],
+        tech: ["HTML5 Canvas", "JavaScript (ES6)", "CSS Grid", "LocalStorage"],
+        link: "https://bryangablao.github.io/G-GAMES/"
+      },
+      kent: {
+        title: "Kent Vince S. Masagnegra - Portfolio",
+        img: "images/Gallery/project/kentlogo.png",
+        desc: "A custom web portfolio designed to display ICT competencies, creative media projects, and academic accomplishments.",
+        features: [
+          "Sleek visual hierarchy & glass aesthetics",
+          "Interactive section transitions",
+          "Optimized lightweight code structure",
+          "Full mobile-first responsiveness"
+        ],
+        tech: ["HTML5", "CSS3 Animations", "Vanilla JS", "GitHub Pages"],
+        link: "https://ict2026.github.io/kentvincemasanegra/"
+      },
+      chatph: {
+        title: "ChatPH - Digital Community Platform",
+        img: "images/Gallery/project/ChatPH.png",
+        desc: "A web platform aimed at uniting Filipino communities through localized discussion rooms, messaging, and post sharing.",
+        features: [
+          "Interactive community chat interfaces",
+          "Clean social layout and feed design",
+          "Custom user settings & dark theme integration",
+          "Fast loading client-side rendering"
+        ],
+        tech: ["JavaScript", "HTML5", "CSS Flexbox", "Web Sockets Concept"],
+        link: "https://bryangablao.github.io/ChatPH/"
+      },
+      emojilegends: {
+        title: "Emoji Legends: Mythic Realms",
+        img: "images/Gallery/project/EmojiLegends.jfif",
+        desc: "An action-packed survival RPG where players battle waves of monsters using upgradable emoji heroes and elemental skills.",
+        features: [
+          "Real-time collision detection & enemy wave spawner",
+          "Hero levelling and magical skill tree",
+          "Epic mythic boss fight mechanics",
+          "Particle system FX and custom audio response"
+        ],
+        tech: ["JavaScript Game Engine", "HTML5 Canvas", "CSS3", "Audio API"],
+        link: "https://bryangablao.github.io/EmojiLegends/"
+      }
+    };
+
+    // Filter by Category
+    let currentCategory = 'all';
+    function filterCategory(category, btn) {
+      currentCategory = category;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterProjects();
+    }
+
+    // Filter by Search & Category
+    function filterProjects() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.project-card');
+
+      cards.forEach(card => {
+        const title = card.getAttribute('data-title').toLowerCase();
+        const cat = card.getAttribute('data-category');
+
+        const matchesCat = (currentCategory === 'all' || cat === currentCategory);
+        const matchesSearch = title.includes(query);
+
+        if (matchesCat && matchesSearch) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    // Project Modal Details Logic
+    function openProjectModal(key) {
+      const data = projectData[key];
+      if (!data) return;
+
+      document.getElementById('modalProjectImg').src = data.img;
+      document.getElementById('modalProjectTitle').innerText = data.title;
+      document.getElementById('modalProjectDesc').innerText = data.desc;
+      document.getElementById('modalProjectLink').href = data.link;
+
+      const featList = document.getElementById('modalProjectFeatures');
+      featList.innerHTML = '';
+      data.features.forEach(f => {
+        const li = document.createElement('li');
+        li.innerText = f;
+        featList.appendChild(li);
+      });
+
+      const techContainer = document.getElementById('modalProjectTech');
+      techContainer.innerHTML = '';
+      data.tech.forEach(t => {
+        const span = document.createElement('span');
+        span.className = 'tech-pill';
+        span.innerText = t;
+        techContainer.appendChild(span);
+      });
+
+      document.getElementById('projectDetailsModal').style.display = 'flex';
+      document.body.classList.add('modal-open');
+    }
+
+    function closeProjectModal() {
+      document.getElementById('projectDetailsModal').style.display = 'none';
+      document.body.classList.remove('modal-open');
+    }
+
+    document.getElementById('projectDetailsModal').addEventListener('click', (e) => {
+      if (e.target.id === 'projectDetailsModal') closeProjectModal();
+    });
+
+    // Intersection Observer for Reveal Animations & Animated Counters
+    const cards = document.querySelectorAll('.glass-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+
+          // Animate Counter Stats inside
+          entry.target.querySelectorAll('.counter').forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            let count = 0;
+            const updateCount = () => {
+              const increment = target / 30;
+              if (count < target) {
+                count += increment;
+                counter.innerText = Math.ceil(count) + (target === 100 ? '%' : '+');
+                setTimeout(updateCount, 30);
+              } else {
+                counter.innerText = target + (target === 100 ? '%' : '+');
+              }
+            };
+            updateCount();
+          });
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+
     // Navigation Control
     function toggleMenu() {
       const sidebar = document.getElementById("sidebar");
@@ -545,7 +1064,10 @@
     });
 
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && hireModal.style.display === 'flex') closeHireModal();
+      if (e.key === 'Escape') {
+        closeHireModal();
+        closeProjectModal();
+      }
     });
 
     // Starfield Animation
