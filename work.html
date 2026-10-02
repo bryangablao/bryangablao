@@ -28,18 +28,23 @@
       --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* ---------- Global Reset & Typography ---------- */
+    /* ---------- Global Reset & Responsive Guardrails ---------- */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background-color: var(--bg-dark);
       color: var(--text-main);
-      overflow-x: hidden;
       line-height: 1.6;
       min-height: 100vh;
     }
@@ -67,6 +72,7 @@
       position: fixed;
       width: 500px;
       height: 500px;
+      max-width: 100vw;
       border-radius: 50%;
       background: radial-gradient(circle, var(--accent-purple-glow) 0%, rgba(0,0,0,0) 70%);
       top: -150px;
@@ -80,6 +86,7 @@
       position: fixed;
       width: 600px;
       height: 600px;
+      max-width: 100vw;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(0,0,0,0) 70%);
       bottom: -200px;
@@ -97,9 +104,10 @@
       justify-content: space-between;
       align-items: center;
       padding: 1rem 5%;
-      background: rgba(9, 10, 15, 0.8);
+      background: rgba(9, 10, 15, 0.85);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--glass-border);
+      width: 100%;
     }
 
     .nav-brand {
@@ -163,6 +171,7 @@
       top: 0;
       right: -280px;
       width: 280px;
+      max-width: 80vw;
       height: 100%;
       background: var(--bg-dark);
       border-left: 1px solid var(--glass-border);
@@ -193,13 +202,17 @@
     #blur-container {
       position: relative;
       z-index: 2;
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
       transition: filter 0.3s ease;
     }
 
     main {
+      width: 100%;
       max-width: 1100px;
       margin: 0 auto;
-      padding: 3rem 1.5rem;
+      padding: 3rem 1.25rem;
       display: flex;
       flex-direction: column;
       gap: 2.5rem;
@@ -211,11 +224,13 @@
       backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
-      padding: 2.5rem;
+      padding: 2.25rem;
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s ease, transform 0.8s ease;
+      width: 100%;
+      overflow: hidden;
     }
 
     .glass-card.visible {
@@ -224,13 +239,14 @@
     }
 
     .section-title {
-      font-size: 1.5rem;
+      font-size: 1.4rem;
       font-weight: 600;
       margin-bottom: 1.5rem;
       letter-spacing: -0.01em;
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      width: 100%;
     }
 
     .section-title i {
@@ -244,30 +260,107 @@
       background: var(--glass-border);
     }
 
-    /* Stats Quick-Bar */
-    .stats-container {
+    /* ---------- NEW FEATURE 1: Core Competencies Grid ---------- */
+    .competency-grid {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1rem;
-      margin-top: 0.5rem;
-      padding: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .competency-card {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-md);
-      text-align: center;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
     }
 
-    .stat-box h3 {
-      font-size: 1.8rem;
+    .competency-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .competency-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .competency-score {
+      font-size: 0.85rem;
       font-weight: 700;
       color: #a78bfa;
     }
 
-    .stat-box p {
-      font-size: 0.75rem;
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+      border-radius: 3px;
+      width: 0%;
+      transition: width 1.2s ease-in-out;
+    }
+
+    .competency-desc {
+      font-size: 0.8rem;
       color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+    }
+
+    /* ---------- NEW FEATURE 2: Key Milestones Showcase ---------- */
+    .milestones-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .milestone-item {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      position: relative;
+      transition: var(--transition-smooth);
+    }
+
+    .milestone-item:hover {
+      border-color: rgba(167, 139, 250, 0.3);
+      transform: translateY(-2px);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .milestone-badge {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      background: rgba(167, 139, 250, 0.12);
+      color: #a78bfa;
+      border: 1px solid rgba(167, 139, 250, 0.25);
+      font-size: 0.725rem;
+      font-weight: 600;
+      border-radius: 20px;
+      margin-bottom: 0.6rem;
+    }
+
+    .milestone-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 0.35rem;
+    }
+
+    .milestone-desc {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      line-height: 1.5;
     }
 
     /* Search & Filter Controls */
@@ -278,12 +371,14 @@
       justify-content: space-between;
       align-items: center;
       margin-bottom: 1.75rem;
+      width: 100%;
     }
 
     .search-box {
       position: relative;
       flex: 1;
       min-width: 240px;
+      width: 100%;
     }
 
     .search-box input {
@@ -316,6 +411,7 @@
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
+      max-width: 100%;
     }
 
     .tag-btn {
@@ -342,6 +438,7 @@
       display: flex;
       flex-direction: column;
       gap: 1.25rem;
+      width: 100%;
     }
 
     .job {
@@ -356,6 +453,7 @@
       cursor: pointer;
       transition: var(--transition-smooth);
       position: relative;
+      width: 100%;
     }
 
     .job:hover {
@@ -369,6 +467,7 @@
       display: flex;
       align-items: center;
       gap: 1.25rem;
+      max-width: 100%;
     }
 
     .job-icon {
@@ -385,6 +484,7 @@
 
     .job-details {
       text-align: left;
+      overflow-wrap: anywhere;
     }
 
     .job-details strong {
@@ -424,6 +524,7 @@
       color: var(--text-muted);
       font-size: 1.1rem;
       transition: var(--transition-smooth);
+      flex-shrink: 0;
     }
 
     .job:hover .job-action-icon {
@@ -436,11 +537,13 @@
       display: flex;
       justify-content: center;
       margin-top: 1.5rem;
+      width: 100%;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.5rem;
       background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
       color: #ffffff;
@@ -450,66 +553,14 @@
       border-radius: var(--radius-md);
       box-shadow: 0 4px 14px rgba(109, 40, 217, 0.35);
       transition: var(--transition-smooth);
+      max-width: 100%;
+      text-align: center;
     }
 
     .btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(109, 40, 217, 0.5);
       filter: brightness(1.1);
-    }
-
-    /* Timeline Career View */
-    .timeline {
-      position: relative;
-      padding-left: 20px;
-    }
-
-    .timeline::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 5px;
-      bottom: 5px;
-      width: 2px;
-      background: linear-gradient(180deg, var(--accent-purple), var(--accent-blue));
-    }
-
-    .timeline-item {
-      position: relative;
-      margin-bottom: 1.75rem;
-      padding-left: 1.5rem;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: -25px;
-      top: 5px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--accent-purple);
-      border: 3px solid var(--bg-dark);
-      box-shadow: 0 0 10px var(--accent-purple);
-    }
-
-    .timeline-date {
-      font-size: 0.8rem;
-      color: #a78bfa;
-      font-weight: 600;
-      margin-bottom: 0.2rem;
-    }
-
-    .timeline-title {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-main);
-    }
-
-    .timeline-desc {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-top: 0.25rem;
     }
 
     /* ---------- Modals ---------- */
@@ -520,12 +571,13 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(8px);
       justify-content: center;
       align-items: center;
       z-index: 2000;
-      padding: 1.5rem;
+      padding: 1rem;
+      overflow-y: auto;
     }
 
     .modal-box {
@@ -535,6 +587,8 @@
       border-radius: var(--radius-lg);
       max-width: 580px;
       width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
       color: var(--text-main);
       position: relative;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
@@ -631,6 +685,7 @@
       padding: 3rem 1.5rem;
       border-top: 1px solid var(--glass-border);
       margin-top: 4rem;
+      width: 100%;
     }
 
     .footer-links {
@@ -648,28 +703,80 @@
       color: var(--text-main);
     }
 
-    /* ---------- Responsive Breakpoints ---------- */
+    /* ---------- Responsive Breakpoints & Mobile Optimization ---------- */
     @media (max-width: 850px) {
       .desktop-nav { display: none; }
       .hamburger { display: block; }
-      .stats-container { grid-template-columns: repeat(2, 1fr); }
+
+      main {
+        padding: 2rem 1rem;
+        gap: 2rem;
+      }
+
+      .glass-card {
+        padding: 1.5rem 1.25rem;
+      }
+
       .job {
         flex-direction: column;
         text-align: center;
         align-items: center;
+        padding: 1.25rem;
       }
+
       .job-main {
         flex-direction: column;
         text-align: center;
       }
+
       .job-details {
         text-align: center;
       }
+
       .job-skills {
         justify-content: center;
       }
+
       .job-action-icon {
         display: none;
+      }
+
+      .search-box {
+        min-width: 100%;
+      }
+
+      .filter-tags {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .tag-btn {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section-title {
+        font-size: 1.2rem;
+      }
+
+      .competency-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .milestones-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btn {
+        width: 100%;
+        font-size: 0.875rem;
+        padding: 0.75rem 1rem;
+      }
+
+      .modal-box {
+        padding: 1.25rem;
       }
     }
   </style>
@@ -715,30 +822,59 @@
   <div id="blur-container">
     <main>
 
-      <!-- Quick Career Metrics Banner -->
+      <!-- Feature 1: Core Competencies Breakdown -->
       <section class="glass-card">
-        <h3 class="section-title"><i class="fa-solid fa-chart-line"></i> Career Overview</h3>
-        <div class="stats-container">
-          <div class="stat-box">
-            <h3 class="counter" data-target="9">0</h3>
-            <p>Years Active</p>
+        <h3 class="section-title"><i class="fa-solid fa-sliders"></i> Core Competencies & Expertise</h3>
+        <div class="competency-grid">
+          
+          <div class="competency-card">
+            <div class="competency-header">
+              <span class="competency-title">Data Entry & Encoding</span>
+              <span class="competency-score">98%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-progress="98%"></div>
+            </div>
+            <p class="competency-desc">High-speed verification, inventory logs, and structured database encoding.</p>
           </div>
-          <div class="stat-box">
-            <h3 class="counter" data-target="5">0</h3>
-            <p>Key Roles</p>
+
+          <div class="competency-card">
+            <div class="competency-header">
+              <span class="competency-title">Customer Experience (BPO)</span>
+              <span class="competency-score">92%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-progress="92%"></div>
+            </div>
+            <p class="competency-desc">International client communications, dispute resolution, and SLA adherence.</p>
           </div>
-          <div class="stat-box">
-            <h3 class="counter" data-target="4">0</h3>
-            <p>Industries</p>
+
+          <div class="competency-card">
+            <div class="competency-header">
+              <span class="competency-title">AI Data Operations & Annotation</span>
+              <span class="competency-score">90%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-progress="90%"></div>
+            </div>
+            <p class="competency-desc">Bounding box, computer vision annotation, and dataset tagging for machine learning models.</p>
           </div>
-          <div class="stat-box">
-            <h3 class="counter" data-target="100">0</h3>
-            <p>% Adaptability</p>
+
+          <div class="competency-card">
+            <div class="competency-header">
+              <span class="competency-title">Production Quality Control</span>
+              <span class="competency-score">95%</span>
+            </div>
+            <div class="progress-bar-bg">
+              <div class="progress-bar-fill" data-progress="95%"></div>
+            </div>
+            <p class="competency-desc">Print workflow management, quality assurance, and high-volume output precision.</p>
           </div>
+
         </div>
       </section>
-      
-      <!-- Work Experience Interactive List -->
+
+      <!-- Feature 2: Work Experience Interactive List -->
       <section class="glass-card">
         <h3 class="section-title"><i class="fa-solid fa-briefcase"></i> Professional Experience</h3>
         
@@ -848,30 +984,35 @@
         </div>
       </section>
 
-      <!-- Career Evolution Timeline Section -->
+      <!-- Feature 3: Key Operational Milestones -->
       <section class="glass-card">
-        <h3 class="section-title"><i class="fa-solid fa-timeline"></i> Career Evolution Timeline</h3>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-date">2025 – Present</div>
-            <div class="timeline-title">Global Client Support & AI Data Operations</div>
-            <div class="timeline-desc">Expanding expertise into BPO, tech-driven image annotation for AI, and high-level client relations at SixEleven.</div>
+        <h3 class="section-title"><i class="fa-solid fa-award"></i> Key Impact & Milestones</h3>
+        <div class="milestones-grid">
+
+          <div class="milestone-item">
+            <span class="milestone-badge">Customer & AI Ops</span>
+            <div class="milestone-title">High SLA Compliance</div>
+            <div class="milestone-desc">Consistently delivered swift issue resolutions while processing complex image annotation tasks for machine learning databases.</div>
           </div>
-          <div class="timeline-item">
-            <div class="timeline-date">2023 – 2024</div>
-            <div class="timeline-title">Warehouse Data Logistics & Inventory</div>
-            <div class="timeline-desc">Optimizing tracking workflows and data accuracy for logistics at GMALL Buhangin.</div>
+
+          <div class="milestone-item">
+            <span class="milestone-badge">Logistics & Data</span>
+            <div class="milestone-title">Inventory Tracking</div>
+            <div class="milestone-desc">Managed high-volume warehouse entry logs at GMALL Buhangin with near-zero error ratios in classification.</div>
           </div>
-          <div class="timeline-item">
-            <div class="timeline-date">2018 – 2023</div>
-            <div class="timeline-title">Media Production & Print Operations</div>
-            <div class="timeline-desc">Demonstrated long-term commitment and craftsmanship over 5 years as Production Staff at KC & Arc Prints.</div>
+
+          <div class="milestone-item">
+            <span class="milestone-badge">Long-term Tenure</span>
+            <div class="milestone-title">5-Year Production Service</div>
+            <div class="milestone-desc">Demonstrated steady commitment and leadership qualities over 5 years overseeing print production at KC & Arc Prints.</div>
           </div>
-          <div class="timeline-item">
-            <div class="timeline-date">2016 – 2018</div>
-            <div class="timeline-title">Service & Administrative Foundations</div>
-            <div class="timeline-desc">Built initial professional discipline in fast-paced service and real estate administrative data entry.</div>
+
+          <div class="milestone-item">
+            <span class="milestone-badge">Adaptability</span>
+            <div class="milestone-title">Multi-Industry Transition</div>
+            <div class="milestone-desc">Successfully transitioned skills across food service, print media production, real estate data, logistics, and tech BPO.</div>
           </div>
+
         </div>
       </section>
 
@@ -993,28 +1134,17 @@
 
   <!-- Scripts -->
   <script>
-    // Intersection Observer for Reveal Animations & Animated Counter Stats
+    // Intersection Observer for Card Reveal & Progress Bar Animations
     const cards = document.querySelectorAll('.glass-card');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
 
-          // Animate Counter Stats inside
-          entry.target.querySelectorAll('.counter').forEach(counter => {
-            const target = +counter.getAttribute('data-target');
-            let count = 0;
-            const updateCount = () => {
-              const increment = target / 40;
-              if (count < target) {
-                count += increment;
-                counter.innerText = Math.ceil(count) + (target === 100 ? '%' : '+');
-                setTimeout(updateCount, 30);
-              } else {
-                counter.innerText = target + (target === 100 ? '%' : '+');
-              }
-            };
-            updateCount();
+          // Animate competency bars inside
+          entry.target.querySelectorAll('.progress-bar-fill').forEach(bar => {
+            const progress = bar.getAttribute('data-progress');
+            bar.style.width = progress;
           });
         }
       });
