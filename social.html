@@ -23,27 +23,9 @@
       --glass-border: rgba(255, 255, 255, 0.08);
       --text-main: #f3f4f6;
       --text-muted: #9ca3af;
-      --card-inner-bg: rgba(255, 255, 255, 0.02);
-      --card-hover-bg: rgba(255, 255, 255, 0.06);
-      --modal-bg: #11131f;
-      --header-bg: rgba(9, 10, 15, 0.8);
       --radius-lg: 16px;
       --radius-md: 10px;
       --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* ---------- Light Theme Overrides ---------- */
-    body.light-theme {
-      --bg-dark: #f0f2f8;
-      --accent-purple-glow: rgba(109, 40, 217, 0.15);
-      --glass-bg: rgba(255, 255, 255, 0.75);
-      --glass-border: rgba(0, 0, 0, 0.08);
-      --text-main: #0f172a;
-      --text-muted: #475569;
-      --card-inner-bg: rgba(255, 255, 255, 0.6);
-      --card-hover-bg: rgba(255, 255, 255, 0.9);
-      --modal-bg: #ffffff;
-      --header-bg: rgba(240, 242, 248, 0.85);
     }
 
     /* ---------- Global Reset & Typography ---------- */
@@ -60,932 +42,6 @@
       overflow-x: hidden;
       line-height: 1.6;
       min-height: 100vh;
-      transition: background-color 0.4s ease, color 0.4s ease;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-      transition: var(--transition-smooth);
-    }
-
-    /* Background Canvases */
-    #starsCanvas, #rippleCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-    }
-    #starsCanvas { z-index: 0; }
-    #rippleCanvas { z-index: 1; }
-
-    /* Ambient Glow Effects */
-    .ambient-glow {
-      position: fixed;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--accent-purple-glow) 0%, rgba(0,0,0,0) 70%);
-      top: -150px;
-      left: -150px;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.6;
-    }
-
-    .ambient-glow-2 {
-      position: fixed;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(0,0,0,0) 70%);
-      bottom: -200px;
-      right: -200px;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    /* ---------- Navigation Bar ---------- */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 5%;
-      background: var(--header-bg);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--glass-border);
-      transition: background 0.4s ease, border-color 0.4s ease;
-    }
-
-    .nav-brand {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, var(--text-main) 0%, #a78bfa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .desktop-nav {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .desktop-nav a {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      font-weight: 500;
-      position: relative;
-    }
-
-    .desktop-nav a:hover, .desktop-nav a.active {
-      color: var(--text-main);
-    }
-
-    .desktop-nav a.active::after {
-      content: '';
-      position: absolute;
-      bottom: -6px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
-      border-radius: 2px;
-    }
-
-    .hamburger {
-      display: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--text-main);
-    }
-
-    /* Floating Theme Toggle Switch */
-    .theme-toggle-btn {
-      position: fixed;
-      bottom: 2rem;
-      left: 2rem;
-      z-index: 999;
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      cursor: pointer;
-      backdrop-filter: blur(12px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-      transition: var(--transition-smooth);
-    }
-
-    .theme-toggle-btn:hover {
-      transform: scale(1.1) rotate(15deg);
-      border-color: #a78bfa;
-      box-shadow: 0 10px 28px rgba(109, 40, 217, 0.35);
-    }
-
-    /* Mobile Sidebar Drawer */
-    #sidebarOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      display: none;
-      z-index: 1000;
-    }
-
-    #sidebar {
-      position: fixed;
-      top: 0;
-      right: -280px;
-      width: 280px;
-      height: 100%;
-      background: var(--bg-dark);
-      border-left: 1px solid var(--glass-border);
-      padding: 5rem 1.5rem 2rem;
-      transition: right 0.3s ease, background-color 0.4s ease;
-      z-index: 1001;
-    }
-
-    #sidebar.open { right: 0; }
-
-    #sidebar ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    #sidebar ul li a {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      display: block;
-      padding: 0.5rem 0;
-    }
-
-    #sidebar ul li a:hover { color: var(--text-main); }
-
-    /* ---------- Main Layout ---------- */
-    #blur-container {
-      position: relative;
-      z-index: 2;
-      transition: filter 0.3s ease;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-
-    /* Glass Card Standard & Reveal Animations */
-    .glass-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg);
-      padding: 2.5rem;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease, background 0.4s ease, border-color 0.4s ease;
-    }
-
-    .glass-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.01em;
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .section-title i {
-      color: #a78bfa;
-    }
-
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--glass-border);
-    }
-
-    .description {
-      font-size: 0.98rem;
-      color: var(--text-muted);
-      max-width: 650px;
-      margin: 0 auto 2rem auto;
-      text-align: center;
-    }
-
-    /* Hero Header Center */
-    .hero-header {
-      text-align: center;
-      margin-bottom: 2rem;
-    }
-
-    .hero-header h2 {
-      font-size: 2.5rem;
-      font-weight: 800;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, var(--text-main) 0%, #a78bfa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    /* Stats Quick-Bar */
-    .stats-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-      margin-bottom: 2rem;
-      padding: 1.25rem;
-      background: var(--card-inner-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
-      text-align: center;
-    }
-
-    .stat-box h3 {
-      font-size: 1.8rem;
-      font-weight: 700;
-      color: #a78bfa;
-    }
-
-    .stat-box p {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    /* Search & Filter Controls */
-    .filter-wrapper {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      align-items: center;
-    }
-
-    .search-box {
-      position: relative;
-      width: 100%;
-      max-width: 450px;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 0.8rem 1rem 0.8rem 2.8rem;
-      background: var(--card-inner-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
-      color: var(--text-main);
-      font-size: 0.9rem;
-      outline: none;
-      transition: var(--transition-smooth);
-    }
-
-    .search-box input:focus {
-      border-color: #a78bfa;
-      background: var(--card-hover-bg);
-      box-shadow: 0 0 15px rgba(109, 40, 217, 0.3);
-    }
-
-    .search-box i {
-      position: absolute;
-      left: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--text-muted);
-    }
-
-    .filter-tabs {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      justify-content: center;
-    }
-
-    .filter-btn {
-      background: var(--card-inner-bg);
-      border: 1px solid var(--glass-border);
-      color: var(--text-muted);
-      padding: 0.4rem 1rem;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      cursor: pointer;
-      transition: var(--transition-smooth);
-    }
-
-    .filter-btn:hover, .filter-btn.active {
-      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
-      color: #fff;
-      border-color: transparent;
-      box-shadow: 0 4px 12px rgba(109, 40, 217, 0.4);
-    }
-
-    /* Enhanced Interactive Social Grid */
-    .social-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1.5rem;
-      justify-content: center;
-    }
-
-    .social-card-item {
-      background: var(--card-inner-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
-      padding: 1.5rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      position: relative;
-      cursor: pointer;
-      transition: var(--transition-smooth);
-    }
-
-    .social-card-item:hover {
-      transform: translateY(-8px) scale(1.02);
-      background: var(--card-hover-bg);
-      border-color: rgba(167, 139, 250, 0.5);
-      box-shadow: 0 12px 24px rgba(109, 40, 217, 0.2);
-    }
-
-    .social-icon-wrapper {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: var(--card-inner-bg);
-      border: 1px solid var(--glass-border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 1rem;
-      transition: var(--transition-smooth);
-    }
-
-    .social-card-item:hover .social-icon-wrapper {
-      transform: scale(1.1) rotate(5deg);
-      border-color: #a78bfa;
-      background: rgba(109, 40, 217, 0.2);
-    }
-
-    .social-icon-wrapper img {
-      width: 36px;
-      height: 36px;
-      object-fit: contain;
-    }
-
-    .social-name {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 0.2rem;
-    }
-
-    .social-handle {
-      font-size: 0.8rem;
-      color: #a78bfa;
-      font-weight: 500;
-      margin-bottom: 0.75rem;
-    }
-
-    .social-action-btns {
-      display: flex;
-      gap: 0.5rem;
-      width: 100%;
-      margin-top: auto;
-    }
-
-    .btn-action {
-      flex: 1;
-      padding: 0.4rem 0.6rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      border-radius: 6px;
-      border: 1px solid var(--glass-border);
-      background: var(--card-inner-bg);
-      color: var(--text-main);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      transition: var(--transition-smooth);
-    }
-
-    .btn-action:hover {
-      background: var(--card-hover-bg);
-      border-color: rgba(167, 139, 250, 0.4);
-    }
-
-    .btn-primary-action {
-      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
-      color: #fff;
-      border: none;
-    }
-
-    .btn-primary-action:hover {
-      opacity: 0.9;
-      box-shadow: 0 4px 10px rgba(109, 40, 217, 0.4);
-    }
-
-    /* ---------- Modals ---------- */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(8px);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      padding: 1.5rem;
-    }
-
-    .modal-box {
-      background: var(--modal-bg);
-      border: 1px solid var(--glass-border);
-      padding: 2rem;
-      border-radius: var(--radius-lg);
-      max-width: 480px;
-      width: 100%;
-      color: var(--text-main);
-      position: relative;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-      animation: modalFade 0.25s ease-out;
-      text-align: center;
-    }
-
-    @keyframes modalFade {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 1rem;
-      right: 1.25rem;
-      font-size: 1.5rem;
-      color: var(--text-muted);
-      cursor: pointer;
-      line-height: 1;
-    }
-
-    .modal-close:hover { color: var(--text-main); }
-
-    .modal-social-img {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      object-fit: contain;
-      margin: 0 auto 1rem;
-      padding: 10px;
-      background: var(--card-inner-bg);
-      border: 2px solid var(--accent-purple);
-    }
-
-    .modal-box h3 {
-      font-size: 1.4rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .modal-box .modal-handle-tag {
-      color: #a78bfa;
-      font-size: 0.9rem;
-      font-weight: 500;
-      margin-bottom: 1rem;
-      display: inline-block;
-    }
-
-    .modal-box p {
-      color: var(--text-muted);
-      font-size: 0.9rem;
-      line-height: 1.6;
-      margin-bottom: 1.5rem;
-    }
-
-    .modal-qr-placeholder {
-      background: var(--card-inner-bg);
-      border: 1px dashed var(--glass-border);
-      border-radius: var(--radius-md);
-      padding: 1rem;
-      margin-bottom: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .modal-qr-placeholder i {
-      font-size: 3rem;
-      color: #a78bfa;
-    }
-
-    /* Toast Notification */
-    #toast {
-      position: fixed;
-      bottom: 2rem;
-      right: 2rem;
-      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
-      color: white;
-      padding: 0.75rem 1.25rem;
-      border-radius: var(--radius-md);
-      font-size: 0.875rem;
-      font-weight: 600;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.3s ease;
-      z-index: 3000;
-      pointer-events: none;
-    }
-
-    #toast.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Body State When Modal Active */
-    body.modal-open #blur-container { filter: blur(6px); }
-    body.modal-open { overflow: hidden; }
-
-    /* ---------- Footer ---------- */
-    footer {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      padding: 3rem 1.5rem;
-      border-top: 1px solid var(--glass-border);
-      margin-top: 4rem;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 0.5rem;
-    }
-
-    .footer-link {
-      color: var(--text-muted);
-    }
-
-    .footer-link:hover {
-      color: var(--text-main);
-    }
-
-    /* ---------- Responsive Breakpoints ---------- */
-    @media (max-width: 850px) {
-      .desktop-nav { display: none; }
-      .hamburger { display: block; }
-      .stats-container { grid-template-columns: 1fr; }
-      .social-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
-      .theme-toggle-btn { bottom: 1.5rem; left: 1.5rem; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Animated Background Elements -->
-  <div class="ambient-glow"></div>
-  <div class="ambient-glow-2"></div>
-  <canvas id="starsCanvas"></canvas>
-  <canvas id="rippleCanvas"></canvas>
-
-  <!-- Sticky Header -->
-  <header>
-    <div class="nav-brand">Bryan G. Ablao</div>
-    <nav class="desktop-nav">
-      <a href="index.html">About</a>
-      <a href="work.html">Experience</a>
-      <a href="projects.html">Projects</a>
-      <a href="achievement.html">Achievements</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="social.html" class="active">Socials</a>
-    </nav>
-    <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Navigation">☰</div>
-  </header>
-
-  <!-- Floating Interactive Theme Toggle Button -->
-  <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle Theme">
-    <i class="fa-solid fa-moon" id="themeIcon"></i>
-  </button>
-
-  <!-- Mobile Drawer Overlay -->
-  <div id="sidebarOverlay" onclick="closeMenu()"></div>
-
-  <!-- Mobile Navigation Drawer -->
-  <nav id="sidebar">
-    <ul>
-      <li><a href="index.html">About Me</a></li>
-      <li><a href="work.html">Work Experience</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="achievement.html">Achievements</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="social.html">Social Medias</a></li>
-    </ul>
-  </nav>
-
-  <!-- Main Content Area -->
-  <div id="blur-container">
-    <main>
-      
-      <!-- Hero Intro & Stats Card -->
-      <section class="glass-card">
-        <div class="hero-header">
-          <h2>Connect & Collaborate</h2>
-          <p class="description">
-            Explore my digital presence across platforms. Follow, send a direct message, or copy handles with a single tap.
-          </p>
-        </div>
-
-        <!-- Animated Stats Counter Bar -->
-        <div class="stats-container">
-          <div class="stat-box">
-            <h3 class="counter" data-target="8">0</h3>
-            <p>Active Platforms</p>
-          </div>
-          <div class="stat-box">
-            <h3 class="counter" data-target="24">0</h3>
-            <p>Hours Avg. Response</p>
-          </div>
-          <div class="stat-box">
-            <h3 class="counter" data-target="100">0</h3>
-            <p>% Connected</p>
-          </div>
-        </div>
-
-        <!-- Filter & Search Bar -->
-        <div class="filter-wrapper">
-          <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="socialSearch" placeholder="Search platform or handle..." onkeyup="filterSocials()">
-          </div>
-          <div class="filter-tabs">
-            <button class="filter-btn active" onclick="setCategory('all', this)">All</button>
-            <button class="filter-btn" onclick="setCategory('pro', this)">Professional</button>
-            <button class="filter-btn" onclick="setCategory('video', this)">Video & Content</button>
-            <button class="filter-btn" onclick="setCategory('community', this)">Community</button>
-          </div>
-        </div>
-
-        <!-- Social Channels Grid -->
-        <div class="social-grid" id="socialGrid">
-
-          <!-- LinkedIn -->
-          <div class="social-card-item" data-category="pro" data-name="linkedin" data-handle="@bryan-ablao">
-            <div class="social-icon-wrapper" onclick="openSocialModal('LinkedIn', '@bryan-ablao', 'images/linkedin.png', 'https://www.linkedin.com/in/bryan-ablao-636497189/', 'Connect with me for professional updates, project collaborations, and career networking.')">
-              <img src="images/linkedin.png" alt="LinkedIn">
-            </div>
-            <div class="social-name">LinkedIn</div>
-            <div class="social-handle">@bryan-ablao</div>
-            <div class="social-action-btns">
-              <button class="btn-action" onclick="copyHandle('@bryan-ablao', event)"><i class="fa-regular fa-copy"></i> Copy</button>
-              <a href="https://www.linkedin.com/in/bryan-ablao-636497189/" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
-            </div>
-          </div>
-
-          <!-- YouTube -->
-          <div class="social-card-item" data-category="video" data-name="youtube" data-handle="@bryvngtz">
-            <div class="social-icon-wrapper" onclick="openSocialModal('YouTube', '@bryvngtz', 'images/youtube.png', 'https://www.youtube.com/@bryvngtz', 'Subscribe to watch my latest video contents, creative edits, and tech showcases.')">
-              <img src="images/youtube.png" alt="YouTube">
-            </div>
-            <div class="social-name">YouTube</div>
-            <div class="social-handle">@bryvngtz</div>
-            <div class="social-action-btns">
-              <button class="btn-action" onclick="copyHandle('@bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
-              <a href="https://www.youtube.com/@bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
-            </div>
-          </div>
-
-          <!-- TikTok -->
-          <div class="social-card-item" data-category="video" data-name="tiktok" data-handle="@bryvngtz">
-            <div class="social-icon-wrapper" onclick="openSocialModal('TikTok', '@bryvngtz', 'images/tik-tok.png', 'https://www.tiktok.com/@bryvngtz', 'Follow my short videos, creative highlights, and daily updates on TikTok.')">
-              <img src="images/tik-tok.png" alt="TikTok">
-            </div>
-            <div class="social-name">TikTok</div>
-            <div class="social-handle">@bryvngtz</div>
-            <div class="social-action-btns">
-              <button class="btn-action" onclick="copyHandle('@bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
-              <a href="https://www.tiktok.com/@bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
-            </div>
-          </div>
-
-          <!-- Instagram -->
-          <div class="social-card-item" data-category="community" data-name="instagram" data-handle="@bryvngtz">
-            <div class="social-icon-wrapper" onclick="openSocialModal('Instagram', '@bryvngtz', 'images/instagram.png', 'https://www.instagram.com/bryvngtz/#', 'Check out my creative photography, stories, and personal milestones.')">
-              <img src="images/instagram.png" alt="Instagram">
-            </div>
-            <div class="social-name">Instagram</div>
-            <div class="social-handle">@bryvngtz</div>
-            <div class="social-action-btns">
-              <button class="btn-action" onclick="copyHandle('@bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
-              <a href="https://www.instagram.com/bryvngtz/#" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
-            </div>
-          </div>
-
-          <!-- Telegram -->
-          <div class="social-card-item" data-category="community" data-name="telegram" data-handle="@bryvngtz">
-            <div class="social-icon-wrapper" onclick="openSocialModal('Telegram', '@bryvngtz', 'images/telegram.png', 'https://t.me/bryvngtz', 'Send me direct instant messages for quick queries or project inquiries on Telegram.')">
-              <img src="images/telegram.png" alt="Telegram">
-            </div>
-            <div class="social-name">Telegram</div>
-            <div class="social-handle">@bryvngtz</div>
-            <div class="social-action-btns">
-              <button class="btn-action" onclick="copyHandle('@bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
-              <a href="https://t.me/bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
-            </div>
-          </div>
-
-          <!-- Discord -->
-          <div class="social-card-item" data-category="community" data-name="discord" data-handle="bryvngtz">
-            <div class="social-icon-wrapper" onclick="openSocialModal('Discord', 'bryvngtz', 'images/discord.png', 'https://discord.com/channels/bryvngtz', 'Add me on Discord for tech discussions, gaming, and real-time voice calls.')">
-              <img src="images/discord.png" alt="Discord">
-            </div>
-            <div class="social-name">Discord</div>
-            <div class="social-handle">bryvngtz</div>
-            <div class="social-action-btns">
-              <button class="btn-action" onclick="copyHandle('bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
-              <a href="https://discord.com/channels/bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
-            </div>
-          </div>
-
-          <!-- Snapchat -->
-          <div class="social-card-item" data-category="community" data-name="snapchat" data-handle="@bryan_ablao20">
-            <div class="social-icon-wrapper" onclick="openSocialModal('Snapchat', '@bryan_ablao20', 'images/snapchat.png', 'https://www.snapchat.com/@bryan_ablao20', 'Add me on Snapchat to stay in touch through everyday snapshots.')">
-              <img src="images/snapchat.png" alt="Snapchat">
-            </div>
-            <div class="social-name">Snapchat</div>
-            <div class="social-handle">@bryan_ablao20</div>
-            <div class="social-action-btns">
-              <button class="btn-action" onclick="copyHandle('@bryan_ablao20', event)"><i class="fa-regular fa-copy"></i> Copy</button>
-              <a href="https://www.snapchat.com/@bryan_ablao20" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
-            </div>
-          </div>
-
-          <!-- Facebook -->
-          <div class="social-card-item" data-category="pro" data-name="facebook" data-handle="Bryan G. Ablao">
-            <div class="social-icon-wrapper" onclick="openSocialModal('Facebook', 'Bryan G. Ablao', 'images/facebook.png', 'https://www.facebook.com/profile.php?id=61578207118456#', 'Connect with my official personal page on Facebook.')">
-              <img src="images/facebook.png" alt="Facebook">
-            </div>
-            <div class="social-name">Facebook</div>
-            <div class="social-handle">Bryan G. Ablao</div>
-            <div class="social-action-btns">
-              <button class="btn-action" onclick="copyHandle('Bryan G. Ablao', event)"><i class="fa-regular fa-copy"></i> Copy</button>
-              <a href="https://www.facebook.com/profile.php?id=61578207118456#" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer>
-      <div>© 2025–2026 <strong>Accxs Creations</strong>. All rights reserved.</div>
-      <div class="footer-links">
-        <a href="version.html" class="footer-link">v0.0.8</a>
-        <span>·</span>
-        <a href="terms.html" class="footer-link">Terms &amp; Privacy</a>
-      </div>
-    </footer>
-  </div>
-
-  <!-- Social Detail Modal -->
-  <div class="modal-overlay" id="socialModal">
-    <div class="modal-box">
-      <span class="modal-close" onclick="closeSocialModal()">&times;</span>
-      <img id="modalIcon" src="" alt="" class="modal-social-img">
-      <h3 id="modalTitle">Platform</h3>
-      <span id="modalHandle" class="modal-handle-tag">@handle</span>
-      <p id="modalDescription">Description goes here...</p>
-
-      <div class="modal-qr-placeholder">
-        <i class="fa-solid fa-qrcode"></i>
-        <span style="font-size: 0.8rem; color: var(--text-muted);">Instant Scan Link Active</span>
-      </div>
-
-      <div style="display: flex; gap: 0.75rem;">
-        <button class="btn-action" style="padding: 0.75rem;" onclick="copyModalHandle()"><i class="fa-regular fa-copy"></i> Copy Handle</button>
-        <a id="modalLink" href="#" target="_blank" rel="noopener" class="btn-action btn-primary-action" style="padding: 0.75rem; border-radius: var(--radius-md);"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Platform</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Toast Notification -->
-  <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toastMsg">Handle copied to clipboard!</span></div>
-
-  <!-- Scripts -->
-  <script>
-    // Theme Switcher Logic
-    function applyTheme(theme) {
-      const themeIcon = document.getElementById('themeIcon');
-      if (theme === 'light') {
-        document.body.classList.add('light-theme');
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-      } else {
-        document.body.classList.remove('light-theme');
-        themeIcon.classListHere is the updated code for `social.html`. 
-
-### Key Changes Made:
-1. **Interactive Theme Toggle Added**: Included the floating theme toggle button, light theme CSS variables (`[data-theme="light"]`), and theme switching JavaScript.
-2. **Header Updated**: Added the theme toggle button directly inside the `<header>` container alongside the brand title and desktop navigation.
-3. **Quick Message Removed**: Removed the entire Quick Message / Contact Form section from the layout and removed its associated JavaScript function (`handleQuickMessage`).
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="images/Gallery/MainLogo.png">
-  <title>Social Media | Bryan G. Ablao</title>
-  
-  <!-- Modern Typography & Icons -->
-  <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
-  <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
-  <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap)" rel="stylesheet">
-  <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
-  
-  <style>
-    /* ---------- Theme & CSS Variables ---------- */
-    :root {
-      --bg-dark: #090a0f;
-      --accent-purple: #6d28d9;
-      --accent-purple-glow: rgba(109, 40, 217, 0.4);
-      --accent-blue: #3b82f6;
-      --glass-bg: rgba(18, 20, 29, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --radius-lg: 16px;
-      --radius-md: 10px;
-      --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --modal-bg: #11131f;
-    }
-
-    /* Light Theme Variables */
-    [data-theme="light"] {
-      --bg-dark: #f0f2f5;
-      --glass-bg: rgba(255, 255, 255, 0.75);
-      --glass-border: rgba(0, 0, 0, 0.08);
-      --text-main: #1f2937;
-      --text-muted: #4b5563;
-      --accent-purple-glow: rgba(109, 40, 217, 0.15);
-      --modal-bg: #ffffff;
-    }
-
-    /* ---------- Global Reset & Typography ---------- */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      overflow-x: hidden;
-      line-height: 1.6;
-      min-height: 100vh;
-      transition: background-color 0.4s ease, color 0.4s ease;
     }
 
     a {
@@ -1044,25 +100,19 @@
       background: rgba(9, 10, 15, 0.8);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--glass-border);
-      transition: background 0.4s ease;
-    }
-
-    [data-theme="light"] header {
-      background: rgba(255, 255, 255, 0.85);
     }
 
     .nav-brand {
       font-size: 1.25rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      background: linear-gradient(135deg, var(--text-main) 0%, #a78bfa 100%);
+      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .desktop-nav {
       display: flex;
-      align-items: center;
       gap: 1.5rem;
     }
 
@@ -1086,27 +136,6 @@
       height: 2px;
       background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
       border-radius: 2px;
-    }
-
-    /* Theme Switch Toggle Button */
-    .theme-toggle-btn {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      padding: 0.4rem 0.8rem;
-      border-radius: 20px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: var(--transition-smooth);
-    }
-
-    .theme-toggle-btn:hover {
-      background: rgba(255, 255, 255, 0.15);
-      transform: translateY(-1px);
     }
 
     .hamburger {
@@ -1183,10 +212,10 @@
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
       padding: 2.5rem;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease, background 0.4s ease;
+      transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
     .glass-card.visible {
@@ -1233,7 +262,7 @@
       font-size: 2.5rem;
       font-weight: 800;
       margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, var(--text-main) 0%, #a78bfa 100%);
+      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -1429,13 +458,75 @@
 
     .btn-primary-action {
       background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
-      color: #ffffff;
       border: none;
     }
 
     .btn-primary-action:hover {
       opacity: 0.9;
       box-shadow: 0 4px 10px rgba(109, 40, 217, 0.4);
+    }
+
+    /* Direct Contact Section */
+    .contact-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition-smooth);
+    }
+
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: #a78bfa;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .form-group select option {
+      background: #11131f;
+      color: var(--text-main);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.8rem;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+      border: none;
+      border-radius: var(--radius-md);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(109, 40, 217, 0.5);
     }
 
     /* ---------- Modals ---------- */
@@ -1455,7 +546,7 @@
     }
 
     .modal-box {
-      background: var(--modal-bg);
+      background: #11131f;
       border: 1px solid var(--glass-border);
       padding: 2rem;
       border-radius: var(--radius-lg);
@@ -1596,6 +687,7 @@
       .desktop-nav { display: none; }
       .hamburger { display: block; }
       .stats-container { grid-template-columns: 1fr; }
+      .contact-form-grid { grid-template-columns: 1fr; }
       .social-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
     }
   </style>
@@ -1608,7 +700,7 @@
   <canvas id="starsCanvas"></canvas>
   <canvas id="rippleCanvas"></canvas>
 
-  <!-- Sticky Header with Interactive Theme Toggle -->
+  <!-- Sticky Header -->
   <header>
     <div class="nav-brand">Bryan G. Ablao</div>
     <nav class="desktop-nav">
@@ -1618,10 +710,6 @@
       <a href="achievement.html">Achievements</a>
       <a href="gallery.html">Gallery</a>
       <a href="social.html" class="active">Socials</a>
-      <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle Theme">
-        <i class="fa-solid fa-moon" id="themeIcon"></i>
-        <span id="themeLabel">Dark</span>
-      </button>
     </nav>
     <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Navigation">☰</div>
   </header>
@@ -1638,12 +726,6 @@
       <li><a href="achievement.html">Achievements</a></li>
       <li><a href="gallery.html">Gallery</a></li>
       <li><a href="social.html">Social Medias</a></li>
-      <li style="margin-top: 1rem;">
-        <button class="theme-toggle-btn" onclick="toggleTheme()" style="width: 100%; justify-content: center;">
-          <i class="fa-solid fa-moon" id="sidebarThemeIcon"></i>
-          <span id="sidebarThemeLabel">Dark Mode</span>
-        </button>
-      </li>
     </ul>
   </nav>
 
@@ -1673,3 +755,458 @@
           <div class="stat-box">
             <h3 class="counter" data-target="100">0</h3>
             <p>% Connected</p>
+          </div>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="filter-wrapper">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="socialSearch" placeholder="Search platform or handle..." onkeyup="filterSocials()">
+          </div>
+          <div class="filter-tabs">
+            <button class="filter-btn active" onclick="setCategory('all', this)">All</button>
+            <button class="filter-btn" onclick="setCategory('pro', this)">Professional</button>
+            <button class="filter-btn" onclick="setCategory('video', this)">Video & Content</button>
+            <button class="filter-btn" onclick="setCategory('messaging', this)">Messaging</button>
+            <button class="filter-btn" onclick="setCategory('community', this)">Community</button>
+          </div>
+        </div>
+
+        <!-- Social Channels Grid -->
+        <div class="social-grid" id="socialGrid">
+
+          <!-- LinkedIn -->
+          <div class="social-card-item" data-category="pro" data-name="linkedin" data-handle="@bryan-ablao">
+            <div class="social-icon-wrapper" onclick="openSocialModal('LinkedIn', '@bryan-ablao', 'images/linkedin.png', 'https://www.linkedin.com/in/bryan-ablao-636497189/', 'Connect with me for professional updates, project collaborations, and career networking.')">
+              <img src="images/linkedin.png" alt="LinkedIn">
+            </div>
+            <div class="social-name">LinkedIn</div>
+            <div class="social-handle">@bryan-ablao</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('@bryan-ablao', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.linkedin.com/in/bryan-ablao-636497189/" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+          <!-- YouTube -->
+          <div class="social-card-item" data-category="video" data-name="youtube" data-handle="@bryvngtz">
+            <div class="social-icon-wrapper" onclick="openSocialModal('YouTube', '@bryvngtz', 'images/youtube.png', 'https://www.youtube.com/@bryvngtz', 'Subscribe to watch my latest video contents, creative edits, and tech showcases.')">
+              <img src="images/youtube.png" alt="YouTube">
+            </div>
+            <div class="social-name">YouTube</div>
+            <div class="social-handle">@bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('@bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.youtube.com/@bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+          <!-- TikTok -->
+          <div class="social-card-item" data-category="video" data-name="tiktok" data-handle="@bryvngtz">
+            <div class="social-icon-wrapper" onclick="openSocialModal('TikTok', '@bryvngtz', 'images/tik-tok.png', 'https://www.tiktok.com/@bryvngtz', 'Follow my short videos, creative highlights, and daily updates on TikTok.')">
+              <img src="images/tik-tok.png" alt="TikTok">
+            </div>
+            <div class="social-name">TikTok</div>
+            <div class="social-handle">@bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('@bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.tiktok.com/@bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+          <!-- Instagram -->
+          <div class="social-card-item" data-category="community" data-name="instagram" data-handle="@bryvngtz">
+            <div class="social-icon-wrapper" onclick="openSocialModal('Instagram', '@bryvngtz', 'images/instagram.png', 'https://www.instagram.com/bryvngtz/#', 'Check out my creative photography, stories, and personal milestones.')">
+              <img src="images/instagram.png" alt="Instagram">
+            </div>
+            <div class="social-name">Instagram</div>
+            <div class="social-handle">@bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('@bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.instagram.com/bryvngtz/#" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+          <!-- Telegram -->
+          <div class="social-card-item" data-category="messaging" data-name="telegram" data-handle="@bryvngtz">
+            <div class="social-icon-wrapper" onclick="openSocialModal('Telegram', '@bryvngtz', 'images/telegram.png', 'https://t.me/bryvngtz', 'Send me direct instant messages for quick queries or project inquiries on Telegram.')">
+              <img src="images/telegram.png" alt="Telegram">
+            </div>
+            <div class="social-name">Telegram</div>
+            <div class="social-handle">@bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('@bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://t.me/bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+          <!-- Discord -->
+          <div class="social-card-item" data-category="community" data-name="discord" data-handle="bryvngtz">
+            <div class="social-icon-wrapper" onclick="openSocialModal('Discord', 'bryvngtz', 'images/discord.png', 'https://discord.com/channels/bryvngtz', 'Add me on Discord for tech discussions, gaming, and real-time voice calls.')">
+              <img src="images/discord.png" alt="Discord">
+            </div>
+            <div class="social-name">Discord</div>
+            <div class="social-handle">bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://discord.com/channels/bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+          <!-- Snapchat -->
+          <div class="social-card-item" data-category="community" data-name="snapchat" data-handle="@bryan_ablao20">
+            <div class="social-icon-wrapper" onclick="openSocialModal('Snapchat', '@bryan_ablao20', 'images/snapchat.png', 'https://www.snapchat.com/@bryan_ablao20', 'Add me on Snapchat to stay in touch through everyday snapshots.')">
+              <img src="images/snapchat.png" alt="Snapchat">
+            </div>
+            <div class="social-name">Snapchat</div>
+            <div class="social-handle">@bryan_ablao20</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('@bryan_ablao20', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.snapchat.com/@bryan_ablao20" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+          <!-- Facebook -->
+          <div class="social-card-item" data-category="pro" data-name="facebook" data-handle="Bryan G. Ablao">
+            <div class="social-icon-wrapper" onclick="openSocialModal('Facebook', 'Bryan G. Ablao', 'images/facebook.png', 'https://www.facebook.com/profile.php?id=61578207118456#', 'Connect with my official personal page on Facebook.')">
+              <img src="images/facebook.png" alt="Facebook">
+            </div>
+            <div class="social-name">Facebook</div>
+            <div class="social-handle">Bryan G. Ablao</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('Bryan G. Ablao', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.facebook.com/profile.php?id=61578207118456#" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Quick Quick Message / Contact Form -->
+      <section class="glass-card">
+        <h3 class="section-title"><i class="fa-solid fa-paper-plane"></i> Quick Message</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+          Prefer direct messaging? Send a prompt inquiry and select your preferred social channel response.
+        </p>
+
+        <form onsubmit="handleQuickMessage(event)">
+          <div class="contact-form-grid">
+            <div class="form-group">
+              <label for="senderName"><i class="fa-solid fa-user"></i> Your Name</label>
+              <input type="text" id="senderName" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="preferredPlatform"><i class="fa-solid fa-share-nodes"></i> Preferred Response Via</label>
+              <select id="preferredPlatform">
+                <option value="Telegram">Telegram (@bryvngtz)</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="Email">Email Direct</option>
+                <option value="Instagram">Instagram</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="messageBody"><i class="fa-solid fa-comment-dots"></i> Message or Proposal</label>
+            <textarea id="messageBody" rows="4" placeholder="Hi Bryan, I'd like to collaborate on..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Direct Message</button>
+        </form>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div>© 2025–2026 <strong>Accxs Creations</strong>. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="version.html" class="footer-link">v0.0.8</a>
+        <span>·</span>
+        <a href="terms.html" class="footer-link">Terms &amp; Privacy</a>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Social Detail Modal -->
+  <div class="modal-overlay" id="socialModal">
+    <div class="modal-box">
+      <span class="modal-close" onclick="closeSocialModal()">&times;</span>
+      <img id="modalIcon" src="" alt="" class="modal-social-img">
+      <h3 id="modalTitle">Platform</h3>
+      <span id="modalHandle" class="modal-handle-tag">@handle</span>
+      <p id="modalDescription">Description goes here...</p>
+
+      <div class="modal-qr-placeholder">
+        <i class="fa-solid fa-qrcode"></i>
+        <span style="font-size: 0.8rem; color: var(--text-muted);">Instant Scan Link Active</span>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <button class="btn-action" style="padding: 0.75rem;" onclick="copyModalHandle()"><i class="fa-regular fa-copy"></i> Copy Handle</button>
+        <a id="modalLink" href="#" target="_blank" rel="noopener" class="submit-btn" style="text-decoration:none;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Platform</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toastMsg">Handle copied to clipboard!</span></div>
+
+  <!-- Scripts -->
+  <script>
+    // Intersection Observer for Card Animations & Counters
+    const cards = document.querySelectorAll('.glass-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+
+          // Animate Counter Stats
+          entry.target.querySelectorAll('.counter').forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            let count = 0;
+            const updateCount = () => {
+              const increment = target / 30;
+              if (count < target) {
+                count += increment;
+                counter.innerText = Math.ceil(count) + (target === 100 ? '%' : '+');
+                setTimeout(updateCount, 30);
+              } else {
+                counter.innerText = target + (target === 100 ? '%' : '+');
+              }
+            };
+            updateCount();
+          });
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+
+    // Navigation Control
+    function toggleMenu() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("sidebarOverlay");
+      const isOpen = sidebar.classList.toggle("open");
+      overlay.style.display = isOpen ? "block" : "none";
+    }
+
+    function closeMenu() {
+      document.getElementById("sidebar").classList.remove("open");
+      document.getElementById("sidebarOverlay").style.display = "none";
+    }
+
+    // Copy Handle Functionality
+    function copyHandle(handleText, event) {
+      if (event) event.stopPropagation();
+      navigator.clipboard.writeText(handleText).then(() => {
+        showToast(`Copied "${handleText}" to clipboard!`);
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Filter & Search Functionality
+    let currentCategory = 'all';
+
+    function setCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterSocials();
+    }
+
+    function filterSocials() {
+      const searchVal = document.getElementById('socialSearch').value.toLowerCase();
+      const items = document.querySelectorAll('.social-card-item');
+
+      items.forEach(item => {
+        const cat = item.getAttribute('data-category');
+        const name = item.getAttribute('data-name').toLowerCase();
+        const handle = item.getAttribute('data-handle').toLowerCase();
+
+        const matchesCat = (currentCategory === 'all' || cat === currentCategory);
+        const matchesSearch = name.includes(searchVal) || handle.includes(searchVal);
+
+        if (matchesCat && matchesSearch) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Social Detail Modal
+    let activeModalHandle = '';
+
+    function openSocialModal(title, handle, iconSrc, linkUrl, desc) {
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalHandle').textContent = handle;
+      document.getElementById('modalIcon').src = iconSrc;
+      document.getElementById('modalDescription').textContent = desc;
+      document.getElementById('modalLink').href = linkUrl;
+      activeModalHandle = handle;
+
+      document.getElementById('socialModal').style.display = 'flex';
+      document.body.classList.add('modal-open');
+    }
+
+    function closeSocialModal() {
+      document.getElementById('socialModal').style.display = 'none';
+      document.body.classList.remove('modal-open');
+    }
+
+    function copyModalHandle() {
+      copyHandle(activeModalHandle);
+    }
+
+    document.getElementById('socialModal').addEventListener('click', e => {
+      if (e.target === document.getElementById('socialModal')) closeSocialModal();
+    });
+
+    // Handle Quick Contact Form Submission
+    function handleQuickMessage(e) {
+      e.preventDefault();
+      const name = document.getElementById('senderName').value;
+      const platform = document.getElementById('preferredPlatform').value;
+      
+      showToast(`Thank you, ${name}! Redirecting to ${platform}...`);
+      
+      setTimeout(() => {
+        if (platform === 'Telegram') {
+          window.open('https://t.me/bryvngtz', '_blank');
+        } else if (platform === 'LinkedIn') {
+          window.open('https://www.linkedin.com/in/bryan-ablao-636497189/', '_blank');
+        } else if (platform === 'Email') {
+          window.location.href = 'mailto:ablaobryan4400@gmail.com';
+        } else {
+          window.open('https://www.instagram.com/bryvngtz/#', '_blank');
+        }
+      }, 1200);
+    }
+
+    // Starfield Animation
+    const starsCanvas = document.getElementById('starsCanvas');
+    const starsCtx = starsCanvas.getContext('2d');
+    let stars = [], meteor = null;
+
+    function resizeStarsCanvas() {
+      starsCanvas.width = window.innerWidth;
+      starsCanvas.height = window.innerHeight;
+      generateStars();
+    }
+
+    function generateStars() {
+      stars = [];
+      const density = Math.floor((starsCanvas.width * starsCanvas.height) / 6000);
+      for (let i = 0; i < density; i++) {
+        stars.push({
+          x: Math.random() * starsCanvas.width,
+          y: Math.random() * starsCanvas.height,
+          alpha: Math.random() * 0.7 + 0.3,
+          radius: Math.random() * 1.2 + 0.4,
+          flickerSpeed: Math.random() * 0.02 + 0.005
+        });
+      }
+    }
+
+    function drawMeteor() {
+      if (!meteor) return;
+      starsCtx.save();
+      const grad = starsCtx.createLinearGradient(meteor.x, meteor.y, meteor.x - meteor.vx * 10, meteor.y - meteor.vy * 10);
+      grad.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
+      grad.addColorStop(1, `rgba(255,255,255,0)`);
+      starsCtx.strokeStyle = grad;
+      starsCtx.lineWidth = 1.5;
+      starsCtx.beginPath();
+      starsCtx.moveTo(meteor.x, meteor.y);
+      starsCtx.lineTo(meteor.x - meteor.vx * 15, meteor.y - meteor.vy * 15);
+      starsCtx.stroke();
+      starsCtx.restore();
+    }
+
+    function animateStars() {
+      starsCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+      stars.forEach(star => {
+        star.alpha += star.flickerSpeed * (Math.random() < 0.5 ? -1 : 1);
+        star.alpha = Math.min(0.9, Math.max(0.2, star.alpha));
+        starsCtx.beginPath();
+        starsCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        starsCtx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+        starsCtx.fill();
+      });
+
+      if (meteor) {
+        meteor.x += meteor.vx;
+        meteor.y += meteor.vy;
+        meteor.alpha -= 0.012;
+        drawMeteor();
+        if (meteor.alpha <= 0 || meteor.x < -50 || meteor.y > starsCanvas.height + 50) {
+          meteor = null;
+          setTimeout(spawnMeteor, Math.random() * 4000 + 3000);
+        }
+      }
+      requestAnimationFrame(animateStars);
+    }
+
+    function spawnMeteor() {
+      meteor = {
+        x: Math.random() * starsCanvas.width,
+        y: -20,
+        vx: -(Math.random() * 3 + 2),
+        vy: Math.random() * 2 + 2,
+        alpha: 1
+      };
+    }
+
+    window.addEventListener('resize', resizeStarsCanvas);
+    resizeStarsCanvas();
+    animateStars();
+    setTimeout(spawnMeteor, 2000);
+
+    // Mouse Ripple Effect
+    const rippleCanvas = document.getElementById('rippleCanvas');
+    const rippleCtx = rippleCanvas.getContext('2d');
+    let ripples = [];
+
+    function resizeRippleCanvas() {
+      rippleCanvas.width = window.innerWidth;
+      rippleCanvas.height = window.innerHeight;
+    }
+
+    window.addEventListener('resize', resizeRippleCanvas);
+    resizeRippleCanvas();
+
+    window.addEventListener('mousemove', (e) => {
+      if (Math.random() > 0.3) return;
+      ripples.push({ x: e.clientX, y: e.cliethintY, radius: 0, alpha: 0.25 });
+      if (ripples.length > 15) ripples.shift();
+    });
+
+    function animateRipples() {
+      rippleCtx.clearRect(0, 0, rippleCanvas.width, rippleCanvas.height);
+      ripples.forEach((r, i) => {
+        r.radius += 1.2;
+        r.alpha -= 0.008;
+        if (r.alpha <= 0) {
+          ripples.splice(i, 1);
+          return;
+        }
+        rippleCtx.beginPath();
+        rippleCtx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
+        rippleCtx.strokeStyle = `rgba(167, 139, 250, ${r.alpha})`;
+        rippleCtx.lineWidth = 1;
+        rippleCtx.stroke();
+      });
+      requestAnimationFrame(animateRipples);
+    }
+    animateRipples();
+  </script>
+</body>
+</html>
