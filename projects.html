@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="icon" type="image/png" href="images/Gallery/MainLogo.png">
   <title>Projects | Bryan G. Ablao</title>
   
@@ -35,13 +35,18 @@
       padding: 0;
     }
 
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background-color: var(--bg-dark);
       color: var(--text-main);
-      overflow-x: hidden;
       line-height: 1.6;
       min-height: 100vh;
+      position: relative;
     }
 
     a {
@@ -55,8 +60,8 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
     }
     #starsCanvas { z-index: 0; }
@@ -65,8 +70,8 @@
       position: fixed;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
       z-index: 2001;
       display: none;
@@ -107,9 +112,10 @@
       justify-content: space-between;
       align-items: center;
       padding: 1rem 5%;
-      background: rgba(9, 10, 15, 0.8);
+      background: rgba(9, 10, 15, 0.85);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--glass-border);
+      width: 100%;
     }
 
     .nav-brand {
@@ -124,7 +130,7 @@
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 1.5rem;
+      gap: 1rem;
     }
 
     .desktop-nav {
@@ -169,6 +175,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
+      white-space: nowrap;
     }
 
     .btn-action:hover {
@@ -183,6 +190,7 @@
       font-size: 1.5rem;
       cursor: pointer;
       color: var(--text-main);
+      padding: 0.2rem 0.5rem;
     }
 
     /* Mobile Sidebar Drawer */
@@ -233,16 +241,18 @@
     #blur-container {
       position: relative;
       z-index: 2;
+      width: 100%;
       transition: filter 0.3s ease;
     }
 
     main {
       max-width: 1100px;
+      width: 100%;
       margin: 0 auto;
-      padding: 3rem 1.5rem;
+      padding: 2rem 1rem;
       display: flex;
       flex-direction: column;
-      gap: 2.5rem;
+      gap: 2rem;
     }
 
     /* Glass Card Standard & Reveal Animations */
@@ -251,11 +261,12 @@
       backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
-      padding: 2.5rem;
+      padding: 2rem;
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s ease, transform 0.8s ease;
+      width: 100%;
     }
 
     .glass-card.visible {
@@ -283,30 +294,61 @@
       margin-bottom: 2rem;
     }
 
-    /* Stats Counter Bar */
-    .stats-container {
+    /* ---------- NEW Interactive Showcase Features Bar ---------- */
+    .showcase-features-container {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
+      gap: 1.25rem;
       margin-bottom: 2rem;
-      padding: 1.25rem;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
-      text-align: center;
+      width: 100%;
     }
 
-    .stat-box h3 {
-      font-size: 1.8rem;
-      font-weight: 700;
+    .showcase-feature-box {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: var(--transition-smooth);
+    }
+
+    .showcase-feature-box:hover {
+      background: rgba(167, 139, 250, 0.08);
+      border-color: rgba(167, 139, 250, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      min-width: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(109, 40, 217, 0.3), rgba(59, 130, 246, 0.3));
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
       color: #a78bfa;
     }
 
-    .stat-box p {
-      font-size: 0.75rem;
+    .feature-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .feature-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .feature-subtitle {
+      font-size: 0.78rem;
       color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
+      margin-top: 0.2rem;
     }
 
     /* Controls Bar: Search & Category Filters */
@@ -317,6 +359,7 @@
       align-items: center;
       gap: 1rem;
       margin-bottom: 2rem;
+      width: 100%;
     }
 
     .search-box {
@@ -380,6 +423,7 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 1.5rem;
+      width: 100%;
     }
 
     .project-card {
@@ -414,6 +458,7 @@
       object-fit: cover;
       background: rgba(0, 0, 0, 0.2);
       transition: transform 0.5s ease;
+      display: block;
     }
 
     .project-card:hover img {
@@ -424,7 +469,7 @@
       position: absolute;
       top: 10px;
       right: 10px;
-      background: rgba(9, 10, 15, 0.8);
+      background: rgba(9, 10, 15, 0.85);
       backdrop-filter: blur(8px);
       border: 1px solid var(--glass-border);
       color: #a78bfa;
@@ -520,13 +565,13 @@
       justify-content: center;
       align-items: center;
       z-index: 2000;
-      padding: 1.5rem;
+      padding: 1rem;
     }
 
     .modal-box {
       background: #11131f;
       border: 1px solid var(--glass-border);
-      padding: 2rem;
+      padding: 1.75rem;
       border-radius: var(--radius-lg);
       max-width: 580px;
       width: 100%;
@@ -556,10 +601,11 @@
     .modal-close:hover { color: var(--text-main); }
 
     .modal-box h2 {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 700;
       margin-bottom: 1rem;
       color: var(--text-main);
+      padding-right: 1.5rem;
     }
 
     .modal-box p {
@@ -601,9 +647,10 @@
       text-align: center;
       color: var(--text-muted);
       font-size: 0.85rem;
-      padding: 3rem 1.5rem;
+      padding: 2.5rem 1rem;
       border-top: 1px solid var(--glass-border);
-      margin-top: 4rem;
+      margin-top: 3rem;
+      width: 100%;
     }
 
     .footer-links {
@@ -621,12 +668,43 @@
       color: var(--text-main);
     }
 
-    /* ---------- Responsive Breakpoints ---------- */
+    /* ---------- Responsive Breakpoints & Screen Fixes ---------- */
+    @media (max-width: 900px) {
+      .showcase-features-container {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+      }
+    }
+
     @media (max-width: 850px) {
       .desktop-nav { display: none; }
       .hamburger { display: block; }
-      .stats-container { grid-template-columns: 1fr; }
       .project-controls { flex-direction: column; align-items: stretch; }
+      .search-box { width: 100%; }
+      .filter-buttons { width: 100%; justify-content: flex-start; }
+    }
+
+    @media (max-width: 500px) {
+      header {
+        padding: 0.8rem 1rem;
+      }
+      
+      .glass-card {
+        padding: 1.25rem;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btn-action {
+        padding: 0.35rem 0.6rem;
+        font-size: 0.8rem;
+      }
     }
   </style>
 </head>
@@ -684,19 +762,30 @@
         <h2 class="section-title"><i class="fa-solid fa-rocket"></i> Projects Showcase</h2>
         <p class="section-desc">Explore interactive mini-games, web applications, community platforms, and custom portfolios I've built.</p>
 
-        <!-- Stats Bar Display -->
-        <div class="stats-container">
-          <div class="stat-box">
-            <h3 class="counter" data-target="4">0</h3>
-            <p>Featured Projects</p>
+        <!-- Dynamic Project Metrics Showcase Bar -->
+        <div class="showcase-features-container">
+          <div class="showcase-feature-box">
+            <div class="feature-icon"><i class="fa-solid fa-cubes"></i></div>
+            <div class="feature-details">
+              <span class="feature-title">4 Live Applications</span>
+              <span class="feature-subtitle">Games, web apps, &amp; portfolios</span>
+            </div>
           </div>
-          <div class="stat-box">
-            <h3 class="counter" data-target="100">0</h3>
-            <p>% Responsive</p>
+
+          <div class="showcase-feature-box">
+            <div class="feature-icon"><i class="fa-solid fa-code"></i></div>
+            <div class="feature-details">
+              <span class="feature-title">Modern Tech Stack</span>
+              <span class="feature-subtitle">HTML5 Canvas, JS, CSS3, UX</span>
+            </div>
           </div>
-          <div class="stat-box">
-            <h3 class="counter" data-target="100">0</h3>
-            <p>% Custom Built</p>
+
+          <div class="showcase-feature-box">
+            <div class="feature-icon"><i class="fa-solid fa-gamepad"></i></div>
+            <div class="feature-details">
+              <span class="feature-title">Interactive Demos</span>
+              <span class="feature-subtitle">Fully responsive &amp; playable</span>
+            </div>
           </div>
         </div>
 
@@ -996,29 +1085,12 @@
       if (e.target.id === 'projectDetailsModal') closeProjectModal();
     });
 
-    // Intersection Observer for Reveal Animations & Animated Counters
+    // Intersection Observer for Reveal Animations
     const cards = document.querySelectorAll('.glass-card');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-
-          // Animate Counter Stats inside
-          entry.target.querySelectorAll('.counter').forEach(counter => {
-            const target = +counter.getAttribute('data-target');
-            let count = 0;
-            const updateCount = () => {
-              const increment = target / 30;
-              if (count < target) {
-                count += increment;
-                counter.innerText = Math.ceil(count) + (target === 100 ? '%' : '+');
-                setTimeout(updateCount, 30);
-              } else {
-                counter.innerText = target + (target === 100 ? '%' : '+');
-              }
-            };
-            updateCount();
-          });
         }
       });
     }, { threshold: 0.1 });
