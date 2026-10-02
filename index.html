@@ -31,21 +31,6 @@
       --modal-bg: #11131f;
     }
 
-    /* Light Theme Overrides */
-    body.light-theme {
-      --bg-dark: #f0f2f5;
-      --accent-purple: #7c3aed;
-      --accent-purple-glow: rgba(124, 58, 237, 0.15);
-      --accent-blue: #2563eb;
-      --glass-bg: rgba(255, 255, 255, 0.75);
-      --glass-border: rgba(0, 0, 0, 0.08);
-      --text-main: #1f2937;
-      --text-muted: #4b5563;
-      --header-bg: rgba(255, 255, 255, 0.85);
-      --card-inner-bg: rgba(0, 0, 0, 0.02);
-      --modal-bg: #ffffff;
-    }
-
     /* ---------- Global Reset & Typography ---------- */
     html, body {
       width: 100%;
@@ -172,26 +157,6 @@
       height: 2px;
       background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
       border-radius: 2px;
-    }
-
-    /* Theme Toggle Button */
-    .theme-toggle-btn {
-      background: var(--card-inner-bg);
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: var(--transition-smooth);
-    }
-
-    .theme-toggle-btn:hover {
-      transform: scale(1.08);
-      border-color: var(--accent-purple);
     }
 
     .hamburger {
@@ -876,11 +841,6 @@
         <a href="social.html">Socials</a>
       </nav>
 
-      <!-- Interactive Theme Toggle Button -->
-      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle Light/Dark Theme" title="Toggle Theme">
-        <i class="fa-solid fa-moon"></i>
-      </button>
-
       <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Navigation">☰</div>
     </div>
   </header>
@@ -1227,21 +1187,6 @@
 
   <!-- Scripts -->
   <script>
-    // Theme Toggle Functionality
-    const themeBtn = document.getElementById('themeToggle');
-    const themeIcon = themeBtn.querySelector('i');
-
-    themeBtn.addEventListener('click', () => {
-      document.body.classList.toggle('light-theme');
-      if (document.body.classList.contains('light-theme')) {
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-      } else {
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-      }
-    });
-
     // Skill Filter Interactive Tabs
     function filterSkills(category) {
       const buttons = document.querySelectorAll('.filter-btn');
