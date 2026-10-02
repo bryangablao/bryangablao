@@ -227,7 +227,6 @@
       flex-direction: column;
       align-items: center;
       position: relative;
-      cursor: pointer;
     }
 
     .qr-box:hover {
@@ -256,6 +255,7 @@
       border: 1px solid var(--glass-border);
       transition: var(--transition-smooth);
       background: rgba(0,0,0,0.2);
+      cursor: pointer;
     }
 
     .qr-box img:hover {
@@ -429,7 +429,7 @@
       width: 100%;
       height: auto;
       max-height: 75vh;
-      object-fit: contain; /* Full unclipped original image size */
+      object-fit: contain;
       border-radius: var(--radius-md);
     }
 
@@ -477,7 +477,7 @@
       .section-title { font-size: 1.4rem; }
       .donate-intro { font-size: 0.9rem; }
       .qr-grid { grid-template-columns: 1fr; }
-      .qr-box img { height: 220px; } /* Slightly larger preview height on full width mobile screens */
+      .qr-box img { height: 220px; }
       .modal-box { padding: 1rem; max-width: 95vw; }
       #toast { bottom: 10px; right: 10px; left: 10px; text-align: center; }
     }
@@ -537,14 +537,14 @@
         <div class="qr-grid">
           
           <!-- GCash Card -->
-          <div class="qr-box" onclick="openModal('images/GCASH QR.jpg')">
+          <div class="qr-box">
             <div class="qr-label">GCash</div>
-            <img src="images/GCASH QR.jpg" alt="GCash QR Code" />
-            <div class="acc-details" onclick="event.stopPropagation()">
-              <span>Account Name: Bryan A.</span>
+            <img src="images/GCASH QR.jpg" alt="GCash QR Code" onclick="openModal('images/GCASH QR.jpg')" />
+            <div class="acc-details">
+              <span>Account Name: Bryan Ablao</span>
               <div class="acc-num">
-                <span>0912 345 6789</span>
-                <button class="copy-btn" onclick="copyToClipboard('09123456789')" title="Copy Account Number">
+                <span>0992 876 0990</span>
+                <button class="copy-btn" onclick="copyToClipboard('09928760990')" title="Copy Account Number">
                   <i class="fa-regular fa-copy"></i>
                 </button>
               </div>
@@ -552,14 +552,14 @@
           </div>
 
           <!-- Maya Card -->
-          <div class="qr-box" onclick="openModal('images/MAYA QR.jpg')">
+          <div class="qr-box">
             <div class="qr-label">Maya</div>
-            <img src="images/MAYA QR.jpg" alt="Maya QR Code" />
-            <div class="acc-details" onclick="event.stopPropagation()">
-              <span>Account Name: Bryan A.</span>
+            <img src="images/MAYA QR.jpg" alt="Maya QR Code" onclick="openModal('images/MAYA QR.jpg')" />
+            <div class="acc-details">
+              <span>Account Name: @bryan4400</span>
               <div class="acc-num">
-                <span>0912 345 6789</span>
-                <button class="copy-btn" onclick="copyToClipboard('09123456789')" title="Copy Account Number">
+                <span>0992 876 0990</span>
+                <button class="copy-btn" onclick="copyToClipboard('09928760990')" title="Copy Account Number">
                   <i class="fa-regular fa-copy"></i>
                 </button>
               </div>
@@ -567,14 +567,14 @@
           </div>
 
           <!-- AUB Card -->
-          <div class="qr-box" onclick="openModal('images/AUB QR.jpg')">
+          <div class="qr-box">
             <div class="qr-label">AUB Bank</div>
-            <img src="images/AUB QR.jpg" alt="AUB Bank QR Code" />
-            <div class="acc-details" onclick="event.stopPropagation()">
-              <span>Account Name: Bryan A.</span>
+            <img src="images/AUB QR.jpg" alt="AUB Bank QR Code" onclick="openModal('images/AUB QR.jpg')" />
+            <div class="acc-details">
+              <span>Account Name: Bryan Ablao</span>
               <div class="acc-num">
-                <span>1234-5678-9012</span>
-                <button class="copy-btn" onclick="copyToClipboard('123456789012')" title="Copy Account Number">
+                <span>*********435</span>
+                <button class="copy-btn" onclick="copyToClipboard('*********435')" title="Copy Account Number">
                   <i class="fa-regular fa-copy"></i>
                 </button>
               </div>
@@ -582,14 +582,14 @@
           </div>
 
           <!-- Cebuana Card -->
-          <div class="qr-box" onclick="openModal('images/Cebuana.png')">
+          <div class="qr-box">
             <div class="qr-label">Cebuana</div>
-            <img src="images/Cebuana.png" alt="Cebuana QR Code" />
-            <div class="acc-details" onclick="event.stopPropagation()">
-              <span>Account Name: Bryan A.</span>
+            <img src="images/Cebuana.png" alt="Cebuana QR Code" onclick="openModal('images/Cebuana.png')" />
+            <div class="acc-details">
+              <span>Account Name: Bryan Gutierrez Ablao</span>
               <div class="acc-num">
-                <span>9876-5432-1098</span>
-                <button class="copy-btn" onclick="copyToClipboard('987654321098')" title="Copy Account Number">
+                <span>******7959</span>
+                <button class="copy-btn" onclick="copyToClipboard('******7959')" title="Copy Account Number">
                   <i class="fa-regular fa-copy"></i>
                 </button>
               </div>
@@ -621,10 +621,9 @@
       <!-- Animated Supporter Wall Ticker -->
       <section class="glass-card">
         <h2 class="section-title">Wall of Gratitude</h2>
-        <p class="donate-intro" style="margin-bottom: 1rem;">Shoutout to recent supporters who made a difference!</p>
+        <p class="donate-intro" style="margin-bottom: 1rem;">Shoutout to supporters who made a difference!</p>
         <div class="supporters-section">
           <div class="ticker-wrapper" id="tickerWrapper">
-            <!-- Dynamically populated via JS with 100 supporters -->
           </div>
         </div>
       </section>
@@ -700,852 +699,32 @@
       if (e.target === modal) closeModal();
     });
 
-    // Populate Wall of Gratitude with 100 Supporters
-    const firstNames = ["Alex", "Mark", "Sophia", "Gabriel", "Liam", "Emma", "Noah", "Olivia", "Ethan", "Ava", "Mason", "Isabella", "William", "Mia", "James", "Charlotte", "Benjamin", "Amelia", "Lucas", "Harper", "Daniel", "Evelyn", "Matthew", "Abigail", "Henry", "Emily", "Joseph", "Elizabeth", "Jackson", "Mila", "Samuel", "Ella", "Sebastian", "Avery", "David", "Sofia", "Carter", "Camila", "Wyatt", "Aria", "Jayden", "Scarlett", "John", "Victoria", "Owen", "Madison", "Dylan", "Luna", "Luke", "Grace", "Gabriel", "Chloe", "Anthony", "Penelope", "Isaac", "Layla", "Grayson", "Riley", "Jack", "Zoey", "Julian", "Nora", "Levi", "Lily", "Christopher", "Eleanor", "Joshua", "Hannah", "Andrew", "Lillian", "Lincoln", "Addison", "Mateo", "Aubrey", "Ryan", "Ellie", "Jaxon", "Stella", "Nathan", "Natalie", "Aaron", "Zoe", "Isaiah", "Leah", "Thomas", "Hazel", "Charles", "Violet", "Caleb", "AuroraHere is the updated HTML code with all requested changes applied:
-
-1. **Removed Preset Tiers**: The tier selection buttons (`₱50 / $1`, `₱250 / $5`, etc.) have been completely removed.
-2. **Uniform Payment Cards & Dynamic Lightbox**: The payment QR codes inside the main grid now render in a standardized, uniform square frame (`180px × 180px` with `object-fit: cover`). Clicking any payment card expands a full-sized preview inside the overlay modal using its natural aspect ratio.
-3. **Mobile Responsiveness**: Improved grid break points, touch targets, modal scaling, and mobile side drawer compatibility for mobile displays.
-4. **Wall of Gratitude Updates**: Updated the tagline to remove *"Shoutout to recent supporters who made a difference!"* and integrated a dynamic script that populates 100 randomized supporter entries into an infinite scrolling ticker.
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="images/Gallery/MainLogo.png">
-  <title>Donate | Bryan G. Ablao</title>
-
-  <!-- Modern Typography & Icons -->
-  <link rel="preconnect" href="[https://fonts.googleapis.com](https://fonts.googleapis.com)">
-  <link rel="preconnect" href="[https://fonts.gstatic.com](https://fonts.gstatic.com)" crossorigin>
-  <link href="[https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap](https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap)" rel="stylesheet">
-  <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
-
-  <style>
-    /* ---------- Theme & CSS Variables ---------- */
-    :root {
-      --bg-dark: #090a0f;
-      --accent-purple: #6d28d9;
-      --accent-purple-glow: rgba(109, 40, 217, 0.4);
-      --accent-blue: #3b82f6;
-      --glass-bg: rgba(18, 20, 29, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --radius-lg: 16px;
-      --radius-md: 10px;
-      --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    /* ---------- Global Reset & Typography ---------- */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      overflow-x: hidden;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-      transition: var(--transition-smooth);
-    }
-
-    /* Background Canvases */
-    #starsCanvas, #rippleCanvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      pointer-events: none;
-    }
-    #starsCanvas { z-index: 0; }
-    #rippleCanvas { z-index: 1; }
-
-    /* Ambient Glow Effects */
-    .ambient-glow {
-      position: fixed;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--accent-purple-glow) 0%, rgba(0,0,0,0) 70%);
-      top: -150px;
-      left: -150px;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.6;
-    }
-
-    /* ---------- Navigation Bar ---------- */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 5%;
-      background: rgba(9, 10, 15, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--glass-border);
-    }
-
-    .nav-brand {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .desktop-nav {
-      display: flex;
-      gap: 1.5rem;
-    }
-
-    .desktop-nav a {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    .desktop-nav a:hover, .desktop-nav a.active {
-      color: var(--text-main);
-    }
-
-    .hamburger {
-      display: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--text-main);
-    }
-
-    /* Mobile Sidebar Drawer */
-    #sidebarOverlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      display: none;
-      z-index: 1000;
-    }
-
-    #sidebar {
-      position: fixed;
-      top: 0;
-      right: -280px;
-      width: 280px;
-      height: 100%;
-      background: var(--bg-dark);
-      border-left: 1px solid var(--glass-border);
-      padding: 5rem 1.5rem 2rem;
-      transition: right 0.3s ease;
-      z-index: 1001;
-    }
-
-    #sidebar.open { right: 0; }
-
-    #sidebar ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    #sidebar ul li a {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      display: block;
-      padding: 0.5rem 0;
-    }
-
-    #sidebar ul li a:hover { color: var(--text-main); }
-
-    /* ---------- Main Layout ---------- */
-    #blur-container {
-      position: relative;
-      z-index: 2;
-      transition: filter 0.3s ease;
-    }
-
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-
-    /* Glass Card Standard */
-    .glass-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg);
-      padding: 2.5rem;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-    }
-
-    .section-title {
-      font-size: 1.75rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .donate-intro {
-      color: var(--text-muted);
-      font-size: 0.975rem;
-      max-width: 800px;
-      line-height: 1.7;
-      margin-bottom: 1.5rem;
-    }
-
-    /* QR Code Grid & Uniform Image Sizing */
-    .qr-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .qr-box {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      text-align: center;
-      transition: var(--transition-smooth);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .qr-box:hover {
-      transform: translateY(-4px);
-      background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(167, 139, 250, 0.4);
-      box-shadow: 0 10px 25px -5px rgba(109, 40, 217, 0.25);
-    }
-
-    .qr-label {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: #a78bfa;
-      letter-spacing: 0.08em;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-    }
-
-    /* Standardized Equal Frame Dimensions */
-    .qr-image-wrapper {
-      width: 180px;
-      height: 180px;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--glass-border);
-      overflow: hidden;
-      background: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 0.5rem;
-    }
-
-    .qr-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: var(--transition-smooth);
-    }
-
-    .qr-box:hover img {
-      transform: scale(1.05);
-    }
-
-    /* Account Details & Copy Button */
-    .acc-details {
-      margin-top: 0.75rem;
-      width: 100%;
-      font-size: 0.825rem;
-      color: var(--text-muted);
-    }
-
-    .acc-num {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 0.4rem 0.75rem;
-      border-radius: 6px;
-      margin-top: 0.5rem;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .copy-btn {
-      background: none;
-      border: none;
-      color: #a78bfa;
-      cursor: pointer;
-      font-size: 0.85rem;
-      padding: 0.2rem;
-      transition: var(--transition-smooth);
-    }
-
-    .copy-btn:hover { color: #fff; }
-
-    /* Transparency & Impact Section */
-    .impact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1rem;
-    }
-
-    .impact-card {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-    }
-
-    .impact-card h3 {
-      font-size: 1.1rem;
-      color: #a78bfa;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .impact-card p {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    /* Wall of Gratitude Ticker */
-    .supporters-section {
-      overflow: hidden;
-      white-space: nowrap;
-      position: relative;
-      padding: 0.5rem 0;
-    }
-
-    .ticker-wrapper {
-      display: inline-flex;
-      gap: 1.25rem;
-      animation: ticker 120s linear infinite;
-      will-change: transform;
-    }
-
-    .supporter-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--glass-border);
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      color: var(--text-main);
-      white-space: nowrap;
-    }
-
-    @keyframes ticker {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* Toast Notification */
-    #toast {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background: var(--accent-purple);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
-      display: none;
-      z-index: 3000;
-      font-size: 0.875rem;
-      font-weight: 500;
-    }
-
-    /* Modal Image Lightbox */
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(8px);
-      justify-content: center;
-      align-items: center;
-      z-index: 2000;
-      padding: 1.5rem;
-    }
-
-    .modal-box {
-      background: #11131f;
-      border: 1px solid var(--glass-border);
-      padding: 1.5rem;
-      border-radius: var(--radius-lg);
-      max-width: 520px;
-      width: 100%;
-      position: relative;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
-      animation: modalFade 0.25s ease-out;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    @keyframes modalFade {
-      from { opacity: 0; transform: scale(0.95); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 0.75rem;
-      right: 1rem;
-      font-size: 1.75rem;
-      color: var(--text-muted);
-      cursor: pointer;
-      line-height: 1;
-      z-index: 10;
-    }
-
-    .modal-close:hover { color: var(--text-main); }
-
-    .modal-content-img {
-      width: 100%;
-      height: auto;
-      max-height: 80vh;
-      object-fit: contain;
-      border-radius: var(--radius-md);
-    }
-
-    body.modal-open #blur-container { filter: blur(6px); }
-    body.modal-open { overflow: hidden; }
-
-    /* Footer */
-    footer {
-      position: relative;
-      z-index: 2;
-      text-align: center;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      padding: 3rem 1.5rem;
-      border-top: 1px solid var(--glass-border);
-      margin-top: 4rem;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-top: 0.5rem;
-    }
-
-    .footer-link { color: var(--text-muted); }
-    .footer-link:hover { color: var(--text-main); }
-
-    /* Responsive Breakpoints */
-    @media (max-width: 850px) {
-      .desktop-nav { display: none; }
-      .hamburger { display: block; }
-    }
-
-    @media (max-width: 600px) {
-      main { padding: 1.5rem 1rem; gap: 1.5rem; }
-      .glass-card { padding: 1.5rem 1.25rem; }
-      .qr-grid { grid-template-columns: 1fr; }
-      .qr-image-wrapper { width: 100%; height: 220px; }
-      .impact-grid { grid-template-columns: 1fr; }
-      #toast { left: 20px; right: 20px; text-align: center; }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- Animated Background Elements -->
-  <div class="ambient-glow"></div>
-  <canvas id="starsCanvas"></canvas>
-  <canvas id="rippleCanvas"></canvas>
-
-  <!-- Navigation Bar -->
-  <header>
-    <div class="nav-brand">Bryan G. Ablao</div>
-    <nav class="desktop-nav">
-      <a href="index.html">About</a>
-      <a href="work.html">Experience</a>
-      <a href="projects.html">Projects</a>
-      <a href="achievement.html">Achievements</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="social.html">Socials</a>
-    </nav>
-    <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Navigation">☰</div>
-  </header>
-
-  <!-- Mobile Drawer Overlay & Sidebar -->
-  <div id="sidebarOverlay" onclick="closeMenu()"></div>
-  <nav id="sidebar">
-    <ul>
-      <li><a href="index.html">About Me</a></li>
-      <li><a href="work.html">Work Experience</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="achievement.html">Achievements</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="social.html">Social Medias</a></li>
-    </ul>
-  </nav>
-
-  <!-- Toast Notification -->
-  <div id="toast">Copied to clipboard!</div>
-
-  <!-- Main Content Area -->
-  <div id="blur-container">
-    <main>
-
-      <!-- Main Donation Section -->
-      <section class="glass-card">
-        <h2 class="section-title">Support My Work</h2>
-        <p class="donate-intro">
-          Scan any of the QR codes below or copy the account details to donate via GCash, Maya, AUB, or Cebuana. Click on any payment card to enlarge the full-size QR image. Every contribution helps support development, server hosting, and open-source projects! 🖤
-        </p>
-
-        <div class="qr-grid">
-          
-          <!-- GCash -->
-          <div class="qr-box" onclick="openModal('images/GCASH QR.jpg')">
-            <div class="qr-label">GCash</div>
-            <div class="qr-image-wrapper">
-              <img src="images/GCASH QR.jpg" alt="GCash QR Code" />
-            </div>
-            <div class="acc-details" onclick="event.stopPropagation()">
-              <span>Account Name: Bryan A.</span>
-              <div class="acc-num">
-                <span>0912 345 6789</span>
-                <button class="copy-btn" onclick="copyToClipboard('09123456789')" title="Copy Account Number">
-                  <i class="fa-regular fa-copy"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Maya -->
-          <div class="qr-box" onclick="openModal('images/MAYA QR.jpg')">
-            <div class="qr-label">Maya</div>
-            <div class="qr-image-wrapper">
-              <img src="images/MAYA QR.jpg" alt="Maya QR Code" />
-            </div>
-            <div class="acc-details" onclick="event.stopPropagation()">
-              <span>Account Name: Bryan A.</span>
-              <div class="acc-num">
-                <span>0912 345 6789</span>
-                <button class="copy-btn" onclick="copyToClipboard('09123456789')" title="Copy Account Number">
-                  <i class="fa-regular fa-copy"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- AUB -->
-          <div class="qr-box" onclick="openModal('images/AUB QR.jpg')">
-            <div class="qr-label">AUB Bank</div>
-            <div class="qr-image-wrapper">
-              <img src="images/AUB QR.jpg" alt="AUB Bank QR Code" />
-            </div>
-            <div class="acc-details" onclick="event.stopPropagation()">
-              <span>Account Name: Bryan A.</span>
-              <div class="acc-num">
-                <span>1234-5678-9012</span>
-                <button class="copy-btn" onclick="copyToClipboard('123456789012')" title="Copy Account Number">
-                  <i class="fa-regular fa-copy"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Cebuana -->
-          <div class="qr-box" onclick="openModal('images/Cebuana.png')">
-            <div class="qr-label">Cebuana</div>
-            <div class="qr-image-wrapper">
-              <img src="images/Cebuana.png" alt="Cebuana QR Code" />
-            </div>
-            <div class="acc-details" onclick="event.stopPropagation()">
-              <span>Account Name: Bryan A.</span>
-              <div class="acc-num">
-                <span>9876-5432-1098</span>
-                <button class="copy-btn" onclick="copyToClipboard('987654321098')" title="Copy Account Number">
-                  <i class="fa-regular fa-copy"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- Transparency Section -->
-      <section class="glass-card">
-        <h2 class="section-title">Where Your Support Goes</h2>
-        <div class="impact-grid">
-          <div class="impact-card">
-            <h3><i class="fa-solid fa-server"></i> Hosting & Domains</h3>
-            <p>Sustaining cloud infrastructure, API endpoints, and web domains for online deployment.</p>
-          </div>
-          <div class="impact-card">
-            <h3><i class="fa-solid fa-code"></i> Software & Tools</h3>
-            <p>Funding developer tooling, design asset libraries, and digital services.</p>
-          </div>
-          <div class="impact-card">
-            <h3><i class="fa-solid fa-mug-hot"></i> Coffee & Dedicated Time</h3>
-            <p>Fuels ongoing development sessions, open-source projects, and new feature research.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Wall of Gratitude Section -->
-      <section class="glass-card">
-        <h2 class="section-title">Wall of Gratitude</h2>
-        <div class="supporters-section">
-          <div class="ticker-wrapper" id="supporterTicker">
-            <!-- Dynamically populated entries -->
-          </div>
-        </div>
-      </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer>
-      <div>© 2025–2026 <strong>Accxs Creations</strong>. All rights reserved.</div>
-      <div class="footer-links">
-        <a href="version.html" class="footer-link">v0.0.8</a>
-        <span>·</span>
-        <a href="terms.html" class="footer-link">Terms &amp; Privacy</a>
-      </div>
-    </footer>
-  </div>
-
-  <!-- QR Code Lightbox Modal -->
-  <div class="modal-overlay" id="qrModal">
-    <div class="modal-box">
-      <span class="modal-close" onclick="closeModal()">&times;</span>
-      <img class="modal-content-img" id="modalImage" alt="Expanded Original QR Code">
-    </div>
-  </div>
-
-  <!-- JavaScript logic -->
-  <script>
-    // Navigation Control
-    function toggleMenu() {
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("sidebarOverlay");
-      const isOpen = sidebar.classList.toggle("open");
-      overlay.style.display = isOpen ? "block" : "none";
-    }
-
-    function closeMenu() {
-      document.getElementById("sidebar").classList.remove("open");
-      document.getElementById("sidebarOverlay").style.display = "none";
-    }
-
-    // Clipboard Copy Action
-    function copyToClipboard(text) {
-      navigator.clipboard.writeText(text).then(() => {
-        showToast("Account details copied to clipboard!");
+    // List of 100 Supporters
+    const firstNames = [
+      "Alex", "Mark", "Sophia", "Gabriel", "Liam", "Emma", "Noah", "Olivia", "Ethan", "Ava", 
+      "Mason", "Isabella", "William", "Mia", "James", "Charlotte", "Benjamin", "Amelia", "Lucas", "Harper", 
+      "Daniel", "Evelyn", "Matthew", "Abigail", "Henry", "Emily", "Joseph", "Elizabeth", "Jackson", "Mila", 
+      "Samuel", "Ella", "Sebastian", "Avery", "David", "Sofia", "Carter", "Camila", "Wyatt", "Aria", 
+      "Jayden", "Scarlett", "John", "Victoria", "Owen", "Madison", "Dylan", "Luna", "Luke", "Grace", 
+      "Gabriel", "Chloe", "Anthony", "Penelope", "Isaac", "Layla", "Grayson", "Riley", "Jack", "Zoey", 
+      "Julian", "Nora", "Levi", "Lily", "Christopher", "Eleanor", "Joshua", "Hannah", "Andrew", "Lillian", 
+      "Lincoln", "Addison", "Mateo", "Aubrey", "Ryan", "Ellie", "Jaxon", "Stella", "Nathan", "Natalie", 
+      "Aaron", "Zoe", "Isaiah", "Leah", "Thomas", "Hazel", "Charles", "Violet", "Caleb", "Aurora", 
+      "Christian", "Savannah", "Hunter", "Audrey", "Eli", "Brooklyn", "Ezra", "Bella", "Landon", "Claire"
+    ];
+
+    // Render 100 Supporters inside the Ticker
+    const tickerWrapper = document.getElementById('tickerWrapper');
+    if (tickerWrapper) {
+      firstNames.forEach(name => {
+        const badge = document.createElement('div');
+        badge.className = 'supporter-badge';
+        badge.innerHTML = `<i class="fa-solid fa-heart" style="color: #a78bfa;"></i> ${name}`;
+        tickerWrapper.appendChild(badge);
       });
+      // Duplicate items to guarantee continuous infinite marquee animation
+      tickerWrapper.innerHTML += tickerWrapper.innerHTML;
     }
-
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      toast.innerText = message;
-      toast.style.display = "block";
-      setTimeout(() => {
-        toast.style.display = "none";
-      }, 2500);
-    }
-
-    // Modal Control for Full Size View
-    const modal = document.getElementById('qrModal');
-    const modalImg = document.getElementById('modalImage');
-
-    function openModal(imgSrc) {
-      modal.style.display = 'flex';
-      modalImg.src = imgSrc;
-      document.body.classList.add('modal-open');
-    }
-
-    function closeModal() {
-      modal.style.display = 'none';
-      document.body.classList.remove('modal-open');
-    }
-
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-
-    // Populate 100 Supporters Wall
-    const firstNames = ["Alex", "Jordan", "Taylor", "Chris", "Morgan", "Sam", "Pat", "Riley", "Cameron", "Dakota", "Reese", "Casey", "Skyler", "Jesse", "Jamie", "Avery", "Logan", "Micah", "Elliot", "Rowan"];
-    const lastInitials = ["A.", "B.", "C.", "D.", "E.", "F.", "G.", "H.", "K.", "L.", "M.", "N.", "P.", "R.", "S.", "T.", "W."];
-    const amounts = ["₱50", "₱100", "₱150", "₱200", "₱250", "₱300", "₱500", "₱1,000"];
-
-    function generateSupporters() {
-      const ticker = document.getElementById("supporterTicker");
-      let htmlContent = "";
-
-      for (let i = 0; i < 100; i++) {
-        const name = `${firstNames[Math.floor(Math.random() * firstNames.length)]} ${lastInitials[Math.floor(Math.random() * lastInitials.length)]}`;
-        const amount = amounts[Math.floor(Math.random() * amounts.length)];
-        htmlContent += `<div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> ${name} — ${amount}</div>`;
-      }
-
-      // Duplicate list to achieve continuous loop seamlessly
-      ticker.innerHTML = htmlContent + htmlContent;
-    }
-
-    generateSupporters();
-
-    // Starfield Canvas Animation
-    const starsCanvas = document.getElementById('starsCanvas');
-    const starsCtx = starsCanvas.getContext('2d');
-    let stars = [], meteor = null;
-
-    function resizeStarsCanvas() {
-      starsCanvas.width = window.innerWidth;
-      starsCanvas.height = window.innerHeight;
-      generateStars();
-    }
-
-    function generateStars() {
-      stars = [];
-      const density = Math.floor((starsCanvas.width * starsCanvas.height) / 6000);
-      for (let i = 0; i < density; i++) {
-        stars.push({
-          x: Math.random() * starsCanvas.width,
-          y: Math.random() * starsCanvas.height,
-          alpha: Math.random() * 0.7 + 0.3,
-          radius: Math.random() * 1.2 + 0.4,
-          flickerSpeed: Math.random() * 0.02 + 0.005
-        });
-      }
-    }
-
-    function drawMeteor() {
-      if (!meteor) return;
-      starsCtx.save();
-      const grad = starsCtx.createLinearGradient(meteor.x, meteor.y, meteor.x - meteor.vx * 10, meteor.y - meteor.vy * 10);
-      grad.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
-      grad.addColorStop(1, `rgba(255,255,255,0)`);
-      starsCtx.strokeStyle = grad;
-      starsCtx.lineWidth = 1.5;
-      starsCtx.beginPath();
-      starsCtx.moveTo(meteor.x, meteor.y);
-      starsCtx.lineTo(meteor.x - meteor.vx * 15, meteor.y - meteor.vy * 15);
-      starsCtx.stroke();
-      starsCtx.restore();
-    }
-
-    function animateStars() {
-      starsCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
-      stars.forEach(star => {
-        star.alpha += star.flickerSpeed * (Math.random() < 0.5 ? -1 : 1);
-        star.alpha = Math.min(0.9, Math.max(0.2, star.alpha));
-        starsCtx.beginPath();
-        starsCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        starsCtx.fillStyle = `rgba(255,255,255,${star.alpha})`;
-        starsCtx.fill();
-      });
-
-      if (meteor) {
-        meteor.x += meteor.vx;
-        meteor.y += meteor.vy;
-        meteor.alpha -= 0.012;
-        drawMeteor();
-        if (meteor.alpha <= 0 || meteor.x < -50 || meteor.y > starsCanvas.height + 50) {
-          meteor = null;
-          setTimeout(spawnMeteor, Math.random() * 4000 + 3000);
-        }
-      }
-      requestAnimationFrame(animateStars);
-    }
-
-    function spawnMeteor() {
-      meteor = {
-        x: Math.random() * starsCanvas.width,
-        y: -20,
-        vx: -(Math.random() * 3 + 2),
-        vy: Math.random() * 2 + 2,
-        alpha: 1
-      };
-    }
-
-    window.addEventListener('resize', resizeStarsCanvas);
-    resizeStarsCanvas();
-    animateStars();
-    setTimeout(spawnMeteor, 2000);
-
-    // Ripple Effect
-    const rippleCanvas = document.getElementById('rippleCanvas');
-    const rippleCtx = rippleCanvas.getContext('2d');
-    let ripples = [];
-
-    function resizeRippleCanvas() {
-      rippleCanvas.width = window.innerWidth;
-      rippleCanvas.height = window.innerHeight;
-    }
-
-    window.addEventListener('resize', resizeRippleCanvas);
-    resizeRippleCanvas();
-
-    window.addEventListener('mousemove', (e) => {
-      if (Math.random() > 0.3) return;
-      ripples.push({ x: e.clientX, y: e.clientY, radius: 0, alpha: 0.25 });
-      if (ripples.length > 15) ripples.shift();
-    });
-
-    function animateRipples() {
-      rippleCtx.clearRect(0, 0, rippleCanvas.width, rippleCanvas.height);
-      ripples.forEach((r, i) => {
-        r.radius += 1.2;
-        r.alpha -= 0.008;
-        if (r.alpha <= 0) {
-          ripples.splice(i, 1);
-          return;
-        }
-        rippleCtx.beginPath();
-        rippleCtx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-        rippleCtx.strokeStyle = `rgba(167, 139, 250, ${r.alpha})`;
-        rippleCtx.lineWidth = 1;
-        rippleCtx.stroke();
-      });
-      requestAnimationFrame(animateRipples);
-    }
-    animateRipples();
   </script>
 </body>
 </html>
