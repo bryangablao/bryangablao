@@ -130,13 +130,14 @@
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.75rem;
     }
 
     .desktop-nav {
       display: flex;
       gap: 1.5rem;
       align-items: center;
+      margin-left: 0.5rem;
     }
 
     .desktop-nav a {
@@ -161,12 +162,12 @@
       border-radius: 2px;
     }
 
-    /* Fixed size for Hire Me and Donate buttons */
+    /* Equal Sized Action Buttons */
     .btn-action {
       background: rgba(255, 255, 255, 0.08);
       color: var(--text-main);
       border: 1px solid var(--glass-border);
-      padding: 0.4rem 0.9rem;
+      padding: 0.4rem 0.8rem;
       border-radius: 8px;
       font-size: 0.85rem;
       font-weight: 600;
@@ -178,7 +179,10 @@
       justify-content: center;
       gap: 0.4rem;
       white-space: nowrap;
-      width: 110px;
+      min-width: 110px;
+      height: 38px;
+      box-sizing: border-box;
+      flex: 1;
     }
 
     .btn-action:hover {
@@ -297,7 +301,7 @@
       margin-bottom: 2rem;
     }
 
-    /* ---------- NEW Interactive Showcase Features Bar ---------- */
+    /* Interactive Showcase Features Bar */
     .showcase-features-container {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -629,7 +633,6 @@
       margin-bottom: 0.4rem;
     }
 
-    /* Dynamic Project Modal Specifics */
     .modal-project-img {
       width: 100%;
       max-height: 220px;
@@ -639,7 +642,6 @@
       margin-bottom: 1.25rem;
     }
 
-    /* Body State When Modal Active */
     body.modal-open #blur-container { filter: blur(6px); }
     body.modal-open { overflow: hidden; }
 
@@ -671,7 +673,7 @@
       color: var(--text-main);
     }
 
-    /* ---------- Responsive Breakpoints & Screen Fixes ---------- */
+    /* ---------- Responsive Breakpoints & Mobile Screen Fixes ---------- */
     @media (max-width: 900px) {
       .showcase-features-container {
         grid-template-columns: 1fr;
@@ -687,11 +689,26 @@
       .filter-buttons { width: 100%; justify-content: flex-start; }
     }
 
-    @media (max-width: 500px) {
+    @media (max-width: 580px) {
       header {
-        padding: 0.8rem 1rem;
+        flex-wrap: wrap;
+        padding: 0.75rem 1rem;
+        gap: 0.75rem;
       }
-      
+
+      .nav-actions {
+        width: 100%;
+        justify-content: space-between;
+        order: 2;
+      }
+
+      .btn-action {
+        min-width: unset;
+        width: 48%;
+        font-size: 0.8rem;
+        padding: 0.35rem 0.5rem;
+      }
+
       .glass-card {
         padding: 1.25rem;
       }
@@ -702,12 +719,6 @@
 
       .projects-grid {
         grid-template-columns: 1fr;
-      }
-
-      .btn-action {
-        padding: 0.35rem 0.6rem;
-        font-size: 0.8rem;
-        width: 100px;
       }
     }
   </style>
@@ -726,7 +737,7 @@
     <div class="nav-brand">Bryan G. Ablao</div>
     
     <div class="nav-actions">
-      <!-- Repositioned Hire Me and Donate buttons before About (navigation links) -->
+      <!-- Equal Sized Action Buttons -->
       <button id="hireBtn" class="btn-action"><i class="fa-solid fa-briefcase"></i> Hire Me</button>
       <a href="Donate.html" class="btn-action"><i class="fa-solid fa-heart"></i> Donate</a>
 
