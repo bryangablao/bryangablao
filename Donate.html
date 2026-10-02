@@ -238,42 +238,6 @@
       font-size: 0.85rem;
     }
 
-    /* Preset Donation Amounts Selector */
-    .tier-container {
-      margin-bottom: 2rem;
-    }
-
-    .tier-label {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      margin-bottom: 0.75rem;
-      display: block;
-    }
-
-    .tier-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-
-    .tier-btn {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      padding: 0.6rem 1.25rem;
-      border-radius: var(--radius-md);
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition-smooth);
-    }
-
-    .tier-btn:hover, .tier-btn.active {
-      background: var(--accent-purple);
-      border-color: rgba(167, 139, 250, 0.6);
-      box-shadow: 0 4px 15px rgba(109, 40, 217, 0.4);
-    }
-
     /* QR Grid */
     .qr-grid {
       display: grid;
@@ -317,18 +281,23 @@
       word-break: break-all;
     }
 
+    /* Fixed uniform display sizing for all QR/payment images */
     .qr-box img {
-      width: 100%;
-      max-width: 180px;
+      width: 160px;
+      height: 160px;
+      object-fit: contain;
+      background: rgba(255, 255, 255, 0.03);
       border-radius: var(--radius-md);
       cursor: pointer;
       border: 1px solid var(--glass-border);
       transition: var(--transition-smooth);
       margin-bottom: 1rem;
+      padding: 6px;
     }
 
     .qr-box img:hover {
       opacity: 0.9;
+      border-color: rgba(167, 139, 250, 0.6);
     }
 
     .copy-btn {
@@ -448,8 +417,6 @@
       .glass-card { padding: 1.25rem; }
       .section-title { font-size: 1.4rem; }
       .qr-grid { grid-template-columns: 1fr; }
-      .tier-buttons { justify-content: center; }
-      .tier-btn { flex: 1; min-width: 70px; text-align: center; padding: 0.5rem; font-size: 0.85rem; }
     }
   </style>
 </head>
@@ -511,17 +478,6 @@
           </div>
         </div>
 
-        <!-- Optional Preset Amounts -->
-        <div class="tier-container">
-          <span class="tier-label">Select Suggested Support Tier:</span>
-          <div class="tier-buttons">
-            <button class="tier-btn" onclick="selectTier(this, '$5')">$5 / Coffee</button>
-            <button class="tier-btn" onclick="selectTier(this, '$10')">$10 / Tooling</button>
-            <button class="tier-btn" onclick="selectTier(this, '$25')">$25 / Server Hour</button>
-            <button class="tier-btn active" onclick="selectTier(this, 'Custom')">Custom</button>
-          </div>
-        </div>
-
         <!-- QR Codes Grid -->
         <div class="qr-grid">
           <div class="qr-box">
@@ -560,7 +516,7 @@
     <footer>
       <div>© 2025–2026 <strong>Accxs Creations</strong>. All rights reserved.</div>
       <div class="footer-links">
-        <a href="version.html" class="footer-link">v0.1.0</a>
+        <a href="version.html" class="footer-link">v0.1.1</a>
         <span>·</span>
         <a href="terms.html" class="footer-link">Terms &amp; Privacy</a>
       </div>
@@ -590,12 +546,6 @@
       document.getElementById("sidebarOverlay").style.display = "none";
     }
 
-    // Tier Selector Logic
-    function selectTier(btn, tier) {
-      document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    }
-
     // Copy Feedback Helper
     function copyInfo(text) {
       navigator.clipboard.writeText(text).then(() => {
@@ -613,7 +563,7 @@
     qrImages.forEach(img => {
       img.addEventListener('click', () => {
         modal.style.display = 'flex';
-        modalImg.src = img.src;
+        modalImg.src = img.src; // Uses the original image source directly in original dimensions inside the modal
         document.body.classList.add('modal-open');
       });
     });
