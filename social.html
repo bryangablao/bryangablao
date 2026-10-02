@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="images/Gallery/MainLogo.png">
-  <title>Work Experience | Bryan G. Ablao</title>
+  <title>Social Media | Bryan G. Ablao</title>
   
   <!-- Modern Typography & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -223,14 +223,42 @@
       transform: translateY(0);
     }
 
-    /* Page Hero Header */
-    .hero-header {
-      text-align: center;
-      max-width: 750px;
-      margin: 0 auto 1rem;
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
     }
 
-    .hero-header h1 {
+    .section-title i {
+      color: #a78bfa;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--glass-border);
+    }
+
+    .description {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto 2rem auto;
+      text-align: center;
+    }
+
+    /* Hero Header Center */
+    .hero-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .hero-header h2 {
       font-size: 2.5rem;
       font-weight: 800;
       margin-bottom: 0.5rem;
@@ -239,17 +267,12 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .hero-header p {
-      color: var(--text-muted);
-      font-size: 1.05rem;
-    }
-
-    /* Stats Counter Bar */
+    /* Stats Quick-Bar */
     .stats-container {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
-      margin-top: 1.5rem;
+      margin-bottom: 2rem;
       padding: 1.25rem;
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--glass-border);
@@ -270,249 +293,240 @@
       letter-spacing: 0.05em;
     }
 
-    /* Section Titles */
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      letter-spacing: -0.01em;
+    /* Search & Filter Controls */
+    .filter-wrapper {
       display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
-
-    .section-title i { color: #a78bfa; }
-
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--glass-border);
-    }
-
-    /* Interactive Filters */
-    .filter-bar {
-      display: flex;
-      justify-content: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 1rem;
       margin-bottom: 2rem;
+      align-items: center;
+    }
+
+    .search-box {
+      position: relative;
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.8rem 1rem 0.8rem 2.8rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition-smooth);
+    }
+
+    .search-box input:focus {
+      border-color: #a78bfa;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 15px rgba(109, 40, 217, 0.3);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
     }
 
     .filter-btn {
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.03);
       border: 1px solid var(--glass-border);
       color: var(--text-muted);
-      padding: 0.5rem 1.25rem;
-      border-radius: 30px;
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
       font-size: 0.85rem;
-      font-weight: 500;
       cursor: pointer;
       transition: var(--transition-smooth);
     }
 
     .filter-btn:hover, .filter-btn.active {
-      background: var(--accent-purple);
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
       color: #fff;
-      border-color: var(--accent-purple);
-      box-shadow: 0 0 15px var(--accent-purple-glow);
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(109, 40, 217, 0.4);
     }
 
-    /* Interactive Work Experience Cards & Timeline */
-    .experience-list {
-      display: flex;
-      flex-direction: column;
+    /* Enhanced Interactive Social Grid */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
       gap: 1.5rem;
+      justify-content: center;
     }
 
-    .work-card {
+    .social-card-item {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-md);
-      padding: 1.75rem;
-      transition: var(--transition-smooth);
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-    }
-
-    .work-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: linear-gradient(180deg, var(--accent-purple), var(--accent-blue));
-      opacity: 0.7;
-      transition: var(--transition-smooth);
-    }
-
-    .work-card:hover {
-      transform: translateY(-4px);
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(167, 139, 250, 0.4);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
-    }
-
-    .work-card:hover::before { width: 6px; opacity: 1; }
-
-    .work-card-header {
+      padding: 1.5rem 1.25rem;
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 1rem;
-      flex-wrap: wrap;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .social-card-item:hover {
+      transform: translateY(-8px) scale(1.02);
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(167, 139, 250, 0.5);
+      box-shadow: 0 12px 24px rgba(109, 40, 217, 0.25);
+    }
+
+    .social-icon-wrapper {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      transition: var(--transition-smooth);
+    }
+
+    .social-card-item:hover .social-icon-wrapper {
+      transform: scale(1.1) rotate(5deg);
+      border-color: #a78bfa;
+      background: rgba(109, 40, 217, 0.2);
+    }
+
+    .social-icon-wrapper img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+
+    .social-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+    }
+
+    .social-handle {
+      font-size: 0.8rem;
+      color: #a78bfa;
+      font-weight: 500;
       margin-bottom: 0.75rem;
     }
 
-    .role-title {
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-
-    .company-name {
-      font-size: 0.95rem;
-      color: #a78bfa;
-      font-weight: 500;
+    .social-action-btns {
       display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .badge-date {
-      background: rgba(109, 40, 217, 0.2);
-      border: 1px solid rgba(167, 139, 250, 0.3);
-      color: #c4b5fd;
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .work-description {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      margin-bottom: 1rem;
-    }
-
-    .bullets-list {
-      list-style: none;
-      margin-bottom: 1.25rem;
-    }
-
-    .bullets-list li {
-      font-size: 0.875rem;
-      color: var(--text-muted);
-      margin-bottom: 0.4rem;
-      padding-left: 1.25rem;
-      position: relative;
-    }
-
-    .bullets-list li::before {
-      content: '▹';
-      position: absolute;
-      left: 0;
-      color: #a78bfa;
-      font-weight: bold;
-    }
-
-    /* Tech Stack Badges */
-    .tech-tags {
-      display: flex;
-      flex-wrap: wrap;
       gap: 0.5rem;
-      margin-top: 1rem;
-    }
-
-    .tech-tag {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      padding: 0.2rem 0.6rem;
-      border-radius: 6px;
-      font-size: 0.75rem;
-      font-weight: 500;
-    }
-
-    .card-action-bar {
-      margin-top: 1rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid var(--glass-border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.8rem;
-      color: #a78bfa;
-      font-weight: 500;
-    }
-
-    /* Skills Grid Matrix */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .skill-item {
-      background: rgba(255, 255, 255, 0.02);
-      padding: 1rem 1.25rem;
-      border-radius: var(--radius-md);
-      border: 1px solid var(--glass-border);
-    }
-
-    .skill-info {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    .skill-bar {
       width: 100%;
-      height: 8px;
-      background: rgba(255, 255, 255, 0.08);
-      border-radius: 4px;
-      overflow: hidden;
+      margin-top: auto;
     }
 
-    .skill-progress {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
-      border-radius: 4px;
-      transition: width 1.5s cubic-bezier(0.1, 0.42, 0.41, 0.99);
-    }
-
-    /* Call-To-Action Banner */
-    .action-cta-card {
-      text-align: center;
-      background: linear-gradient(135deg, rgba(109, 40, 217, 0.15), rgba(59, 130, 246, 0.15));
-      border: 1px solid rgba(167, 139, 250, 0.3);
-    }
-
-    .btn-primary {
+    .btn-action {
+      flex: 1;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 6px;
+      border: 1px solid var(--glass-border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
+      cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
-      color: #fff;
-      padding: 0.85rem 1.75rem;
-      border-radius: 30px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 20px var(--accent-purple-glow);
+      justify-content: center;
+      gap: 4px;
       transition: var(--transition-smooth);
     }
 
-    .btn-primary:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 8px 25px rgba(109, 40, 217, 0.6);
+    .btn-action:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary-action {
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+      border: none;
+    }
+
+    .btn-primary-action:hover {
+      opacity: 0.9;
+      box-shadow: 0 4px 10px rgba(109, 40, 217, 0.4);
+    }
+
+    /* Direct Contact Section */
+    .contact-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition-smooth);
+    }
+
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+      border-color: #a78bfa;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .form-group select option {
+      background: #11131f;
+      color: var(--text-main);
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 0.8rem;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+      border: none;
+      border-radius: var(--radius-md);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(109, 40, 217, 0.5);
     }
 
     /* ---------- Modals ---------- */
@@ -536,12 +550,13 @@
       border: 1px solid var(--glass-border);
       padding: 2rem;
       border-radius: var(--radius-lg);
-      max-width: 600px;
+      max-width: 480px;
       width: 100%;
       color: var(--text-main);
       position: relative;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
       animation: modalFade 0.25s ease-out;
+      text-align: center;
     }
 
     @keyframes modalFade {
@@ -561,23 +576,79 @@
 
     .modal-close:hover { color: var(--text-main); }
 
-    .modal-box h3 {
-      font-size: 1.4rem;
-      margin-bottom: 0.25rem;
+    .modal-social-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: contain;
+      margin: 0 auto 1rem;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid var(--accent-purple);
     }
 
-    .modal-sub-title {
+    .modal-box h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .modal-box .modal-handle-tag {
       color: #a78bfa;
-      font-size: 0.95rem;
-      font-weight: 600;
+      font-size: 0.9rem;
+      font-weight: 500;
       margin-bottom: 1rem;
+      display: inline-block;
     }
 
     .modal-box p {
       color: var(--text-muted);
       font-size: 0.9rem;
       line-height: 1.6;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-qr-placeholder {
+      background: rgba(255,255,255,0.03);
+      border: 1px dashed var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .modal-qr-placeholder i {
+      font-size: 3rem;
+      color: #a78bfa;
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      color: white;
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 3000;
+      pointer-events: none;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* Body State When Modal Active */
@@ -603,21 +674,21 @@
       margin-top: 0.5rem;
     }
 
-    .footer-link { color: var(--text-muted); }
-    .footer-link:hover { color: var(--text-main); }
+    .footer-link {
+      color: var(--text-muted);
+    }
+
+    .footer-link:hover {
+      color: var(--text-main);
+    }
 
     /* ---------- Responsive Breakpoints ---------- */
     @media (max-width: 850px) {
       .desktop-nav { display: none; }
       .hamburger { display: block; }
-      .stats-container { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
-      .hero-header h1 { font-size: 2rem; }
-    }
-
-    @media (max-width: 480px) {
       .stats-container { grid-template-columns: 1fr; }
-      .work-card-header { flex-direction: column; gap: 0.5rem; }
-      .glass-card { padding: 1.5rem 1.25rem; }
+      .contact-form-grid { grid-template-columns: 1fr; }
+      .social-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
     }
   </style>
 </head>
@@ -634,11 +705,11 @@
     <div class="nav-brand">Bryan G. Ablao</div>
     <nav class="desktop-nav">
       <a href="index.html">About</a>
-      <a href="work.html" class="active">Experience</a>
+      <a href="work.html">Experience</a>
       <a href="projects.html">Projects</a>
       <a href="achievement.html">Achievements</a>
       <a href="gallery.html">Gallery</a>
-      <a href="social.html">Socials</a>
+      <a href="social.html" class="active">Socials</a>
     </nav>
     <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Navigation">☰</div>
   </header>
@@ -662,187 +733,185 @@
   <div id="blur-container">
     <main>
       
-      <!-- Hero Header & High Impact Statistics -->
+      <!-- Hero Intro & Stats Card -->
       <section class="glass-card">
         <div class="hero-header">
-          <h1>Work Experience & Professional Career</h1>
-          <p>
-            A timeline of roles, key achievements, and digital solutions delivered across front-end engineering, UI/UX creation, and collaborative leadership.
+          <h2>Connect & Collaborate</h2>
+          <p class="description">
+            Explore my digital presence across platforms. Follow, send a direct message, or copy handles with a single tap.
           </p>
         </div>
 
+        <!-- Animated Stats Counter Bar -->
         <div class="stats-container">
           <div class="stat-box">
-            <h3 class="counter" data-target="3">0</h3>
-            <p>Years Experience</p>
-          </div>
-          <div class="stat-box">
-            <h3 class="counter" data-target="15">0</h3>
-            <p>Projects Shipped</p>
-          </div>
-          <div class="stat-box">
             <h3 class="counter" data-target="8">0</h3>
-            <p>Clients & Partners</p>
+            <p>Active Platforms</p>
+          </div>
+          <div class="stat-box">
+            <h3 class="counter" data-target="24">0</h3>
+            <p>Hours Avg. Response</p>
           </div>
           <div class="stat-box">
             <h3 class="counter" data-target="100">0</h3>
-            <p>% Success Rate</p>
+            <p>% Connected</p>
           </div>
+        </div>
+
+        <!-- Filter & Search Bar -->
+        <div class="filter-wrapper">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="socialSearch" placeholder="Search platform or handle..." onkeyup="filterSocials()">
+          </div>
+          <div class="filter-tabs">
+            <button class="filter-btn active" onclick="setCategory('all', this)">All</button>
+            <button class="filter-btn" onclick="setCategory('pro', this)">Professional</button>
+            <button class="filter-btn" onclick="setCategory('video', this)">Video & Content</button>
+            <button class="filter-btn" onclick="setCategory('messaging', this)">Messaging</button>
+            <button class="filter-btn" onclick="setCategory('community', this)">Community</button>
+          </div>
+        </div>
+
+        <!-- Social Channels Grid -->
+        <div class="social-grid" id="socialGrid">
+
+          <!-- LinkedIn -->
+          <div class="social-card-item" data-category="pro" data-name="linkedin" data-handle="@bryan-ablao">
+            <div class="social-icon-wrapper" onclick="openSocialModal('LinkedIn', '@bryan-ablao', 'images/linkedin.png', 'https://www.linkedin.com/in/bryan-ablao-636497189/', 'Connect with me for professional updates, project collaborations, and career networking.')">
+              <img src="images/linkedin.png" alt="LinkedIn">
+            </div>
+            <div class="social-name">LinkedIn</div>
+            <div class="social-handle">@bryan-ablao</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('@bryan-ablao', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.linkedin.com/in/bryan-ablao-636497189/" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+          <!-- YouTube -->
+          <div class="social-card-item" data-category="video" data-name="youtube" data-handle="@bryvngtz">
+            <div class="social-icon-wrapper" onclick="openSocialModal('YouTube', '@bryvngtz', 'images/youtube.png', 'https://www.youtube.com/@bryvngtz', 'Subscribe to watch my latest video contents, creative edits, and tech showcases.')">
+              <img src="images/youtube.png" alt="YouTube">
+            </div>
+            <div class="social-name">YouTube</div>
+            <div class="social-handle">@bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('@bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.youtube.com/@bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+          <!-- TikTok -->
+          <div class="social-card-item" data-category="video" data-name="tiktok" data-handle="@bryvngtz">
+            <div class="social-icon-wrapper" onclick="openSocialModal('TikTok', '@bryvngtz', 'images/tik-tok.png', 'https://www.tiktok.com/@bryvngtz', 'Follow my short videos, creative highlights, and daily updates on TikTok.')">
+              <img src="images/tik-tok.png" alt="TikTok">
+            </div>
+            <div class="social-name">TikTok</div>
+            <div class="social-handle">@bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('@bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.tiktok.com/@bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+          <!-- Instagram -->
+          <div class="social-card-item" data-category="community" data-name="instagram" data-handle="@bryvngtz">
+            <div class="social-icon-wrapper" onclick="openSocialModal('Instagram', '@bryvngtz', 'images/instagram.png', 'https://www.instagram.com/bryvngtz/#', 'Check out my creative photography, stories, and personal milestones.')">
+              <img src="images/instagram.png" alt="Instagram">
+            </div>
+            <div class="social-name">Instagram</div>
+            <div class="social-handle">@bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('@bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.instagram.com/bryvngtz/#" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+          <!-- Telegram -->
+          <div class="social-card-item" data-category="messaging" data-name="telegram" data-handle="@bryvngtz">
+            <div class="social-icon-wrapper" onclick="openSocialModal('Telegram', '@bryvngtz', 'images/telegram.png', 'https://t.me/bryvngtz', 'Send me direct instant messages for quick queries or project inquiries on Telegram.')">
+              <img src="images/telegram.png" alt="Telegram">
+            </div>
+            <div class="social-name">Telegram</div>
+            <div class="social-handle">@bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('@bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://t.me/bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+          <!-- Discord -->
+          <div class="social-card-item" data-category="community" data-name="discord" data-handle="bryvngtz">
+            <div class="social-icon-wrapper" onclick="openSocialModal('Discord', 'bryvngtz', 'images/discord.png', 'https://discord.com/channels/bryvngtz', 'Add me on Discord for tech discussions, gaming, and real-time voice calls.')">
+              <img src="images/discord.png" alt="Discord">
+            </div>
+            <div class="social-name">Discord</div>
+            <div class="social-handle">bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('bryvngtz', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://discord.com/channels/bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+          <!-- Snapchat -->
+          <div class="social-card-item" data-category="community" data-name="snapchat" data-handle="@bryan_ablao20">
+            <div class="social-icon-wrapper" onclick="openSocialModal('Snapchat', '@bryan_ablao20', 'images/snapchat.png', 'https://www.snapchat.com/@bryan_ablao20', 'Add me on Snapchat to stay in touch through everyday snapshots.')">
+              <img src="images/snapchat.png" alt="Snapchat">
+            </div>
+            <div class="social-name">Snapchat</div>
+            <div class="social-handle">@bryan_ablao20</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('@bryan_ablao20', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.snapchat.com/@bryan_ablao20" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
+          <!-- Facebook -->
+          <div class="social-card-item" data-category="pro" data-name="facebook" data-handle="Bryan G. Ablao">
+            <div class="social-icon-wrapper" onclick="openSocialModal('Facebook', 'Bryan G. Ablao', 'images/facebook.png', 'https://www.facebook.com/profile.php?id=61578207118456#', 'Connect with my official personal page on Facebook.')">
+              <img src="images/facebook.png" alt="Facebook">
+            </div>
+            <div class="social-name">Facebook</div>
+            <div class="social-handle">Bryan G. Ablao</div>
+            <div class="social-action-btns">
+              <button class="btn-action" onclick="copyHandle('Bryan G. Ablao', event)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.facebook.com/profile.php?id=61578207118456#" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- Work Experience Showcase with Interactive Filters -->
+      <!-- Quick Quick Message / Contact Form -->
       <section class="glass-card">
-        <h3 class="section-title"><i class="fa-solid fa-briefcase"></i> Career Milestones</h3>
-
-        <!-- Interactive Category Filters -->
-        <div class="filter-bar">
-          <button class="filter-btn active" onclick="filterExperience('all')">All Roles</button>
-          <button class="filter-btn" onclick="filterExperience('dev')">Development</button>
-          <button class="filter-btn" onclick="filterExperience('design')">Design & UI/UX</button>
-          <button class="filter-btn" onclick="filterExperience('lead')">Leadership</button>
-        </div>
-
-        <!-- Experience Cards -->
-        <div class="experience-list">
-          
-          <!-- Experience Item 1 -->
-          <div class="work-card" data-category="dev lead" onclick="openModal('modalAccxs')">
-            <div class="work-card-header">
-              <div>
-                <div class="role-title">Lead Developer & Creative Director</div>
-                <div class="company-name"><i class="fa-solid fa-building"></i> Accxs Creations</div>
-              </div>
-              <span class="badge-date">2025 – Present</span>
-            </div>
-            <p class="work-description">
-              Leading digital creation initiatives, overseeing full-stack front-end user experience, brand identity, and client web solutions.
-            </p>
-            <ul class="bullets-list">
-              <li>Architected and developed modern responsive web portals with high accessibility and sleek glassmorphic themes.</li>
-              <li>Collaborated directly with stakeholders to transform strategic concepts into interactive web tools.</li>
-              <li>Engineered custom canvas animations, UI micro-interactions, and modular CSS systems.</li>
-            </ul>
-            <div class="tech-tags">
-              <span class="tech-tag">HTML5 / CSS3</span>
-              <span class="tech-tag">JavaScript (ES6+)</span>
-              <span class="tech-tag">UI/UX Strategy</span>
-              <span class="tech-tag">Canvas Animation</span>
-            </div>
-            <div class="card-action-bar">
-              <span><i class="fa-solid fa-circle-info"></i> Click to view project impact & details</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </div>
-          </div>
-
-          <!-- Experience Item 2 -->
-          <div class="work-card" data-category="dev design" onclick="openModal('modalFrontend')">
-            <div class="work-card-header">
-              <div>
-                <div class="role-title">Front-End Developer & UI Specialist</div>
-                <div class="company-name"><i class="fa-solid fa-code"></i> Freelance & Client Projects</div>
-              </div>
-              <span class="badge-date">2023 – 2024</span>
-            </div>
-            <p class="work-description">
-              Crafted tailored interactive applications and client portfolios focused on responsive layout performance and seamless aesthetic integration.
-            </p>
-            <ul class="bullets-list">
-              <li>Optimized interface rendering performance across mobile, tablet, and ultra-wide monitor displays.</li>
-              <li>Built clean component architectures ensuring maintainable, modular codebase standards.</li>
-              <li>Implemented smooth interactive UI components, popups, dynamic filters, and light/dark theme models.</li>
-            </ul>
-            <div class="tech-tags">
-              <span class="tech-tag">Responsive Design</span>
-              <span class="tech-tag">CSS Flex/Grid</span>
-              <span class="tech-tag">DOM Manipulation</span>
-              <span class="tech-tag">Optimization</span>
-            </div>
-            <div class="card-action-bar">
-              <span><i class="fa-solid fa-circle-info"></i> Click to view client deliverables</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </div>
-          </div>
-
-          <!-- Experience Item 3 -->
-          <div class="work-card" data-category="design lead" onclick="openModal('modalDesign')">
-            <div class="work-card-header">
-              <div>
-                <div class="role-title">UI/UX & Brand Design Associate</div>
-                <div class="company-name"><i class="fa-solid fa-palette"></i> Creative Media Initiatives</div>
-              </div>
-              <span class="badge-date">2022 – 2023</span>
-            </div>
-            <p class="work-description">
-              Designed user journey flows, wireframes, visual media assets, and social media branding for local clients and organizations.
-            </p>
-            <ul class="bullets-list">
-              <li>Created end-to-end visual identity guidelines, logo graphics, and promotional web assets.</li>
-              <li>Conducted usability reviews to streamline user pathways and decrease interface friction.</li>
-            </ul>
-            <div class="tech-tags">
-              <span class="tech-tag">Figma Wireframing</span>
-              <span class="tech-tag">Visual Identity</span>
-              <span class="tech-tag">User Journey</span>
-            </div>
-            <div class="card-action-bar">
-              <span><i class="fa-solid fa-circle-info"></i> Click to view design case studies</span>
-              <i class="fa-solid fa-arrow-right"></i>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- Technical & Professional Capabilities Matrix -->
-      <section class="glass-card">
-        <h3 class="section-title"><i class="fa-solid fa-gears"></i> Technical & Domain Capabilities</h3>
-        <div class="skills-grid">
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>Front-End Engineering (HTML/CSS/JS)</span>
-              <span>90%</span>
-            </div>
-            <div class="skill-bar"><div class="skill-progress" data-progress="90%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>Mobile-First & Responsive Layouts</span>
-              <span>95%</span>
-            </div>
-            <div class="skill-bar"><div class="skill-progress" data-progress="95%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>UI/UX Interface & Prototyping</span>
-              <span>85%</span>
-            </div>
-            <div class="skill-bar"><div class="skill-progress" data-progress="85%"></div></div>
-          </div>
-          <div class="skill-item">
-            <div class="skill-info">
-              <span>Performance & Asset Optimization</span>
-              <span>88%</span>
-            </div>
-            <div class="skill-bar"><div class="skill-progress" data-progress="88%"></div></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Action & Resume Download Section -->
-      <section class="glass-card action-cta-card">
-        <h3 style="font-size: 1.6rem; margin-bottom: 0.5rem; color: #fff;">Looking for a Dedicated Specialist?</h3>
-        <p style="color: var(--text-muted); max-width: 600px; margin: 0 auto 1.5rem;">
-          I am always open to discussing new projects, web innovations, creative visual work, and collaborative partnerships.
+        <h3 class="section-title"><i class="fa-solid fa-paper-plane"></i> Quick Message</h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
+          Prefer direct messaging? Send a prompt inquiry and select your preferred social channel response.
         </p>
-        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
-          <button class="btn-primary" onclick="alert('CV Download initiated!')">
-            <i class="fa-solid fa-file-arrow-down"></i> Download Resume / CV
-          </button>
-          <a href="mailto:ablaobryan4400@gmail.com" class="btn-primary" style="background: rgba(255,255,255,0.08); border: 1px solid var(--glass-border);">
-            <i class="fa-solid fa-paper-plane"></i> Send Direct Message
-          </a>
-        </div>
+
+        <form onsubmit="handleQuickMessage(event)">
+          <div class="contact-form-grid">
+            <div class="form-group">
+              <label for="senderName"><i class="fa-solid fa-user"></i> Your Name</label>
+              <input type="text" id="senderName" placeholder="John Doe" required>
+            </div>
+            <div class="form-group">
+              <label for="preferredPlatform"><i class="fa-solid fa-share-nodes"></i> Preferred Response Via</label>
+              <select id="preferredPlatform">
+                <option value="Telegram">Telegram (@bryvngtz)</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="Email">Email Direct</option>
+                <option value="Instagram">Instagram</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="messageBody"><i class="fa-solid fa-comment-dots"></i> Message or Proposal</label>
+            <textarea id="messageBody" rows="4" placeholder="Hi Bryan, I'd like to collaborate on..." required></textarea>
+          </div>
+          <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Direct Message</button>
+        </form>
       </section>
 
     </main>
@@ -858,79 +927,45 @@
     </footer>
   </div>
 
-  <!-- ---------- Modals ---------- -->
-
-  <!-- Modal Accxs -->
-  <div class="modal-overlay" id="modalAccxs">
+  <!-- Social Detail Modal -->
+  <div class="modal-overlay" id="socialModal">
     <div class="modal-box">
-      <span class="modal-close" onclick="closeModal('modalAccxs')">&times;</span>
-      <h3>Accxs Creations — Role Details</h3>
-      <div class="modal-sub-title">Lead Developer & Creative Director (2025 – Present)</div>
-      <p>
-        In this role, I direct overall technical vision and design direction. I build immersive web platforms equipped with glassmorphic aesthetic interfaces, dark theme canvas backgrounds, interactive dynamic elements, and responsive cross-browser layouts.
-      </p>
-      <div class="tech-tags" style="margin-bottom: 1.25rem;">
-        <span class="tech-tag">Full Frontend Architecture</span>
-        <span class="tech-tag">User Flow Optimization</span>
-        <span class="tech-tag">Interactive Design</span>
+      <span class="modal-close" onclick="closeSocialModal()">&times;</span>
+      <img id="modalIcon" src="" alt="" class="modal-social-img">
+      <h3 id="modalTitle">Platform</h3>
+      <span id="modalHandle" class="modal-handle-tag">@handle</span>
+      <p id="modalDescription">Description goes here...</p>
+
+      <div class="modal-qr-placeholder">
+        <i class="fa-solid fa-qrcode"></i>
+        <span style="font-size: 0.8rem; color: var(--text-muted);">Instant Scan Link Active</span>
+      </div>
+
+      <div style="display: flex; gap: 0.75rem;">
+        <button class="btn-action" style="padding: 0.75rem;" onclick="copyModalHandle()"><i class="fa-regular fa-copy"></i> Copy Handle</button>
+        <a id="modalLink" href="#" target="_blank" rel="noopener" class="submit-btn" style="text-decoration:none;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Platform</a>
       </div>
     </div>
   </div>
 
-  <!-- Modal Frontend -->
-  <div class="modal-overlay" id="modalFrontend">
-    <div class="modal-box">
-      <span class="modal-close" onclick="closeModal('modalFrontend')">&times;</span>
-      <h3>Freelance Projects — Role Details</h3>
-      <div class="modal-sub-title">Front-End Developer & UI Specialist (2023 – 2024)</div>
-      <p>
-        Delivered customized websites for diverse clients, focusing on fluid animations, high performance, and total screen responsiveness across mobile, tablet, and desktop devices.
-      </p>
-      <div class="tech-tags" style="margin-bottom: 1.25rem;">
-        <span class="tech-tag">Custom CSS Animations</span>
-        <span class="tech-tag">Vanilla JavaScript</span>
-        <span class="tech-tag">Cross-Browser Testing</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- Modal Design -->
-  <div class="modal-overlay" id="modalDesign">
-    <div class="modal-box">
-      <span class="modal-close" onclick="closeModal('modalDesign')">&times;</span>
-      <h3>Creative Media — Role Details</h3>
-      <div class="modal-sub-title">UI/UX & Brand Design Associate (2022 – 2023)</div>
-      <p>
-        Specialized in converting user needs into interactive mockups, brand toolkits, visual assets, and high-converting web layouts.
-      </p>
-      <div class="tech-tags" style="margin-bottom: 1.25rem;">
-        <span class="tech-tag">Figma</span>
-        <span class="tech-tag">Brand Systems</span>
-        <span class="tech-tag">Asset Production</span>
-      </div>
-    </div>
-  </div>
+  <!-- Toast Notification -->
+  <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toastMsg">Handle copied to clipboard!</span></div>
 
   <!-- Scripts -->
   <script>
-    // Intersection Observer for Reveal Animations & Animated Bars
+    // Intersection Observer for Card Animations & Counters
     const cards = document.querySelectorAll('.glass-card');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('visible');
-          
-          // Animate Skill Progress Bars
-          entry.target.querySelectorAll('.skill-progress').forEach(bar => {
-            bar.style.width = bar.getAttribute('data-progress');
-          });
 
-          // Animate Stats Counter
+          // Animate Counter Stats
           entry.target.querySelectorAll('.counter').forEach(counter => {
             const target = +counter.getAttribute('data-target');
             let count = 0;
             const updateCount = () => {
-              const increment = target / 40;
+              const increment = target / 30;
               if (count < target) {
                 count += increment;
                 counter.innerText = Math.ceil(count) + (target === 100 ? '%' : '+');
@@ -947,26 +982,6 @@
 
     cards.forEach(card => observer.observe(card));
 
-    // Interactive Experience Filtering
-    function filterExperience(category) {
-      const buttons = document.querySelectorAll('.filter-btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-
-      const cards = document.querySelectorAll('.work-card');
-      cards.forEach(card => {
-        const categories = card.getAttribute('data-category');
-        if (category === 'all' || categories.includes(category)) {
-          card.style.display = 'block';
-          setTimeout(() => { card.style.opacity = '1'; card.style.transform = 'translateY(0)'; }, 50);
-        } else {
-          card.style.opacity = '0';
-          card.style.transform = 'translateY(10px)';
-          setTimeout(() => { card.style.display = 'none'; }, 200);
-        }
-      });
-    }
-
     // Navigation Control
     function toggleMenu() {
       const sidebar = document.getElementById("sidebar");
@@ -980,24 +995,103 @@
       document.getElementById("sidebarOverlay").style.display = "none";
     }
 
-    // Modal Control
-    function openModal(id) {
-      document.getElementById(id).style.display = 'flex';
+    // Copy Handle Functionality
+    function copyHandle(handleText, event) {
+      if (event) event.stopPropagation();
+      navigator.clipboard.writeText(handleText).then(() => {
+        showToast(`Copied "${handleText}" to clipboard!`);
+      });
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    // Filter & Search Functionality
+    let currentCategory = 'all';
+
+    function setCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterSocials();
+    }
+
+    function filterSocials() {
+      const searchVal = document.getElementById('socialSearch').value.toLowerCase();
+      const items = document.querySelectorAll('.social-card-item');
+
+      items.forEach(item => {
+        const cat = item.getAttribute('data-category');
+        const name = item.getAttribute('data-name').toLowerCase();
+        const handle = item.getAttribute('data-handle').toLowerCase();
+
+        const matchesCat = (currentCategory === 'all' || cat === currentCategory);
+        const matchesSearch = name.includes(searchVal) || handle.includes(searchVal);
+
+        if (matchesCat && matchesSearch) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Social Detail Modal
+    let activeModalHandle = '';
+
+    function openSocialModal(title, handle, iconSrc, linkUrl, desc) {
+      document.getElementById('modalTitle').textContent = title;
+      document.getElementById('modalHandle').textContent = handle;
+      document.getElementById('modalIcon').src = iconSrc;
+      document.getElementById('modalDescription').textContent = desc;
+      document.getElementById('modalLink').href = linkUrl;
+      activeModalHandle = handle;
+
+      document.getElementById('socialModal').style.display = 'flex';
       document.body.classList.add('modal-open');
     }
 
-    function closeModal(id) {
-      document.getElementById(id).style.display = 'none';
+    function closeSocialModal() {
+      document.getElementById('socialModal').style.display = 'none';
       document.body.classList.remove('modal-open');
     }
 
-    document.querySelectorAll('.modal-overlay').forEach(modal => {
-      modal.addEventListener('click', e => {
-        if (e.target === modal) closeModal(modal.id);
-      });
+    function copyModalHandle() {
+      copyHandle(activeModalHandle);
+    }
+
+    document.getElementById('socialModal').addEventListener('click', e => {
+      if (e.target === document.getElementById('socialModal')) closeSocialModal();
     });
 
-    // Starfield Canvas Animation
+    // Handle Quick Contact Form Submission
+    function handleQuickMessage(e) {
+      e.preventDefault();
+      const name = document.getElementById('senderName').value;
+      const platform = document.getElementById('preferredPlatform').value;
+      
+      showToast(`Thank you, ${name}! Redirecting to ${platform}...`);
+      
+      setTimeout(() => {
+        if (platform === 'Telegram') {
+          window.open('https://t.me/bryvngtz', '_blank');
+        } else if (platform === 'LinkedIn') {
+          window.open('https://www.linkedin.com/in/bryan-ablao-636497189/', '_blank');
+        } else if (platform === 'Email') {
+          window.location.href = 'mailto:ablaobryan4400@gmail.com';
+        } else {
+          window.open('https://www.instagram.com/bryvngtz/#', '_blank');
+        }
+      }, 1200);
+    }
+
+    // Starfield Animation
     const starsCanvas = document.getElementById('starsCanvas');
     const starsCtx = starsCanvas.getContext('2d');
     let stars = [], meteor = null;
@@ -1076,7 +1170,7 @@
     animateStars();
     setTimeout(spawnMeteor, 2000);
 
-    // Mouse Ripple Canvas Effect
+    // Mouse Ripple Effect
     const rippleCanvas = document.getElementById('rippleCanvas');
     const rippleCtx = rippleCanvas.getContext('2d');
     let ripples = [];
