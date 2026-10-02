@@ -26,6 +26,26 @@
       --radius-lg: 16px;
       --radius-md: 10px;
       --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --card-bg: rgba(255, 255, 255, 0.02);
+      --input-bg: rgba(255, 255, 255, 0.04);
+      --modal-bg: #11131f;
+      --header-bg: rgba(9, 10, 15, 0.8);
+    }
+
+    /* ---------- Light Theme Overrides ---------- */
+    body.light-theme {
+      --bg-dark: #f0f2f5;
+      --accent-purple: #7c3aed;
+      --accent-purple-glow: rgba(124, 58, 237, 0.15);
+      --accent-blue: #2563eb;
+      --glass-bg: rgba(255, 255, 255, 0.75);
+      --glass-border: rgba(0, 0, 0, 0.08);
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
+      --card-bg: rgba(0, 0, 0, 0.03);
+      --input-bg: rgba(0, 0, 0, 0.04);
+      --modal-bg: #ffffff;
+      --header-bg: rgba(255, 255, 255, 0.85);
     }
 
     /* ---------- Global Reset & Typography ---------- */
@@ -42,6 +62,7 @@
       overflow-x: hidden;
       line-height: 1.6;
       min-height: 100vh;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     a {
@@ -97,18 +118,25 @@
       justify-content: space-between;
       align-items: center;
       padding: 1rem 5%;
-      background: rgba(9, 10, 15, 0.8);
+      background: var(--header-bg);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--glass-border);
+      transition: background 0.3s ease, border-color 0.3s ease;
     }
 
     .nav-brand {
       font-size: 1.25rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+      background: linear-gradient(135deg, var(--text-main) 0%, #a78bfa 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
     }
 
     .desktop-nav {
@@ -136,6 +164,28 @@
       height: 2px;
       background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
       border-radius: 2px;
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      font-size: 1.1rem;
+    }
+
+    .theme-toggle-btn:hover {
+      transform: scale(1.08);
+      border-color: #a78bfa;
+      background: rgba(109, 40, 217, 0.15);
     }
 
     .hamburger {
@@ -212,10 +262,10 @@
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
       padding: 2.5rem;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 0.8s ease, transform 0.8s ease, background 0.3s ease, border-color 0.3s ease;
     }
 
     .glass-card.visible {
@@ -262,7 +312,7 @@
       font-size: 2.5rem;
       font-weight: 800;
       margin-bottom: 0.5rem;
-      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+      background: linear-gradient(135deg, var(--text-main) 0%, #a78bfa 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -274,7 +324,7 @@
       gap: 1rem;
       margin-bottom: 2rem;
       padding: 1.25rem;
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--card-bg);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-md);
       text-align: center;
@@ -311,7 +361,7 @@
     .search-box input {
       width: 100%;
       padding: 0.8rem 1rem 0.8rem 2.8rem;
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--input-bg);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-md);
       color: var(--text-main);
@@ -322,8 +372,8 @@
 
     .search-box input:focus {
       border-color: #a78bfa;
-      background: rgba(255, 255, 255, 0.08);
-      box-shadow: 0 0 15px rgba(109, 40, 217, 0.3);
+      background: var(--card-bg);
+      box-shadow: 0 0 15px rgba(109, 40, 217, 0.2);
     }
 
     .search-box i {
@@ -342,7 +392,7 @@
     }
 
     .filter-btn {
-      background: rgba(255, 255, 255, 0.03);
+      background: var(--card-bg);
       border: 1px solid var(--glass-border);
       color: var(--text-muted);
       padding: 0.4rem 1rem;
@@ -368,7 +418,7 @@
     }
 
     .social-card-item {
-      background: rgba(255, 255, 255, 0.02);
+      background: var(--card-bg);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-md);
       padding: 1.5rem 1.25rem;
@@ -383,16 +433,16 @@
 
     .social-card-item:hover {
       transform: translateY(-8px) scale(1.02);
-      background: rgba(255, 255, 255, 0.06);
+      background: var(--input-bg);
       border-color: rgba(167, 139, 250, 0.5);
-      box-shadow: 0 12px 24px rgba(109, 40, 217, 0.25);
+      box-shadow: 0 12px 24px rgba(109, 40, 217, 0.15);
     }
 
     .social-icon-wrapper {
       width: 64px;
       height: 64px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--card-bg);
       border: 1px solid var(--glass-border);
       display: flex;
       align-items: center;
@@ -404,7 +454,7 @@
     .social-card-item:hover .social-icon-wrapper {
       transform: scale(1.1) rotate(5deg);
       border-color: #a78bfa;
-      background: rgba(109, 40, 217, 0.2);
+      background: rgba(109, 40, 217, 0.15);
     }
 
     .social-icon-wrapper img {
@@ -441,7 +491,7 @@
       font-weight: 600;
       border-radius: 6px;
       border: 1px solid var(--glass-border);
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--input-bg);
       color: var(--text-main);
       cursor: pointer;
       display: inline-flex;
@@ -452,81 +502,109 @@
     }
 
     .btn-action:hover {
-      background: rgba(255, 255, 255, 0.15);
-      border-color: rgba(255, 255, 255, 0.2);
+      background: var(--card-bg);
+      border-color: rgba(167, 139, 250, 0.4);
     }
 
     .btn-primary-action {
       background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+      color: #fff;
       border: none;
     }
 
     .btn-primary-action:hover {
       opacity: 0.9;
-      box-shadow: 0 4px 10px rgba(109, 40, 217, 0.4);
+      box-shadow: 0 4px 10px rgba(109, 40, 217, 0.3);
     }
 
-    /* Direct Contact Section */
-    .contact-form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 0.4rem;
-    }
-
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
-      color: var(--text-main);
-      font-family: inherit;
-      font-size: 0.9rem;
-      outline: none;
-      transition: var(--transition-smooth);
-    }
-
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-      border-color: #a78bfa;
-      background: rgba(255, 255, 255, 0.07);
-    }
-
-    .form-group select option {
-      background: #11131f;
-      color: var(--text-main);
-    }
-
-    .submit-btn {
-      width: 100%;
-      padding: 0.8rem;
-      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
-      border: none;
-      border-radius: var(--radius-md);
-      color: #fff;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition-smooth);
+    /* Collaboration Status & Availability Board */
+    .status-banner {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
+      justify-content: space-between;
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
-    .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(109, 40, 217, 0.5);
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pulse-dot {
+      width: 12px;
+      height: 12px;
+      background-color: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .collab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .collab-card {
+      background: var(--card-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition-smooth);
+    }
+
+    .collab-card:hover {
+      border-color: rgba(167, 139, 250, 0.4);
+      background: var(--input-bg);
+      transform: translateY(-4px);
+    }
+
+    .collab-card h4 {
+      font-size: 1.1rem;
+      color: #a78bfa;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .collab-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .collab-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--glass-border);
+      padding-top: 1rem;
+      margin-top: auto;
+    }
+
+    .time-badge {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
     /* ---------- Modals ---------- */
@@ -546,7 +624,7 @@
     }
 
     .modal-box {
-      background: #11131f;
+      background: var(--modal-bg);
       border: 1px solid var(--glass-border);
       padding: 2rem;
       border-radius: var(--radius-lg);
@@ -554,7 +632,7 @@
       width: 100%;
       color: var(--text-main);
       position: relative;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
       animation: modalFade 0.25s ease-out;
       text-align: center;
     }
@@ -583,7 +661,7 @@
       object-fit: contain;
       margin: 0 auto 1rem;
       padding: 10px;
-      background: rgba(255, 255, 255, 0.05);
+      background: var(--card-bg);
       border: 2px solid var(--accent-purple);
     }
 
@@ -608,7 +686,7 @@
     }
 
     .modal-qr-placeholder {
-      background: rgba(255,255,255,0.03);
+      background: var(--card-bg);
       border: 1px dashed var(--glass-border);
       border-radius: var(--radius-md);
       padding: 1rem;
@@ -687,7 +765,6 @@
       .desktop-nav { display: none; }
       .hamburger { display: block; }
       .stats-container { grid-template-columns: 1fr; }
-      .contact-form-grid { grid-template-columns: 1fr; }
       .social-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
     }
   </style>
@@ -700,18 +777,23 @@
   <canvas id="starsCanvas"></canvas>
   <canvas id="rippleCanvas"></canvas>
 
-  <!-- Sticky Header -->
+  <!-- Synchronized Header with Interactive Theme Switcher -->
   <header>
     <div class="nav-brand">Bryan G. Ablao</div>
-    <nav class="desktop-nav">
-      <a href="index.html">About</a>
-      <a href="work.html">Experience</a>
-      <a href="projects.html">Projects</a>
-      <a href="achievement.html">Achievements</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="social.html" class="active">Socials</a>
-    </nav>
-    <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Navigation">☰</div>
+    <div class="nav-actions">
+      <nav class="desktop-nav">
+        <a href="index.html">About</a>
+        <a href="work.html">Experience</a>
+        <a href="projects.html">Projects</a>
+        <a href="achievement.html">Achievements</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="social.html" class="active">Socials</a>
+      </nav>
+      <button class="theme-toggle-btn" id="themeToggleBtn" onclick="toggleTheme()" aria-label="Toggle Theme">
+        <i class="fa-solid fa-moon" id="themeIcon"></i>
+      </button>
+      <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Navigation">☰</div>
+    </div>
   </header>
 
   <!-- Mobile Drawer Overlay -->
@@ -734,9 +816,9 @@
     <main>
       
       <!-- Hero Intro & Stats Card -->
-      <section class="glass-card">
+      <section class="glass-card visible">
         <div class="hero-header">
-          <h2>Connect & Collaborate</h2>
+          <h2>Connect &amp; Collaborate</h2>
           <p class="description">
             Explore my digital presence across platforms. Follow, send a direct message, or copy handles with a single tap.
           </p>
@@ -745,20 +827,20 @@
         <!-- Animated Stats Counter Bar -->
         <div class="stats-container">
           <div class="stat-box">
-            <h3 class="counter" data-target="8">0</h3>
+            <h3 class="counter" data-target="8">8+</h3>
             <p>Active Platforms</p>
           </div>
           <div class="stat-box">
-            <h3 class="counter" data-target="24">0</h3>
+            <h3 class="counter" data-target="24">24+</h3>
             <p>Hours Avg. Response</p>
           </div>
           <div class="stat-box">
-            <h3 class="counter" data-target="100">0</h3>
+            <h3 class="counter" data-target="100">100%</h3>
             <p>% Connected</p>
           </div>
         </div>
 
-        <!-- Filter & Search Bar -->
+        <!-- Filter & Search Bar (Quick Messaging Category Removed) -->
         <div class="filter-wrapper">
           <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -767,8 +849,7 @@
           <div class="filter-tabs">
             <button class="filter-btn active" onclick="setCategory('all', this)">All</button>
             <button class="filter-btn" onclick="setCategory('pro', this)">Professional</button>
-            <button class="filter-btn" onclick="setCategory('video', this)">Video & Content</button>
-            <button class="filter-btn" onclick="setCategory('messaging', this)">Messaging</button>
+            <button class="filter-btn" onclick="setCategory('video', this)">Video &amp; Content</button>
             <button class="filter-btn" onclick="setCategory('community', this)">Community</button>
           </div>
         </div>
@@ -829,7 +910,7 @@
           </div>
 
           <!-- Telegram -->
-          <div class="social-card-item" data-category="messaging" data-name="telegram" data-handle="@bryvngtz">
+          <div class="social-card-item" data-category="community" data-name="telegram" data-handle="@bryvngtz">
             <div class="social-icon-wrapper" onclick="openSocialModal('Telegram', '@bryvngtz', 'images/telegram.png', 'https://t.me/bryvngtz', 'Send me direct instant messages for quick queries or project inquiries on Telegram.')">
               <img src="images/telegram.png" alt="Telegram">
             </div>
@@ -883,35 +964,62 @@
         </div>
       </section>
 
-      <!-- Quick Quick Message / Contact Form -->
+      <!-- Collaboration Hub & Service Availability -->
       <section class="glass-card">
-        <h3 class="section-title"><i class="fa-solid fa-paper-plane"></i> Quick Message</h3>
-        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
-          Prefer direct messaging? Send a prompt inquiry and select your preferred social channel response.
-        </p>
+        <h3 class="section-title"><i class="fa-solid fa-handshake"></i> Collaboration &amp; Project Hub</h3>
+        
+        <div class="status-banner">
+          <div class="status-indicator">
+            <div class="pulse-dot"></div>
+            <div>
+              <strong style="color: var(--text-main); font-size: 0.95rem;">Status: Open for Collaboration</strong>
+              <div style="color: var(--text-muted); font-size: 0.8rem;">Accepting freelance work, tech consults, &amp; project inquiries.</div>
+            </div>
+          </div>
+          <button class="btn-action btn-primary-action" style="padding: 0.5rem 1rem;" onclick="copyHandle('ablaobryan4400@gmail.com', event)">
+            <i class="fa-solid fa-envelope"></i> Copy Direct Email
+          </button>
+        </div>
 
-        <form onsubmit="handleQuickMessage(event)">
-          <div class="contact-form-grid">
-            <div class="form-group">
-              <label for="senderName"><i class="fa-solid fa-user"></i> Your Name</label>
-              <input type="text" id="senderName" placeholder="John Doe" required>
-            </div>
-            <div class="form-group">
-              <label for="preferredPlatform"><i class="fa-solid fa-share-nodes"></i> Preferred Response Via</label>
-              <select id="preferredPlatform">
-                <option value="Telegram">Telegram (@bryvngtz)</option>
-                <option value="LinkedIn">LinkedIn</option>
-                <option value="Email">Email Direct</option>
-                <option value="Instagram">Instagram</option>
-              </select>
+        <div class="collab-grid">
+          
+          <!-- Card 1 -->
+          <div class="collab-card">
+            <h4><i class="fa-solid fa-code"></i> Web Development</h4>
+            <p>Looking for a modern, high-performance website or UI/UX experience? Let's turn ideas into functional realities.</p>
+            <div class="collab-footer">
+              <span class="time-badge"><i class="fa-regular fa-clock"></i> Responds within 12h</span>
+              <a href="https://t.me/bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action">
+                <i class="fa-brands fa-telegram"></i> Chat Telegram
+              </a>
             </div>
           </div>
-          <div class="form-group">
-            <label for="messageBody"><i class="fa-solid fa-comment-dots"></i> Message or Proposal</label>
-            <textarea id="messageBody" rows="4" placeholder="Hi Bryan, I'd like to collaborate on..." required></textarea>
+
+          <!-- Card 2 -->
+          <div class="collab-card">
+            <h4><i class="fa-solid fa-pen-nib"></i> Creative &amp; Design</h4>
+            <p>Need custom visual layouts, branding assets, or video edits? Let's discuss creative concepts and scope.</p>
+            <div class="collab-footer">
+              <span class="time-badge"><i class="fa-regular fa-clock"></i> Responds within 24h</span>
+              <a href="https://www.linkedin.com/in/bryan-ablao-636497189/" target="_blank" rel="noopener" class="btn-action btn-primary-action">
+                <i class="fa-brands fa-linkedin"></i> Connect LinkedIn
+              </a>
+            </div>
           </div>
-          <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Direct Message</button>
-        </form>
+
+          <!-- Card 3 -->
+          <div class="collab-card">
+            <h4><i class="fa-solid fa-comments"></i> General Inquiries</h4>
+            <p>Have general questions, networking opportunities, or tech discussions? Reach out anytime via email or socials.</p>
+            <div class="collab-footer">
+              <span class="time-badge"><i class="fa-regular fa-clock"></i> Responds within 24h</span>
+              <a href="mailto:ablaobryan4400@gmail.com" class="btn-action btn-primary-action">
+                <i class="fa-solid fa-paper-plane"></i> Send Email
+              </a>
+            </div>
+          </div>
+
+        </div>
       </section>
 
     </main>
@@ -930,7 +1038,7 @@
   <!-- Social Detail Modal -->
   <div class="modal-overlay" id="socialModal">
     <div class="modal-box">
-      <span class="modal-close" onclick="closeSocialModal()">&times;</span>
+      <span class="modal-close" onclick="closeSocialModal()">×</span>
       <img id="modalIcon" src="" alt="" class="modal-social-img">
       <h3 id="modalTitle">Platform</h3>
       <span id="modalHandle" class="modal-handle-tag">@handle</span>
@@ -943,7 +1051,7 @@
 
       <div style="display: flex; gap: 0.75rem;">
         <button class="btn-action" style="padding: 0.75rem;" onclick="copyModalHandle()"><i class="fa-regular fa-copy"></i> Copy Handle</button>
-        <a id="modalLink" href="#" target="_blank" rel="noopener" class="submit-btn" style="text-decoration:none;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Platform</a>
+        <a id="modalLink" href="#" target="_blank" rel="noopener" class="btn-action btn-primary-action" style="padding: 0.75rem;"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Platform</a>
       </div>
     </div>
   </div>
@@ -953,6 +1061,29 @@
 
   <!-- Scripts -->
   <script>
+    // Theme Toggle Functionality
+    function toggleTheme() {
+      const isLight = document.body.classList.toggle('light-theme');
+      const themeIcon = document.getElementById('themeIcon');
+      
+      if (isLight) {
+        themeIcon.className = 'fa-solid fa-sun';
+        localStorage.setItem('theme', 'light');
+      } else {
+        themeIcon.className = 'fa-solid fa-moon';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+
+    // Load saved theme from localStorage
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light-theme');
+        document.getElementById('themeIcon').className = 'fa-solid fa-sun';
+      }
+    });
+
     // Intersection Observer for Card Animations & Counters
     const cards = document.querySelectorAll('.glass-card');
     const observer = new IntersectionObserver((entries) => {
@@ -1070,27 +1201,6 @@
       if (e.target === document.getElementById('socialModal')) closeSocialModal();
     });
 
-    // Handle Quick Contact Form Submission
-    function handleQuickMessage(e) {
-      e.preventDefault();
-      const name = document.getElementById('senderName').value;
-      const platform = document.getElementById('preferredPlatform').value;
-      
-      showToast(`Thank you, ${name}! Redirecting to ${platform}...`);
-      
-      setTimeout(() => {
-        if (platform === 'Telegram') {
-          window.open('https://t.me/bryvngtz', '_blank');
-        } else if (platform === 'LinkedIn') {
-          window.open('https://www.linkedin.com/in/bryan-ablao-636497189/', '_blank');
-        } else if (platform === 'Email') {
-          window.location.href = 'mailto:ablaobryan4400@gmail.com';
-        } else {
-          window.open('https://www.instagram.com/bryvngtz/#', '_blank');
-        }
-      }, 1200);
-    }
-
     // Starfield Animation
     const starsCanvas = document.getElementById('starsCanvas');
     const starsCtx = starsCanvas.getContext('2d');
@@ -1185,7 +1295,7 @@
 
     window.addEventListener('mousemove', (e) => {
       if (Math.random() > 0.3) return;
-      ripples.push({ x: e.clientX, y: e.cliethintY, radius: 0, alpha: 0.25 });
+      ripples.push({ x: e.clientX, y: e.clientY, radius: 0, alpha: 0.25 });
       if (ripples.length > 15) ripples.shift();
     });
 
@@ -1208,5 +1318,6 @@
     }
     animateRipples();
   </script>
+
 </body>
 </html>
