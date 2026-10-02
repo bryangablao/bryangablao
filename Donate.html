@@ -6,10 +6,11 @@
   <link rel="icon" type="image/png" href="images/Gallery/MainLogo.png">
   <title>Donate | Bryan G. Ablao</title>
 
-  <!-- Modern Typography -->
+  <!-- Modern Typography & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     /* ---------- Theme & CSS Variables ---------- */
@@ -190,7 +191,6 @@
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     }
 
-    /* ---------- Donation Page Content ---------- */
     .section-title {
       font-size: 1.75rem;
       font-weight: 700;
@@ -206,14 +206,40 @@
       font-size: 0.975rem;
       max-width: 800px;
       line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Preset Tier Chips */
+    .tier-selector {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
       margin-bottom: 2rem;
     }
 
+    .tier-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      padding: 0.6rem 1.25rem;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition-smooth);
+    }
+
+    .tier-btn:hover, .tier-btn.active {
+      background: var(--accent-purple);
+      border-color: #a78bfa;
+      box-shadow: 0 0 15px var(--accent-purple-glow);
+    }
+
+    /* QR Code Grid & Cards */
     .qr-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
       gap: 1.5rem;
-      margin-top: 1rem;
     }
 
     .qr-box {
@@ -226,6 +252,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      position: relative;
     }
 
     .qr-box:hover {
@@ -246,7 +273,7 @@
 
     .qr-box img {
       width: 100%;
-      max-width: 200px;
+      max-width: 180px;
       border-radius: var(--radius-md);
       cursor: pointer;
       border: 1px solid var(--glass-border);
@@ -255,6 +282,110 @@
 
     .qr-box img:hover {
       opacity: 0.9;
+    }
+
+    /* Account Details & Copy Button */
+    .acc-details {
+      margin-top: 1rem;
+      width: 100%;
+      font-size: 0.825rem;
+      color: var(--text-muted);
+    }
+
+    .acc-num {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 0.4rem 0.75rem;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .copy-btn {
+      background: none;
+      border: none;
+      color: #a78bfa;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: var(--transition-smooth);
+    }
+
+    .copy-btn:hover { color: #fff; }
+
+    /* Transparency & Impact Section */
+    .impact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .impact-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+    }
+
+    .impact-card h3 {
+      font-size: 1.1rem;
+      color: #a78bfa;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .impact-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Recent Supporters Ticker */
+    .supporters-section {
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .ticker-wrapper {
+      display: flex;
+      gap: 2rem;
+      animation: ticker 25s linear infinite;
+    }
+
+    .supporter-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    @keyframes ticker {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* Toast Notification */
+    #toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #6d28d9;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 3000;
+      font-size: 0.875rem;
+      font-weight: 500;
     }
 
     /* ---------- Image Modal Overlay ---------- */
@@ -393,35 +524,128 @@
     </ul>
   </nav>
 
+  <!-- Toast Notification -->
+  <div id="toast">Copied to clipboard!</div>
+
   <!-- Main Content Area -->
   <div id="blur-container">
     <main>
 
+      <!-- Main Donation Gateway -->
       <section class="glass-card">
-        <h2 class="section-title">Support My Work</h2>
+        <h2 class="section-title">Support My Journey</h2>
         <p class="donate-intro">
-          Scan any of the QR codes below to donate via GCash, Maya, AUB, or Cebuana. Your support helps me continue creating projects, improving my skills, and developing more content. Every contribution — big or small — means a lot. Thank you so much! 🖤
+          Your contributions fuel my passion for building open-source projects, designing innovative applications, and continuously sharing creative content. Every single contribution direct helps me cover development costs and hardware upgrades! 🖤
         </p>
 
+        <!-- Tier Suggestions -->
+        <div class="tier-selector">
+          <button class="tier-btn active" onclick="selectTier(this, 'Coffee Tier ☕')">₱50 / $1 (Coffee)</button>
+          <button class="tier-btn" onclick="selectTier(this, 'Server Fuel ⚡')">₱250 / $5 (Server Boost)</button>
+          <button class="tier-btn" onclick="selectTier(this, 'Project Sponsor 🚀')">₱500 / $10 (Project Sponsor)</button>
+          <button class="tier-btn" onclick="selectTier(this, 'Custom Support 💎')">Custom Amount</button>
+        </div>
+
+        <!-- Payment Channels Grid -->
         <div class="qr-grid">
+          
+          <!-- GCash Card -->
           <div class="qr-box">
-            <div class="qr-label">GCASH</div>
-            <img src="images/GCASH QR.jpg" alt="GCash QR" />
+            <div class="qr-label">GCash</div>
+            <img src="images/GCASH QR.jpg" alt="GCash QR Code" />
+            <div class="acc-details">
+              <span>Account Name: Bryan A.</span>
+              <div class="acc-num">
+                <span>0912 345 6789</span>
+                <button class="copy-btn" onclick="copyToClipboard('09123456789')" title="Copy Account Number">
+                  <i class="fa-regular fa-copy"></i>
+                </button>
+              </div>
+            </div>
           </div>
 
+          <!-- Maya Card -->
           <div class="qr-box">
-            <div class="qr-label">MAYA</div>
-            <img src="images/MAYA QR.jpg" alt="Maya QR" />
+            <div class="qr-label">Maya</div>
+            <img src="images/MAYA QR.jpg" alt="Maya QR Code" />
+            <div class="acc-details">
+              <span>Account Name: Bryan A.</span>
+              <div class="acc-num">
+                <span>0912 345 6789</span>
+                <button class="copy-btn" onclick="copyToClipboard('09123456789')" title="Copy Account Number">
+                  <i class="fa-regular fa-copy"></i>
+                </button>
+              </div>
+            </div>
           </div>
 
+          <!-- AUB Card -->
           <div class="qr-box">
-            <div class="qr-label">AUB</div>
-            <img src="images/AUB QR.jpg" alt="AUB QR" />
+            <div class="qr-label">AUB Bank</div>
+            <img src="images/AUB QR.jpg" alt="AUB Bank QR Code" />
+            <div class="acc-details">
+              <span>Account Name: Bryan A.</span>
+              <div class="acc-num">
+                <span>1234-5678-9012</span>
+                <button class="copy-btn" onclick="copyToClipboard('123456789012')" title="Copy Account Number">
+                  <i class="fa-regular fa-copy"></i>
+                </button>
+              </div>
+            </div>
           </div>
 
+          <!-- Cebuana Card -->
           <div class="qr-box">
-            <div class="qr-label">CEBUANA</div>
-            <img src="images/Cebuana.png" alt="Cebuana QR" />
+            <div class="qr-label">Cebuana</div>
+            <img src="images/Cebuana.png" alt="Cebuana QR Code" />
+            <div class="acc-details">
+              <span>Account Name: Bryan A.</span>
+              <div class="acc-num">
+                <span>9876-5432-1098</span>
+                <button class="copy-btn" onclick="copyToClipboard('987654321098')" title="Copy Account Number">
+                  <i class="fa-regular fa-copy"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Transparency & How Funds Are Used -->
+      <section class="glass-card">
+        <h2 class="section-title">Where Your Support Goes</h2>
+        <div class="impact-grid">
+          <div class="impact-card">
+            <h3><i class="fa-solid fa-server"></i> Hosting & Domains</h3>
+            <p>Sustaining servers, APIs, cloud instances, and web domains for continuous online deployment.</p>
+          </div>
+          <div class="impact-card">
+            <h3><i class="fa-solid fa-code"></i> Software & Tools</h3>
+            <p>Funding licenses for developer tools, asset libraries, and digital creation suites.</p>
+          </div>
+          <div class="impact-card">
+            <h3><i class="fa-solid fa-mug-hot"></i> Fuel & Dedication</h3>
+            <p>Keeping late-night coding sessions alive with continuous learning, coffee, and motivation!</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Animated Supporter Wall Ticker -->
+      <section class="glass-card">
+        <h2 class="section-title">Wall of Gratitude</h2>
+        <p class="donate-intro" style="margin-bottom: 1rem;">Shoutout to recent supporters who made a difference!</p>
+        <div class="supporters-section">
+          <div class="ticker-wrapper">
+            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> Alex M. — ₱200</div>
+            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> Anonymous — ₱500</div>
+            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> Mark T. — ₱100</div>
+            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> Sophia L. — ₱1,000</div>
+            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> DevCommunity — ₱300</div>
+            <!-- Duplicate for infinite loop -->
+            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> Alex M. — ₱200</div>
+            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> Anonymous — ₱500</div>
+            <div class="supporter-badge"><i class="fa-solid fa-heart" style="color: #ec4899;"></i> Mark T. — ₱100</div>
           </div>
         </div>
       </section>
@@ -460,6 +684,29 @@
     function closeMenu() {
       document.getElementById("sidebar").classList.remove("open");
       document.getElementById("sidebarOverlay").style.display = "none";
+    }
+
+    // Copy to Clipboard Utility
+    function copyToClipboard(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("Account details copied to clipboard!");
+      });
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.innerText = message;
+      toast.style.display = "block";
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 2500);
+    }
+
+    // Tier Selection Interaction
+    function selectTier(element, label) {
+      document.querySelectorAll('.tier-btn').forEach(btn => btn.classList.remove('active'));
+      element.classList.add('active');
+      showToast(`Selected tier: ${label}`);
     }
 
     // Modal Control for QR Lightbox
@@ -577,7 +824,7 @@
     resizeRippleCanvas();
 
     window.addEventListener('mousemove', (e) => {
-      if (Math.random() > 0.3) return; // Throttle ripple creation for smooth rendering
+      if (Math.random() > 0.3) return;
       ripples.push({ x: e.clientX, y: e.clientY, radius: 0, alpha: 0.25 });
       if (ripples.length > 15) ripples.shift();
     });
