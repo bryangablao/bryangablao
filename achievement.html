@@ -6,10 +6,11 @@
   <link rel="icon" type="image/png" href="images/Gallery/MainLogo.png">
   <title>Achievements | Bryan G. Ablao</title>
   
-  <!-- Modern Typography -->
+  <!-- Modern Typography & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     /* ---------- Theme & CSS Variables ---------- */
@@ -75,6 +76,18 @@
       opacity: 0.6;
     }
 
+    .ambient-glow-2 {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(0,0,0,0) 70%);
+      bottom: -200px;
+      right: -200px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     /* ---------- Navigation Bar ---------- */
     header {
       position: sticky;
@@ -107,10 +120,22 @@
       font-size: 0.9rem;
       color: var(--text-muted);
       font-weight: 500;
+      position: relative;
     }
 
     .desktop-nav a:hover, .desktop-nav a.active {
       color: var(--text-main);
+    }
+
+    .desktop-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+      border-radius: 2px;
     }
 
     .hamburger {
@@ -164,7 +189,7 @@
 
     #sidebar ul li a:hover { color: var(--text-main); }
 
-    /* ---------- Main Layout ---------- */
+    /* ---------- Main Layout & Glass Containers ---------- */
     #blur-container {
       position: relative;
       z-index: 2;
@@ -180,11 +205,43 @@
       gap: 2.5rem;
     }
 
+    /* Glass Card Standard & Reveal Animations */
+    .glass-card {
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .glass-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     .section-title {
-      font-size: 1.75rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.02em;
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title i {
+      color: #a78bfa;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--glass-border);
     }
 
     .section-desc {
@@ -193,40 +250,200 @@
       margin-bottom: 2rem;
     }
 
-    /* Achievements Grid */
+    /* Stats Quick-Bar */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+      padding: 1.25rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      text-align: center;
+    }
+
+    .stat-box h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #a78bfa;
+    }
+
+    .stat-box p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ---------- Controls: Search & Filter ---------- */
+    .controls-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 15px rgba(109, 40, 217, 0.3);
+    }
+
+    .search-box {
+      position: relative;
+      min-width: 240px;
+      flex-grow: 1;
+      max-width: 320px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.55rem 1rem 0.55rem 2.25rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-size: 0.85rem;
+      outline: none;
+      transition: var(--transition-smooth);
+    }
+
+    .search-box input:focus {
+      border-color: #a78bfa;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 10px rgba(167, 139, 250, 0.2);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* ---------- Achievements Grid ---------- */
     .achievements-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
       gap: 1.5rem;
     }
 
     .achievement-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
       padding: 1.25rem;
       cursor: pointer;
       transition: var(--transition-smooth);
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
       display: flex;
       flex-direction: column;
+      position: relative;
+      overflow: hidden;
     }
 
     .achievement-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(167, 139, 250, 0.4);
+      transform: translateY(-6px);
+      border-color: rgba(167, 139, 250, 0.5);
+      background: rgba(255, 255, 255, 0.04);
       box-shadow: 0 12px 30px rgba(109, 40, 217, 0.25);
     }
 
-    .achievement-card img {
+    .card-img-wrapper {
+      position: relative;
       width: 100%;
       aspect-ratio: 4 / 3;
-      object-fit: cover;
       border-radius: var(--radius-md);
+      overflow: hidden;
       margin-bottom: 1rem;
       border: 1px solid var(--glass-border);
       background: rgba(0, 0, 0, 0.2);
+    }
+
+    .card-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .achievement-card:hover .card-img-wrapper img {
+      transform: scale(1.05);
+    }
+
+    .card-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(9, 10, 15, 0.4);
+      opacity: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.3s ease;
+    }
+
+    .achievement-card:hover .card-overlay {
+      opacity: 1;
+    }
+
+    .card-overlay span {
+      background: rgba(109, 40, 217, 0.85);
+      color: #fff;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      backdrop-filter: blur(4px);
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+
+    .card-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      background: rgba(109, 40, 217, 0.2);
+      color: #a78bfa;
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      font-weight: 600;
+    }
+
+    .card-date {
+      font-size: 0.75rem;
+      color: var(--text-muted);
     }
 
     .achievement-card h3 {
@@ -234,6 +451,48 @@
       font-weight: 600;
       color: var(--text-main);
       line-height: 1.4;
+      margin-bottom: 0.5rem;
+    }
+
+    .achievement-card p {
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* ---------- Tags & Skills Badges ---------- */
+    .skills-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 1rem;
+    }
+
+    .skill-badge {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      padding: 0.4rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: var(--transition-smooth);
+    }
+
+    .skill-badge:hover {
+      border-color: #a78bfa;
+      color: var(--text-main);
+      transform: translateY(-2px);
+    }
+
+    .skill-badge i {
+      color: #a78bfa;
     }
 
     /* ---------- Modals ---------- */
@@ -244,7 +503,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.75);
+      background: rgba(0, 0, 0, 0.8);
       backdrop-filter: blur(8px);
       justify-content: center;
       align-items: center;
@@ -257,7 +516,7 @@
       border: 1px solid var(--glass-border);
       padding: 2rem;
       border-radius: var(--radius-lg);
-      max-width: 580px;
+      max-width: 620px;
       width: 100%;
       color: var(--text-main);
       position: relative;
@@ -280,29 +539,76 @@
       color: var(--text-muted);
       cursor: pointer;
       line-height: 1;
+      z-index: 10;
     }
 
     .modal-close:hover { color: var(--text-main); }
 
+    .modal-img-container {
+      position: relative;
+      margin-bottom: 1.25rem;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+    }
+
     .modal-box img {
       width: 100%;
-      height: auto;
-      border-radius: var(--radius-md);
-      margin-bottom: 1.25rem;
-      border: 1px solid var(--glass-border);
+      max-height: 380px;
+      object-fit: contain;
+      background: #000;
+      display: block;
     }
 
     .modal-box h2 {
       font-size: 1.35rem;
       font-weight: 700;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
       color: #a78bfa;
+    }
+
+    .modal-meta-bar {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
     }
 
     .modal-box p {
       color: var(--text-muted);
       font-size: 0.9rem;
       line-height: 1.6;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.75rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--glass-border);
+    }
+
+    .btn-action {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: var(--transition-smooth);
+    }
+
+    .btn-action:hover {
+      background: #a78bfa;
+      color: #000;
+      border-color: #a78bfa;
     }
 
     /* Body State When Modal Active */
@@ -340,6 +646,10 @@
     @media (max-width: 850px) {
       .desktop-nav { display: none; }
       .hamburger { display: block; }
+      .stats-container { grid-template-columns: 1fr; }
+      .controls-wrapper { flex-direction: column; align-items: stretch; }
+      .search-box { max-width: 100%; }
+      .glass-card { padding: 1.5rem; }
     }
   </style>
 </head>
@@ -347,6 +657,7 @@
 
   <!-- Animated Background Elements -->
   <div class="ambient-glow"></div>
+  <div class="ambient-glow-2"></div>
   <canvas id="starsCanvas"></canvas>
   <canvas id="rippleCanvas"></canvas>
 
@@ -382,36 +693,126 @@
   <!-- Main Content Area -->
   <div id="blur-container">
     <main>
-      <section>
-        <h2 class="section-title">Achievements & Recognitions</h2>
-        <p class="section-desc">A showcase of honors, certificates, and competitive accomplishments throughout my personal and professional journey.</p>
 
-        <div class="achievements-grid">
-          <div class="achievement-card" onclick="openModal(
-            'images/Gallery/Achievement/a1.jpg',
-            'Certificate of Award – SIXELEVEN Sportsfest 2025',
-            'Awarded for outstanding performance in the Chess Tournament, representing skill, strategy, and dedication during the company’s annual Sportsfest.')">
-            <img src="images/Gallery/Achievement/a1.jpg" alt="Certificate of Award – SIXELEVEN Sportsfest 2025">
-            <h3>Certificate of Award – SIXELEVEN Sportsfest 2025</h3>
+      <!-- Highlights & Overview Section -->
+      <section class="glass-card">
+        <h2 class="section-title"><i class="fa-solid fa-trophy"></i> Achievements & Recognitions</h2>
+        <p class="section-desc">A showcase of honors, performance awards, and competitive accomplishments earned across my academic and professional career.</p>
+
+        <!-- Stats Bar Display -->
+        <div class="stats-container">
+          <div class="stat-box">
+            <h3 class="counter" data-target="2">0</h3>
+            <p>Top Agent Monthly Awards</p>
           </div>
-
-          <div class="achievement-card" onclick="openModal(
-            'images/Gallery/Achievement/a2.png',
-            'Certificate of Achievement – Top Agent of the Month',
-            'Recognized as Top Call Center Agent of the Month for November 2025 under OM Willy Cluster for exceptional performance and dedication.')">
-            <img src="images/Gallery/Achievement/a2.png" alt="Certificate of Achievement – Top Agent of the Month">
-            <h3>Certificate of Achievement – Top Agent of the Month (Nov 2025)</h3>
+          <div class="stat-box">
+            <h3 class="counter" data-target="1">0</h3>
+            <p>Sports Titles Won</p>
           </div>
-
-          <div class="achievement-card" onclick="openModal(
-            'images/Gallery/Achievement/a3.png',
-            'Certificate of Achievement – Top Agent of the Month',
-            'Recognized as Top Call Center Agent of the Month for July 2026 under OM Willy Cluster for exceptional performance and dedication.')">
-            <img src="images/Gallery/Achievement/a3.png" alt="Certificate of Achievement – Top Agent of the Month">
-            <h3>Certificate of Achievement – Top Agent of the Month (Jul 2026)</h3>
+          <div class="stat-box">
+            <h3 class="counter" data-target="100">0</h3>
+            <p>% Strategic Focus</p>
           </div>
         </div>
       </section>
+
+      <!-- Search, Filter & Grid Section -->
+      <section class="glass-card">
+        <div class="controls-wrapper">
+          <div class="filter-group">
+            <button class="filter-btn active" onclick="filterAchievements('all')">All</button>
+
+            <button class="filter-btn" onclick="filterAchievements('award')">Awards</button>
+
+            <button class="filter-btn" onclick="filterAchievements('performance')">Performance</button>
+
+            <button class="filter-btn" onclick="filterAchievements('sports')">Sports</button>
+
+          </div>
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Search achievements..." onkeyup="searchAchievements()">
+          </div>
+        </div>
+
+        <div class="achievements-grid" id="achievementsGrid">
+          
+          <!-- Card 1 -->
+          <div class="achievement-card" data-category="sports" onclick="openModal(
+            'images/Gallery/Achievement/a1.jpg',
+            'Certificate of Award – SIXELEVEN Sportsfest 2025',
+            'Awarded for outstanding performance in the Chess Tournament, representing skill, strategy, and dedication during the company’s annual Sportsfest.',
+            'Sportsfest Award',
+            '2025'
+          )">
+            <div class="card-img-wrapper">
+              <img src="images/Gallery/Achievement/a1.jpg" alt="Certificate of Award – SIXELEVEN Sportsfest 2025">
+              <div class="card-overlay"><span><i class="fa-solid fa-expand"></i> View Details</span></div>
+            </div>
+            <div class="card-meta">
+              <span class="card-tag">Sports</span>
+              <span class="card-date"><i class="fa-regular fa-calendar"></i> 2025</span>
+            </div>
+            <h3>Certificate of Award – SIXELEVEN Sportsfest 2025</h3>
+            <p>Awarded for outstanding performance in the Chess Tournament, representing skill, strategy, and dedication.</p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="achievement-card" data-category="performance award" onclick="openModal(
+            'images/Gallery/Achievement/a2.png',
+            'Certificate of Achievement – Top Agent of the Month',
+            'Recognized as Top Call Center Agent of the Month for November 2025 under OM Willy Cluster for exceptional performance and dedication to KPI excellence.',
+            'Top Performance',
+            'Nov 2025'
+          )">
+            <div class="card-img-wrapper">
+              <img src="images/Gallery/Achievement/a2.png" alt="Certificate of Achievement – Top Agent Nov 2025">
+              <div class="card-overlay"><span><i class="fa-solid fa-expand"></i> View Details</span></div>
+            </div>
+            <div class="card-meta">
+              <span class="card-tag">Performance</span>
+              <span class="card-date"><i class="fa-regular fa-calendar"></i> Nov 2025</span>
+            </div>
+            <h3>Top Agent of the Month (Nov 2025)</h3>
+            <p>Recognized as Top Call Center Agent under OM Willy Cluster for exceptional operational efficiency.</p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="achievement-card" data-category="performance award" onclick="openModal(
+            'images/Gallery/Achievement/a3.png',
+            'Certificate of Achievement – Top Agent of the Month',
+            'Recognized as Top Call Center Agent of the Month for July 2026 under OM Willy Cluster for sustained customer satisfaction and consistent high target output.',
+            'Top Performance',
+            'Jul 2026'
+          )">
+            <div class="card-img-wrapper">
+              <img src="images/Gallery/Achievement/a3.png" alt="Certificate of Achievement – Top Agent Jul 2026">
+              <div class="card-overlay"><span><i class="fa-solid fa-expand"></i> View Details</span></div>
+            </div>
+            <div class="card-meta">
+              <span class="card-tag">Performance</span>
+              <span class="card-date"><i class="fa-regular fa-calendar"></i> Jul 2026</span>
+            </div>
+            <h3>Top Agent of the Month (Jul 2026)</h3>
+            <p>Recognized as Top Call Center Agent for maintaining sustained high-quality metrics and commitment.</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Demonstrated Competencies Section -->
+      <section class="glass-card">
+        <h3 class="section-title"><i class="fa-solid fa-award"></i> Core Strengths Demonstrated</h3>
+        <div class="skills-badges">
+          <div class="skill-badge"><i class="fa-solid fa-chess"></i> Strategic Thinking</div>
+          <div class="skill-badge"><i class="fa-solid fa-chart-line"></i> KPI Optimization</div>
+          <div class="skill-badge"><i class="fa-solid fa-bullseye"></i> Goal Attainment</div>
+          <div class="skill-badge"><i class="fa-solid fa-handshake"></i> Customer Satisfaction</div>
+          <div class="skill-badge"><i class="fa-solid fa-bolt"></i> Problem Solving</div>
+          <div class="skill-badge"><i class="fa-solid fa-users"></i> Team Sportsmanship</div>
+        </div>
+      </section>
+
     </main>
 
     <!-- Footer -->
@@ -429,14 +830,58 @@
   <div class="modal-overlay" id="achievementModal">
     <div class="modal-box">
       <span class="modal-close" onclick="closeModal()">&times;</span>
-      <img id="modalImage" src="" alt="Achievement Image">
-      <h2 id="modalTitle"></h2>
-      <p id="modalDesc"></p>
+      <div class="modal-img-container">
+        <img id="modalImage" src="" alt="Achievement Preview">
+      </div>
+      <div class="modal-meta-bar">
+        <span class="card-tag" id="modalTag">Award</span>
+        <span id="modalDate"><i class="fa-regular fa-calendar"></i> 2025</span>
+      </div>
+      <h2 id="modalTitle">Title Placeholder</h2>
+      <p id="modalDesc">Description placeholder text.</p>
+      
+      <div class="modal-actions">
+        <a id="modalFullView" href="#" target="_blank" class="btn-action">
+          <i class="fa-solid fa-up-right-from-square"></i> Open High-Res Image
+        </a>
+        <button class="btn-action" onclick="copyModalLink()">
+          <i class="fa-solid fa-share-nodes"></i> Share
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- Scripts -->
   <script>
+    // Intersection Observer for Reveal Animations & Animated Counters
+    const cards = document.querySelectorAll('.glass-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+
+          // Animate Counter Stats inside
+          entry.target.querySelectorAll('.counter').forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            let count = 0;
+            const updateCount = () => {
+              const increment = target / 30;
+              if (count < target) {
+                count += increment;
+                counter.innerText = Math.ceil(count) + (target === 100 ? '%' : '+');
+                setTimeout(updateCount, 40);
+              } else {
+                counter.innerText = target + (target === 100 ? '%' : '+');
+              }
+            };
+            updateCount();
+          });
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+
     // Navigation Control
     function toggleMenu() {
       const sidebar = document.getElementById("sidebar");
@@ -451,11 +896,17 @@
     }
 
     // Modal Control
-    function openModal(image, title, desc) {
+    let currentModalImg = '';
+    function openModal(image, title, desc, tag, date) {
+      currentModalImg = image;
       const modal = document.getElementById("achievementModal");
       document.getElementById("modalImage").src = image;
       document.getElementById("modalTitle").textContent = title;
       document.getElementById("modalDesc").textContent = desc;
+      document.getElementById("modalTag").textContent = tag || 'Award';
+      document.getElementById("modalDate").innerHTML = `<i class="fa-regular fa-calendar"></i> ${date || ''}`;
+      document.getElementById("modalFullView").href = image;
+      
       modal.style.display = "flex";
       document.body.classList.add("modal-open");
     }
@@ -465,6 +916,13 @@
       document.body.classList.remove("modal-open");
     }
 
+    function copyModalLink() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(window.location.href);
+        alert("Page URL copied to clipboard!");
+      }
+    }
+
     document.getElementById("achievementModal").addEventListener("click", function(e) {
       if (e.target === this) closeModal();
     });
@@ -472,6 +930,38 @@
     document.addEventListener("keydown", function(e) {
       if (e.key === "Escape") closeModal();
     });
+
+    // Filtering & Search Mechanics
+    function filterAchievements(category) {
+      const buttons = document.querySelectorAll('.filter-btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+
+      const cards = document.querySelectorAll('.achievement-card');
+      cards.forEach(card => {
+        const catData = card.getAttribute('data-category') || '';
+        if (category === 'all' || catData.includes(category)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function searchAchievements() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('.achievement-card');
+
+      cards.forEach(card => {
+        const title = card.querySelector('h3').textContent.toLowerCase();
+        const desc = card.querySelector('p').textContent.toLowerCase();
+        if (title.includes(query) || desc.includes(query)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
 
     // Starfield Animation
     const starsCanvas = document.getElementById('starsCanvas');
