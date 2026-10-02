@@ -161,6 +161,7 @@
       border-radius: 2px;
     }
 
+    /* Fixed size for Hire Me and Donate buttons */
     .btn-action {
       background: rgba(255, 255, 255, 0.08);
       color: var(--text-main);
@@ -174,8 +175,10 @@
       transition: var(--transition-smooth);
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 0.4rem;
       white-space: nowrap;
+      width: 110px;
     }
 
     .btn-action:hover {
@@ -704,6 +707,7 @@
       .btn-action {
         padding: 0.35rem 0.6rem;
         font-size: 0.8rem;
+        width: 100px;
       }
     }
   </style>
@@ -722,6 +726,10 @@
     <div class="nav-brand">Bryan G. Ablao</div>
     
     <div class="nav-actions">
+      <!-- Repositioned Hire Me and Donate buttons before About (navigation links) -->
+      <button id="hireBtn" class="btn-action"><i class="fa-solid fa-briefcase"></i> Hire Me</button>
+      <a href="Donate.html" class="btn-action"><i class="fa-solid fa-heart"></i> Donate</a>
+
       <nav class="desktop-nav">
         <a href="index.html">About</a>
         <a href="work.html">Experience</a>
@@ -730,9 +738,6 @@
         <a href="gallery.html">Gallery</a>
         <a href="social.html">Socials</a>
       </nav>
-
-      <button id="hireBtn" class="btn-action"><i class="fa-solid fa-briefcase"></i> Hire Me</button>
-      <a href="Donate.html" class="btn-action"><i class="fa-solid fa-heart"></i> Donate</a>
 
       <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Navigation">☰</div>
     </div>
