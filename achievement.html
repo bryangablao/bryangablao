@@ -28,26 +28,38 @@
       --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    /* ---------- Global Reset & Typography ---------- */
-    * {
+    /* ---------- Global Reset & Overflow Protection ---------- */
+    *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+    }
+
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden !important;
     }
 
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background-color: var(--bg-dark);
       color: var(--text-main);
-      overflow-x: hidden;
       line-height: 1.6;
       min-height: 100vh;
+      word-break: break-word;
     }
 
     a {
       color: inherit;
       text-decoration: none;
       transition: var(--transition-smooth);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
     }
 
     /* Background Canvases */
@@ -58,6 +70,7 @@
       width: 100vw;
       height: 100vh;
       pointer-events: none;
+      max-width: 100%;
     }
     #starsCanvas { z-index: 0; }
     #rippleCanvas { z-index: 1; }
@@ -65,8 +78,10 @@
     /* Ambient Glow Effects */
     .ambient-glow {
       position: fixed;
-      width: 500px;
-      height: 500px;
+      width: 40vw;
+      max-width: 500px;
+      height: 40vw;
+      max-height: 500px;
       border-radius: 50%;
       background: radial-gradient(circle, var(--accent-purple-glow) 0%, rgba(0,0,0,0) 70%);
       top: -150px;
@@ -78,8 +93,10 @@
 
     .ambient-glow-2 {
       position: fixed;
-      width: 600px;
-      height: 600px;
+      width: 45vw;
+      max-width: 600px;
+      height: 45vw;
+      max-height: 600px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(0,0,0,0) 70%);
       bottom: -200px;
@@ -97,7 +114,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 1rem 5%;
-      background: rgba(9, 10, 15, 0.8);
+      width: 100%;
+      background: rgba(9, 10, 15, 0.85);
       backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--glass-border);
     }
@@ -163,6 +181,7 @@
       top: 0;
       right: -280px;
       width: 280px;
+      max-width: 80vw;
       height: 100%;
       background: var(--bg-dark);
       border-left: 1px solid var(--glass-border);
@@ -189,33 +208,35 @@
 
     #sidebar ul li a:hover { color: var(--text-main); }
 
-    /* ---------- Main Layout & Glass Containers ---------- */
+    /* ---------- Main Layout Containers ---------- */
     #blur-container {
       position: relative;
       z-index: 2;
+      width: 100%;
       transition: filter 0.3s ease;
     }
 
     main {
+      width: 100%;
       max-width: 1100px;
       margin: 0 auto;
-      padding: 3rem 1.5rem;
+      padding: 2.5rem 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 2.5rem;
+      gap: 2rem;
     }
 
-    /* Glass Card Standard & Reveal Animations */
     .glass-card {
       background: var(--glass-bg);
       backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
-      padding: 2.5rem;
+      padding: 2rem;
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
       opacity: 0;
       transform: translateY(30px);
       transition: opacity 0.8s ease, transform 0.8s ease;
+      width: 100%;
     }
 
     .glass-card.visible {
@@ -223,39 +244,55 @@
       transform: translateY(0);
     }
 
-    .section-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1.25rem;
-      letter-spacing: -0.01em;
+    /* Hero Header Banner */
+    .hero-banner {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 0.75rem;
+      text-align: center;
+      padding: 2.5rem 1.5rem;
+      background: linear-gradient(180deg, rgba(109, 40, 217, 0.15) 0%, rgba(18, 20, 29, 0.65) 100%);
     }
 
-    .section-title i {
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      background: rgba(167, 139, 250, 0.1);
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      border-radius: 20px;
       color: #a78bfa;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
     }
 
-    .section-title::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--glass-border);
+    .hero-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+      background: linear-gradient(135deg, #ffffff 30%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.2;
     }
 
-    .section-desc {
+    .hero-subtitle {
       color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 2rem;
+      font-size: clamp(0.9rem, 2vw, 1.05rem);
+      max-width: 680px;
+      margin: 0 auto 2rem;
     }
 
-    /* Stats Quick-Bar */
+    /* Stats Quick-Bar Responsive Layout */
     .stats-container {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 1rem;
-      margin-top: 1rem;
+      width: 100%;
       padding: 1.25rem;
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--glass-border);
@@ -264,7 +301,7 @@
     }
 
     .stat-box h3 {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 700;
       color: #a78bfa;
     }
@@ -276,7 +313,7 @@
       letter-spacing: 0.05em;
     }
 
-    /* ---------- Controls: Search & Filter ---------- */
+    /* ---------- Filter & Controls Bar ---------- */
     .controls-wrapper {
       display: flex;
       flex-wrap: wrap;
@@ -284,6 +321,7 @@
       align-items: center;
       gap: 1rem;
       margin-bottom: 2rem;
+      width: 100%;
     }
 
     .filter-group {
@@ -313,7 +351,7 @@
 
     .search-box {
       position: relative;
-      min-width: 240px;
+      min-width: 220px;
       flex-grow: 1;
       max-width: 320px;
     }
@@ -345,31 +383,65 @@
       font-size: 0.85rem;
     }
 
-    /* ---------- Achievements Grid ---------- */
-    .achievements-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      gap: 1.5rem;
+    /* ---------- Timeline Interactive Layout ---------- */
+    .timeline-wrapper {
+      position: relative;
+      padding-left: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 2.5rem;
+      width: 100%;
     }
 
-    .achievement-card {
+    .timeline-wrapper::before {
+      content: '';
+      position: absolute;
+      left: 7px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent-purple) 0%, rgba(59, 130, 246, 0.3) 100%);
+    }
+
+    .timeline-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .timeline-node {
+      position: absolute;
+      left: -2rem;
+      top: 1.25rem;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--bg-dark);
+      border: 2px solid #a78bfa;
+      box-shadow: 0 0 10px var(--accent-purple-glow);
+      z-index: 2;
+    }
+
+    .timeline-card {
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-lg);
-      padding: 1.25rem;
+      padding: 1.5rem;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 1.5rem;
       cursor: pointer;
       transition: var(--transition-smooth);
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      overflow: hidden;
+      align-items: center;
+      width: 100%;
     }
 
-    .achievement-card:hover {
-      transform: translateY(-6px);
+    .timeline-card:hover {
+      transform: translateX(6px);
       border-color: rgba(167, 139, 250, 0.5);
       background: rgba(255, 255, 255, 0.04);
-      box-shadow: 0 12px 30px rgba(109, 40, 217, 0.25);
+      box-shadow: 0 10px 25px rgba(109, 40, 217, 0.2);
     }
 
     .card-img-wrapper {
@@ -378,7 +450,6 @@
       aspect-ratio: 4 / 3;
       border-radius: var(--radius-md);
       overflow: hidden;
-      margin-bottom: 1rem;
       border: 1px solid var(--glass-border);
       background: rgba(0, 0, 0, 0.2);
     }
@@ -390,7 +461,7 @@
       transition: transform 0.5s ease;
     }
 
-    .achievement-card:hover .card-img-wrapper img {
+    .timeline-card:hover .card-img-wrapper img {
       transform: scale(1.05);
     }
 
@@ -408,7 +479,7 @@
       transition: opacity 0.3s ease;
     }
 
-    .achievement-card:hover .card-overlay {
+    .timeline-card:hover .card-overlay {
       opacity: 1;
     }
 
@@ -422,11 +493,18 @@
       backdrop-filter: blur(4px);
     }
 
+    .card-content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      min-width: 0; /* Prevents flex box overflow */
+    }
+
     .card-meta {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 0.5rem;
+      gap: 0.75rem;
+      flex-wrap: wrap;
     }
 
     .card-tag {
@@ -446,30 +524,43 @@
       color: var(--text-muted);
     }
 
-    .achievement-card h3 {
-      font-size: 1rem;
+    .card-content h3 {
+      font-size: 1.1rem;
       font-weight: 600;
       color: var(--text-main);
-      line-height: 1.4;
-      margin-bottom: 0.5rem;
+      line-height: 1.3;
     }
 
-    .achievement-card p {
-      font-size: 0.825rem;
+    .card-content p {
+      font-size: 0.875rem;
       color: var(--text-muted);
       line-height: 1.5;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
     }
 
-    /* ---------- Tags & Skills Badges ---------- */
+    /* ---------- Core Strengths Badges ---------- */
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-title i { color: #a78bfa; }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--glass-border);
+    }
+
     .skills-badges {
       display: flex;
       flex-wrap: wrap;
       gap: 0.6rem;
-      margin-top: 1rem;
     }
 
     .skill-badge {
@@ -491,11 +582,9 @@
       transform: translateY(-2px);
     }
 
-    .skill-badge i {
-      color: #a78bfa;
-    }
+    .skill-badge i { color: #a78bfa; }
 
-    /* ---------- Modals ---------- */
+    /* ---------- Detail Modal Overlay ---------- */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -508,15 +597,15 @@
       justify-content: center;
       align-items: center;
       z-index: 2000;
-      padding: 1.5rem;
+      padding: 1rem;
     }
 
     .modal-box {
       background: #11131f;
       border: 1px solid var(--glass-border);
-      padding: 2rem;
+      padding: 1.75rem;
       border-radius: var(--radius-lg);
-      max-width: 620px;
+      max-width: 600px;
       width: 100%;
       color: var(--text-main);
       position: relative;
@@ -554,14 +643,14 @@
 
     .modal-box img {
       width: 100%;
-      max-height: 380px;
+      max-height: 350px;
       object-fit: contain;
       background: #000;
       display: block;
     }
 
     .modal-box h2 {
-      font-size: 1.35rem;
+      font-size: 1.25rem;
       font-weight: 700;
       margin-bottom: 0.5rem;
       color: #a78bfa;
@@ -569,7 +658,7 @@
 
     .modal-meta-bar {
       display: flex;
-      gap: 1rem;
+      gap: 0.75rem;
       align-items: center;
       margin-bottom: 1rem;
       font-size: 0.8rem;
@@ -588,6 +677,7 @@
       gap: 0.75rem;
       padding-top: 1rem;
       border-top: 1px solid var(--glass-border);
+      flex-wrap: wrap;
     }
 
     .btn-action {
@@ -622,9 +712,10 @@
       text-align: center;
       color: var(--text-muted);
       font-size: 0.85rem;
-      padding: 3rem 1.5rem;
+      padding: 2.5rem 1.5rem;
       border-top: 1px solid var(--glass-border);
-      margin-top: 4rem;
+      margin-top: 3rem;
+      width: 100%;
     }
 
     .footer-links {
@@ -634,22 +725,55 @@
       margin-top: 0.5rem;
     }
 
-    .footer-link {
-      color: var(--text-muted);
-    }
+    .footer-link { color: var(--text-muted); }
+    .footer-link:hover { color: var(--text-main); }
 
-    .footer-link:hover {
-      color: var(--text-main);
-    }
-
-    /* ---------- Responsive Breakpoints ---------- */
+    /* ---------- Responsive Breakpoints & Mobile Fixes ---------- */
     @media (max-width: 850px) {
       .desktop-nav { display: none; }
       .hamburger { display: block; }
-      .stats-container { grid-template-columns: 1fr; }
-      .controls-wrapper { flex-direction: column; align-items: stretch; }
-      .search-box { max-width: 100%; }
-      .glass-card { padding: 1.5rem; }
+      
+      .timeline-card {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .card-img-wrapper {
+        aspect-ratio: 16 / 9;
+      }
+
+      .timeline-card:hover {
+        transform: translateY(-4px);
+      }
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 0.85rem 4%; }
+      main { padding: 1.5rem 0.85rem; }
+      .glass-card { padding: 1.25rem; }
+      
+      .timeline-wrapper {
+        padding-left: 1.25rem;
+      }
+      
+      .timeline-node {
+        left: -1.25rem;
+        width: 12px;
+        height: 12px;
+      }
+
+      .controls-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-box {
+        max-width: 100%;
+      }
+      
+      .modal-box {
+        padding: 1.25rem;
+      }
     }
   </style>
 </head>
@@ -661,7 +785,7 @@
   <canvas id="starsCanvas"></canvas>
   <canvas id="rippleCanvas"></canvas>
 
-  <!-- Sticky Header -->
+  <!-- Navigation Bar -->
   <header>
     <div class="nav-brand">Bryan G. Ablao</div>
     <nav class="desktop-nav">
@@ -690,14 +814,15 @@
     </ul>
   </nav>
 
-  <!-- Main Content Area -->
+  <!-- Main Content Layout Area -->
   <div id="blur-container">
     <main>
 
-      <!-- Highlights & Overview Section -->
-      <section class="glass-card">
-        <h2 class="section-title"><i class="fa-solid fa-trophy"></i> Achievements & Recognitions</h2>
-        <p class="section-desc">A showcase of honors, performance awards, and competitive accomplishments earned across my academic and professional career.</p>
+      <!-- Hero Header Section -->
+      <section class="glass-card hero-banner">
+        <div class="hero-badge"><i class="fa-solid fa-trophy"></i> Key Accomplishments</div>
+        <h1 class="hero-title">Career Milestones & Honors</h1>
+        <p class="hero-subtitle">An interactive visual timeline highlighting professional excellence, top operational awards, and competitive sport achievements.</p>
 
         <!-- Stats Bar Display -->
         <div class="stats-container">
@@ -711,23 +836,18 @@
           </div>
           <div class="stat-box">
             <h3 class="counter" data-target="100">0</h3>
-            <p>% Strategic Focus</p>
+            <p>% Commitment & Focus</p>
           </div>
         </div>
       </section>
 
-      <!-- Search, Filter & Grid Section -->
+      <!-- Timeline & Filter Section -->
       <section class="glass-card">
         <div class="controls-wrapper">
           <div class="filter-group">
             <button class="filter-btn active" onclick="filterAchievements('all')">All</button>
-
-            <button class="filter-btn" onclick="filterAchievements('award')">Awards</button>
-
             <button class="filter-btn" onclick="filterAchievements('performance')">Performance</button>
-
             <button class="filter-btn" onclick="filterAchievements('sports')">Sports</button>
-
           </div>
           <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
@@ -735,72 +855,88 @@
           </div>
         </div>
 
-        <div class="achievements-grid" id="achievementsGrid">
+        <!-- Interactive Milestone Timeline -->
+        <div class="timeline-wrapper" id="achievementsGrid">
           
-          <!-- Card 1 -->
-          <div class="achievement-card" data-category="sports" onclick="openModal(
-            'images/Gallery/Achievement/a1.jpg',
-            'Certificate of Award – SIXELEVEN Sportsfest 2025',
-            'Awarded for outstanding performance in the Chess Tournament, representing skill, strategy, and dedication during the company’s annual Sportsfest.',
-            'Sportsfest Award',
-            '2025'
-          )">
-            <div class="card-img-wrapper">
-              <img src="images/Gallery/Achievement/a1.jpg" alt="Certificate of Award – SIXELEVEN Sportsfest 2025">
-              <div class="card-overlay"><span><i class="fa-solid fa-expand"></i> View Details</span></div>
-            </div>
-            <div class="card-meta">
-              <span class="card-tag">Sports</span>
-              <span class="card-date"><i class="fa-regular fa-calendar"></i> 2025</span>
-            </div>
-            <h3>Certificate of Award – SIXELEVEN Sportsfest 2025</h3>
-            <p>Awarded for outstanding performance in the Chess Tournament, representing skill, strategy, and dedication.</p>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="achievement-card" data-category="performance award" onclick="openModal(
-            'images/Gallery/Achievement/a2.png',
-            'Certificate of Achievement – Top Agent of the Month',
-            'Recognized as Top Call Center Agent of the Month for November 2025 under OM Willy Cluster for exceptional performance and dedication to KPI excellence.',
-            'Top Performance',
-            'Nov 2025'
-          )">
-            <div class="card-img-wrapper">
-              <img src="images/Gallery/Achievement/a2.png" alt="Certificate of Achievement – Top Agent Nov 2025">
-              <div class="card-overlay"><span><i class="fa-solid fa-expand"></i> View Details</span></div>
-            </div>
-            <div class="card-meta">
-              <span class="card-tag">Performance</span>
-              <span class="card-date"><i class="fa-regular fa-calendar"></i> Nov 2025</span>
-            </div>
-            <h3>Top Agent of the Month (Nov 2025)</h3>
-            <p>Recognized as Top Call Center Agent under OM Willy Cluster for exceptional operational efficiency.</p>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="achievement-card" data-category="performance award" onclick="openModal(
+          <!-- Item 1 -->
+          <div class="timeline-item achievement-card" data-category="performance" onclick="openModal(
             'images/Gallery/Achievement/a3.png',
             'Certificate of Achievement – Top Agent of the Month',
             'Recognized as Top Call Center Agent of the Month for July 2026 under OM Willy Cluster for sustained customer satisfaction and consistent high target output.',
-            'Top Performance',
+            'Performance',
             'Jul 2026'
           )">
-            <div class="card-img-wrapper">
-              <img src="images/Gallery/Achievement/a3.png" alt="Certificate of Achievement – Top Agent Jul 2026">
-              <div class="card-overlay"><span><i class="fa-solid fa-expand"></i> View Details</span></div>
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="card-img-wrapper">
+                <img src="images/Gallery/Achievement/a3.png" alt="Top Agent Jul 2026">
+                <div class="card-overlay"><span><i class="fa-solid fa-expand"></i> View Details</span></div>
+              </div>
+              <div class="card-content">
+                <div class="card-meta">
+                  <span class="card-tag">Performance</span>
+                  <span class="card-date"><i class="fa-regular fa-calendar"></i> Jul 2026</span>
+                </div>
+                <h3>Top Agent of the Month (Jul 2026)</h3>
+                <p>Recognized as Top Call Center Agent for maintaining sustained high-quality metrics and operational commitment.</p>
+              </div>
             </div>
-            <div class="card-meta">
-              <span class="card-tag">Performance</span>
-              <span class="card-date"><i class="fa-regular fa-calendar"></i> Jul 2026</span>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="timeline-item achievement-card" data-category="sports" onclick="openModal(
+            'images/Gallery/Achievement/a1.jpg',
+            'Certificate of Award – SIXELEVEN Sportsfest 2025',
+            'Awarded for outstanding performance in the Chess Tournament, representing skill, strategy, and dedication during the company’s annual Sportsfest.',
+            'Sports',
+            '2025'
+          )">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="card-img-wrapper">
+                <img src="images/Gallery/Achievement/a1.jpg" alt="Sportsfest Award 2025">
+                <div class="card-overlay"><span><i class="fa-solid fa-expand"></i> View Details</span></div>
+              </div>
+              <div class="card-content">
+                <div class="card-meta">
+                  <span class="card-tag">Sports</span>
+                  <span class="card-date"><i class="fa-regular fa-calendar"></i> 2025</span>
+                </div>
+                <h3>Certificate of Award – SIXELEVEN Sportsfest 2025</h3>
+                <p>Awarded for outstanding performance in the Chess Tournament, representing skill, strategy, and sportsmanship.</p>
+              </div>
             </div>
-            <h3>Top Agent of the Month (Jul 2026)</h3>
-            <p>Recognized as Top Call Center Agent for maintaining sustained high-quality metrics and commitment.</p>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="timeline-item achievement-card" data-category="performance" onclick="openModal(
+            'images/Gallery/Achievement/a2.png',
+            'Certificate of Achievement – Top Agent of the Month',
+            'Recognized as Top Call Center Agent of the Month for November 2025 under OM Willy Cluster for exceptional performance and dedication to KPI excellence.',
+            'Performance',
+            'Nov 2025'
+          )">
+            <div class="timeline-node"></div>
+            <div class="timeline-card">
+              <div class="card-img-wrapper">
+                <img src="images/Gallery/Achievement/a2.png" alt="Top Agent Nov 2025">
+                <div class="card-overlay"><span><i class="fa-solid fa-expand"></i> View Details</span></div>
+              </div>
+              <div class="card-content">
+                <div class="card-meta">
+                  <span class="card-tag">Performance</span>
+                  <span class="card-date"><i class="fa-regular fa-calendar"></i> Nov 2025</span>
+                </div>
+                <h3>Top Agent of the Month (Nov 2025)</h3>
+                <p>Recognized as Top Call Center Agent under OM Willy Cluster for exceptional operational efficiency and KPI excellence.</p>
+              </div>
+            </div>
           </div>
 
         </div>
       </section>
 
-      <!-- Demonstrated Competencies Section -->
+      <!-- Competencies Section -->
       <section class="glass-card">
         <h3 class="section-title"><i class="fa-solid fa-award"></i> Core Strengths Demonstrated</h3>
         <div class="skills-badges">
@@ -809,7 +945,7 @@
           <div class="skill-badge"><i class="fa-solid fa-bullseye"></i> Goal Attainment</div>
           <div class="skill-badge"><i class="fa-solid fa-handshake"></i> Customer Satisfaction</div>
           <div class="skill-badge"><i class="fa-solid fa-bolt"></i> Problem Solving</div>
-          <div class="skill-badge"><i class="fa-solid fa-users"></i> Team Sportsmanship</div>
+          <div class="skill-badge"><i class="fa-solid fa-users"></i> Team Leadership</div>
         </div>
       </section>
 
@@ -826,12 +962,12 @@
     </footer>
   </div>
 
-  <!-- ---------- Achievement Modal ---------- -->
+  <!-- Detail Modal -->
   <div class="modal-overlay" id="achievementModal">
     <div class="modal-box">
       <span class="modal-close" onclick="closeModal()">&times;</span>
       <div class="modal-img-container">
-        <img id="modalImage" src="" alt="Achievement Preview">
+        <img id="modalImage" src="" alt="Achievement Detail View">
       </div>
       <div class="modal-meta-bar">
         <span class="card-tag" id="modalTag">Award</span>
@@ -842,7 +978,7 @@
       
       <div class="modal-actions">
         <a id="modalFullView" href="#" target="_blank" class="btn-action">
-          <i class="fa-solid fa-up-right-from-square"></i> Open High-Res Image
+          <i class="fa-solid fa-up-right-from-square"></i> High-Res Image
         </a>
         <button class="btn-action" onclick="copyModalLink()">
           <i class="fa-solid fa-share-nodes"></i> Share
@@ -896,9 +1032,7 @@
     }
 
     // Modal Control
-    let currentModalImg = '';
     function openModal(image, title, desc, tag, date) {
-      currentModalImg = image;
       const modal = document.getElementById("achievementModal");
       document.getElementById("modalImage").src = image;
       document.getElementById("modalTitle").textContent = title;
@@ -963,7 +1097,7 @@
       });
     }
 
-    // Starfield Animation
+    // Canvas Background Animations
     const starsCanvas = document.getElementById('starsCanvas');
     const starsCtx = starsCanvas.getContext('2d');
     let stars = [], meteor = null;
@@ -1042,7 +1176,7 @@
     animateStars();
     setTimeout(spawnMeteor, 2000);
 
-    // Mouse Ripple Effect
+    // Ripple FX Canvas
     const rippleCanvas = document.getElementById('rippleCanvas');
     const rippleCtx = rippleCanvas.getContext('2d');
     let ripples = [];
