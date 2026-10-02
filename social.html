@@ -12,6 +12,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function() {
+      // Replace with your EmailJS Public Key
+      emailjs.init("YOUR_PUBLIC_KEY");
+    })();
+  </script>
+
   <style>
     /* ---------- Theme & CSS Variables ---------- */
     :root {
@@ -470,7 +479,7 @@
     .contact-form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      gap: 1.5rem;
     }
 
     .form-group {
@@ -527,6 +536,11 @@
     .submit-btn:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 20px rgba(109, 40, 217, 0.5);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
     /* ---------- Modals ---------- */
@@ -883,34 +897,38 @@
         </div>
       </section>
 
-      <!-- Quick Quick Message / Contact Form -->
+      <!-- Quick Message / Contact Form -->
       <section class="glass-card">
         <h3 class="section-title"><i class="fa-solid fa-paper-plane"></i> Quick Message</h3>
         <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
           Prefer direct messaging? Send a prompt inquiry and select your preferred social channel response.
         </p>
 
-        <form onsubmit="handleQuickMessage(event)">
+        <form id="quickMessageForm" onsubmit="handleQuickMessage(event)">
           <div class="contact-form-grid">
             <div class="form-group">
               <label for="senderName"><i class="fa-solid fa-user"></i> Your Name</label>
-              <input type="text" id="senderName" placeholder="John Doe" required>
+              <input type="text" id="senderName" name="from_name" placeholder="John Doe" required>
             </div>
             <div class="form-group">
-              <label for="preferredPlatform"><i class="fa-solid fa-share-nodes"></i> Preferred Response Via</label>
-              <select id="preferredPlatform">
-                <option value="Telegram">Telegram (@bryvngtz)</option>
-                <option value="LinkedIn">LinkedIn</option>
-                <option value="Email">Email Direct</option>
-                <option value="Instagram">Instagram</option>
-              </select>
+              <label for="senderEmail"><i class="fa-solid fa-envelope"></i> Your Email</label>
+              <input type="email" id="senderEmail" name="reply_to" placeholder="john@example.com" required>
             </div>
           </div>
           <div class="form-group">
-            <label for="messageBody"><i class="fa-solid fa-comment-dots"></i> Message or Proposal</label>
-            <textarea id="messageBody" rows="4" placeholder="Hi Bryan, I'd like to collaborate on..." required></textarea>
+            <label for="preferredPlatform"><i class="fa-solid fa-share-nodes"></i> Preferred Response Via</label>
+            <select id="preferredPlatform" name="preferred_platform">
+              <option value="Telegram">Telegram (@bryvngtz)</option>
+              <option value="LinkedIn">LinkedIn</option>
+              <option value="Email">Email Direct</option>
+              <option value="Instagram">Instagram</option>
+            </select>
           </div>
-          <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Direct Message</button>
+          <div class="form-group">
+            <label for="messageBody"><i class="fa-solid fa-comment-dots"></i> Message or Proposal</label>
+            <textarea id="messageBody" name="message" rows="4" placeholder="Hi Bryan, I'd like to collaborate on..." required></textarea>
+          </div>
+          <button type="submit" id="submitBtn" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Direct Message</button>
         </form>
       </section>
 
@@ -1070,25 +1088,27 @@
       if (e.target === document.getElementById('socialModal')) closeSocialModal();
     });
 
-    // Handle Quick Contact Form Submission
+    // Handle Quick Contact Form Submission with EmailJS
     function handleQuickMessage(e) {
       e.preventDefault();
-      const name = document.getElementById('senderName').value;
-      const platform = document.getElementById('preferredPlatform').value;
       
-      showToast(`Thank you, ${name}! Redirecting to ${platform}...`);
-      
-      setTimeout(() => {
-        if (platform === 'Telegram') {
-          window.open('https://t.me/bryvngtz', '_blank');
-        } else if (platform === 'LinkedIn') {
-          window.open('https://www.linkedin.com/in/bryan-ablao-636497189/', '_blank');
-        } else if (platform === 'Email') {
-          window.location.href = 'mailto:ablaobryan4400@gmail.com';
-        } else {
-          window.open('https://www.instagram.com/bryvngtz/#', '_blank');
-        }
-      }, 1200);
+      const btn = document.getElementById('submitBtn');
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
+
+      // Send form parameters via EmailJS
+      emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', e.target)
+        .then(() => {
+          showToast('Message sent successfully!');
+          document.getElementById('quickMessageForm').reset();
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Direct Message';
+        }, (error) => {
+          showToast('Failed to send message. Please try again.');
+          console.error('EmailJS Error:', error);
+          btn.disabled = false;
+          btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Direct Message';
+        });
     }
 
     // Starfield Animation
