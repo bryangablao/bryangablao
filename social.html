@@ -11,15 +11,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- EmailJS SDK -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-  <script type="text/javascript">
-    (function() {
-      // Replace with your EmailJS Public Key
-      emailjs.init("YOUR_PUBLIC_KEY");
-    })();
-  </script>
 
   <style>
     /* ---------- Theme & CSS Variables ---------- */
@@ -475,72 +466,67 @@
       box-shadow: 0 4px 10px rgba(109, 40, 217, 0.4);
     }
 
-    /* Direct Contact Section */
-    .contact-form-grid {
+    /* Direct Contact Links Section */
+    .direct-contact-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.25rem;
     }
 
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 0.4rem;
-    }
-
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      background: rgba(255, 255, 255, 0.03);
+    .direct-contact-card {
+      background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--glass-border);
       border-radius: var(--radius-md);
-      color: var(--text-main);
-      font-family: inherit;
-      font-size: 0.9rem;
-      outline: none;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
       transition: var(--transition-smooth);
     }
 
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-      border-color: #a78bfa;
-      background: rgba(255, 255, 255, 0.07);
+    .direct-contact-card:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(167, 139, 250, 0.4);
+      transform: translateY(-4px);
     }
 
-    .form-group select option {
-      background: #11131f;
-      color: var(--text-main);
+    .direct-contact-icon {
+      font-size: 1.75rem;
+      color: #a78bfa;
     }
 
-    .submit-btn {
+    .direct-contact-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .direct-contact-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .direct-contact-btn {
       width: 100%;
-      padding: 0.8rem;
+      margin-top: 0.5rem;
+      padding: 0.6rem;
       background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
       border: none;
-      border-radius: var(--radius-md);
+      border-radius: 6px;
       color: #fff;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition-smooth);
-      display: flex;
+      text-align: center;
+      display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
+      cursor: pointer;
     }
 
-    .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(109, 40, 217, 0.5);
-    }
-
-    .submit-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
+    .direct-contact-btn:hover {
+      opacity: 0.9;
+      box-shadow: 0 4px 12px rgba(109, 40, 217, 0.4);
     }
 
     /* ---------- Modals ---------- */
@@ -701,7 +687,6 @@
       .desktop-nav { display: none; }
       .hamburger { display: block; }
       .stats-container { grid-template-columns: 1fr; }
-      .contact-form-grid { grid-template-columns: 1fr; }
       .social-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
     }
   </style>
@@ -752,7 +737,7 @@
         <div class="hero-header">
           <h2>Connect & Collaborate</h2>
           <p class="description">
-            Explore my digital presence across platforms. Follow, send a direct message, or copy handles with a single tap.
+            Explore my digital presence across platforms. Follow, send a message, or copy handles with a single tap.
           </p>
         </div>
 
@@ -897,39 +882,44 @@
         </div>
       </section>
 
-      <!-- Quick Message / Contact Form -->
+      <!-- Direct Contact Section (Replaces Quick Message Form) -->
       <section class="glass-card">
-        <h3 class="section-title"><i class="fa-solid fa-paper-plane"></i> Quick Message</h3>
+        <h3 class="section-title"><i class="fa-solid fa-envelope"></i> Get in Touch</h3>
         <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
-          Prefer direct messaging? Send a prompt inquiry and select your preferred social channel response.
+          Have a proposal or want to collaborate? Connect directly via email or messaging platforms.
         </p>
 
-        <form id="quickMessageForm" onsubmit="handleQuickMessage(event)">
-          <div class="contact-form-grid">
-            <div class="form-group">
-              <label for="senderName"><i class="fa-solid fa-user"></i> Your Name</label>
-              <input type="text" id="senderName" name="from_name" placeholder="John Doe" required>
-            </div>
-            <div class="form-group">
-              <label for="senderEmail"><i class="fa-solid fa-envelope"></i> Your Email</label>
-              <input type="email" id="senderEmail" name="reply_to" placeholder="john@example.com" required>
-            </div>
+        <div class="direct-contact-grid">
+          <!-- Gmail -->
+          <div class="direct-contact-card">
+            <i class="fa-solid fa-envelope direct-contact-icon"></i>
+            <div class="direct-contact-title">Direct Email</div>
+            <div class="direct-contact-desc">ablaobryan4400@gmail.com</div>
+            <a href="mailto:ablaobryan4400@gmail.com" class="direct-contact-btn">
+              <i class="fa-solid fa-paper-plane"></i> Send Email
+            </a>
           </div>
-          <div class="form-group">
-            <label for="preferredPlatform"><i class="fa-solid fa-share-nodes"></i> Preferred Response Via</label>
-            <select id="preferredPlatform" name="preferred_platform">
-              <option value="Telegram">Telegram (@bryvngtz)</option>
-              <option value="LinkedIn">LinkedIn</option>
-              <option value="Email">Email Direct</option>
-              <option value="Instagram">Instagram</option>
-            </select>
+
+          <!-- Telegram -->
+          <div class="direct-contact-card">
+            <i class="fa-brands fa-telegram direct-contact-icon"></i>
+            <div class="direct-contact-title">Telegram Chat</div>
+            <div class="direct-contact-desc">@bryvngtz</div>
+            <a href="https://t.me/bryvngtz" target="_blank" rel="noopener" class="direct-contact-btn">
+              <i class="fa-solid fa-comments"></i> Open Chat
+            </a>
           </div>
-          <div class="form-group">
-            <label for="messageBody"><i class="fa-solid fa-comment-dots"></i> Message or Proposal</label>
-            <textarea id="messageBody" name="message" rows="4" placeholder="Hi Bryan, I'd like to collaborate on..." required></textarea>
+
+          <!-- LinkedIn -->
+          <div class="direct-contact-card">
+            <i class="fa-brands fa-linkedin direct-contact-icon"></i>
+            <div class="direct-contact-title">LinkedIn Network</div>
+            <div class="direct-contact-desc">Bryan G. Ablao</div>
+            <a href="https://www.linkedin.com/in/bryan-ablao-636497189/" target="_blank" rel="noopener" class="direct-contact-btn">
+              <i class="fa-solid fa-user-plus"></i> Connect
+            </a>
           </div>
-          <button type="submit" id="submitBtn" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Direct Message</button>
-        </form>
+        </div>
       </section>
 
     </main>
@@ -1087,29 +1077,6 @@
     document.getElementById('socialModal').addEventListener('click', e => {
       if (e.target === document.getElementById('socialModal')) closeSocialModal();
     });
-
-    // Handle Quick Contact Form Submission with EmailJS
-    function handleQuickMessage(e) {
-      e.preventDefault();
-      
-      const btn = document.getElementById('submitBtn');
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Sending...';
-
-      // Send form parameters via EmailJS
-      emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', e.target)
-        .then(() => {
-          showToast('Message sent successfully!');
-          document.getElementById('quickMessageForm').reset();
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Direct Message';
-        }, (error) => {
-          showToast('Failed to send message. Please try again.');
-          console.error('EmailJS Error:', error);
-          btn.disabled = false;
-          btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Send Direct Message';
-        });
-    }
 
     // Starfield Animation
     const starsCanvas = document.getElementById('starsCanvas');
