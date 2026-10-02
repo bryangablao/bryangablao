@@ -6,10 +6,11 @@
   <link rel="icon" type="image/png" href="images/Gallery/MainLogo.png">
   <title>Work Experience | Bryan G. Ablao</title>
   
-  <!-- Modern Typography -->
+  <!-- Modern Typography & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
     /* ---------- Theme & CSS Variables ---------- */
@@ -75,6 +76,18 @@
       opacity: 0.6;
     }
 
+    .ambient-glow-2 {
+      position: fixed;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.25) 0%, rgba(0,0,0,0) 70%);
+      bottom: -200px;
+      right: -200px;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     /* ---------- Navigation Bar ---------- */
     header {
       position: sticky;
@@ -107,10 +120,22 @@
       font-size: 0.9rem;
       color: var(--text-muted);
       font-weight: 500;
+      position: relative;
     }
 
     .desktop-nav a:hover, .desktop-nav a.active {
       color: var(--text-main);
+    }
+
+    .desktop-nav a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
+      border-radius: 2px;
     }
 
     .hamburger {
@@ -180,7 +205,7 @@
       gap: 2.5rem;
     }
 
-    /* Glass Card Standard */
+    /* Glass Card Standard & Reveal Animations */
     .glass-card {
       background: var(--glass-bg);
       backdrop-filter: blur(16px);
@@ -188,6 +213,14 @@
       border-radius: var(--radius-lg);
       padding: 2.5rem;
       box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .glass-card.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .section-title {
@@ -200,11 +233,108 @@
       gap: 0.75rem;
     }
 
+    .section-title i {
+      color: #a78bfa;
+    }
+
     .section-title::after {
       content: '';
       flex: 1;
       height: 1px;
       background: var(--glass-border);
+    }
+
+    /* Stats Quick-Bar */
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 0.5rem;
+      padding: 1.25rem;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      text-align: center;
+    }
+
+    .stat-box h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #a78bfa;
+    }
+
+    .stat-box p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Search & Filter Controls */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.75rem;
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition-smooth);
+    }
+
+    .search-box input:focus {
+      border-color: rgba(167, 139, 250, 0.5);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .filter-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tag-btn {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      color: var(--text-muted);
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .tag-btn:hover, .tag-btn.active {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3);
     }
 
     /* Work Experience Item Cards */
@@ -217,30 +347,40 @@
     .job {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 1.25rem;
       background: rgba(255, 255, 255, 0.02);
       border: 1px solid var(--glass-border);
-      padding: 1.25rem;
+      padding: 1.5rem;
       border-radius: var(--radius-md);
       cursor: pointer;
       transition: var(--transition-smooth);
+      position: relative;
     }
 
     .job:hover {
       transform: translateY(-3px);
       background: rgba(255, 255, 255, 0.05);
-      border-color: rgba(167, 139, 250, 0.3);
+      border-color: rgba(167, 139, 250, 0.4);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .job-main {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
     }
 
     .job-icon {
       width: 64px;
       height: 64px;
       object-fit: contain;
-      border-radius: 8px;
+      border-radius: 12px;
       background: #ffffff;
       padding: 6px;
       flex-shrink: 0;
       border: 1px solid var(--glass-border);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     .job-details {
@@ -248,31 +388,60 @@
     }
 
     .job-details strong {
-      display: block;
+      display: inline-block;
       color: #a78bfa;
-      font-size: 0.85rem;
+      font-size: 0.825rem;
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.25rem;
+      font-weight: 600;
     }
 
     .job-details h4 {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
       font-weight: 600;
       color: var(--text-main);
+      margin-bottom: 0.4rem;
+    }
+
+    .job-skills {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .skill-chip {
+      background: rgba(167, 139, 250, 0.1);
+      color: #a78bfa;
+      border: 1px solid rgba(167, 139, 250, 0.2);
+      padding: 0.15rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .job-action-icon {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      transition: var(--transition-smooth);
+    }
+
+    .job:hover .job-action-icon {
+      color: #a78bfa;
+      transform: translateX(4px);
     }
 
     /* Resume Button Action */
     .buttons {
       display: flex;
       justify-content: center;
-      margin-top: 1rem;
+      margin-top: 1.5rem;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
+      gap: 0.5rem;
       background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
       color: #ffffff;
       padding: 0.85rem 1.75rem;
@@ -287,6 +456,60 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 20px rgba(109, 40, 217, 0.5);
       filter: brightness(1.1);
+    }
+
+    /* Timeline Career View */
+    .timeline {
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 5px;
+      bottom: 5px;
+      width: 2px;
+      background: linear-gradient(180deg, var(--accent-purple), var(--accent-blue));
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.75rem;
+      padding-left: 1.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -25px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent-purple);
+      border: 3px solid var(--bg-dark);
+      box-shadow: 0 0 10px var(--accent-purple);
+    }
+
+    .timeline-date {
+      font-size: 0.8rem;
+      color: #a78bfa;
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+
+    .timeline-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .timeline-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.25rem;
     }
 
     /* ---------- Modals ---------- */
@@ -310,7 +533,7 @@
       border: 1px solid var(--glass-border);
       padding: 2rem;
       border-radius: var(--radius-lg);
-      max-width: 550px;
+      max-width: 580px;
       width: 100%;
       color: var(--text-main);
       position: relative;
@@ -347,6 +570,9 @@
       margin-bottom: 1rem;
       border-bottom: 1px solid var(--glass-border);
       padding-bottom: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
     }
 
     .modal-meta strong {
@@ -360,9 +586,31 @@
       margin-bottom: 1rem;
     }
 
+    .modal-highlights {
+      list-style: none;
+      margin-bottom: 1.25rem;
+    }
+
+    .modal-highlights li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .modal-highlights li i {
+      color: #a78bfa;
+      margin-top: 0.25rem;
+    }
+
     .modal-location a {
       color: var(--accent-blue);
       text-decoration: underline;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
     }
 
     .modal-location a:hover {
@@ -404,12 +652,24 @@
     @media (max-width: 850px) {
       .desktop-nav { display: none; }
       .hamburger { display: block; }
+      .stats-container { grid-template-columns: repeat(2, 1fr); }
       .job {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+      .job-main {
         flex-direction: column;
         text-align: center;
       }
       .job-details {
         text-align: center;
+      }
+      .job-skills {
+        justify-content: center;
+      }
+      .job-action-icon {
+        display: none;
       }
     }
   </style>
@@ -418,6 +678,7 @@
 
   <!-- Animated Background Elements -->
   <div class="ambient-glow"></div>
+  <div class="ambient-glow-2"></div>
   <canvas id="starsCanvas"></canvas>
   <canvas id="rippleCanvas"></canvas>
 
@@ -453,57 +714,164 @@
   <!-- Main Content Area -->
   <div id="blur-container">
     <main>
-      
-      <!-- Work Experience Section -->
+
+      <!-- Quick Career Metrics Banner -->
       <section class="glass-card">
-        <h3 class="section-title">Work Experience</h3>
+        <h3 class="section-title"><i class="fa-solid fa-chart-line"></i> Career Overview</h3>
+        <div class="stats-container">
+          <div class="stat-box">
+            <h3 class="counter" data-target="9">0</h3>
+            <p>Years Active</p>
+          </div>
+          <div class="stat-box">
+            <h3 class="counter" data-target="5">0</h3>
+            <p>Key Roles</p>
+          </div>
+          <div class="stat-box">
+            <h3 class="counter" data-target="4">0</h3>
+            <p>Industries</p>
+          </div>
+          <div class="stat-box">
+            <h3 class="counter" data-target="100">0</h3>
+            <p>% Adaptability</p>
+          </div>
+        </div>
+      </section>
+      
+      <!-- Work Experience Interactive List -->
+      <section class="glass-card">
+        <h3 class="section-title"><i class="fa-solid fa-briefcase"></i> Professional Experience</h3>
         
-        <div class="experience-container">
-          <div class="job" onclick="openModal('modalSixEleven')">
-            <img src="images/sixeleven.jpg" alt="SixEleven" class="job-icon">
-            <div class="job-details">
-              <strong>January 2025 – Current</strong>
-              <h4>Call Center Agent at SixEleven</h4>
+        <!-- Filter Controls -->
+        <div class="filter-bar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="jobSearch" placeholder="Search roles, companies, or skills..." onkeyup="filterJobs()">
+          </div>
+          <div class="filter-tags">
+            <button class="tag-btn active" onclick="filterCategory('all', this)">All</button>
+            <button class="tag-btn" onclick="filterCategory('customer-service', this)">Customer Service</button>
+            <button class="tag-btn" onclick="filterCategory('data-entry', this)">Data / Encoding</button>
+            <button class="tag-btn" onclick="filterCategory('production', this)">Production</button>
+          </div>
+        </div>
+
+        <!-- Experience Cards Container -->
+        <div class="experience-container" id="experienceContainer">
+          
+          <div class="job" data-category="customer-service" data-title="call center agent sixeleven image annotation" onclick="openModal('modalSixEleven')">
+            <div class="job-main">
+              <img src="images/sixeleven.jpg" alt="SixEleven" class="job-icon">
+              <div class="job-details">
+                <strong>January 2025 – Present</strong>
+                <h4>Call Center Agent at SixEleven</h4>
+                <div class="job-skills">
+                  <span class="skill-chip">Customer Relations</span>
+                  <span class="skill-chip">AI Annotation</span>
+                  <span class="skill-chip">Communication</span>
+                </div>
+              </div>
             </div>
+            <div class="job-action-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
           </div>
 
-          <div class="job" onclick="openModal('modalGMall')">
-            <img src="images/gaisano.png" alt="GMALL Warehouse Buhangin" class="job-icon">
-            <div class="job-details">
-              <strong>February 2023 – January 2024</strong>
-              <h4>Encoder at GMALL Warehouse Buhangin</h4>
+          <div class="job" data-category="data-entry" data-title="encoder gmall warehouse buhangin inventory" onclick="openModal('modalGMall')">
+            <div class="job-main">
+              <img src="images/gaisano.png" alt="GMALL Warehouse Buhangin" class="job-icon">
+              <div class="job-details">
+                <strong>February 2023 – January 2024</strong>
+                <h4>Encoder at GMALL Warehouse Buhangin</h4>
+                <div class="job-skills">
+                  <span class="skill-chip">Data Entry</span>
+                  <span class="skill-chip">Inventory Management</span>
+                  <span class="skill-chip">Documentation</span>
+                </div>
+              </div>
             </div>
+            <div class="job-action-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
           </div>
 
-          <div class="job" onclick="openModal('modalKCArc')">
-            <img src="images/kcarc.jpg" alt="KC & Arc Prints" class="job-icon">
-            <div class="job-details">
-              <strong>May 2018 – January 2023</strong>
-              <h4>Production Staff at KC &amp; Arc Prints</h4>
+          <div class="job" data-category="production" data-title="production staff kc & arc prints print operations" onclick="openModal('modalKCArc')">
+            <div class="job-main">
+              <img src="images/kcarc.jpg" alt="KC & Arc Prints" class="job-icon">
+              <div class="job-details">
+                <strong>May 2018 – January 2023</strong>
+                <h4>Production Staff at KC &amp; Arc Prints</h4>
+                <div class="job-skills">
+                  <span class="skill-chip">Print Operations</span>
+                  <span class="skill-chip">Quality Control</span>
+                  <span class="skill-chip">Workflow Management</span>
+                </div>
+              </div>
             </div>
+            <div class="job-action-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
           </div>
 
-          <div class="job" onclick="openModal('modalROI')">
-            <img src="images/roi.png" alt="Realty Options Davao" class="job-icon">
-            <div class="job-details">
-              <strong>December 2017 – March 2018</strong>
-              <h4>Encoder at Realty Options Davao</h4>
+          <div class="job" data-category="data-entry" data-title="encoder realty options davao property listings" onclick="openModal('modalROI')">
+            <div class="job-main">
+              <img src="images/roi.png" alt="Realty Options Davao" class="job-icon">
+              <div class="job-details">
+                <strong>December 2017 – March 2018</strong>
+                <h4>Encoder at Realty Options Davao</h4>
+                <div class="job-skills">
+                  <span class="skill-chip">Property Encoding</span>
+                  <span class="skill-chip">Client Records</span>
+                  <span class="skill-chip">Admin Support</span>
+                </div>
+              </div>
             </div>
+            <div class="job-action-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
           </div>
 
-          <div class="job" onclick="openModal('modalChowking')">
-            <img src="images/chowking.png" alt="Chowking SPMC" class="job-icon">
-            <div class="job-details">
-              <strong>January 2016 – March 2017</strong>
-              <h4>Service Crew at Chowking SPMC</h4>
+          <div class="job" data-category="customer-service" data-title="service crew chowking spmc customer service" onclick="openModal('modalChowking')">
+            <div class="job-main">
+              <img src="images/chowking.png" alt="Chowking SPMC" class="job-icon">
+              <div class="job-details">
+                <strong>January 2016 – March 2017</strong>
+                <h4>Service Crew at Chowking SPMC</h4>
+                <div class="job-skills">
+                  <span class="skill-chip">Customer Support</span>
+                  <span class="skill-chip">Fast-Paced Operations</span>
+                  <span class="skill-chip">Teamwork</span>
+                </div>
+              </div>
             </div>
+            <div class="job-action-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></div>
           </div>
+
         </div>
 
         <div class="buttons">
           <a href="https://docs.google.com/document/d/1D6ctG7avpsDXUfDHHmcRa1D-0EluG0N2iJEqMt7oPs8/edit?usp=sharing" target="_blank" rel="noopener" class="btn">
-            View / Download Resume
+            <i class="fa-solid fa-file-arrow-down"></i> View / Download Resume
           </a>
+        </div>
+      </section>
+
+      <!-- Career Evolution Timeline Section -->
+      <section class="glass-card">
+        <h3 class="section-title"><i class="fa-solid fa-timeline"></i> Career Evolution Timeline</h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-date">2025 – Present</div>
+            <div class="timeline-title">Global Client Support & AI Data Operations</div>
+            <div class="timeline-desc">Expanding expertise into BPO, tech-driven image annotation for AI, and high-level client relations at SixEleven.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2023 – 2024</div>
+            <div class="timeline-title">Warehouse Data Logistics & Inventory</div>
+            <div class="timeline-desc">Optimizing tracking workflows and data accuracy for logistics at GMALL Buhangin.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2018 – 2023</div>
+            <div class="timeline-title">Media Production & Print Operations</div>
+            <div class="timeline-desc">Demonstrated long-term commitment and craftsmanship over 5 years as Production Staff at KC & Arc Prints.</div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-date">2016 – 2018</div>
+            <div class="timeline-title">Service & Administrative Foundations</div>
+            <div class="timeline-desc">Built initial professional discipline in fast-paced service and real estate administrative data entry.</div>
+          </div>
         </div>
       </section>
 
@@ -529,12 +897,17 @@
       <h3>SixEleven Global Services and Solutions, Inc.</h3>
       <div class="modal-meta">
         <p><strong>Role:</strong> Call Center Agent</p>
-        <p><strong>Duration:</strong> January 2025 – Current</p>
+        <p><strong>Duration:</strong> January 2025 – Present</p>
       </div>
       <p>
-        At SixEleven, I manage multiple international customer accounts, assisting with inquiries, complaints, and dispute resolutions. I also perform image annotation tasks for AI and data projects. This role has strengthened my communication, problem-solving, and multitasking abilities in high-pressure situations.
+        At SixEleven, I manage multiple international customer accounts, assisting with inquiries, complaints, and dispute resolutions. I also perform image annotation tasks for AI and data projects.
       </p>
-      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/3xffddqAL3Xn2S859" target="_blank" rel="noopener">View on Google Maps</a></p>
+      <ul class="modal-highlights">
+        <li><i class="fa-solid fa-circle-check"></i> Managed international client communications and issue resolutions.</li>
+        <li><i class="fa-solid fa-circle-check"></i> Handled computer vision image annotation tasks for machine learning models.</li>
+        <li><i class="fa-solid fa-circle-check"></i> Developed strong agility under tight SLAs and dynamic targets.</li>
+      </ul>
+      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/3xffddqAL3Xn2S859" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
     </div>
   </div>
 
@@ -548,9 +921,13 @@
         <p><strong>Duration:</strong> February 2023 – January 2024</p>
       </div>
       <p>
-        Responsible for accurate data entry and inventory tracking. Ensured proper documentation for shipments, organized warehouse records, and assisted in improving workflow efficiency. Developed strong attention to detail and organizational skills.
+        Responsible for accurate data entry and inventory tracking. Ensured proper documentation for shipments, organized warehouse records, and assisted in improving workflow efficiency.
       </p>
-      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/B7fbC6V7SYD3RsYy8" target="_blank" rel="noopener">View on Google Maps</a></p>
+      <ul class="modal-highlights">
+        <li><i class="fa-solid fa-circle-check"></i> Executed high-accuracy stock entry and item classification.</li>
+        <li><i class="fa-solid fa-circle-check"></i> Verified inbound and outbound shipments with logistics teams.</li>
+      </ul>
+      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/B7fbC6V7SYD3RsYy8" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
     </div>
   </div>
 
@@ -564,9 +941,13 @@
         <p><strong>Duration:</strong> May 2018 – January 2023</p>
       </div>
       <p>
-        Managed production workflows including print operations, materials preparation, quality checks, and client order coordination. Ensured deadlines were met while maintaining high-quality outputs. Gained valuable teamwork and technical skills.
+        Managed production workflows including print operations, materials preparation, quality checks, and client order coordination over 5 years of steady contribution.
       </p>
-      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/H8oP5s56qDN1BKzL8" target="_blank" rel="noopener">View on Google Maps</a></p>
+      <ul class="modal-highlights">
+        <li><i class="fa-solid fa-circle-check"></i> Supervised raw material prep, machine setup, and output verification.</li>
+        <li><i class="fa-solid fa-circle-check"></i> Maintained high client satisfaction ratings through strict detail checks.</li>
+      </ul>
+      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/H8oP5s56qDN1BKzL8" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
     </div>
   </div>
 
@@ -580,9 +961,13 @@
         <p><strong>Duration:</strong> December 2017 – March 2018</p>
       </div>
       <p>
-        Encoded property listings, managed client information, and assisted with administrative tasks. Maintained accurate records, collaborated with the sales team, and ensured smooth office operations. Developed efficiency and data management skills.
+        Encoded property listings, managed client information, and assisted with administrative tasks. Maintained accurate records and collaborated with sales agents.
       </p>
-      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/ZAY8vKNGkYhv6RcB6" target="_blank" rel="noopener">View on Google Maps</a></p>
+      <ul class="modal-highlights">
+        <li><i class="fa-solid fa-circle-check"></i> Cataloged real estate property specifications and database records.</li>
+        <li><i class="fa-solid fa-circle-check"></i> Supported agent inquiries and documentation preparation.</li>
+      </ul>
+      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/ZAY8vKNGkYhv6RcB6" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
     </div>
   </div>
 
@@ -596,14 +981,76 @@
         <p><strong>Duration:</strong> January 2016 – March 2017</p>
       </div>
       <p>
-        Delivered excellent customer service, prepared and served food orders, and maintained cleanliness in the restaurant. Learned teamwork, time management, and customer engagement in a fast-paced environment.
+        Delivered customer service, prepared and served food orders, and maintained cleanliness in a fast-paced food service environment.
       </p>
-      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/pTixTy5dMrUbBKCeA" target="_blank" rel="noopener">View on Google Maps</a></p>
+      <ul class="modal-highlights">
+        <li><i class="fa-solid fa-circle-check"></i> Demonstrated efficiency in high-pressure service periods.</li>
+        <li><i class="fa-solid fa-circle-check"></i> Developed groundwork customer engagement & teamwork skills.</li>
+      </ul>
+      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/pTixTy5dMrUbBKCeA" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
     </div>
   </div>
 
   <!-- Scripts -->
   <script>
+    // Intersection Observer for Reveal Animations & Animated Counter Stats
+    const cards = document.querySelectorAll('.glass-card');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+
+          // Animate Counter Stats inside
+          entry.target.querySelectorAll('.counter').forEach(counter => {
+            const target = +counter.getAttribute('data-target');
+            let count = 0;
+            const updateCount = () => {
+              const increment = target / 40;
+              if (count < target) {
+                count += increment;
+                counter.innerText = Math.ceil(count) + (target === 100 ? '%' : '+');
+                setTimeout(updateCount, 30);
+              } else {
+                counter.innerText = target + (target === 100 ? '%' : '+');
+              }
+            };
+            updateCount();
+          });
+        }
+      });
+    }, { threshold: 0.1 });
+
+    cards.forEach(card => observer.observe(card));
+
+    // Interactive Search & Filtering
+    function filterJobs() {
+      const searchInput = document.getElementById('jobSearch').value.toLowerCase();
+      const jobCards = document.querySelectorAll('.job');
+
+      jobCards.forEach(card => {
+        const titleData = card.getAttribute('data-title').toLowerCase();
+        if (titleData.includes(searchInput)) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function filterCategory(category, btn) {
+      document.querySelectorAll('.tag-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const jobCards = document.querySelectorAll('.job');
+      jobCards.forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
     // Navigation Control
     function toggleMenu() {
       const sidebar = document.getElementById("sidebar");
@@ -727,7 +1174,7 @@
     resizeRippleCanvas();
 
     window.addEventListener('mousemove', (e) => {
-      if (Math.random() > 0.3) return; // Throttle ripple creation for smoother performance
+      if (Math.random() > 0.3) return;
       ripples.push({ x: e.clientX, y: e.clientY, radius: 0, alpha: 0.25 });
       if (ripples.length > 15) ripples.shift();
     });
