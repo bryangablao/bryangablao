@@ -466,67 +466,100 @@
       box-shadow: 0 4px 10px rgba(109, 40, 217, 0.4);
     }
 
-    /* Direct Contact Section */
-    .contact-form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-
-    .form-group {
-      margin-bottom: 1rem;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 0.4rem;
-    }
-
-    .form-group input, .form-group textarea, .form-group select {
-      width: 100%;
-      padding: 0.75rem 1rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
-      color: var(--text-main);
-      font-family: inherit;
-      font-size: 0.9rem;
-      outline: none;
-      transition: var(--transition-smooth);
-    }
-
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
-      border-color: #a78bfa;
-      background: rgba(255, 255, 255, 0.07);
-    }
-
-    .form-group select option {
-      background: #11131f;
-      color: var(--text-main);
-    }
-
-    .submit-btn {
-      width: 100%;
-      padding: 0.8rem;
-      background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue));
-      border: none;
-      border-radius: var(--radius-md);
-      color: #fff;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: var(--transition-smooth);
+    /* ---------- NEW FEATURE: Collaboration Status & Availability Board ---------- */
+    .status-banner {
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 8px;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--glass-border);
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius-md);
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
-    .submit-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(109, 40, 217, 0.5);
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .pulse-dot {
+      width: 12px;
+      height: 12px;
+      background-color: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 0 rgba(16, 185, 129, 0.4);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(16, 185, 129, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+      }
+    }
+
+    .collab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .collab-card {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition-smooth);
+    }
+
+    .collab-card:hover {
+      border-color: rgba(167, 139, 250, 0.4);
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-4px);
+    }
+
+    .collab-card h4 {
+      font-size: 1.1rem;
+      color: #a78bfa;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .collab-card p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .collab-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px solid var(--glass-border);
+      padding-top: 1rem;
+      margin-top: auto;
+    }
+
+    .time-badge {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 4px;
     }
 
     /* ---------- Modals ---------- */
@@ -687,7 +720,6 @@
       .desktop-nav { display: none; }
       .hamburger { display: block; }
       .stats-container { grid-template-columns: 1fr; }
-      .contact-form-grid { grid-template-columns: 1fr; }
       .social-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
     }
   </style>
@@ -700,7 +732,7 @@
   <canvas id="starsCanvas"></canvas>
   <canvas id="rippleCanvas"></canvas>
 
-  <!-- Sticky Header -->
+  <!-- Synchronized Header with Index.html -->
   <header>
     <div class="nav-brand">Bryan G. Ablao</div>
     <nav class="desktop-nav">
@@ -883,35 +915,62 @@
         </div>
       </section>
 
-      <!-- Quick Quick Message / Contact Form -->
+      <!-- NEW FEATURE: Collaboration Hub & Service Availability -->
       <section class="glass-card">
-        <h3 class="section-title"><i class="fa-solid fa-paper-plane"></i> Quick Message</h3>
-        <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;">
-          Prefer direct messaging? Send a prompt inquiry and select your preferred social channel response.
-        </p>
+        <h3 class="section-title"><i class="fa-solid fa-handshake"></i> Collaboration & Project Hub</h3>
+        
+        <div class="status-banner">
+          <div class="status-indicator">
+            <div class="pulse-dot"></div>
+            <div>
+              <strong style="color: var(--text-main); font-size: 0.95rem;">Status: Open for Collaboration</strong>
+              <div style="color: var(--text-muted); font-size: 0.8rem;">Accepting freelance work, tech consults, & project inquiries.</div>
+            </div>
+          </div>
+          <button class="btn-action btn-primary-action" style="padding: 0.5rem 1rem;" onclick="copyHandle('ablaobryan4400@gmail.com', event)">
+            <i class="fa-solid fa-envelope"></i> Copy Direct Email
+          </button>
+        </div>
 
-        <form onsubmit="handleQuickMessage(event)">
-          <div class="contact-form-grid">
-            <div class="form-group">
-              <label for="senderName"><i class="fa-solid fa-user"></i> Your Name</label>
-              <input type="text" id="senderName" placeholder="John Doe" required>
-            </div>
-            <div class="form-group">
-              <label for="preferredPlatform"><i class="fa-solid fa-share-nodes"></i> Preferred Response Via</label>
-              <select id="preferredPlatform">
-                <option value="Telegram">Telegram (@bryvngtz)</option>
-                <option value="LinkedIn">LinkedIn</option>
-                <option value="Email">Email Direct</option>
-                <option value="Instagram">Instagram</option>
-              </select>
+        <div class="collab-grid">
+          
+          <!-- Card 1 -->
+          <div class="collab-card">
+            <h4><i class="fa-solid fa-code"></i> Web Development</h4>
+            <p>Looking for a modern, high-performance website or UI/UX experience? Let's turn ideas into functional realities.</p>
+            <div class="collab-footer">
+              <span class="time-badge"><i class="fa-regular fa-clock"></i> Responds within 12h</span>
+              <a href="https://t.me/bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action">
+                <i class="fa-brands fa-telegram"></i> Chat Telegram
+              </a>
             </div>
           </div>
-          <div class="form-group">
-            <label for="messageBody"><i class="fa-solid fa-comment-dots"></i> Message or Proposal</label>
-            <textarea id="messageBody" rows="4" placeholder="Hi Bryan, I'd like to collaborate on..." required></textarea>
+
+          <!-- Card 2 -->
+          <div class="collab-card">
+            <h4><i class="fa-solid fa-pen-nib"></i> Creative & Design</h4>
+            <p>Need custom visual layouts, branding assets, or video edits? Let's discuss creative concepts and scope.</p>
+            <div class="collab-footer">
+              <span class="time-badge"><i class="fa-regular fa-clock"></i> Responds within 24h</span>
+              <a href="https://www.linkedin.com/in/bryan-ablao-636497189/" target="_blank" rel="noopener" class="btn-action btn-primary-action">
+                <i class="fa-brands fa-linkedin"></i> Connect LinkedIn
+              </a>
+            </div>
           </div>
-          <button type="submit" class="submit-btn"><i class="fa-solid fa-paper-plane"></i> Send Direct Message</button>
-        </form>
+
+          <!-- Card 3 -->
+          <div class="collab-card">
+            <h4><i class="fa-solid fa-comments"></i> General Inquiries</h4>
+            <p>Have general questions, networking opportunities, or tech discussions? Reach out anytime via email or socials.</p>
+            <div class="collab-footer">
+              <span class="time-badge"><i class="fa-regular fa-clock"></i> Responds within 24h</span>
+              <a href="mailto:ablaobryan4400@gmail.com" class="btn-action btn-primary-action">
+                <i class="fa-solid fa-paper-plane"></i> Send Email
+              </a>
+            </div>
+          </div>
+
+        </div>
       </section>
 
     </main>
@@ -1069,27 +1128,6 @@
     document.getElementById('socialModal').addEventListener('click', e => {
       if (e.target === document.getElementById('socialModal')) closeSocialModal();
     });
-
-    // Handle Quick Contact Form Submission
-    function handleQuickMessage(e) {
-      e.preventDefault();
-      const name = document.getElementById('senderName').value;
-      const platform = document.getElementById('preferredPlatform').value;
-      
-      showToast(`Thank you, ${name}! Redirecting to ${platform}...`);
-      
-      setTimeout(() => {
-        if (platform === 'Telegram') {
-          window.open('https://t.me/bryvngtz', '_blank');
-        } else if (platform === 'LinkedIn') {
-          window.open('https://www.linkedin.com/in/bryan-ablao-636497189/', '_blank');
-        } else if (platform === 'Email') {
-          window.location.href = 'mailto:ablaobryan4400@gmail.com';
-        } else {
-          window.open('https://www.instagram.com/bryvngtz/#', '_blank');
-        }
-      }, 1200);
-    }
 
     // Starfield Animation
     const starsCanvas = document.getElementById('starsCanvas');
