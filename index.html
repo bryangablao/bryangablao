@@ -964,12 +964,12 @@
         <h3 class="section-title"><i class="fa-solid fa-laptop-code"></i> Core Expertise & Skills</h3>
         
         <!-- Interactive Filter Controls -->
-        <div class="filter-tabs">
-          <button class="filter-btn active" onclick="filterSkills('all')">All</button>
-          <button class="filter-btn" onclick="filterSkills('dev')">Development</button>
-          <button class="filter-btn" onclick="filterSkills('design')">Design</button>
-          <button class="filter-btn" onclick="filterSkills('soft')">Soft Skills</button>
-        </div>
+<div class="filter-tabs">
+  <button class="filter-btn active" onclick="filterSkills('all', this)">All</button>
+  <button class="filter-btn" onclick="filterSkills('dev', this)">Development</button>
+  <button class="filter-btn" onclick="filterSkills('design', this)">Design</button>
+  <button class="filter-btn" onclick="filterSkills('soft', this)">Soft Skills</button>
+</div>
 
         <div class="skills-grid">
           <div class="skill-item" data-category="dev">
@@ -1261,12 +1261,12 @@
     updatePhilippineTime();
 
     // Skill Filter Interactive Tabs
-    function filterSkills(category) {
+function filterSkills(category, element) {
       const buttons = document.querySelectorAll('.filter-btn');
       const items = document.querySelectorAll('.skill-item');
 
       buttons.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+      element.classList.add('active');
 
       items.forEach(item => {
         if (category === 'all' || item.getAttribute('data-category') === category) {
