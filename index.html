@@ -4,12 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Personal portfolio of Bryan G. Ablao">
+  <meta name="color-scheme" content="dark light">
   <title>About Me | Bryan G. Ablao</title>
   <link rel="icon" type="image/png" href="images/AblaoClan.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <script>
+    (function () {
+      try {
+        const savedTheme = localStorage.getItem("accxs-theme");
+        const systemLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        document.documentElement.dataset.theme = savedTheme || (systemLight ? "light" : "dark");
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    })();
+  </script>
 
   <style>
     :root {
@@ -24,6 +37,29 @@
       --blue: #3b82f6;
       --shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
       --radius: 18px;
+      --header-bg: rgba(8, 10, 16, 0.82);
+      --panel-solid: #10131d;
+      --sidebar-bg: #0b0d14;
+      --glow-purple: rgba(124, 58, 237, 0.18);
+      --glow-blue: rgba(59, 130, 246, 0.15);
+    }
+
+    html[data-theme="light"] {
+      --bg: #f5f7fb;
+      --panel: rgba(255, 255, 255, 0.82);
+      --panel-2: rgba(15, 23, 42, 0.035);
+      --border: rgba(15, 23, 42, 0.10);
+      --text: #111827;
+      --muted: #64748b;
+      --purple: #6d28d9;
+      --purple-light: #7c3aed;
+      --blue: #2563eb;
+      --shadow: 0 18px 55px rgba(15, 23, 42, 0.12);
+      --header-bg: rgba(248, 250, 252, 0.84);
+      --panel-solid: #ffffff;
+      --sidebar-bg: #ffffff;
+      --glow-purple: rgba(124, 58, 237, 0.09);
+      --glow-blue: rgba(59, 130, 246, 0.08);
     }
 
     * {
@@ -42,10 +78,11 @@
       font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 10% 10%, rgba(124, 58, 237, 0.18), transparent 30%),
-        radial-gradient(circle at 90% 85%, rgba(59, 130, 246, 0.15), transparent 30%),
+        radial-gradient(circle at 10% 10%, var(--glow-purple), transparent 30%),
+        radial-gradient(circle at 90% 85%, var(--glow-blue), transparent 30%),
         var(--bg);
       line-height: 1.6;
+      transition: background-color 0.28s ease, color 0.28s ease;
     }
 
     a {
@@ -86,7 +123,7 @@
       gap: 1rem;
       width: 100%;
       padding: 1rem 5%;
-      background: rgba(8, 10, 16, 0.82);
+      background: var(--header-bg);
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
@@ -95,7 +132,7 @@
     .brand {
       font-weight: 800;
       letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #ffffff, var(--purple-light));
+      background: linear-gradient(135deg, var(--text), var(--purple-light));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -130,13 +167,33 @@
       background: linear-gradient(90deg, var(--purple), var(--blue));
     }
 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .header-action {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel-2);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+    }
+
+    .header-action:hover {
+      transform: translateY(-2px);
+      border-color: rgba(124, 58, 237, 0.32);
+    }
+
     .hamburger {
       display: none;
-      border: 0;
-      background: transparent;
-      color: var(--text);
-      font-size: 1.4rem;
-      cursor: pointer;
     }
 
     #sidebarOverlay {
@@ -156,7 +213,7 @@
       width: min(300px, 86vw);
       height: 100vh;
       padding: 5rem 1.5rem 2rem;
-      background: #0b0d14;
+      background: var(--sidebar-bg);
       border-left: 1px solid var(--border);
       transition: right 0.3s ease;
     }
@@ -566,7 +623,7 @@
       padding: 2rem;
       border-radius: 18px;
       border: 1px solid var(--border);
-      background: #10131d;
+      background: var(--panel-solid);
       box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
     }
 
@@ -657,18 +714,24 @@
     <header>
       <a href="index.html" class="brand">Bryan G. Ablao</a>
 
-      <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="index.html" class="active">About</a>
-        <a href="work.html">Experience</a>
-        <a href="projects.html">Projects</a>
-        <a href="achievement.html">Achievements</a>
-        <a href="gallery.html">Gallery</a>
-        <a href="social.html">Socials</a>
-      </nav>
+      <div class="nav-right">
+        <nav class="desktop-nav" aria-label="Primary navigation">
+          <a href="index.html" class="active" aria-current="page">About</a>
+          <a href="work.html">Experience</a>
+          <a href="projects.html">Projects</a>
+          <a href="achievement.html">Achievements</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="social.html">Socials</a>
+        </nav>
 
-      <button class="hamburger" type="button" onclick="toggleMenu()" aria-label="Open navigation">
-        <i class="fa-solid fa-bars"></i>
-      </button>
+        <button id="themeToggle" class="header-action" type="button" aria-label="Switch theme" title="Switch theme">
+          <i id="themeIcon" class="fa-solid fa-moon"></i>
+        </button>
+
+        <button class="header-action hamburger" type="button" onclick="toggleMenu()" aria-label="Open navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
     </header>
 
     <div id="sidebarOverlay" onclick="closeMenu()"></div>
@@ -932,6 +995,32 @@
   <script>
     "use strict";
 
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+
+    function getTheme() {
+      return document.documentElement.dataset.theme || "dark";
+    }
+
+    function refreshThemeIcon() {
+      const isLight = getTheme() === "light";
+      themeIcon.className = isLight ? "fa-solid fa-sun" : "fa-solid fa-moon";
+      themeToggle.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
+      themeToggle.setAttribute("title", isLight ? "Switch to dark mode" : "Switch to light mode");
+    }
+
+    function setTheme(theme) {
+      document.documentElement.dataset.theme = theme;
+      try { localStorage.setItem("accxs-theme", theme); } catch (error) {}
+      refreshThemeIcon();
+    }
+
+    themeToggle.addEventListener("click", () => {
+      setTheme(getTheme() === "dark" ? "light" : "dark");
+    });
+
+    refreshThemeIcon();
+
     function updatePhilippineTime() {
       const now = new Date();
       const formatter = new Intl.DateTimeFormat("en-US", {
@@ -1114,7 +1203,7 @@
         star.a = Math.max(0.15, Math.min(0.9, star.a));
         starsCtx.beginPath();
         starsCtx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-        starsCtx.fillStyle = `rgba(255,255,255,${star.a})`;
+        starsCtx.fillStyle = getTheme() === "light" ? `rgba(71,85,105,${star.a * 0.48})` : `rgba(255,255,255,${star.a})`;
         starsCtx.fill();
       }
 
@@ -1129,8 +1218,13 @@
           meteor.x - meteor.vx * 16,
           meteor.y - meteor.vy * 16
         );
-        gradient.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
-        gradient.addColorStop(1, "rgba(255,255,255,0)");
+        if (getTheme() === "light") {
+          gradient.addColorStop(0, `rgba(109,40,217,${meteor.alpha * 0.75})`);
+          gradient.addColorStop(1, "rgba(109,40,217,0)");
+        } else {
+          gradient.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
+          gradient.addColorStop(1, "rgba(255,255,255,0)");
+        }
 
         starsCtx.strokeStyle = gradient;
         starsCtx.lineWidth = 1.5;
@@ -1182,7 +1276,7 @@
 
         rippleCtx.beginPath();
         rippleCtx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
-        rippleCtx.strokeStyle = `rgba(167,139,250,${ripple.alpha})`;
+        rippleCtx.strokeStyle = getTheme() === "light" ? `rgba(109,40,217,${ripple.alpha})` : `rgba(167,139,250,${ripple.alpha})`;
         rippleCtx.lineWidth = 1;
         rippleCtx.stroke();
       }
