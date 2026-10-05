@@ -3,316 +3,449 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="images/AblaoClan.png">
+  <meta name="description" content="Terms of Use and Privacy Policy for Bryan G. Ablao's website">
+  <meta name="color-scheme" content="dark light">
   <title>Terms & Privacy | Bryan G. Ablao</title>
+  <link rel="icon" type="image/png" href="images/AblaoClan.png">
 
-  <!-- Modern Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <script>
+    (function () {
+      try {
+        const savedTheme = localStorage.getItem("accxs-theme");
+        const systemLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        document.documentElement.dataset.theme = savedTheme || (systemLight ? "light" : "dark");
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    })();
+  </script>
 
   <style>
-    /* ---------- Theme & CSS Variables ---------- */
     :root {
-      --bg-dark: #090a0f;
-      --accent-purple: #6d28d9;
-      --accent-purple-glow: rgba(109, 40, 217, 0.4);
-      --accent-blue: #3b82f6;
-      --glass-bg: rgba(18, 20, 29, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --radius-lg: 16px;
-      --radius-md: 10px;
-      --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --bg: #080a10;
+      --bg-soft: #0d1019;
+      --panel: rgba(17, 20, 31, 0.74);
+      --panel-solid: #11141f;
+      --panel-2: rgba(255, 255, 255, 0.04);
+      --panel-hover: rgba(255, 255, 255, 0.075);
+      --border: rgba(255, 255, 255, 0.10);
+      --border-strong: rgba(167, 139, 250, 0.32);
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --purple: #7c3aed;
+      --purple-light: #a78bfa;
+      --blue: #3b82f6;
+      --header-bg: rgba(8, 10, 16, 0.82);
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.30);
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.22);
+      --radius: 18px;
+      --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      --glow-purple: rgba(124, 58, 237, 0.18);
+      --glow-blue: rgba(59, 130, 246, 0.14);
     }
 
-    /* ---------- Global Reset & Typography ---------- */
+    html[data-theme="light"] {
+      --bg: #f5f7fb;
+      --bg-soft: #eef2f8;
+      --panel: rgba(255, 255, 255, 0.80);
+      --panel-solid: #ffffff;
+      --panel-2: rgba(15, 23, 42, 0.035);
+      --panel-hover: rgba(109, 40, 217, 0.075);
+      --border: rgba(15, 23, 42, 0.10);
+      --border-strong: rgba(109, 40, 217, 0.28);
+      --text: #111827;
+      --muted: #64748b;
+      --purple: #6d28d9;
+      --purple-light: #7c3aed;
+      --blue: #2563eb;
+      --header-bg: rgba(248, 250, 252, 0.84);
+      --shadow: 0 18px 55px rgba(15, 23, 42, 0.12);
+      --shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.10);
+      --glow-purple: rgba(124, 58, 237, 0.09);
+      --glow-blue: rgba(59, 130, 246, 0.08);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      overflow-x: hidden;
-      line-height: 1.6;
       min-height: 100vh;
+      overflow-x: hidden;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 8% 8%, var(--glow-purple), transparent 30%),
+        radial-gradient(circle at 92% 82%, var(--glow-blue), transparent 30%),
+        var(--bg);
+      line-height: 1.7;
+      transition: background-color var(--transition), color var(--transition);
     }
 
     a {
       color: inherit;
       text-decoration: none;
-      transition: var(--transition-smooth);
     }
 
-    /* Background Canvases */
-    #starsCanvas, #rippleCanvas {
+    button {
+      font: inherit;
+      color: inherit;
+    }
+
+    #starsCanvas,
+    #rippleCanvas {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
     }
+
     #starsCanvas { z-index: 0; }
     #rippleCanvas { z-index: 1; }
 
-    /* Ambient Glow Effect */
-    .ambient-glow {
-      position: fixed;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--accent-purple-glow) 0%, rgba(0,0,0,0) 70%);
-      top: -150px;
-      left: -150px;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.6;
+    .page-shell {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
     }
 
-    /* ---------- Navigation Bar ---------- */
+    /* ---------- Header ---------- */
     header {
       position: sticky;
       top: 0;
       z-index: 100;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      width: 100%;
       padding: 1rem 5%;
-      background: rgba(9, 10, 15, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--glass-border);
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: background var(--transition), border-color var(--transition);
     }
 
-    .nav-brand {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+    .brand {
+      flex-shrink: 0;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--text), var(--purple-light));
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
     }
 
     .desktop-nav {
       display: flex;
-      gap: 1.5rem;
+      align-items: center;
+      gap: 1.35rem;
     }
 
     .desktop-nav a {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      font-weight: 500;
+      position: relative;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 550;
+      transition: color var(--transition);
     }
 
-    .desktop-nav a:hover, .desktop-nav a.active {
-      color: var(--text-main);
+    .desktop-nav a:hover {
+      color: var(--text);
+    }
+
+    .header-action {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel-2);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform var(--transition), background var(--transition), border-color var(--transition);
+    }
+
+    .header-action:hover {
+      transform: translateY(-2px);
+      background: var(--panel-hover);
+      border-color: var(--border-strong);
     }
 
     .hamburger {
       display: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--text-main);
     }
 
-    /* Mobile Sidebar Drawer */
+    /* ---------- Mobile Drawer ---------- */
     #sidebarOverlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
+      inset: 0;
+      z-index: 999;
       display: none;
-      z-index: 1000;
+      background: rgba(0, 0, 0, 0.48);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
     }
 
     #sidebar {
       position: fixed;
       top: 0;
-      right: -280px;
-      width: 280px;
-      height: 100%;
-      background: var(--bg-dark);
-      border-left: 1px solid var(--glass-border);
-      padding: 5rem 1.5rem 2rem;
-      transition: right 0.3s ease;
-      z-index: 1001;
+      right: -310px;
+      z-index: 1000;
+      width: min(310px, 86vw);
+      height: 100vh;
+      padding: 5.6rem 1.4rem 2rem;
+      background: var(--panel-solid);
+      border-left: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: right var(--transition);
     }
 
-    #sidebar.open { right: 0; }
+    #sidebar.open {
+      right: 0;
+    }
 
     #sidebar ul {
       list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      display: grid;
+      gap: 0.5rem;
     }
 
-    #sidebar ul li a {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      display: block;
-      padding: 0.5rem 0;
-    }
-
-    #sidebar ul li a:hover { color: var(--text-main); }
-
-    /* ---------- Main Layout ---------- */
-    #blur-container {
-      position: relative;
-      z-index: 2;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    /* ---------- Header / Title Area ---------- */
-    .page-header {
+    #sidebar a {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .page-title-group h1 {
-      font-size: 2.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .page-title-group p {
-      color: var(--text-muted);
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      color: var(--muted);
       font-size: 0.95rem;
+      font-weight: 600;
+      transition: color var(--transition), background var(--transition);
+    }
+
+    #sidebar a:hover {
+      color: var(--text);
+      background: var(--panel-hover);
+    }
+
+    /* ---------- Main ---------- */
+    main {
+      width: min(980px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 3rem 0 3.5rem;
+    }
+
+    .terms-hero {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      padding: 2.35rem;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(124, 58, 237, 0.13), rgba(59, 130, 246, 0.07)),
+        var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .terms-hero::after {
+      content: "";
+      position: absolute;
+      right: -70px;
+      top: -100px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.22), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 0.8rem;
+      color: var(--purple-light);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .terms-hero h1 {
+      max-width: 760px;
+      font-size: clamp(2rem, 5vw, 3.35rem);
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+    }
+
+    .terms-hero p {
+      max-width: 720px;
+      margin-top: 0.85rem;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .hero-actions {
+      margin-top: 1.35rem;
     }
 
     .back-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      padding: 0.5rem 1rem;
-      border-radius: var(--radius-md);
-      font-size: 0.875rem;
-      font-weight: 500;
+      gap: 0.45rem;
+      padding: 0.58rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--panel-2);
+      color: var(--text);
       cursor: pointer;
-      transition: var(--transition-smooth);
+      font-size: 0.78rem;
+      font-weight: 700;
+      transition: transform var(--transition), background var(--transition), border-color var(--transition);
     }
 
     .back-btn:hover {
-      background: rgba(167, 139, 250, 0.15);
-      border-color: rgba(167, 139, 250, 0.4);
-      color: #a78bfa;
       transform: translateX(-2px);
+      background: var(--panel-hover);
+      border-color: var(--border-strong);
     }
 
-    /* ---------- Glass Card Standard ---------- */
     .glass-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg);
-      padding: 2.5rem;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-      margin-bottom: 2rem;
-    }
-
-    /* ---------- Policy Sections ---------- */
-    .policy-section {
+      margin-bottom: 1.5rem;
+      padding: 1.6rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
       opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      transform: translateY(22px);
+      transition:
+        opacity 0.65s ease,
+        transform 0.65s ease,
+        background var(--transition),
+        border-color var(--transition);
     }
 
-    .policy-section.show {
+    .glass-card.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
-    .policy-section h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #a78bfa;
+    .policy-section h2,
+    .faq-title {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
       margin-bottom: 1.25rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--glass-border);
+      color: var(--text);
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .policy-section h2::before,
+    .faq-title::before {
+      font-family: "Font Awesome 6 Free";
+      font-weight: 900;
+      color: var(--purple-light);
+    }
+
+    #terms h2::before {
+      content: "\f15c";
+    }
+
+    #privacy h2::before {
+      content: "\f3ed";
+    }
+
+    .faq-title::before {
+      content: "\f059";
+    }
+
+    .policy-section h2::after,
+    .faq-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
     }
 
     .policy-section p {
-      color: var(--text-muted);
-      font-size: 0.95rem;
       margin-bottom: 1rem;
-      line-height: 1.7;
+      color: var(--muted);
+      font-size: 0.91rem;
     }
 
     .policy-section p:last-child {
       margin-bottom: 0;
     }
 
-    /* ---------- FAQ Modern Accordion ---------- */
-    .faq-title {
-      font-size: 1.5rem;
-      font-weight: 600;
-      color: #a78bfa;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--glass-border);
-    }
-
+    /* ---------- FAQ ---------- */
     .faq-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      display: grid;
+      gap: 0.75rem;
     }
 
     .faq-item {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
       overflow: hidden;
-      transition: var(--transition-smooth);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel-2);
+      transition: background var(--transition), border-color var(--transition);
     }
 
     .faq-item:hover {
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(167, 139, 250, 0.3);
+      background: var(--panel-hover);
+      border-color: var(--border-strong);
     }
 
     .faq-question {
-      padding: 1.25rem 1.5rem;
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text-main);
-      cursor: pointer;
+      width: 100%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 1rem;
-      user-select: none;
+      padding: 1rem 1.1rem;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      font-size: 0.9rem;
+      font-weight: 700;
     }
 
     .faq-icon {
-      font-size: 1.25rem;
-      color: #a78bfa;
-      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      color: var(--purple-light);
+      font-size: 1.15rem;
+      transition: transform var(--transition);
     }
 
     .faq-item.active .faq-icon {
@@ -322,226 +455,309 @@
     .faq-answer {
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
-      padding: 0 1.5rem;
-      color: var(--text-muted);
-      font-size: 0.925rem;
-      line-height: 1.6;
+      padding: 0 1.1rem;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.65;
+      transition: max-height 0.35s ease, padding 0.35s ease;
     }
 
     .faq-item.active .faq-answer {
-      max-height: 300px;
-      padding: 0 1.5rem 1.25rem 1.5rem;
+      max-height: 350px;
+      padding: 0 1.1rem 1rem;
     }
 
     /* ---------- Footer ---------- */
     footer {
       position: relative;
       z-index: 2;
+      padding: 2.5rem 1rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
       text-align: center;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      padding: 3rem 1.5rem;
-      border-top: 1px solid var(--glass-border);
-      margin-top: 4rem;
+      font-size: 0.82rem;
     }
 
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 0.5rem;
+      align-items: center;
+      gap: 0.8rem;
+      margin-top: 0.6rem;
     }
 
-    .footer-link {
-      color: var(--text-muted);
+    .footer-links a {
+      transition: color var(--transition);
     }
 
-    .footer-link:hover, .footer-link.active {
-      color: var(--text-main);
+    .footer-links a:hover,
+    .footer-links a.active {
+      color: var(--text);
     }
 
-    /* ---------- Responsive Breakpoints ---------- */
+    .footer-time {
+      margin-top: 1rem;
+      font-size: 0.72rem;
+      opacity: 0.72;
+    }
+
     @media (max-width: 850px) {
-      .desktop-nav { display: none; }
-      .hamburger { display: block; }
+      .desktop-nav {
+        display: none;
+      }
+
+      .hamburger {
+        display: inline-flex;
+      }
     }
 
-    @media (max-width: 480px) {
-      main { padding: 2rem 1rem; }
-      .glass-card { padding: 1.5rem; }
-      .page-header { flex-direction: column-reverse; align-items: flex-start; }
-      .faq-question { padding: 1rem; font-size: 0.95rem; }
-      .faq-answer { padding: 0 1rem; }
-      .faq-item.active .faq-answer { padding: 0 1rem 1rem 1rem; }
+    @media (max-width: 650px) {
+      header {
+        padding-inline: 1rem;
+      }
+
+      main {
+        width: min(100% - 1rem, 980px);
+        padding-top: 1.25rem;
+      }
+
+      .terms-hero {
+        padding: 1.5rem;
+        border-radius: 18px;
+      }
+
+      .glass-card {
+        padding: 1.1rem;
+      }
+
+      .faq-question {
+        padding: 0.9rem;
+        font-size: 0.86rem;
+      }
+
+      .faq-answer {
+        padding-inline: 0.9rem;
+      }
+
+      .faq-item.active .faq-answer {
+        padding: 0 0.9rem 0.9rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
+
 <body>
+  <canvas id="starsCanvas" aria-hidden="true"></canvas>
+  <canvas id="rippleCanvas" aria-hidden="true"></canvas>
 
-  <!-- Animated Background Elements -->
-  <div class="ambient-glow"></div>
-  <canvas id="starsCanvas"></canvas>
-  <canvas id="rippleCanvas"></canvas>
+  <div class="page-shell">
+    <header>
+      <a href="index.html" class="brand">Bryan G. Ablao</a>
 
-  <!-- Sticky Header -->
-  <header>
-    <div class="nav-brand">Bryan G. Ablao</div>
-    <nav class="desktop-nav">
-      <a href="index.html">About</a>
-      <a href="work.html">Experience</a>
-      <a href="projects.html">Projects</a>
-      <a href="achievement.html">Achievements</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="social.html">Socials</a>
-    </nav>
-    <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Navigation">☰</div>
-  </header>
+      <div class="nav-right">
+        <nav class="desktop-nav" aria-label="Primary navigation">
+          <a href="index.html">About</a>
+          <a href="work.html">Experience</a>
+          <a href="projects.html">Projects</a>
+          <a href="achievement.html">Achievements</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="social.html">Socials</a>
+        </nav>
 
-  <!-- Mobile Drawer Overlay -->
-  <div id="sidebarOverlay" onclick="closeMenu()"></div>
+        <button id="themeToggle" class="header-action" type="button" aria-label="Switch theme" title="Switch theme">
+          <i id="themeIcon" class="fa-solid fa-moon"></i>
+        </button>
 
-  <!-- Mobile Navigation Drawer -->
-  <nav id="sidebar">
-    <ul>
-      <li><a href="index.html">About Me</a></li>
-      <li><a href="work.html">Work Experience</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="achievement.html">Achievements</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="social.html">Social Medias</a></li>
-    </ul>
-  </nav>
-
-  <!-- Main Content Area -->
-  <div id="blur-container">
-    <main>
-      
-      <!-- Page Title & Navigation Header -->
-      <div class="page-header">
-        <div class="page-title-group">
-          <h1>Terms & Privacy</h1>
-          <p>Important guidelines, usage terms, and privacy commitments for this website.</p>
-        </div>
-        <button class="back-btn" aria-label="Go back" onclick="window.history.length > 1 ? history.back() : location.href='index.html'">
-          ← Back
+        <button class="header-action hamburger" type="button" onclick="toggleMenu()" aria-label="Open navigation">
+          <i class="fa-solid fa-bars"></i>
         </button>
       </div>
+    </header>
 
-      <!-- Terms of Use -->
+    <div id="sidebarOverlay" onclick="closeMenu()"></div>
+
+    <nav id="sidebar" aria-label="Mobile navigation">
+      <ul>
+        <li><a href="index.html"><i class="fa-solid fa-user"></i> About Me</a></li>
+        <li><a href="work.html"><i class="fa-solid fa-briefcase"></i> Work Experience</a></li>
+        <li><a href="projects.html"><i class="fa-solid fa-diagram-project"></i> Projects</a></li>
+        <li><a href="achievement.html"><i class="fa-solid fa-trophy"></i> Achievements</a></li>
+        <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+        <li><a href="social.html"><i class="fa-solid fa-share-nodes"></i> Social Medias</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="terms-hero">
+        <div class="eyebrow"><i class="fa-solid fa-shield-halved"></i> Site Policies</div>
+        <h1>Terms & Privacy</h1>
+        <p>
+          Important guidelines, usage terms, and privacy commitments for this website,
+          including how content, contact information, donations, and external links are handled.
+        </p>
+
+        <div class="hero-actions">
+          <button class="back-btn" type="button" onclick="window.history.length > 1 ? history.back() : location.href='index.html'">
+            <i class="fa-solid fa-arrow-left"></i> Back
+          </button>
+        </div>
+      </section>
+
       <section class="glass-card policy-section" id="terms">
         <h2>Terms of Use</h2>
+
         <p>Welcome to my personal website. By accessing and navigating this site, you agree that all content is provided purely for informational, portfolio, and demonstration purposes. This website showcases my personal profile, professional achievements, projects, galleries, and social media links hosted in a static format.</p>
-        
-        <p>Visitors are encouraged to explore the site freely. You may view and interact with publicly shared contact information, QR codes, and social links for legitimate purposes only—such as professional inquiries, collaborations, commissions, or hiring requests. Any communication should remain respectful, constructive, and ethical.</p>
-        
+
+        <p>Visitors are encouraged to explore the site freely. You may view and interact with publicly shared contact information, QR codes, and social links for legitimate purposes only, such as professional inquiries, collaborations, commissions, or hiring requests. Any communication should remain respectful, constructive, and ethical.</p>
+
         <p>This site may allow visitors to donate or request custom web development services. All donations and service requests are completely voluntary. Any financial transactions are processed securely through trusted third-party providers; no financial data or credentials are stored directly on this website.</p>
-        
+
         <p>All content is provided “as-is” without warranty of any kind. While I strive to maintain accurate and up-to-date information, I cannot guarantee absolute completeness, timeliness, or reliability. Any reliance on the content presented is at your own discretion.</p>
-        
+
         <p>You are strictly prohibited from misusing, modifying, or redistributing the site content for unauthorized commercial purposes. The layout, visual assets, images, and written content are the intellectual property of the creator and are protected under standard copyright principles.</p>
-        
+
         <p>By using this website, you agree not to engage in harassment, spamming, or any malicious activity that could compromise the security, integrity, or accessibility of this site. I reserve the right to update or modify content at any time to ensure safety, relevance, and clarity without prior notice.</p>
       </section>
 
-      <!-- Privacy Policy -->
       <section class="glass-card policy-section" id="privacy">
         <h2>Privacy Policy</h2>
+
         <p>Your privacy is taken seriously. This website does not track, collect personal data, or maintain user accounts. All pages are completely static and publicly viewable without requiring registration, authentication, or tracking cookies.</p>
-        
-        <p>No cookies, web analytics, or tracking scripts are deployed to monitor visitor behavior. Unlike typical commercial applications, there is no collection of IP addresses, browsing histories, or device identifiers. Minimal technical scripts are used exclusively for ambient canvas visuals (stars and interactive ripple effects).</p>
-        
+
+        <p>No cookies, web analytics, or tracking scripts are deployed to monitor visitor behavior. Unlike typical commercial applications, there is no collection of IP addresses, browsing histories, or device identifiers. Minimal technical scripts are used exclusively for ambient canvas visuals, stars, interactive ripple effects, and locally saved theme preference.</p>
+
         <p>Public contact information, social links, and QR codes are provided strictly to facilitate direct inquiries. If you contact me via email, phone, or external platforms, your information is used solely to respond to your inquiry and is handled confidentially.</p>
-        
+
         <p>Payments for donations or web development services are processed via secure external third-party payment gateways. This site never collects, processes, or stores sensitive financial or credit card information.</p>
-        
+
         <p>External links to social media networks, portfolios, or third-party resources operate under their own respective privacy policies. I am not responsible for the privacy practices or content of external sites.</p>
       </section>
 
-      <!-- Frequently Asked Questions -->
       <section class="glass-card">
         <h2 class="faq-title">Frequently Asked Questions</h2>
-        <div class="faq-list">
 
+        <div class="faq-list">
           <div class="faq-item">
-            <div class="faq-question">
+            <button class="faq-question" type="button">
               <span>What information is shared on this website?</span>
               <span class="faq-icon">+</span>
-            </div>
+            </button>
             <div class="faq-answer">
               This website showcases my personal portfolio, career achievements, project work, galleries, public contact info, and social media channels. Sensitive personal information and private accounts are never published.
             </div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-question">
+            <button class="faq-question" type="button">
               <span>Can I contact you directly for projects or work?</span>
               <span class="faq-icon">+</span>
-            </div>
+            </button>
             <div class="faq-answer">
               Yes! You can reach out using the provided email, phone number, or social media channels for inquiries regarding web development commissions, hiring, or professional collaboration.
             </div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-question">
+            <button class="faq-question" type="button">
               <span>Can I donate or hire you to build a website?</span>
               <span class="faq-icon">+</span>
-            </div>
+            </button>
             <div class="faq-answer">
               Absolutely. Voluntary donations and client service requests are welcome. Financial transactions are conducted entirely through secure third-party payment services and are never processed or stored on this server.
             </div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-question">
+            <button class="faq-question" type="button">
               <span>Is my personal data or location tracked?</span>
               <span class="faq-icon">+</span>
-            </div>
+            </button>
             <div class="faq-answer">
-              No. There are zero tracking cookies, user analytics, or background data collection tools operating on this website. Browsing is completely anonymous.
+              No. There are no tracking cookies, user analytics, or background data collection tools operating on this website. Browsing remains anonymous apart from normal technical processing performed by external hosting or linked services.
             </div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-question">
+            <button class="faq-question" type="button">
               <span>Is the information on this website guaranteed to be accurate?</span>
               <span class="faq-icon">+</span>
-            </div>
+            </button>
             <div class="faq-answer">
               All information is provided "as-is" for personal portfolio presentation. While I maintain accurate details, content is subject to periodic updates and revisions over time.
             </div>
           </div>
 
           <div class="faq-item">
-            <div class="faq-question">
+            <button class="faq-question" type="button">
               <span>What are the expectations for site visitors?</span>
               <span class="faq-icon">+</span>
-            </div>
+            </button>
             <div class="faq-answer">
-              Visitors are expected to use public contact info responsibly and refrain from spamming, scraping, or misusing project media without appropriate authorization.
+              Visitors are expected to use public contact info responsibly and refrain from spamming, scraping, harassment, or misusing project media without appropriate authorization.
             </div>
           </div>
-
         </div>
       </section>
-
     </main>
 
-    <!-- Footer -->
     <footer>
       <div>© 2025–2026 <strong>Accxs Creations</strong>. All rights reserved.</div>
       <div class="footer-links">
-        <a href="version.html" class="footer-link">v0.0.8</a>
+        <a href="version.html">v0.0.9</a>
         <span>·</span>
-        <a href="terms.html" class="footer-link active">Terms &amp; Privacy</a>
+        <a href="terms.html" class="active">Terms &amp; Privacy</a>
       </div>
+      <div class="footer-time" id="phTimeDisplay">Philippine Standard Time — Loading...</div>
     </footer>
   </div>
 
-  <!-- ---------- Scripts ---------- -->
   <script>
-    // Navigation Control
+    /* ---------- Theme ---------- */
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+
+    function getTheme() {
+      return document.documentElement.dataset.theme || "dark";
+    }
+
+    function refreshThemeIcon() {
+      const isLight = getTheme() === "light";
+      themeIcon.className = isLight ? "fa-solid fa-sun" : "fa-solid fa-moon";
+      themeToggle.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
+      themeToggle.setAttribute("title", isLight ? "Switch to dark mode" : "Switch to light mode");
+    }
+
+    function setTheme(theme) {
+      document.documentElement.dataset.theme = theme;
+
+      try {
+        localStorage.setItem("accxs-theme", theme);
+      } catch (error) {
+        // Theme still works if localStorage is unavailable.
+      }
+
+      refreshThemeIcon();
+      generateStars();
+    }
+
+    themeToggle.addEventListener("click", () => {
+      setTheme(getTheme() === "dark" ? "light" : "dark");
+    });
+
+    refreshThemeIcon();
+
+    /* ---------- Navigation ---------- */
     function toggleMenu() {
       const sidebar = document.getElementById("sidebar");
       const overlay = document.getElementById("sidebarOverlay");
@@ -554,79 +770,152 @@
       document.getElementById("sidebarOverlay").style.display = "none";
     }
 
-    // FAQ Accordion
-    const faqItems = document.querySelectorAll('.faq-item');
-    faqItems.forEach(item => {
-      const question = item.querySelector('.faq-question');
-      question.addEventListener('click', () => {
-        const isActive = item.classList.contains('active');
-        faqItems.forEach(i => i.classList.remove('active'));
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    /* ---------- Reveal ---------- */
+    const cards = document.querySelectorAll(".glass-card");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    cards.forEach((card) => observer.observe(card));
+
+    /* ---------- FAQ ---------- */
+    const faqItems = document.querySelectorAll(".faq-item");
+
+    faqItems.forEach((item) => {
+      const button = item.querySelector(".faq-question");
+
+      button.addEventListener("click", () => {
+        const isActive = item.classList.contains("active");
+
+        faqItems.forEach((faq) => faq.classList.remove("active"));
+
         if (!isActive) {
-          item.classList.add('active');
+          item.classList.add("active");
         }
       });
     });
 
-    // Scroll Reveal Animation for Policy Sections
-    const sections = document.querySelectorAll('.policy-section');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('show');
-        }
-      });
-    }, { threshold: 0.1 });
+    /* ---------- Philippine time ---------- */
+    function updatePhilippineTime() {
+      const now = new Date();
+      const options = {
+        timeZone: "Asia/Manila",
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
+      };
 
-    sections.forEach(sec => observer.observe(sec));
+      const formatted = new Intl.DateTimeFormat("en-US", options).format(now);
+      const el = document.getElementById("phTimeDisplay");
 
-    // Starfield Animation
-    const starsCanvas = document.getElementById('starsCanvas');
-    const starsCtx = starsCanvas.getContext('2d');
-    let stars = [], meteor = null;
+      if (el) {
+        el.textContent = `Philippine Standard Time — ${formatted}`;
+      }
+    }
+
+    updatePhilippineTime();
+    setInterval(updatePhilippineTime, 1000);
+
+    /* ---------- Starfield ---------- */
+    const starsCanvas = document.getElementById("starsCanvas");
+    const starsCtx = starsCanvas.getContext("2d");
+
+    let stars = [];
+    let meteor = null;
+    let meteorTimer = null;
+
+    function getStarColor(alpha) {
+      return getTheme() === "light"
+        ? `rgba(71, 85, 105, ${alpha * 0.48})`
+        : `rgba(255, 255, 255, ${alpha})`;
+    }
 
     function resizeStarsCanvas() {
-      starsCanvas.width = window.innerWidth;
-      starsCanvas.height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      starsCanvas.width = Math.floor(window.innerWidth * dpr);
+      starsCanvas.height = Math.floor(window.innerHeight * dpr);
+      starsCanvas.style.width = `${window.innerWidth}px`;
+      starsCanvas.style.height = `${window.innerHeight}px`;
+      starsCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
       generateStars();
     }
 
     function generateStars() {
       stars = [];
-      const density = Math.floor((starsCanvas.width * starsCanvas.height) / 6000);
+      const density = Math.floor((window.innerWidth * window.innerHeight) / 7000);
+
       for (let i = 0; i < density; i++) {
         stars.push({
-          x: Math.random() * starsCanvas.width,
-          y: Math.random() * starsCanvas.height,
-          alpha: Math.random() * 0.7 + 0.3,
-          radius: Math.random() * 1.2 + 0.4,
-          flickerSpeed: Math.random() * 0.02 + 0.005
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          alpha: Math.random() * 0.65 + 0.2,
+          radius: Math.random() * 1.05 + 0.35,
+          flicker: Math.random() * 0.013 + 0.004
         });
       }
     }
 
+    function scheduleMeteor() {
+      clearTimeout(meteorTimer);
+      meteorTimer = setTimeout(spawnMeteor, Math.random() * 4500 + 3200);
+    }
+
+    function spawnMeteor() {
+      meteor = {
+        x: Math.random() * window.innerWidth,
+        y: -30,
+        vx: -(Math.random() * 3 + 2),
+        vy: Math.random() * 2 + 2.1,
+        alpha: 1
+      };
+    }
+
     function drawMeteor() {
       if (!meteor) return;
-      starsCtx.save();
-      const grad = starsCtx.createLinearGradient(meteor.x, meteor.y, meteor.x - meteor.vx * 10, meteor.y - meteor.vy * 10);
-      grad.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
-      grad.addColorStop(1, `rgba(255,255,255,0)`);
+
+      const tailX = meteor.x - meteor.vx * 16;
+      const tailY = meteor.y - meteor.vy * 16;
+      const grad = starsCtx.createLinearGradient(meteor.x, meteor.y, tailX, tailY);
+
+      if (getTheme() === "light") {
+        grad.addColorStop(0, `rgba(109,40,217,${meteor.alpha * 0.75})`);
+        grad.addColorStop(1, "rgba(109,40,217,0)");
+      } else {
+        grad.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
+        grad.addColorStop(1, "rgba(255,255,255,0)");
+      }
+
       starsCtx.strokeStyle = grad;
       starsCtx.lineWidth = 1.5;
       starsCtx.beginPath();
       starsCtx.moveTo(meteor.x, meteor.y);
-      starsCtx.lineTo(meteor.x - meteor.vx * 15, meteor.y - meteor.vy * 15);
+      starsCtx.lineTo(tailX, tailY);
       starsCtx.stroke();
-      starsCtx.restore();
     }
 
     function animateStars() {
-      starsCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
-      stars.forEach(star => {
-        star.alpha += star.flickerSpeed * (Math.random() < 0.5 ? -1 : 1);
-        star.alpha = Math.min(0.9, Math.max(0.2, star.alpha));
+      starsCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      stars.forEach((star) => {
+        star.alpha += star.flicker * (Math.random() < 0.5 ? -1 : 1);
+        star.alpha = Math.max(0.15, Math.min(0.88, star.alpha));
+
         starsCtx.beginPath();
         starsCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        starsCtx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+        starsCtx.fillStyle = getStarColor(star.alpha);
         starsCtx.fill();
       });
 
@@ -635,66 +924,84 @@
         meteor.y += meteor.vy;
         meteor.alpha -= 0.012;
         drawMeteor();
-        if (meteor.alpha <= 0 || meteor.x < -50 || meteor.y > starsCanvas.height + 50) {
+
+        if (
+          meteor.alpha <= 0 ||
+          meteor.x < -80 ||
+          meteor.y > window.innerHeight + 80
+        ) {
           meteor = null;
-          setTimeout(spawnMeteor, Math.random() * 4000 + 3000);
+          scheduleMeteor();
         }
       }
+
       requestAnimationFrame(animateStars);
     }
 
-    function spawnMeteor() {
-      meteor = {
-        x: Math.random() * starsCanvas.width,
-        y: -20,
-        vx: -(Math.random() * 3 + 2),
-        vy: Math.random() * 2 + 2,
-        alpha: 1
-      };
-    }
-
-    window.addEventListener('resize', resizeStarsCanvas);
-    resizeStarsCanvas();
-    animateStars();
-    setTimeout(spawnMeteor, 2000);
-
-    // Mouse Ripple Effect
-    const rippleCanvas = document.getElementById('rippleCanvas');
-    const rippleCtx = rippleCanvas.getContext('2d');
+    /* ---------- Ripple ---------- */
+    const rippleCanvas = document.getElementById("rippleCanvas");
+    const rippleCtx = rippleCanvas.getContext("2d");
     let ripples = [];
 
     function resizeRippleCanvas() {
-      rippleCanvas.width = window.innerWidth;
-      rippleCanvas.height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      rippleCanvas.width = Math.floor(window.innerWidth * dpr);
+      rippleCanvas.height = Math.floor(window.innerHeight * dpr);
+      rippleCanvas.style.width = `${window.innerWidth}px`;
+      rippleCanvas.style.height = `${window.innerHeight}px`;
+      rippleCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
-    window.addEventListener('resize', resizeRippleCanvas);
-    resizeRippleCanvas();
+    window.addEventListener("mousemove", (event) => {
+      if (window.matchMedia("(pointer: coarse)").matches) return;
+      if (Math.random() > 0.22) return;
 
-    window.addEventListener('mousemove', (e) => {
-      if (Math.random() > 0.3) return;
-      ripples.push({ x: e.clientX, y: e.clientY, radius: 0, alpha: 0.25 });
-      if (ripples.length > 15) ripples.shift();
+      ripples.push({
+        x: event.clientX,
+        y: event.clientY,
+        radius: 0,
+        alpha: 0.20
+      });
+
+      if (ripples.length > 12) ripples.shift();
     });
 
     function animateRipples() {
-      rippleCtx.clearRect(0, 0, rippleCanvas.width, rippleCanvas.height);
-      ripples.forEach((r, i) => {
-        r.radius += 1.2;
-        r.alpha -= 0.008;
-        if (r.alpha <= 0) {
+      rippleCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const ripple = ripples[i];
+        ripple.radius += 1.15;
+        ripple.alpha -= 0.007;
+
+        if (ripple.alpha <= 0) {
           ripples.splice(i, 1);
-          return;
+          continue;
         }
+
         rippleCtx.beginPath();
-        rippleCtx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-        rippleCtx.strokeStyle = `rgba(167, 139, 250, ${r.alpha})`;
+        rippleCtx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
+        rippleCtx.strokeStyle =
+          getTheme() === "light"
+            ? `rgba(109, 40, 217, ${ripple.alpha})`
+            : `rgba(167, 139, 250, ${ripple.alpha})`;
         rippleCtx.lineWidth = 1;
         rippleCtx.stroke();
-      });
+      }
+
       requestAnimationFrame(animateRipples);
     }
+
+    window.addEventListener("resize", () => {
+      resizeStarsCanvas();
+      resizeRippleCanvas();
+    });
+
+    resizeStarsCanvas();
+    resizeRippleCanvas();
+    animateStars();
     animateRipples();
+    setTimeout(spawnMeteor, 1800);
   </script>
 </body>
 </html>
