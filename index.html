@@ -773,125 +773,6 @@
       color: var(--text-main);
     }
 
-
-    /* ---------- Location Flag ---------- */
-    .location-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    .philippines-flag {
-      width: 22px;
-      height: 15px;
-      object-fit: cover;
-      border-radius: 3px;
-      flex: 0 0 auto;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-      vertical-align: middle;
-    }
-
-    .location-link:hover .philippines-flag {
-      transform: scale(1.08);
-      box-shadow: 0 3px 12px rgba(59, 130, 246, 0.35);
-    }
-
-    /* ---------- Enhanced Footer ---------- */
-    footer {
-      position: relative;
-      min-height: 150px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 3.5rem 1.5rem 4.25rem;
-    }
-
-    .footer-time {
-      position: absolute;
-      left: 1.5rem;
-      bottom: 1.25rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      max-width: calc(100% - 100px);
-      color: var(--text-muted);
-      font-size: 0.78rem;
-      line-height: 1.4;
-      text-align: left;
-      white-space: nowrap;
-    }
-
-    .footer-time i {
-      color: #a78bfa;
-      font-size: 0.8rem;
-      flex: 0 0 auto;
-    }
-
-    .footer-time strong {
-      color: var(--text-main);
-      font-weight: 700;
-    }
-
-    .footer-h-icon {
-      position: absolute;
-      right: 1.5rem;
-      bottom: 0.85rem;
-      width: 46px;
-      height: 46px;
-      object-fit: contain;
-      opacity: 0.85;
-      filter: drop-shadow(0 4px 12px rgba(109, 40, 217, 0.35));
-      transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
-      cursor: pointer;
-    }
-
-    .footer-h-icon:hover {
-      transform: translateY(-3px) scale(1.06);
-      opacity: 1;
-      filter: drop-shadow(0 6px 18px rgba(109, 40, 217, 0.6));
-    }
-
-    @media (max-width: 580px) {
-      .location-link {
-        gap: 6px;
-      }
-
-      .philippines-flag {
-        width: 20px;
-        height: 14px;
-      }
-
-      footer {
-        min-height: 175px;
-        padding: 3rem 1rem 5rem;
-      }
-
-      .footer-time {
-        left: 1rem;
-        bottom: 1rem;
-        right: 1rem;
-        max-width: none;
-        justify-content: flex-start;
-        white-space: normal;
-        font-size: 0.68rem;
-      }
-
-      .footer-time i {
-        font-size: 0.72rem;
-      }
-
-      .footer-h-icon {
-        right: 1rem;
-        bottom: 0.75rem;
-        width: 38px;
-        height: 38px;
-      }
-    }
-
     /* ---------- Responsive Breakpoints & Screen Fixes ---------- */
     @media (max-width: 850px) {
       .bg-grid {
@@ -1028,10 +909,7 @@
             <div class="info-grid">
               <div class="info-item">
                 <span><i class="fa-solid fa-location-dot"></i> Location</span>
-                <a href="https://maps.app.goo.gl/3qxbihk6F5TMQauo8" target="_blank" rel="noopener" class="location-link">
-                  <img src="images/philipines.png" alt="Philippine flag" class="philippines-flag">
-                  <span>Davao City, Philippines</span>
-                </a>
+                <a href="https://maps.app.goo.gl/3qxbihk6F5TMQauo8" target="_blank" rel="noopener">Davao City, Philippines</a>
               </div>
               <div class="info-item">
                 <span><i class="fa-solid fa-envelope"></i> Email</span>
@@ -1195,15 +1073,6 @@
         <span>·</span>
         <a href="terms.html" class="footer-link">Terms &amp; Privacy</a>
       </div>
-
-      <!-- Philippine Standard Time -->
-      <div class="footer-time" aria-label="Philippine Standard Time">
-        <i class="fa-regular fa-clock"></i>
-        <span>Philippine Standard Time <strong id="philippineTime">--:--</strong> <span id="philippineDate">Loading...</span></span>
-      </div>
-
-      <!-- Footer Signature Icon -->
-      <img src="images/h.png" alt="Accxs Creations" class="footer-h-icon">
     </footer>
   </div>
 
@@ -1556,41 +1425,6 @@
       requestAnimationFrame(animateRipples);
     }
     animateRipples();
-
-    // Philippine Standard Time (Asia/Manila)
-    function updatePhilippineTime() {
-      const now = new Date();
-
-      const time = new Intl.DateTimeFormat('en-US', {
-        timeZone: 'Asia/Manila',
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
-      }).format(now);
-
-      const date = new Intl.DateTimeFormat('en-US', {
-        timeZone: 'Asia/Manila',
-        month: 'long',
-        day: 'numeric',
-        year: 'numeric',
-        weekday: 'long'
-      }).format(now);
-
-      const timeElement = document.getElementById('philippineTime');
-      const dateElement = document.getElementById('philippineDate');
-
-      if (timeElement) {
-        timeElement.textContent = time.toUpperCase();
-      }
-
-      if (dateElement) {
-        dateElement.textContent = `${date}`;
-      }
-    }
-
-    updatePhilippineTime();
-    setInterval(updatePhilippineTime, 1000);
-
   </script>
 </body>
 </html>
