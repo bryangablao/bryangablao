@@ -3,403 +3,700 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/png" href="images/AblaoClan.png">
+  <meta name="description" content="Version history and changelog for Bryan G. Ablao's website">
+  <meta name="color-scheme" content="dark light">
   <title>Version History | Bryan G. Ablao</title>
+  <link rel="icon" type="image/png" href="images/AblaoClan.png">
 
-  <!-- Modern Typography -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <script>
+    (function () {
+      try {
+        const savedTheme = localStorage.getItem("accxs-theme");
+        const systemLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        document.documentElement.dataset.theme = savedTheme || (systemLight ? "light" : "dark");
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    })();
+  </script>
 
   <style>
-    /* ---------- Theme & CSS Variables ---------- */
     :root {
-      --bg-dark: #090a0f;
-      --accent-purple: #6d28d9;
-      --accent-purple-glow: rgba(109, 40, 217, 0.4);
-      --accent-blue: #3b82f6;
-      --glass-bg: rgba(18, 20, 29, 0.65);
-      --glass-border: rgba(255, 255, 255, 0.08);
-      --text-main: #f3f4f6;
-      --text-muted: #9ca3af;
-      --radius-lg: 16px;
-      --radius-md: 10px;
-      --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --bg: #080a10;
+      --bg-soft: #0d1019;
+      --panel: rgba(17, 20, 31, 0.74);
+      --panel-solid: #11141f;
+      --panel-2: rgba(255, 255, 255, 0.04);
+      --panel-hover: rgba(255, 255, 255, 0.075);
+      --border: rgba(255, 255, 255, 0.10);
+      --border-strong: rgba(167, 139, 250, 0.32);
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --purple: #7c3aed;
+      --purple-light: #a78bfa;
+      --blue: #3b82f6;
+      --header-bg: rgba(8, 10, 16, 0.82);
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.30);
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.22);
+      --radius: 18px;
+      --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      --glow-purple: rgba(124, 58, 237, 0.18);
+      --glow-blue: rgba(59, 130, 246, 0.14);
     }
 
-    /* ---------- Global Reset & Typography ---------- */
+    html[data-theme="light"] {
+      --bg: #f5f7fb;
+      --bg-soft: #eef2f8;
+      --panel: rgba(255, 255, 255, 0.80);
+      --panel-solid: #ffffff;
+      --panel-2: rgba(15, 23, 42, 0.035);
+      --panel-hover: rgba(109, 40, 217, 0.075);
+      --border: rgba(15, 23, 42, 0.10);
+      --border-strong: rgba(109, 40, 217, 0.28);
+      --text: #111827;
+      --muted: #64748b;
+      --purple: #6d28d9;
+      --purple-light: #7c3aed;
+      --blue: #2563eb;
+      --header-bg: rgba(248, 250, 252, 0.84);
+      --shadow: 0 18px 55px rgba(15, 23, 42, 0.12);
+      --shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.10);
+      --glow-purple: rgba(124, 58, 237, 0.09);
+      --glow-blue: rgba(59, 130, 246, 0.08);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-main);
-      overflow-x: hidden;
-      line-height: 1.6;
       min-height: 100vh;
+      overflow-x: hidden;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 8% 8%, var(--glow-purple), transparent 30%),
+        radial-gradient(circle at 92% 82%, var(--glow-blue), transparent 30%),
+        var(--bg);
+      line-height: 1.65;
+      transition: background-color var(--transition), color var(--transition);
     }
 
     a {
       color: inherit;
       text-decoration: none;
-      transition: var(--transition-smooth);
     }
 
-    /* Background Canvases */
-    #starsCanvas, #rippleCanvas {
+    button {
+      font: inherit;
+      color: inherit;
+    }
+
+    #starsCanvas,
+    #rippleCanvas {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      inset: 0;
+      width: 100%;
+      height: 100%;
       pointer-events: none;
     }
+
     #starsCanvas { z-index: 0; }
     #rippleCanvas { z-index: 1; }
 
-    /* Ambient Glow Effect */
-    .ambient-glow {
-      position: fixed;
-      width: 500px;
-      height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle, var(--accent-purple-glow) 0%, rgba(0,0,0,0) 70%);
-      top: -150px;
-      left: -150px;
-      z-index: 0;
-      pointer-events: none;
-      opacity: 0.6;
+    .page-shell {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
     }
 
-    /* ---------- Navigation Bar ---------- */
+    /* ---------- Header ---------- */
     header {
       position: sticky;
       top: 0;
       z-index: 100;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      width: 100%;
       padding: 1rem 5%;
-      background: rgba(9, 10, 15, 0.8);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--glass-border);
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: background var(--transition), border-color var(--transition);
     }
 
-    .nav-brand {
-      font-size: 1.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+    .brand {
+      flex-shrink: 0;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--text), var(--purple-light));
       -webkit-background-clip: text;
+      background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
     }
 
     .desktop-nav {
       display: flex;
-      gap: 1.5rem;
+      align-items: center;
+      gap: 1.35rem;
     }
 
     .desktop-nav a {
-      font-size: 0.9rem;
-      color: var(--text-muted);
-      font-weight: 500;
+      position: relative;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 550;
+      transition: color var(--transition);
     }
 
-    .desktop-nav a:hover, .desktop-nav a.active {
-      color: var(--text-main);
+    .desktop-nav a:hover {
+      color: var(--text);
+    }
+
+    .header-action {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel-2);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform var(--transition), background var(--transition), border-color var(--transition);
+    }
+
+    .header-action:hover {
+      transform: translateY(-2px);
+      background: var(--panel-hover);
+      border-color: var(--border-strong);
     }
 
     .hamburger {
       display: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: var(--text-main);
     }
 
-    /* Mobile Sidebar Drawer */
+    /* ---------- Mobile Drawer ---------- */
     #sidebarOverlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
+      inset: 0;
+      z-index: 999;
       display: none;
-      z-index: 1000;
+      background: rgba(0, 0, 0, 0.48);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
     }
 
     #sidebar {
       position: fixed;
       top: 0;
-      right: -280px;
-      width: 280px;
-      height: 100%;
-      background: var(--bg-dark);
-      border-left: 1px solid var(--glass-border);
-      padding: 5rem 1.5rem 2rem;
-      transition: right 0.3s ease;
-      z-index: 1001;
+      right: -310px;
+      z-index: 1000;
+      width: min(310px, 86vw);
+      height: 100vh;
+      padding: 5.6rem 1.4rem 2rem;
+      background: var(--panel-solid);
+      border-left: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: right var(--transition);
     }
 
-    #sidebar.open { right: 0; }
+    #sidebar.open {
+      right: 0;
+    }
 
     #sidebar ul {
       list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
+      display: grid;
+      gap: 0.5rem;
     }
 
-    #sidebar ul li a {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      display: block;
-      padding: 0.5rem 0;
-    }
-
-    #sidebar ul li a:hover { color: var(--text-main); }
-
-    /* ---------- Main Layout ---------- */
-    #blur-container {
-      position: relative;
-      z-index: 2;
-    }
-
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 3rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    /* ---------- Header / Title Area ---------- */
-    .page-header {
+    #sidebar a {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .page-title-group h1 {
-      font-size: 2.25rem;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .page-title-group p {
-      color: var(--text-muted);
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      color: var(--muted);
       font-size: 0.95rem;
+      font-weight: 600;
+      transition: color var(--transition), background var(--transition);
+    }
+
+    #sidebar a:hover {
+      color: var(--text);
+      background: var(--panel-hover);
+    }
+
+    /* ---------- Main ---------- */
+    main {
+      width: min(980px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 3rem 0 3.5rem;
+    }
+
+    .version-hero {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      padding: 2.35rem;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(124, 58, 237, 0.13), rgba(59, 130, 246, 0.07)),
+        var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .version-hero::after {
+      content: "";
+      position: absolute;
+      right: -70px;
+      top: -100px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.22), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 0.8rem;
+      color: var(--purple-light);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .version-hero h1 {
+      max-width: 760px;
+      font-size: clamp(2rem, 5vw, 3.35rem);
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+    }
+
+    .version-hero p {
+      max-width: 720px;
+      margin-top: 0.85rem;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-top: 1.35rem;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.52rem 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--panel-2);
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 700;
+    }
+
+    .meta-pill strong {
+      color: var(--text);
     }
 
     .back-btn {
+      margin-top: 1rem;
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid var(--glass-border);
-      color: var(--text-main);
-      padding: 0.5rem 1rem;
-      border-radius: var(--radius-md);
-      font-size: 0.875rem;
-      font-weight: 500;
+      gap: 0.45rem;
+      padding: 0.58rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--panel-2);
+      color: var(--text);
       cursor: pointer;
-      transition: var(--transition-smooth);
+      font-size: 0.78rem;
+      font-weight: 700;
+      transition: transform var(--transition), background var(--transition), border-color var(--transition);
     }
 
     .back-btn:hover {
-      background: rgba(167, 139, 250, 0.15);
-      border-color: rgba(167, 139, 250, 0.4);
-      color: #a78bfa;
       transform: translateX(-2px);
+      background: var(--panel-hover);
+      border-color: var(--border-strong);
     }
 
-    /* ---------- Glass Card Standard ---------- */
     .glass-card {
-      background: var(--glass-bg);
-      backdrop-filter: blur(16px);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-lg);
-      padding: 2rem;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      opacity: 0;
+      transform: translateY(22px);
+      transition:
+        opacity 0.65s ease,
+        transform 0.65s ease,
+        background var(--transition),
+        border-color var(--transition);
     }
 
-    /* ---------- Version Cards ---------- */
-    .version-timeline {
+    .glass-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
       display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 1.25rem;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title i {
+      color: var(--purple-light);
+    }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ---------- Version Timeline ---------- */
+    .version-timeline {
+      position: relative;
+      display: grid;
+      gap: 1rem;
+      padding-left: 1.4rem;
+    }
+
+    .version-timeline::before {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, var(--purple), rgba(59,130,246,0.18));
     }
 
     .version-card {
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid var(--glass-border);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
-      transition: var(--transition-smooth);
+      position: relative;
+      padding: 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--panel-2);
       opacity: 0;
-      transform: translateY(15px);
+      transform: translateY(16px);
+      transition:
+        opacity 0.55s ease,
+        transform 0.55s ease,
+        background var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition);
+    }
+
+    .version-card::before {
+      content: "";
+      position: absolute;
+      left: -1.4rem;
+      top: 1.55rem;
+      width: 12px;
+      height: 12px;
+      border: 2px solid var(--purple-light);
+      border-radius: 50%;
+      background: var(--bg);
+      box-shadow: 0 0 14px rgba(124, 58, 237, 0.28);
     }
 
     .version-card.show {
       opacity: 1;
       transform: translateY(0);
-      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .version-card:hover {
-      background: rgba(255, 255, 255, 0.04);
-      border-color: rgba(167, 139, 250, 0.3);
-      transform: translateY(-2px);
-      box-shadow: 0 4px 20px rgba(109, 40, 217, 0.15);
+      border-color: var(--border-strong);
+      background: var(--panel-hover);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.14);
+    }
+
+    .version-card.latest {
+      border-color: var(--border-strong);
+      background:
+        linear-gradient(135deg, rgba(124,58,237,0.08), rgba(59,130,246,0.04)),
+        var(--panel-2);
     }
 
     .version-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 1rem;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.85rem;
       padding-bottom: 0.75rem;
-      border-bottom: 1px solid var(--glass-border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .version-tag-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
     }
 
     .version-tag {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #a78bfa;
+      color: var(--purple-light);
+      font-size: 1rem;
+      font-weight: 800;
+    }
+
+    .latest-badge {
+      padding: 0.2rem 0.48rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
     .version-date {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      background: rgba(255, 255, 255, 0.05);
-      padding: 0.25rem 0.75rem;
-      border-radius: 20px;
-      border: 1px solid var(--glass-border);
+      padding: 0.22rem 0.55rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--panel-2);
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 650;
+      white-space: nowrap;
     }
 
     .version-card ul {
-      padding-left: 1.25rem;
-      color: var(--text-muted);
-      font-size: 0.925rem;
+      padding-left: 1.15rem;
+      color: var(--muted);
+      font-size: 0.84rem;
     }
 
     .version-card li {
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.42rem;
+    }
+
+    .version-card li:last-child {
+      margin-bottom: 0;
     }
 
     .version-card li::marker {
-      color: #a78bfa;
+      color: var(--purple-light);
     }
 
     /* ---------- Footer ---------- */
     footer {
       position: relative;
       z-index: 2;
+      padding: 2.5rem 1rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
       text-align: center;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      padding: 3rem 1.5rem;
-      border-top: 1px solid var(--glass-border);
-      margin-top: 4rem;
+      font-size: 0.82rem;
     }
 
     .footer-links {
       display: flex;
       justify-content: center;
-      gap: 1rem;
-      margin-top: 0.5rem;
+      align-items: center;
+      gap: 0.8rem;
+      margin-top: 0.6rem;
     }
 
-    .footer-link {
-      color: var(--text-muted);
+    .footer-links a {
+      transition: color var(--transition);
     }
 
-    .footer-link:hover, .footer-link.active {
-      color: var(--text-main);
+    .footer-links a:hover,
+    .footer-links a.active {
+      color: var(--text);
     }
 
-    /* ---------- Responsive Breakpoints ---------- */
+    .footer-time {
+      margin-top: 1rem;
+      font-size: 0.72rem;
+      opacity: 0.72;
+    }
+
     @media (max-width: 850px) {
-      .desktop-nav { display: none; }
-      .hamburger { display: block; }
+      .desktop-nav {
+        display: none;
+      }
+
+      .hamburger {
+        display: inline-flex;
+      }
     }
 
-    @media (max-width: 480px) {
-      main { padding: 2rem 1rem; }
-      .glass-card { padding: 1.25rem; }
-      .page-header { flex-direction: column-reverse; align-items: flex-start; }
-      .version-header { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
-      .version-card { padding: 1.25rem; }
+    @media (max-width: 650px) {
+      header {
+        padding-inline: 1rem;
+      }
+
+      main {
+        width: min(100% - 1rem, 980px);
+        padding-top: 1.25rem;
+      }
+
+      .version-hero {
+        padding: 1.5rem;
+        border-radius: 18px;
+      }
+
+      .glass-card {
+        padding: 1rem;
+      }
+
+      .version-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .version-date {
+        white-space: normal;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
     }
   </style>
 </head>
+
 <body>
+  <canvas id="starsCanvas" aria-hidden="true"></canvas>
+  <canvas id="rippleCanvas" aria-hidden="true"></canvas>
 
-  <!-- Animated Background Elements -->
-  <div class="ambient-glow"></div>
-  <canvas id="starsCanvas"></canvas>
-  <canvas id="rippleCanvas"></canvas>
+  <div class="page-shell">
+    <header>
+      <a href="index.html" class="brand">Bryan G. Ablao</a>
 
-  <!-- Sticky Header -->
-  <header>
-    <div class="nav-brand">Bryan G. Ablao</div>
-    <nav class="desktop-nav">
-      <a href="index.html">About</a>
-      <a href="work.html">Experience</a>
-      <a href="projects.html">Projects</a>
-      <a href="achievement.html">Achievements</a>
-      <a href="gallery.html">Gallery</a>
-      <a href="social.html">Socials</a>
-    </nav>
-    <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Navigation">☰</div>
-  </header>
+      <div class="nav-right">
+        <nav class="desktop-nav" aria-label="Primary navigation">
+          <a href="index.html">About</a>
+          <a href="work.html">Experience</a>
+          <a href="projects.html">Projects</a>
+          <a href="achievement.html">Achievements</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="social.html">Socials</a>
+        </nav>
 
-  <!-- Mobile Drawer Overlay -->
-  <div id="sidebarOverlay" onclick="closeMenu()"></div>
+        <button id="themeToggle" class="header-action" type="button" aria-label="Switch theme" title="Switch theme">
+          <i id="themeIcon" class="fa-solid fa-moon"></i>
+        </button>
 
-  <!-- Mobile Navigation Drawer -->
-  <nav id="sidebar">
-    <ul>
-      <li><a href="index.html">About Me</a></li>
-      <li><a href="work.html">Work Experience</a></li>
-      <li><a href="projects.html">Projects</a></li>
-      <li><a href="achievement.html">Achievements</a></li>
-      <li><a href="gallery.html">Gallery</a></li>
-      <li><a href="social.html">Social Medias</a></li>
-    </ul>
-  </nav>
-
-  <!-- Main Content Area -->
-  <div id="blur-container">
-    <main>
-      
-      <!-- Page Title & Navigation Header -->
-      <div class="page-header">
-        <div class="page-title-group">
-          <h1>Version History</h1>
-          <p>Changelog and release notes for this website.</p>
-        </div>
-        <button class="back-btn" aria-label="Go back" onclick="window.history.length > 1 ? history.back() : location.href='index.html'">
-          ← Back
+        <button class="header-action hamburger" type="button" onclick="toggleMenu()" aria-label="Open navigation">
+          <i class="fa-solid fa-bars"></i>
         </button>
       </div>
+    </header>
 
-      <!-- Version Container Card -->
+    <div id="sidebarOverlay" onclick="closeMenu()"></div>
+
+    <nav id="sidebar" aria-label="Mobile navigation">
+      <ul>
+        <li><a href="index.html"><i class="fa-solid fa-user"></i> About Me</a></li>
+        <li><a href="work.html"><i class="fa-solid fa-briefcase"></i> Work Experience</a></li>
+        <li><a href="projects.html"><i class="fa-solid fa-diagram-project"></i> Projects</a></li>
+        <li><a href="achievement.html"><i class="fa-solid fa-trophy"></i> Achievements</a></li>
+        <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+        <li><a href="social.html"><i class="fa-solid fa-share-nodes"></i> Social Medias</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="version-hero">
+        <div class="eyebrow"><i class="fa-solid fa-code-branch"></i> Release Notes</div>
+        <h1>Version History</h1>
+        <p>
+          Changelog and release notes for the portfolio website, documenting design,
+          navigation, responsiveness, interactive effects, and feature improvements over time.
+        </p>
+
+        <div class="hero-meta">
+          <span class="meta-pill"><i class="fa-solid fa-tag"></i> Current Version: <strong>v0.0.9</strong></span>
+          <span class="meta-pill"><i class="fa-solid fa-clock-rotate-left"></i> 10 Releases Logged</span>
+        </div>
+
+        <button class="back-btn" type="button" onclick="window.history.length > 1 ? history.back() : location.href='index.html'">
+          <i class="fa-solid fa-arrow-left"></i> Back
+        </button>
+      </section>
+
       <section class="glass-card">
+        <h2 class="section-title"><i class="fa-solid fa-list-check"></i> Changelog</h2>
+
         <div class="version-timeline">
 
-          <div class="version-card" id="v0.0.8">
+          <article class="version-card latest" id="v0.0.9">
+            <div class="version-header">
+              <div class="version-tag-wrap">
+                <span class="version-tag">v0.0.9</span>
+                <span class="latest-badge">Current</span>
+              </div>
+              <span class="version-date">October 2026</span>
+            </div>
+            <ul>
+              <li>Unified the site header and footer design across Gallery, Achievements, Donate, Projects, Socials, Terms, and Version History pages.</li>
+              <li>Added persistent Dark and Light Mode using a shared theme setting across supported pages.</li>
+              <li>Added Philippine Standard Time display to the footer for a consistent site-wide footer experience.</li>
+              <li>Improved mobile navigation with a modern slide-out sidebar and matching icon-based links.</li>
+              <li>Refined starfield, meteor, and ripple effects so they adapt properly in both dark and light themes.</li>
+              <li>Improved responsive layouts, card spacing, hover states, and visual consistency throughout the portfolio.</li>
+            </ul>
+          </article>
+
+          <article class="version-card" id="v0.0.8">
             <div class="version-header">
               <span class="version-tag">v0.0.8</span>
               <span class="version-date">December 2025</span>
@@ -410,9 +707,9 @@
               <li>Footer inside container with natural styling.</li>
               <li>Hover animations & glowing effects applied to version cards.</li>
             </ul>
-          </div>
+          </article>
 
-          <div class="version-card" id="v0.0.7">
+          <article class="version-card" id="v0.0.7">
             <div class="version-header">
               <span class="version-tag">v0.0.7</span>
               <span class="version-date">November 2025</span>
@@ -422,9 +719,9 @@
               <li>Modal interactions improved.</li>
               <li>Hover & animation effects enhanced.</li>
             </ul>
-          </div>
+          </article>
 
-          <div class="version-card" id="v0.0.6">
+          <article class="version-card" id="v0.0.6">
             <div class="version-header">
               <span class="version-tag">v0.0.6</span>
               <span class="version-date">November 2025</span>
@@ -434,9 +731,9 @@
               <li>Canvas performance optimized.</li>
               <li>Visual harmony improved.</li>
             </ul>
-          </div>
+          </article>
 
-          <div class="version-card" id="v0.0.5">
+          <article class="version-card" id="v0.0.5">
             <div class="version-header">
               <span class="version-tag">v0.0.5</span>
               <span class="version-date">October 2025</span>
@@ -446,9 +743,9 @@
               <li>Smooth animations for interactive elements.</li>
               <li>Minor visual consistency improvements.</li>
             </ul>
-          </div>
+          </article>
 
-          <div class="version-card" id="v0.0.4">
+          <article class="version-card" id="v0.0.4">
             <div class="version-header">
               <span class="version-tag">v0.0.4</span>
               <span class="version-date">September 2025</span>
@@ -458,9 +755,9 @@
               <li>Responsive adjustments for mobile & tablet.</li>
               <li>Optimized layout for readability.</li>
             </ul>
-          </div>
+          </article>
 
-          <div class="version-card" id="v0.0.3">
+          <article class="version-card" id="v0.0.3">
             <div class="version-header">
               <span class="version-tag">v0.0.3</span>
               <span class="version-date">August 2025</span>
@@ -470,9 +767,9 @@
               <li>Subtle shadows and rounded borders added.</li>
               <li>Tablet responsiveness improved.</li>
             </ul>
-          </div>
+          </article>
 
-          <div class="version-card" id="v0.0.2">
+          <article class="version-card" id="v0.0.2">
             <div class="version-header">
               <span class="version-tag">v0.0.2</span>
               <span class="version-date">July 2025</span>
@@ -482,9 +779,9 @@
               <li>Basic JS navigation added.</li>
               <li>Improved HTML semantics.</li>
             </ul>
-          </div>
+          </article>
 
-          <div class="version-card" id="v0.0.1">
+          <article class="version-card" id="v0.0.1">
             <div class="version-header">
               <span class="version-tag">v0.0.1</span>
               <span class="version-date">June 2025</span>
@@ -494,9 +791,9 @@
               <li>Family section layout introduced.</li>
               <li>Improved content readability.</li>
             </ul>
-          </div>
+          </article>
 
-          <div class="version-card" id="v0.0.0">
+          <article class="version-card" id="v0.0.0">
             <div class="version-header">
               <span class="version-tag">v0.0.0</span>
               <span class="version-date">June 2025</span>
@@ -506,27 +803,59 @@
               <li>First public release, mostly text content.</li>
               <li>Foundation for profile and family info set.</li>
             </ul>
-          </div>
+          </article>
 
         </div>
       </section>
-
     </main>
 
-    <!-- Footer -->
     <footer>
       <div>© 2025–2026 <strong>Accxs Creations</strong>. All rights reserved.</div>
       <div class="footer-links">
-        <a href="version.html" class="footer-link active">v0.0.8</a>
+        <a href="version.html" class="active">v0.0.9</a>
         <span>·</span>
-        <a href="terms.html" class="footer-link">Terms &amp; Privacy</a>
+        <a href="terms.html">Terms &amp; Privacy</a>
       </div>
+      <div class="footer-time" id="phTimeDisplay">Philippine Standard Time — Loading...</div>
     </footer>
   </div>
 
-  <!-- ---------- Scripts ---------- -->
   <script>
-    // Navigation Control
+    /* ---------- Theme ---------- */
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+
+    function getTheme() {
+      return document.documentElement.dataset.theme || "dark";
+    }
+
+    function refreshThemeIcon() {
+      const isLight = getTheme() === "light";
+      themeIcon.className = isLight ? "fa-solid fa-sun" : "fa-solid fa-moon";
+      themeToggle.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
+      themeToggle.setAttribute("title", isLight ? "Switch to dark mode" : "Switch to light mode");
+    }
+
+    function setTheme(theme) {
+      document.documentElement.dataset.theme = theme;
+
+      try {
+        localStorage.setItem("accxs-theme", theme);
+      } catch (error) {
+        // Theme still works if localStorage is unavailable.
+      }
+
+      refreshThemeIcon();
+      generateStars();
+    }
+
+    themeToggle.addEventListener("click", () => {
+      setTheme(getTheme() === "dark" ? "light" : "dark");
+    });
+
+    refreshThemeIcon();
+
+    /* ---------- Navigation ---------- */
     function toggleMenu() {
       const sidebar = document.getElementById("sidebar");
       const overlay = document.getElementById("sidebarOverlay");
@@ -539,66 +868,147 @@
       document.getElementById("sidebarOverlay").style.display = "none";
     }
 
-    // Scroll Reveal Animation for Version Cards
-    const cards = document.querySelectorAll('.version-card');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    /* ---------- Reveal ---------- */
+    const container = document.querySelector(".glass-card");
+    const containerObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('show');
+          entry.target.classList.add("visible");
+          containerObserver.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0.08 });
 
-    cards.forEach(card => observer.observe(card));
+    containerObserver.observe(container);
 
-    // Starfield Animation
-    const starsCanvas = document.getElementById('starsCanvas');
-    const starsCtx = starsCanvas.getContext('2d');
-    let stars = [], meteor = null;
+    const versionCards = document.querySelectorAll(".version-card");
+    const versionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("show");
+          versionObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    versionCards.forEach((card) => versionObserver.observe(card));
+
+    /* ---------- Philippine Time ---------- */
+    function updatePhilippineTime() {
+      const now = new Date();
+      const options = {
+        timeZone: "Asia/Manila",
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
+      };
+
+      const formatted = new Intl.DateTimeFormat("en-US", options).format(now);
+      const el = document.getElementById("phTimeDisplay");
+
+      if (el) {
+        el.textContent = `Philippine Standard Time — ${formatted}`;
+      }
+    }
+
+    updatePhilippineTime();
+    setInterval(updatePhilippineTime, 1000);
+
+    /* ---------- Starfield ---------- */
+    const starsCanvas = document.getElementById("starsCanvas");
+    const starsCtx = starsCanvas.getContext("2d");
+
+    let stars = [];
+    let meteor = null;
+    let meteorTimer = null;
+
+    function getStarColor(alpha) {
+      return getTheme() === "light"
+        ? `rgba(71, 85, 105, ${alpha * 0.48})`
+        : `rgba(255, 255, 255, ${alpha})`;
+    }
 
     function resizeStarsCanvas() {
-      starsCanvas.width = window.innerWidth;
-      starsCanvas.height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      starsCanvas.width = Math.floor(window.innerWidth * dpr);
+      starsCanvas.height = Math.floor(window.innerHeight * dpr);
+      starsCanvas.style.width = `${window.innerWidth}px`;
+      starsCanvas.style.height = `${window.innerHeight}px`;
+      starsCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
       generateStars();
     }
 
     function generateStars() {
       stars = [];
-      const density = Math.floor((starsCanvas.width * starsCanvas.height) / 6000);
+      const density = Math.floor((window.innerWidth * window.innerHeight) / 7000);
+
       for (let i = 0; i < density; i++) {
         stars.push({
-          x: Math.random() * starsCanvas.width,
-          y: Math.random() * starsCanvas.height,
-          alpha: Math.random() * 0.7 + 0.3,
-          radius: Math.random() * 1.2 + 0.4,
-          flickerSpeed: Math.random() * 0.02 + 0.005
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          alpha: Math.random() * 0.65 + 0.2,
+          radius: Math.random() * 1.05 + 0.35,
+          flicker: Math.random() * 0.013 + 0.004
         });
       }
     }
 
+    function scheduleMeteor() {
+      clearTimeout(meteorTimer);
+      meteorTimer = setTimeout(spawnMeteor, Math.random() * 4500 + 3200);
+    }
+
+    function spawnMeteor() {
+      meteor = {
+        x: Math.random() * window.innerWidth,
+        y: -30,
+        vx: -(Math.random() * 3 + 2),
+        vy: Math.random() * 2 + 2.1,
+        alpha: 1
+      };
+    }
+
     function drawMeteor() {
       if (!meteor) return;
-      starsCtx.save();
-      const grad = starsCtx.createLinearGradient(meteor.x, meteor.y, meteor.x - meteor.vx * 10, meteor.y - meteor.vy * 10);
-      grad.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
-      grad.addColorStop(1, `rgba(255,255,255,0)`);
+
+      const tailX = meteor.x - meteor.vx * 16;
+      const tailY = meteor.y - meteor.vy * 16;
+      const grad = starsCtx.createLinearGradient(meteor.x, meteor.y, tailX, tailY);
+
+      if (getTheme() === "light") {
+        grad.addColorStop(0, `rgba(109,40,217,${meteor.alpha * 0.75})`);
+        grad.addColorStop(1, "rgba(109,40,217,0)");
+      } else {
+        grad.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
+        grad.addColorStop(1, "rgba(255,255,255,0)");
+      }
+
       starsCtx.strokeStyle = grad;
       starsCtx.lineWidth = 1.5;
       starsCtx.beginPath();
       starsCtx.moveTo(meteor.x, meteor.y);
-      starsCtx.lineTo(meteor.x - meteor.vx * 15, meteor.y - meteor.vy * 15);
+      starsCtx.lineTo(tailX, tailY);
       starsCtx.stroke();
-      starsCtx.restore();
     }
 
     function animateStars() {
-      starsCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
-      stars.forEach(star => {
-        star.alpha += star.flickerSpeed * (Math.random() < 0.5 ? -1 : 1);
-        star.alpha = Math.min(0.9, Math.max(0.2, star.alpha));
+      starsCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      stars.forEach((star) => {
+        star.alpha += star.flicker * (Math.random() < 0.5 ? -1 : 1);
+        star.alpha = Math.max(0.15, Math.min(0.88, star.alpha));
+
         starsCtx.beginPath();
         starsCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        starsCtx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+        starsCtx.fillStyle = getStarColor(star.alpha);
         starsCtx.fill();
       });
 
@@ -607,66 +1017,84 @@
         meteor.y += meteor.vy;
         meteor.alpha -= 0.012;
         drawMeteor();
-        if (meteor.alpha <= 0 || meteor.x < -50 || meteor.y > starsCanvas.height + 50) {
+
+        if (
+          meteor.alpha <= 0 ||
+          meteor.x < -80 ||
+          meteor.y > window.innerHeight + 80
+        ) {
           meteor = null;
-          setTimeout(spawnMeteor, Math.random() * 4000 + 3000);
+          scheduleMeteor();
         }
       }
+
       requestAnimationFrame(animateStars);
     }
 
-    function spawnMeteor() {
-      meteor = {
-        x: Math.random() * starsCanvas.width,
-        y: -20,
-        vx: -(Math.random() * 3 + 2),
-        vy: Math.random() * 2 + 2,
-        alpha: 1
-      };
-    }
-
-    window.addEventListener('resize', resizeStarsCanvas);
-    resizeStarsCanvas();
-    animateStars();
-    setTimeout(spawnMeteor, 2000);
-
-    // Mouse Ripple Effect
-    const rippleCanvas = document.getElementById('rippleCanvas');
-    const rippleCtx = rippleCanvas.getContext('2d');
+    /* ---------- Ripple ---------- */
+    const rippleCanvas = document.getElementById("rippleCanvas");
+    const rippleCtx = rippleCanvas.getContext("2d");
     let ripples = [];
 
     function resizeRippleCanvas() {
-      rippleCanvas.width = window.innerWidth;
-      rippleCanvas.height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      rippleCanvas.width = Math.floor(window.innerWidth * dpr);
+      rippleCanvas.height = Math.floor(window.innerHeight * dpr);
+      rippleCanvas.style.width = `${window.innerWidth}px`;
+      rippleCanvas.style.height = `${window.innerHeight}px`;
+      rippleCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
 
-    window.addEventListener('resize', resizeRippleCanvas);
-    resizeRippleCanvas();
+    window.addEventListener("mousemove", (event) => {
+      if (window.matchMedia("(pointer: coarse)").matches) return;
+      if (Math.random() > 0.22) return;
 
-    window.addEventListener('mousemove', (e) => {
-      if (Math.random() > 0.3) return;
-      ripples.push({ x: e.clientX, y: e.clientY, radius: 0, alpha: 0.25 });
-      if (ripples.length > 15) ripples.shift();
+      ripples.push({
+        x: event.clientX,
+        y: event.clientY,
+        radius: 0,
+        alpha: 0.20
+      });
+
+      if (ripples.length > 12) ripples.shift();
     });
 
     function animateRipples() {
-      rippleCtx.clearRect(0, 0, rippleCanvas.width, rippleCanvas.height);
-      ripples.forEach((r, i) => {
-        r.radius += 1.2;
-        r.alpha -= 0.008;
-        if (r.alpha <= 0) {
+      rippleCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const ripple = ripples[i];
+        ripple.radius += 1.15;
+        ripple.alpha -= 0.007;
+
+        if (ripple.alpha <= 0) {
           ripples.splice(i, 1);
-          return;
+          continue;
         }
+
         rippleCtx.beginPath();
-        rippleCtx.arc(r.x, r.y, r.radius, 0, Math.PI * 2);
-        rippleCtx.strokeStyle = `rgba(167, 139, 250, ${r.alpha})`;
+        rippleCtx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
+        rippleCtx.strokeStyle =
+          getTheme() === "light"
+            ? `rgba(109, 40, 217, ${ripple.alpha})`
+            : `rgba(167, 139, 250, ${ripple.alpha})`;
         rippleCtx.lineWidth = 1;
         rippleCtx.stroke();
-      });
+      }
+
       requestAnimationFrame(animateRipples);
     }
+
+    window.addEventListener("resize", () => {
+      resizeStarsCanvas();
+      resizeRippleCanvas();
+    });
+
+    resizeStarsCanvas();
+    resizeRippleCanvas();
+    animateStars();
     animateRipples();
+    setTimeout(spawnMeteor, 1800);
   </script>
 </body>
 </html>
