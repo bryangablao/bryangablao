@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="images/AblaoClan.png">
@@ -7,8 +8,8 @@
   
   <!-- Modern Typography & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <style>
@@ -751,7 +752,7 @@
       text-align: center;
       color: var(--text-muted);
       font-size: 0.85rem;
-      padding: 3rem 1.5rem;
+      padding: 3rem 1.5rem 2rem 1.5rem;
       border-top: 1px solid var(--glass-border);
       margin-top: 4rem;
       width: 100%;
@@ -770,6 +771,32 @@
 
     .footer-link:hover {
       color: var(--text-main);
+    }
+
+    .footer-bottom-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+      font-size: 0.7rem;
+      color: rgba(156, 163, 175, 0.6);
+      width: 100%;
+      padding: 0 0.5rem;
+    }
+
+    .footer-time {
+      letter-spacing: 0.02em;
+    }
+
+    .footer-icon-img {
+      height: 12px;
+      width: auto;
+      opacity: 0.4;
+      transition: opacity 0.2s ease;
+    }
+
+    .footer-icon-img:hover {
+      opacity: 0.8;
     }
 
     /* ---------- Responsive Breakpoints & Screen Fixes ---------- */
@@ -815,6 +842,11 @@
       .family-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+      .footer-bottom-row {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+      }
     }
   </style>
 </head>
@@ -823,8 +855,8 @@
   <!-- Animated Background Elements -->
   <div class="ambient-glow"></div>
   <div class="ambient-glow-2"></div>
-  <canvas id="starsCanvas" width="772" height="673"></canvas>
-  <canvas id="rippleCanvas" width="772" height="673"></canvas>
+  <canvas id="starsCanvas"></canvas>
+  <canvas id="rippleCanvas"></canvas>
 
   <!-- Sticky Header -->
   <header>
@@ -874,7 +906,7 @@
               <h2>Bryan G. Ablao</h2>
               <div class="subtitle">
                 <span>I am a</span>
-                <span class="typing-text" id="typingText">Problem Solver</span>
+                <span class="typing-text" id="typingText"></span>
               </div>
             </div>
             <p class="profile-bio">
@@ -908,7 +940,7 @@
             <div class="info-grid">
               <div class="info-item">
                 <span><i class="fa-solid fa-location-dot"></i> Location</span>
-                <a href="https://maps.app.goo.gl/3qxbihk6F5TMQauo8" target="_blank" rel="noopener">Davao City, Philippines</a>
+                <a href="https://maps.app.goo.gl/3qxbihk6F5TMQauo8" target="_blank" rel="noopener">Davao City, Philippines <img src="images/philipines.png" alt="Philippine Flag" style="vertical-align: middle; height: 1em; width: auto; margin-left: 4px;"></a>
               </div>
               <div class="info-item">
                 <span><i class="fa-solid fa-envelope"></i> Email</span>
@@ -929,14 +961,14 @@
 
       <!-- Technical Skills Showcase with Interactive Filter -->
       <section class="glass-card">
-        <h3 class="section-title"><i class="fa-solid fa-laptop-code"></i> Core Expertise &amp; Skills</h3>
+        <h3 class="section-title"><i class="fa-solid fa-laptop-code"></i> Core Expertise & Skills</h3>
         
-        <!-- Interactive Filter Controls -->
+        <!-- Interactive Filter Controls - FIXED WITH `this` -->
         <div class="filter-tabs">
-          <button class="filter-btn active" onclick="filterSkills('all')">All</button>
-          <button class="filter-btn" onclick="filterSkills('dev')">Development</button>
-          <button class="filter-btn" onclick="filterSkills('design')">Design</button>
-          <button class="filter-btn" onclick="filterSkills('soft')">Soft Skills</button>
+          <button class="filter-btn active" onclick="filterSkills('all', this)">All</button>
+          <button class="filter-btn" onclick="filterSkills('dev', this)">Development</button>
+          <button class="filter-btn" onclick="filterSkills('design', this)">Design</button>
+          <button class="filter-btn" onclick="filterSkills('soft', this)">Soft Skills</button>
         </div>
 
         <div class="skills-grid">
@@ -949,21 +981,21 @@
           </div>
           <div class="skill-item" data-category="design">
             <div class="skill-info">
-              <span>UI/UX &amp; Creative Design</span>
+              <span>UI/UX & Creative Design</span>
               <span>82%</span>
             </div>
             <div class="skill-bar"><div class="skill-progress" data-progress="82%"></div></div>
           </div>
           <div class="skill-item" data-category="soft">
             <div class="skill-info">
-              <span>Problem Solving &amp; Strategy</span>
+              <span>Problem Solving & Strategy</span>
               <span>90%</span>
             </div>
             <div class="skill-bar"><div class="skill-progress" data-progress="90%"></div></div>
           </div>
           <div class="skill-item" data-category="soft">
             <div class="skill-info">
-              <span>Adaptability &amp; Continuous Growth</span>
+              <span>Adaptability & Continuous Growth</span>
               <span>95%</span>
             </div>
             <div class="skill-bar"><div class="skill-progress" data-progress="95%"></div></div>
@@ -972,7 +1004,7 @@
       </section>
 
       <!-- Family & Personal Background Section -->
-      <section class="glass-card visible">
+      <section class="glass-card">
         <div class="bg-grid">
           
           <!-- Left Side: Family Background -->
@@ -1017,12 +1049,12 @@
             <h3 class="section-title"><i class="fa-solid fa-compass"></i> Guiding Principles</h3>
 
             <div class="value-card">
-              <h4><i class="fa-solid fa-cross"></i> Faith &amp; Integrity</h4>
+              <h4><i class="fa-solid fa-cross"></i> Faith & Integrity</h4>
               <p>Grounding every action and decision in strong ethical principles, guided by deep-rooted faith and authenticity.</p>
             </div>
 
             <div class="value-card">
-              <h4><i class="fa-solid fa-mountain"></i> Resilience &amp; Perseverance</h4>
+              <h4><i class="fa-solid fa-mountain"></i> Resilience & Perseverance</h4>
               <p>Embracing challenges as growth opportunities, overcoming adversity with determination and optimism.</p>
             </div>
 
@@ -1032,7 +1064,7 @@
             </div>
 
             <div class="value-card">
-              <h4><i class="fa-solid fa-heart"></i> Family &amp; Community</h4>
+              <h4><i class="fa-solid fa-heart"></i> Family & Community</h4>
               <p>Valuing strong bonds, mutual support, and giving back to people and communities around me.</p>
             </div>
           </div>
@@ -1041,12 +1073,12 @@
       </section>
 
       <!-- Personal Journey Timeline -->
-      <section class="glass-card visible">
-        <h3 class="section-title"><i class="fa-solid fa-timeline"></i> Life &amp; Career Journey</h3>
+      <section class="glass-card">
+        <h3 class="section-title"><i class="fa-solid fa-timeline"></i> Life & Career Journey</h3>
         <div class="timeline">
           <div class="timeline-item">
             <div class="timeline-date">2025 – Present</div>
-            <div class="timeline-title">Founding &amp; Building Accxs Creations</div>
+            <div class="timeline-title">Founding & Building Accxs Creations</div>
             <div class="timeline-desc">Leading digital innovation and designing cohesive interactive web solutions.</div>
           </div>
           <div class="timeline-item">
@@ -1056,7 +1088,7 @@
           </div>
           <div class="timeline-item">
             <div class="timeline-date">Early Milestones</div>
-            <div class="timeline-title">Personal Foundation &amp; Character Growth</div>
+            <div class="timeline-title">Personal Foundation & Character Growth</div>
             <div class="timeline-desc">Instilled core values of perseverance, family strength, and proactive problem solving.</div>
           </div>
         </div>
@@ -1072,6 +1104,12 @@
         <span>·</span>
         <a href="terms.html" class="footer-link">Terms &amp; Privacy</a>
       </div>
+      <div class="footer-bottom-row">
+        <div class="footer-time" id="phTimeDisplay">Philippine Standard Time — Loading...</div>
+        <div>
+          <img src="images/h.png" alt="Sign" class="footer-icon-img">
+        </div>
+      </div>
     </footer>
   </div>
 
@@ -1080,7 +1118,7 @@
   <!-- Quick Contact Modal -->
   <div class="modal-overlay" id="modalContact">
     <div class="modal-box">
-      <span class="modal-close" onclick="closeModal('modalContact')">×</span>
+      <span class="modal-close" onclick="closeModal('modalContact')">&times;</span>
       <h3>Get In Touch</h3>
       <p style="text-align: center; margin-bottom: 1.5rem;">
         Feel free to reach out directly via email or phone call.
@@ -1099,7 +1137,7 @@
   <!-- Bryan Modal -->
   <div class="modal-overlay" id="modalBryan">
     <div class="modal-box">
-      <span class="modal-close" onclick="closeModal('modalBryan')">×</span>
+      <span class="modal-close" onclick="closeModal('modalBryan')">&times;</span>
       <a href="https://www.facebook.com/bryangablao" target="_blank" rel="noopener">
         <img src="images/Bryan.jpg" alt="Bryan G. Ablao" class="modal-profile-img">
       </a>
@@ -1113,7 +1151,7 @@
   <!-- Father Modal -->
   <div class="modal-overlay" id="modalFather">
     <div class="modal-box">
-      <span class="modal-close" onclick="closeModal('modalFather')">×</span>
+      <span class="modal-close" onclick="closeModal('modalFather')">&times;</span>
       <img src="images/father.png" alt="Evaristo C. Ablao" class="modal-profile-img">
       <h3>Evaristo C. Ablao</h3>
       <p>
@@ -1125,7 +1163,7 @@
   <!-- Mother Modal -->
   <div class="modal-overlay" id="modalMother">
     <div class="modal-box">
-      <span class="modal-close" onclick="closeModal('modalMother')">×</span>
+      <span class="modal-close" onclick="closeModal('modalMother')">&times;</span>
       <a href="https://www.facebook.com/annaliegutierrez.ablao" target="_blank" rel="noopener">
         <img src="images/mother.png" alt="Annalie G. Ablao" class="modal-profile-img">
       </a>
@@ -1139,7 +1177,7 @@
   <!-- Kenneth Modal -->
   <div class="modal-overlay" id="modalKenneth">
     <div class="modal-box">
-      <span class="modal-close" onclick="closeModal('modalKenneth')">×</span>
+      <span class="modal-close" onclick="closeModal('modalKenneth')">&times;</span>
       <a href="https://www.facebook.com/kenneth.ablao.12" target="_blank" rel="noopener">
         <img src="images/Kenneth.jpg" alt="Kenneth G. Ablao" class="modal-profile-img">
       </a>
@@ -1165,7 +1203,7 @@
   <!-- Riz Evan Modal -->
   <div class="modal-overlay" id="modalRizEvan">
     <div class="modal-box">
-      <span class="modal-close" onclick="closeModal('modalRizEvan')">×</span>
+      <span class="modal-close" onclick="closeModal('modalRizEvan')">&times;</span>
       <a href="https://www.facebook.com/rizevan.ablao.73" target="_blank" rel="noopener">
         <img src="images/RizEvan.jpg" alt="Riz Evan G. Ablao" class="modal-profile-img">
       </a>
@@ -1186,13 +1224,51 @@
 
   <!-- Scripts -->
   <script>
-    // Skill Filter Interactive Tabs
-    function filterSkills(category) {
+    // Live Philippine Standard Time Clock
+    function updatePhilippineTime() {
+      const now = new Date();
+      const options = {
+        timeZone: 'Asia/Manila',
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true
+      };
+      const formatter = new Intl.DateTimeFormat('en-US', options);
+      const parts = formatter.formatToParts(now);
+      
+      let weekday = '', month = '', day = '', year = '', hour = '', minute = '', dayPeriod = '';
+      for (let p of parts) {
+        if (p.type === 'weekday') weekday = p.value;
+        if (p.type === 'month') month = p.value;
+        if (p.type === 'day') day = p.value;
+        if (p.type === 'year') year = p.value;
+        if (p.type === 'hour') hour = p.value;
+        if (p.type === 'minute') minute = p.value;
+        if (p.type === 'dayPeriod') dayPeriod = p.value;
+      }
+      
+      const timeString = `Philippine Standard Time — ${weekday}, ${month} ${day}, ${year} at ${hour}:${minute} ${dayPeriod}`;
+      const timeEl = document.getElementById('phTimeDisplay');
+      if (timeEl) {
+        timeEl.textContent = timeString;
+      }
+    }
+    setInterval(updatePhilippineTime, 1000);
+    updatePhilippineTime();
+
+    // Skill Filter Interactive Tabs - FIXED
+    function filterSkills(category, btnElement) {
       const buttons = document.querySelectorAll('.filter-btn');
       const items = document.querySelectorAll('.skill-item');
 
       buttons.forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
+      if (btnElement) {
+        btnElement.classList.add('active');
+      }
 
       items.forEach(item => {
         if (category === 'all' || item.getAttribute('data-category') === category) {
@@ -1211,6 +1287,8 @@
       const currentWord = words[i];
       const typingElement = document.getElementById("typingText");
       
+      if (!typingElement) return;
+
       if (isDeleting) {
         typingElement.textContent = currentWord.substring(0, j - 1);
         j--;
