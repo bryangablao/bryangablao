@@ -296,6 +296,187 @@
       background: #111827;
     }
 
+
+    /* Developer code stream around profile */
+    .developer-profile-column {
+      position: relative;
+      width: 230px;
+      min-height: 510px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      overflow: visible;
+      align-self: center;
+    }
+
+    .developer-profile-column::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 58px;
+      bottom: 58px;
+      width: 1px;
+      transform: translateX(-50%);
+      background: linear-gradient(to bottom, transparent, rgba(167,139,250,.13), rgba(59,130,246,.18), rgba(167,139,250,.13), transparent);
+      z-index: -1;
+    }
+
+    .code-stream {
+      width: 100%;
+      position: relative;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      font-size: 10px;
+      line-height: 1.65;
+      letter-spacing: .02em;
+      pointer-events: none;
+      opacity: .76;
+      filter: drop-shadow(0 0 7px rgba(124,58,237,.12));
+      text-align: left;
+    }
+
+    .code-line {
+      white-space: nowrap;
+      opacity: 0;
+      transform: translateY(5px);
+      animation: codeLineReveal 6s ease-in-out infinite;
+    }
+
+    .code-line.delay-1 { animation-delay: .35s; }
+    .code-line.delay-2 { animation-delay: .7s; }
+    .code-line.delay-3 { animation-delay: 1.05s; }
+    .code-line.delay-4 { animation-delay: 1.4s; }
+    .code-indent { padding-left: 12px; }
+
+    @keyframes codeLineReveal {
+      0% { opacity: 0; transform: translateY(6px); }
+      12%, 72% { opacity: .78; transform: translateY(0); }
+      90%, 100% { opacity: 0; transform: translateY(-4px); }
+    }
+
+    .code-tag { color: var(--purple-light); }
+    .code-purple { color: #a78bfa; }
+    .code-blue { color: #60a5fa; }
+    .code-green, .status-success { color: #34d399; }
+    .code-string { color: #93c5fd; }
+    .code-text { color: var(--muted); }
+    .code-muted { color: rgba(156,163,175,.62); }
+    .terminal-symbol { color: var(--purple-light); font-weight: 700; }
+
+    .profile-tech-wrapper {
+      width: 224px;
+      height: 224px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .profile-tech-wrapper .profile-avatar-wrapper {
+      position: relative;
+      z-index: 5;
+      margin: 0;
+    }
+
+    .profile-orbit {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .orbit-one {
+      width: 205px;
+      height: 205px;
+      border: 1px solid rgba(167,139,250,.23);
+      animation: orbitRotate 14s linear infinite;
+    }
+
+    .orbit-one::before {
+      content: "";
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      left: 50%;
+      top: -3px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: var(--purple-light);
+      box-shadow: 0 0 5px var(--purple-light), 0 0 12px rgba(167,139,250,.7);
+    }
+
+    .orbit-two {
+      width: 221px;
+      height: 221px;
+      border: 1px dashed rgba(59,130,246,.18);
+      animation: orbitRotateReverse 20s linear infinite;
+    }
+
+    .orbit-two::after {
+      content: "";
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      left: 10%;
+      top: 28%;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 6px var(--blue), 0 0 15px rgba(59,130,246,.7);
+    }
+
+    @keyframes orbitRotate { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+    @keyframes orbitRotateReverse { from { transform: rotate(360deg); } to { transform: rotate(0); } }
+
+    .tech-dot {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      z-index: 3;
+      background: var(--purple-light);
+      box-shadow: 0 0 5px currentColor, 0 0 12px currentColor;
+      animation: techPulse 2.8s ease-in-out infinite;
+    }
+
+    .tech-dot-1 { top: 10px; left: 38px; }
+    .tech-dot-2 { right: 6px; top: 112px; background: var(--blue); animation-delay: .8s; }
+    .tech-dot-3 { bottom: 9px; left: 62px; animation-delay: 1.5s; }
+
+    @keyframes techPulse {
+      0%, 100% { opacity: .25; transform: scale(.7); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+
+    .terminal-active {
+      margin-top: 4px;
+      opacity: 1;
+      animation: none;
+      min-height: 17px;
+    }
+
+    #developerTerminalText { color: #93c5fd; }
+
+    .terminal-cursor {
+      display: inline-block;
+      width: 6px;
+      height: 11px;
+      margin-left: 2px;
+      vertical-align: -1px;
+      background: var(--purple-light);
+      box-shadow: 0 0 8px rgba(167,139,250,.6);
+      animation: terminalBlink .85s step-end infinite;
+    }
+
+    @keyframes terminalBlink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    html[data-theme="light"] .code-muted { color: rgba(71,85,105,.65); }
+    html[data-theme="light"] .code-text { color: #64748b; }
+
     .profile-title {
       font-size: clamp(2rem, 5vw, 2.7rem);
       line-height: 1.05;
@@ -696,6 +877,8 @@
       .profile-layout { text-align: center; }
       .subtitle,
       .hero-actions { justify-content: center; }
+      .developer-profile-column { width: min(280px, 100%); min-height: auto; margin-bottom: 12px; }
+      .code-stream { width: 230px; font-size: 9px; }
     }
 
     @media (max-width: 580px) {
@@ -703,6 +886,16 @@
       .stats-container { grid-template-columns: 1fr; }
       .family-grid { grid-template-columns: 1fr 1fr; }
       .profile-avatar-wrapper { width: 155px; height: 155px; }
+      .developer-profile-column { width: 210px; }
+      .profile-tech-wrapper { width: 180px; height: 180px; }
+      .orbit-one { width: 169px; height: 169px; }
+      .orbit-two { width: 180px; height: 180px; }
+      .code-stream { width: 205px; font-size: 8px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .code-line, .profile-orbit, .tech-dot, .terminal-cursor { animation: none !important; }
+      .code-line { opacity: .65; transform: none; }
     }
   </style>
 </head>
@@ -750,8 +943,34 @@
     <main>
       <section class="glass-card">
         <div class="profile-layout">
-          <div class="profile-avatar-wrapper" onclick="openModal('modalBryan')" title="Open biography">
-            <img src="images/Bryan.jpg" alt="Bryan G. Ablao">
+          <div class="developer-profile-column">
+            <div class="code-stream code-stream-top" aria-hidden="true">
+              <div class="code-line"><span class="code-tag">&lt;developer&gt;</span></div>
+              <div class="code-line delay-1"><span class="code-purple">const</span><span class="code-text"> creativity </span><span class="code-blue">=</span><span class="code-green"> true</span><span class="code-muted">;</span></div>
+              <div class="code-line delay-2"><span class="code-purple">function</span><span class="code-blue"> innovate</span><span class="code-muted">() {</span></div>
+              <div class="code-line delay-3 code-indent"><span class="code-purple">return</span><span class="code-string"> "Build. Create. Improve."</span><span class="code-muted">;</span></div>
+              <div class="code-line delay-4"><span class="code-muted">}</span></div>
+            </div>
+
+            <div class="profile-tech-wrapper">
+              <div class="profile-orbit orbit-one"></div>
+              <div class="profile-orbit orbit-two"></div>
+
+              <div class="profile-avatar-wrapper" onclick="openModal('modalBryan')" title="Open biography">
+                <img src="images/Bryan.jpg" alt="Bryan G. Ablao">
+              </div>
+
+              <span class="tech-dot tech-dot-1"></span>
+              <span class="tech-dot tech-dot-2"></span>
+              <span class="tech-dot tech-dot-3"></span>
+            </div>
+
+            <div class="code-stream code-stream-bottom" aria-hidden="true">
+              <div class="code-line delay-2"><span class="terminal-symbol">&gt;</span><span class="code-text"> npm run build</span></div>
+              <div class="code-line delay-3"><span class="terminal-symbol">&gt;</span><span class="code-text"> compiling portfolio...</span></div>
+              <div class="code-line delay-4"><span class="terminal-symbol">&gt;</span><span class="status-success"> system.ready()</span></div>
+              <div class="code-line terminal-active"><span class="terminal-symbol">&gt;</span><span class="code-text"> </span><span id="developerTerminalText"></span><span class="terminal-cursor"></span></div>
+            </div>
           </div>
 
           <div>
@@ -1080,6 +1299,43 @@
     }
 
     document.addEventListener("DOMContentLoaded", typeEffect);
+
+    const developerCommands = [
+      "create --experience",
+      "build --ideas",
+      "design --future",
+      "solve --problems",
+      "innovate --always"
+    ];
+    let developerCommandIndex = 0;
+    let developerCharIndex = 0;
+    let developerDeleting = false;
+
+    function developerTerminalEffect() {
+      const terminal = document.getElementById("developerTerminalText");
+      if (!terminal) return;
+
+      const command = developerCommands[developerCommandIndex];
+      developerCharIndex += developerDeleting ? -1 : 1;
+      terminal.textContent = command.slice(0, developerCharIndex);
+
+      if (!developerDeleting && developerCharIndex === command.length) {
+        developerDeleting = true;
+        setTimeout(developerTerminalEffect, 1800);
+        return;
+      }
+
+      if (developerDeleting && developerCharIndex === 0) {
+        developerDeleting = false;
+        developerCommandIndex = (developerCommandIndex + 1) % developerCommands.length;
+        setTimeout(developerTerminalEffect, 450);
+        return;
+      }
+
+      setTimeout(developerTerminalEffect, developerDeleting ? 35 : 75);
+    }
+
+    document.addEventListener("DOMContentLoaded", developerTerminalEffect);
 
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
