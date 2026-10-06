@@ -776,15 +776,15 @@
 
             <div class="stats-container">
               <div class="stat-box">
-                <h3 class="counter" data-target="11">0</h3>
+                <h3 class="counter" data-target="11" data-suffix="+">0</h3>
                 <p>Years Experience</p>
               </div>
               <div class="stat-box">
-                <h3 class="counter" data-target="4">0</h3>
+                <h3 class="counter" data-target="4" data-suffix="">0</h3>
                 <p>Projects Crafted</p>
               </div>
               <div class="stat-box">
-                <h3 class="counter" data-target="100">0</h3>
+                <h3 class="counter" data-target="100" data-suffix="%">0</h3>
                 <p>Commitment</p>
               </div>
             </div>
@@ -1096,7 +1096,7 @@
           counter.dataset.animated = "true";
 
           const target = Number(counter.dataset.target || 0);
-          const suffix = target === 100 ? "%" : "+";
+          const suffix = counter.dataset.suffix || "";
           let current = 0;
           const steps = 40;
           const increment = target / steps;
