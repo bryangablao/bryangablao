@@ -900,16 +900,16 @@
 
         <div class="stats-container">
           <div class="stat-box">
-            <h3 class="counter" data-target="8">0</h3>
+            <h3 id="activePlatforms">0</h3>
             <p>Active Platforms</p>
           </div>
           <div class="stat-box">
-            <h3 class="counter" data-target="24">0</h3>
-            <p>Hours Avg. Response</p>
+            <h3 id="averageResponse">&le; 1 hr</h3>
+            <p>Avg. Response</p>
           </div>
           <div class="stat-box">
-            <h3 class="counter" data-target="100">0</h3>
-            <p>% Connected</p>
+            <h3 id="connectedPlatforms">0%</h3>
+            <p>Profiles Connected</p>
           </div>
         </div>
       </section>
@@ -1218,6 +1218,52 @@
 
     /* ---------- Social filter ---------- */
     const socialCards = Array.from(document.querySelectorAll(".social-card-item"));
+
+    /* ---------- Dynamic social statistics ---------- */
+    const activePlatformsEl = document.getElementById("activePlatforms");
+    const averageResponseEl = document.getElementById("averageResponse");
+    const connectedPlatformsEl = document.getElementById("connectedPlatforms");
+
+    function animateStatNumber(element, target, suffix = "") {
+      if (!element) return;
+
+      const duration = 900;
+      const start = performance.now();
+
+      function update(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(target * eased);
+        element.textContent = `${value}${suffix}`;
+
+        if (progress < 1) requestAnimationFrame(update);
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    function updateSocialStats() {
+      const totalPlatforms = socialCards.length;
+
+      const connectedCount = socialCards.filter((card) => {
+        const link = (card.dataset.link || "").trim();
+        return link && link !== "#" && /^https?:\/\//i.test(link);
+      }).length;
+
+      const connectedPercent = totalPlatforms > 0
+        ? Math.round((connectedCount / totalPlatforms) * 100)
+        : 0;
+
+      animateStatNumber(activePlatformsEl, totalPlatforms);
+      animateStatNumber(connectedPlatformsEl, connectedPercent, "%");
+
+      if (averageResponseEl) {
+        averageResponseEl.innerHTML = "&le; 1 hr";
+      }
+    }
+
+    updateSocialStats();
+
     const filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
     const searchInput = document.getElementById("socialSearch");
     const emptyState = document.getElementById("emptyState");
