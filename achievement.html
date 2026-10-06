@@ -379,18 +379,11 @@
       box-shadow: var(--shadow-soft);
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      opacity: 0;
-      transform: translateY(22px);
       transition:
         opacity 0.65s ease,
         transform 0.65s ease,
         background var(--transition),
         border-color var(--transition);
-    }
-
-    .glass-card.visible {
-      opacity: 1;
-      transform: translateY(0);
     }
 
     .section-title {
@@ -1168,41 +1161,50 @@
       document.getElementById("sidebarOverlay").style.display = "none";
     }
 
-    /* ---------- Reveal and counters ---------- */
-    const revealCards = document.querySelectorAll(".glass-card");
+/* ---------- Reveal and counters ---------- */
+const revealCards = document.querySelectorAll(".glass-card, .hero-banner");
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (!entry.isIntersecting) return;
 
-        entry.target.classList.add("visible");
+    entry.target.classList.add("visible");
 
-        entry.target.querySelectorAll(".counter").forEach((counter) => {
-          if (counter.dataset.animated === "true") return;
-          counter.dataset.animated = "true";
+    entry.target.querySelectorAll(".counter").forEach((counter) => {
+      if (counter.dataset.animated === "true") return;
 
-          const target = Number(counter.dataset.target || 0);
-          let current = 0;
-          const increment = Math.max(target / 35, 1);
+      counter.dataset.animated = "true";
 
-          function tick() {
-            current = Math.min(target, current + increment);
-            const value = Math.ceil(current);
-            counter.textContent = value + (target === 100 ? "%" : "+");
+      const target = Number(counter.dataset.target || 0);
+      let current = 0;
+      const duration = 1200;
+      const startTime = performance.now();
 
-            if (current < target) {
-              requestAnimationFrame(tick);
-            }
-          }
+      function tick(currentTime) {
+        const progress = Math.min((currentTime - startTime) / duration, 1);
+        const value = Math.floor(progress * target);
 
-          tick();
-        });
+counter.textContent =
+  value + (target === 100 ? "%" : "");
 
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.08 });
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+counter.textContent =
+  target + (target === 100 ? "%" : "");
+        }
+      }
 
-    revealCards.forEach((card) => observer.observe(card));
+      requestAnimationFrame(tick);
+    });
+
+    observer.unobserve(entry.target);
+  });
+}, {
+  threshold: 0.08
+});
+
+revealCards.forEach((card) => observer.observe(card));
 
     /* ---------- Achievement filtering ---------- */
     const achievementCards = Array.from(document.querySelectorAll(".achievement-card"));
