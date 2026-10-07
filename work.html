@@ -1123,35 +1123,30 @@
       }
     }
 
+
 .footer-company-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  color: var(--text);
-  transition:
-    color 0.25s ease,
-    text-shadow 0.25s ease;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.footer-company-link i {
-  font-size: 0.62rem;
+.footer-company-link:hover,
+.footer-company-link:focus-visible {
   color: var(--purple-light);
-  transition: transform 0.25s ease;
 }
 
-.footer-company-link:hover {
-  color: var(--purple-light);
-  text-shadow: 0 0 12px rgba(167, 139, 250, 0.3);
+.footer-company-link:focus-visible {
+  outline: 2px solid var(--purple-light);
+  outline-offset: 3px;
+  border-radius: 3px;
 }
 
-.footer-company-link:hover i {
-  transform: translate(2px, -2px);
-}
-    
-  </style>
+</style>
 </head>
 
-<body>
+<body id="top">
   <canvas id="starsCanvas" aria-hidden="true"></canvas>
   <canvas id="rippleCanvas" aria-hidden="true"></canvas>
 
@@ -1195,7 +1190,7 @@
     <main>
       <section class="work-hero">
         <div class="eyebrow"><i class="fa-solid fa-briefcase"></i> Professional Background</div>
-        <h1>Work Experience & Core Expertise</h1>
+        <h1>Work Experience &amp; Core Expertise</h1>
         <p>
           A career spanning customer service, AI data operations, logistics, production,
           administrative encoding, and fast-paced service environments.
@@ -1203,7 +1198,7 @@
 
         <div class="hero-pills">
           <span class="hero-pill"><i class="fa-solid fa-headset"></i> Customer Experience</span>
-          <span class="hero-pill"><i class="fa-solid fa-database"></i> Data & Encoding</span>
+          <span class="hero-pill"><i class="fa-solid fa-database"></i> Data &amp; Encoding</span>
           <span class="hero-pill"><i class="fa-solid fa-gears"></i> Production Operations</span>
         </div>
       </section>
@@ -1310,7 +1305,7 @@
 
           <article class="job" tabindex="0" data-category="production" data-title="production staff kc arc prints print operations quality control workflow management" data-modal="modalKCArc">
             <div class="job-main">
-              <img src="images/kcarc.jpg" alt="KC & Arc Prints" class="job-icon" loading="lazy">
+              <img src="images/kcarc.jpg" alt="KC &amp; Arc Prints" class="job-icon" loading="lazy">
               <div class="job-details">
                 <strong>May 2018 – January 2023</strong>
                 <h4>Production Staff at KC &amp; Arc Prints</h4>
@@ -1364,7 +1359,7 @@
         </div>
 
         <div class="buttons">
-          <a href="https://docs.google.com/document/d/1D6ctG7avpsDXUfDHHmcRa1D-0EluG0N2iJEqMt7oPs8/edit?usp=sharing" target="_blank" rel="noopener" class="btn">
+          <a href="https://docs.google.com/document/d/1D6ctG7avpsDXUfDHHmcRa1D-0EluG0N2iJEqMt7oPs8/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn">
             <i class="fa-solid fa-file-arrow-down"></i> View / Download Resume
           </a>
         </div>
@@ -1375,13 +1370,13 @@
 
         <div class="milestones-grid">
           <div class="milestone-item">
-            <span class="milestone-badge">Customer & AI Ops</span>
+            <span class="milestone-badge">Customer &amp; AI Ops</span>
             <div class="milestone-title">High SLA Compliance</div>
             <div class="milestone-desc">Consistently delivered swift issue resolutions while processing complex image annotation tasks for machine learning databases.</div>
           </div>
 
           <div class="milestone-item">
-            <span class="milestone-badge">Logistics & Data</span>
+            <span class="milestone-badge">Logistics &amp; Data</span>
             <div class="milestone-title">Inventory Tracking</div>
             <div class="milestone-desc">Managed high-volume warehouse entry logs at GMALL Buhangin with near-zero error ratios in classification.</div>
           </div>
@@ -1389,7 +1384,7 @@
           <div class="milestone-item">
             <span class="milestone-badge">Long-term Tenure</span>
             <div class="milestone-title">5-Year Production Service</div>
-            <div class="milestone-desc">Demonstrated steady commitment and leadership qualities over 5 years overseeing print production at KC & Arc Prints.</div>
+            <div class="milestone-desc">Demonstrated steady commitment and leadership qualities over 5 years overseeing print production at KC &amp; Arc Prints.</div>
           </div>
 
           <div class="milestone-item">
@@ -1404,7 +1399,7 @@
     <footer>
       <div class="footer-container">
         <div class="footer-brand">
-          <a href="index.html" class="footer-logo" aria-label="Accxs Creations home">
+          <a href="https://bryangablao.github.io/Accxs-Creations/" target="_blank" rel="noopener noreferrer" class="footer-logo" aria-label="Visit Accxs Creations website">
             <span class="footer-logo-mark"><i class="fa-solid fa-code"></i></span>
             <span>Accxs Creations</span>
           </a>
@@ -1470,20 +1465,17 @@
       </div>
 
       <div class="footer-bottom">
-<div>
-  © 2025–2026
-  <a
-    href="https://bryangablao.github.io/Accxs-Creations/"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="footer-company-link"
-    aria-label="Visit Accxs Creations official website"
-  >
-    <strong>Accxs Creations</strong>
-    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-  </a>.
-  All rights reserved.
-</div>
+        <div>
+          © 2025–2026
+          <a
+            href="https://bryangablao.github.io/Accxs-Creations/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="footer-company-link"
+            aria-label="Visit Accxs Creations website"
+          >Accxs Creations</a>.
+          All rights reserved.
+        </div>
         <div class="footer-bottom-links">
           <a href="terms.html">Terms &amp; Privacy</a>
           <span>·</span>
@@ -1509,7 +1501,7 @@
         <li><i class="fa-solid fa-circle-check"></i> Handled computer vision image annotation tasks for machine learning models.</li>
         <li><i class="fa-solid fa-circle-check"></i> Developed strong agility under tight SLAs and dynamic targets.</li>
       </ul>
-      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/3xffddqAL3Xn2S859" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
+      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/3xffddqAL3Xn2S859" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
     </div>
   </div>
 
@@ -1526,7 +1518,7 @@
         <li><i class="fa-solid fa-circle-check"></i> Executed high-accuracy stock entry and item classification.</li>
         <li><i class="fa-solid fa-circle-check"></i> Verified inbound and outbound shipments with logistics teams.</li>
       </ul>
-      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/B7fbC6V7SYD3RsYy8" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
+      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/B7fbC6V7SYD3RsYy8" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
     </div>
   </div>
 
@@ -1543,7 +1535,7 @@
         <li><i class="fa-solid fa-circle-check"></i> Supervised raw material prep, machine setup, and output verification.</li>
         <li><i class="fa-solid fa-circle-check"></i> Maintained high client satisfaction ratings through strict detail checks.</li>
       </ul>
-      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/H8oP5s56qDN1BKzL8" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
+      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/H8oP5s56qDN1BKzL8" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
     </div>
   </div>
 
@@ -1560,7 +1552,7 @@
         <li><i class="fa-solid fa-circle-check"></i> Cataloged real estate property specifications and database records.</li>
         <li><i class="fa-solid fa-circle-check"></i> Supported agent inquiries and documentation preparation.</li>
       </ul>
-      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/ZAY8vKNGkYhv6RcB6" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
+      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/ZAY8vKNGkYhv6RcB6" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
     </div>
   </div>
 
@@ -1575,9 +1567,9 @@
       <p>Delivered customer service, prepared and served food orders, and maintained cleanliness in a fast-paced food service environment.</p>
       <ul class="modal-highlights">
         <li><i class="fa-solid fa-circle-check"></i> Demonstrated efficiency in high-pressure service periods.</li>
-        <li><i class="fa-solid fa-circle-check"></i> Developed groundwork customer engagement & teamwork skills.</li>
+        <li><i class="fa-solid fa-circle-check"></i> Developed groundwork customer engagement &amp; teamwork skills.</li>
       </ul>
-      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/pTixTy5dMrUbBKCeA" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
+      <p class="modal-location"><strong>Location:</strong> <a href="https://maps.app.goo.gl/pTixTy5dMrUbBKCeA" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></p>
     </div>
   </div>
 
