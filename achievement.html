@@ -822,7 +822,9 @@
       align-items: start;
     }
 
-    .footer-brand { max-width: 360px; }
+    .footer-brand {
+      max-width: 360px;
+    }
 
     .footer-logo {
       display: inline-flex;
@@ -957,8 +959,13 @@
       flex-wrap: wrap;
     }
 
-    .footer-bottom-links a { transition: color 0.2s ease; }
-    .footer-bottom-links a:hover { color: var(--purple-light); }
+    .footer-bottom-links a {
+      transition: color 0.2s ease;
+    }
+
+    .footer-bottom-links a:hover {
+      color: var(--purple-light);
+    }
 
     html[data-theme="light"] footer {
       background:
@@ -983,13 +990,19 @@
       .controls-wrapper { align-items: stretch; flex-direction: column; }
       .search-box { width: 100%; }
       .filter-btn { flex: 1 1 auto; }
+    }
+
+    @media (max-width: 580px) {
       .footer-container {
         grid-template-columns: 1fr;
         gap: 1.7rem;
         padding-top: 2.2rem;
       }
       .footer-brand { max-width: none; }
-      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1211,11 +1224,19 @@
         <div>
           <h3 class="footer-heading">Contact</h3>
           <ul class="footer-contact">
-            <li><i class="fa-solid fa-envelope"></i><a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a></li>
-            <li><i class="fa-solid fa-phone"></i><a href="tel:09928760990">09928760990</a></li>
+            <li>
+              <i class="fa-solid fa-envelope"></i>
+              <a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a>
+            </li>
+            <li>
+              <i class="fa-solid fa-phone"></i>
+              <a href="tel:09928760990">09928760990</a>
+            </li>
             <li>
               <i class="fa-solid fa-location-dot"></i>
-              <a href="https://maps.app.goo.gl/3qxbihk6F5TMQauo8" target="_blank" rel="noopener noreferrer">Davao City, Philippines</a>
+              <a href="https://maps.app.goo.gl/3qxbihk6F5TMQauo8" target="_blank" rel="noopener noreferrer">
+                Davao City, Philippines
+              </a>
             </li>
           </ul>
         </div>
@@ -1227,9 +1248,18 @@
             Portfolio Online
           </div>
           <ul class="footer-status-list">
-            <li><i class="fa-solid fa-clock"></i><span class="footer-time" id="phTimeDisplay">Philippine Standard Time — Loading...</span></li>
-            <li><i class="fa-solid fa-code-branch"></i><span>Current version: <a href="version.html">v0.0.9</a></span></li>
-            <li><i class="fa-solid fa-circle-half-stroke"></i><span>Dark and light theme supported</span></li>
+            <li>
+              <i class="fa-solid fa-clock"></i>
+              <span class="footer-time" id="phTimeDisplay">Philippine Standard Time — Loading...</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-code-branch"></i>
+              <span>Current version: <a href="version.html">v0.0.9</a></span>
+            </li>
+            <li>
+              <i class="fa-solid fa-circle-half-stroke"></i>
+              <span>Dark and light theme supported</span>
+            </li>
           </ul>
         </div>
       </div>
@@ -1237,7 +1267,7 @@
       <div class="footer-bottom">
         <div>© 2025–2026 <strong>Accxs Creations</strong>. All rights reserved.</div>
         <div class="footer-bottom-links">
-          <a href="terms.html">Terms &amp; Privacy</a>
+          <a href="terms.html">Terms & Privacy</a>
           <span>·</span>
           <a href="version.html">Version History</a>
           <span>·</span>
