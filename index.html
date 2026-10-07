@@ -42,6 +42,9 @@
       --sidebar-bg: #0b0d14;
       --glow-purple: rgba(124, 58, 237, 0.18);
       --glow-blue: rgba(59, 130, 246, 0.15);
+      --panel-hover: rgba(255, 255, 255, 0.075);
+      --border-strong: rgba(167, 139, 250, 0.32);
+      --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     html[data-theme="light"] {
@@ -60,6 +63,9 @@
       --sidebar-bg: #ffffff;
       --glow-purple: rgba(124, 58, 237, 0.09);
       --glow-blue: rgba(59, 130, 246, 0.08);
+      --panel-hover: rgba(109, 40, 217, 0.075);
+      --border-strong: rgba(109, 40, 217, 0.28);
+      --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     * {
@@ -1090,28 +1096,16 @@
     }
 
 .footer-company-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  color: var(--text);
-  transition:
-    color 0.25s ease,
-    text-shadow 0.25s ease;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.footer-company-link i {
-  font-size: 0.62rem;
+.footer-company-link:hover,
+.footer-company-link:focus-visible {
   color: var(--purple-light);
-  transition: transform 0.25s ease;
-}
-
-.footer-company-link:hover {
-  color: var(--purple-light);
-  text-shadow: 0 0 12px rgba(167, 139, 250, 0.3);
-}
-
-.footer-company-link:hover i {
-  transform: translate(2px, -2px);
 }
     
   </style>
@@ -1436,12 +1430,8 @@
     target="_blank"
     rel="noopener noreferrer"
     class="footer-company-link"
-    aria-label="Visit Accxs Creations official website"
-  >
-    <strong>Accxs Creations</strong>
-    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-  </a>.
-  All rights reserved.
+    aria-label="Visit Accxs Creations website"
+  >Accxs Creations</a>. All rights reserved.
 </div>
         <div class="footer-bottom-links">
           <a href="terms.html">Terms & Privacy</a>
