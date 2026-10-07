@@ -739,37 +739,163 @@
       box-shadow: 0 12px 30px rgba(109, 40, 217, 0.34);
     }
 
-    /* ---------- Footer ---------- */
+    /* ---------- Professional Footer ---------- */
     footer {
       position: relative;
       z-index: 2;
-      padding: 2.5rem 1rem 2rem;
-      border-top: 1px solid var(--border);
       color: var(--muted);
-      text-align: center;
-      font-size: 0.82rem;
-    }
-
-    .footer-links {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.8rem;
-      margin-top: 0.6rem;
-    }
-
-    .footer-links a {
-      transition: color var(--transition);
-    }
-
-    .footer-links a:hover {
-      color: var(--text);
-    }
-
-    .footer-time {
       margin-top: 1rem;
-      font-size: 0.72rem;
-      opacity: 0.72;
+      border-top: 1px solid var(--border);
+      background:
+        linear-gradient(180deg, transparent, rgba(124, 58, 237, 0.035)),
+        var(--header-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+
+    .footer-container {
+      width: min(1180px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 3rem 0 2rem;
+      display: grid;
+      grid-template-columns: 1.45fr 0.85fr 1fr 1.1fr;
+      gap: 2.25rem;
+      align-items: start;
+    }
+
+    .footer-brand { max-width: 360px; }
+
+    .footer-logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 0.9rem;
+      color: var(--text);
+      font-size: 1.08rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-logo-mark {
+      width: 38px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(167, 139, 250, 0.32);
+      border-radius: 12px;
+      color: #fff;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      box-shadow: 0 8px 22px rgba(124, 58, 237, 0.2);
+    }
+
+    .footer-brand p {
+      max-width: 340px;
+      font-size: 0.86rem;
+      line-height: 1.75;
+    }
+
+    .footer-heading {
+      margin-bottom: 0.9rem;
+      color: var(--text);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .footer-nav, .footer-contact, .footer-status-list {
+      list-style: none;
+      display: grid;
+      gap: 0.65rem;
+    }
+
+    .footer-nav a, .footer-contact a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.84rem;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+
+    .footer-nav a:hover, .footer-contact a:hover {
+      color: var(--purple-light);
+      transform: translateX(3px);
+    }
+
+    .footer-contact li, .footer-status-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.84rem;
+      line-height: 1.55;
+    }
+
+    .footer-contact i, .footer-status-list i {
+      width: 16px;
+      margin-top: 0.2rem;
+      color: var(--purple-light);
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .footer-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      width: fit-content;
+      margin-bottom: 0.9rem;
+      padding: 0.42rem 0.72rem;
+      border: 1px solid rgba(52, 211, 153, 0.22);
+      border-radius: 999px;
+      color: #34d399;
+      background: rgba(52, 211, 153, 0.06);
+      font-size: 0.73rem;
+      font-weight: 700;
+    }
+
+    .footer-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #34d399;
+      box-shadow: 0 0 10px rgba(52, 211, 153, 0.8);
+      animation: footerStatusPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes footerStatusPulse {
+      0%, 100% { opacity: 0.55; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    .footer-time { font-size: 0.76rem; line-height: 1.55; }
+
+    .footer-bottom {
+      width: min(1180px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 1.15rem 0 1.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.76rem;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-bottom-links a { transition: color 0.2s ease; }
+    .footer-bottom-links a:hover { color: var(--purple-light); }
+
+    html[data-theme="light"] footer {
+      background:
+        linear-gradient(180deg, transparent, rgba(109, 40, 217, 0.025)),
+        rgba(255, 255, 255, 0.72);
     }
 
     /* ---------- Responsive ---------- */
@@ -794,6 +920,9 @@
 
       .gallery-item:nth-child(5n + 1) {
         grid-column: span 1;
+      }
+      .footer-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
@@ -869,6 +998,18 @@
       .modal-close {
         top: -46px;
         right: 6px;
+      }
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 1.7rem;
+        padding-top: 2.2rem;
+      }
+
+      .footer-brand { max-width: none; }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
       }
     }
 
@@ -1085,13 +1226,63 @@
     </main>
 
     <footer>
-      <div>© 2025–2026 <strong>Accxs Creations</strong>. All rights reserved.</div>
-      <div class="footer-links">
-        <a href="version.html">v0.0.9</a>
-        <span>·</span>
-        <a href="terms.html">Terms &amp; Privacy</a>
+      <div class="footer-container">
+        <div class="footer-brand">
+          <a href="index.html" class="footer-logo" aria-label="Accxs Creations home">
+            <span class="footer-logo-mark"><i class="fa-solid fa-code"></i></span>
+            <span>Accxs Creations</span>
+          </a>
+          <p>
+            Building thoughtful digital experiences through creativity, clean design,
+            practical problem solving, and continuous learning.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Explore</h3>
+          <ul class="footer-nav">
+            <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> About</a></li>
+            <li><a href="work.html"><i class="fa-solid fa-chevron-right"></i> Experience</a></li>
+            <li><a href="projects.html"><i class="fa-solid fa-chevron-right"></i> Projects</a></li>
+            <li><a href="achievement.html"><i class="fa-solid fa-chevron-right"></i> Achievements</a></li>
+            <li><a href="gallery.html"><i class="fa-solid fa-chevron-right"></i> Gallery</a></li>
+            <li><a href="social.html"><i class="fa-solid fa-chevron-right"></i> Socials</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Contact</h3>
+          <ul class="footer-contact">
+            <li><i class="fa-solid fa-envelope"></i><a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a></li>
+            <li><i class="fa-solid fa-phone"></i><a href="tel:09928760990">09928760990</a></li>
+            <li><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/3qxbihk6F5TMQauo8" target="_blank" rel="noopener noreferrer">Davao City, Philippines</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="footer-heading">Website</h3>
+          <div class="footer-status-badge">
+            <span class="footer-status-dot"></span>
+            Portfolio Online
+          </div>
+          <ul class="footer-status-list">
+            <li><i class="fa-solid fa-clock"></i><span class="footer-time" id="phTimeDisplay">Philippine Standard Time — Loading...</span></li>
+            <li><i class="fa-solid fa-code-branch"></i><span>Current version: <a href="version.html">v0.0.9</a></span></li>
+            <li><i class="fa-solid fa-circle-half-stroke"></i><span>Dark and light theme supported</span></li>
+          </ul>
+        </div>
       </div>
-      <div class="footer-time" id="phTimeDisplay">Philippine Standard Time — Loading...</div>
+
+      <div class="footer-bottom">
+        <div>© 2025–2026 <strong>Accxs Creations</strong>. All rights reserved.</div>
+        <div class="footer-bottom-links">
+          <a href="terms.html">Terms &amp; Privacy</a>
+          <span>·</span>
+          <a href="version.html">Version History</a>
+          <span>·</span>
+          <a href="#top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">Back to Top</a>
+        </div>
+      </div>
     </footer>
   </div>
 
