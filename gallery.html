@@ -1038,6 +1038,32 @@
         transition-duration: 0.01ms !important;
       }
     }
+
+.footer-company-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--text);
+  transition:
+    color 0.25s ease,
+    text-shadow 0.25s ease;
+}
+
+.footer-company-link i {
+  font-size: 0.62rem;
+  color: var(--purple-light);
+  transition: transform 0.25s ease;
+}
+
+.footer-company-link:hover {
+  color: var(--purple-light);
+  text-shadow: 0 0 12px rgba(167, 139, 250, 0.3);
+}
+
+.footer-company-link:hover i {
+  transform: translate(2px, -2px);
+}
+    
   </style>
 </head>
 
@@ -1274,7 +1300,20 @@
       </div>
 
       <div class="footer-bottom">
-        <div>© 2025–2026 <strong>Accxs Creations</strong>. All rights reserved.</div>
+<div>
+  © 2025–2026
+  <a
+    href="https://bryangablao.github.io/Accxs-Creations/"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="footer-company-link"
+    aria-label="Visit Accxs Creations official website"
+  >
+    <strong>Accxs Creations</strong>
+    <i class="fa-solid fa-arrow-up-right-from-square"></i>
+  </a>.
+  All rights reserved.
+</div>
         <div class="footer-bottom-links">
           <a href="terms.html">Terms &amp; Privacy</a>
           <span>·</span>
