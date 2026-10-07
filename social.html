@@ -1,0 +1,1563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Social media and contact channels for Bryan G. Ablao">
+  <meta name="color-scheme" content="dark light">
+  <title>Social Media | Bryan G. Ablao</title>
+  <link rel="icon" type="image/png" href="images/AblaoClan.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+  <script>
+    (function () {
+      try {
+        const savedTheme = localStorage.getItem("accxs-theme");
+        const systemLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
+        document.documentElement.dataset.theme = savedTheme || (systemLight ? "light" : "dark");
+      } catch (error) {
+        document.documentElement.dataset.theme = "dark";
+      }
+    })();
+  </script>
+
+  <style>
+    :root {
+      --bg: #080a10;
+      --bg-soft: #0d1019;
+      --panel: rgba(17, 20, 31, 0.74);
+      --panel-solid: #11141f;
+      --panel-2: rgba(255, 255, 255, 0.04);
+      --panel-hover: rgba(255, 255, 255, 0.075);
+      --border: rgba(255, 255, 255, 0.10);
+      --border-strong: rgba(167, 139, 250, 0.32);
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --purple: #7c3aed;
+      --purple-light: #a78bfa;
+      --blue: #3b82f6;
+      --header-bg: rgba(8, 10, 16, 0.82);
+      --overlay: rgba(3, 5, 10, 0.88);
+      --shadow: 0 18px 60px rgba(0, 0, 0, 0.30);
+      --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.22);
+      --radius: 18px;
+      --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+      --glow-purple: rgba(124, 58, 237, 0.18);
+      --glow-blue: rgba(59, 130, 246, 0.14);
+      --input-bg: rgba(255, 255, 255, 0.045);
+    }
+
+    html[data-theme="light"] {
+      --bg: #f5f7fb;
+      --bg-soft: #eef2f8;
+      --panel: rgba(255, 255, 255, 0.80);
+      --panel-solid: #ffffff;
+      --panel-2: rgba(15, 23, 42, 0.035);
+      --panel-hover: rgba(109, 40, 217, 0.075);
+      --border: rgba(15, 23, 42, 0.10);
+      --border-strong: rgba(109, 40, 217, 0.28);
+      --text: #111827;
+      --muted: #64748b;
+      --purple: #6d28d9;
+      --purple-light: #7c3aed;
+      --blue: #2563eb;
+      --header-bg: rgba(248, 250, 252, 0.84);
+      --overlay: rgba(15, 23, 42, 0.82);
+      --shadow: 0 18px 55px rgba(15, 23, 42, 0.12);
+      --shadow-soft: 0 10px 28px rgba(15, 23, 42, 0.10);
+      --glow-purple: rgba(124, 58, 237, 0.09);
+      --glow-blue: rgba(59, 130, 246, 0.08);
+      --input-bg: rgba(255, 255, 255, 0.74);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 8% 8%, var(--glow-purple), transparent 30%),
+        radial-gradient(circle at 92% 82%, var(--glow-blue), transparent 30%),
+        var(--bg);
+      line-height: 1.6;
+      transition: background-color var(--transition), color var(--transition);
+    }
+
+    body.modal-open { overflow: hidden; }
+
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+    button { color: inherit; }
+
+    #starsCanvas,
+    #rippleCanvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    #starsCanvas { z-index: 0; }
+    #rippleCanvas { z-index: 1; }
+
+    .page-shell {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+    }
+
+    /* ---------- Header ---------- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      width: 100%;
+      padding: 1rem 5%;
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: background var(--transition), border-color var(--transition);
+    }
+
+    .brand {
+      flex-shrink: 0;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, var(--text), var(--purple-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.35rem;
+    }
+
+    .desktop-nav a {
+      position: relative;
+      color: var(--muted);
+      font-size: 0.88rem;
+      font-weight: 550;
+      transition: color var(--transition);
+    }
+
+    .desktop-nav a:hover,
+    .desktop-nav a.active { color: var(--text); }
+
+    .desktop-nav a.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -7px;
+      width: 100%;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--purple), var(--blue));
+    }
+
+    .header-action {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel-2);
+      color: var(--text);
+      cursor: pointer;
+      transition: transform var(--transition), background var(--transition), border-color var(--transition);
+    }
+
+    .header-action:hover {
+      transform: translateY(-2px);
+      background: var(--panel-hover);
+      border-color: var(--border-strong);
+    }
+
+    .hamburger { display: none; }
+
+    /* ---------- Sidebar ---------- */
+    #sidebarOverlay {
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      display: none;
+      background: rgba(0,0,0,0.48);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    #sidebar {
+      position: fixed;
+      top: 0;
+      right: -310px;
+      z-index: 1000;
+      width: min(310px, 86vw);
+      height: 100vh;
+      padding: 5.6rem 1.4rem 2rem;
+      background: var(--panel-solid);
+      border-left: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      transition: right var(--transition);
+    }
+
+    #sidebar.open { right: 0; }
+
+    #sidebar ul {
+      list-style: none;
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    #sidebar a {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      color: var(--muted);
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color var(--transition), background var(--transition);
+    }
+
+    #sidebar a:hover,
+    #sidebar a.active {
+      color: var(--text);
+      background: var(--panel-hover);
+    }
+
+    /* ---------- Main ---------- */
+    main {
+      width: min(1180px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 3rem 0 3.5rem;
+    }
+
+    .social-hero {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      padding: 2.35rem;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(124, 58, 237, 0.13), rgba(59, 130, 246, 0.07)),
+        var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .social-hero::after {
+      content: "";
+      position: absolute;
+      right: -70px;
+      top: -100px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.22), transparent 68%);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      margin-bottom: 0.8rem;
+      color: var(--purple-light);
+      font-size: 0.76rem;
+      font-weight: 800;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .social-hero h1 {
+      max-width: 760px;
+      font-size: clamp(2rem, 5vw, 3.35rem);
+      line-height: 1.08;
+      letter-spacing: -0.045em;
+    }
+
+    .social-hero p {
+      max-width: 720px;
+      margin-top: 0.85rem;
+      color: var(--muted);
+      font-size: 0.98rem;
+    }
+
+    .stats-container {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.8rem;
+      margin-top: 1.4rem;
+    }
+
+    .stat-box {
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--panel-2);
+      text-align: center;
+    }
+
+    .stat-box h3 {
+      color: var(--purple-light);
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+
+    .stat-box p {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .glass-card {
+      margin-bottom: 1.5rem;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--panel);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease, background var(--transition), border-color var(--transition);
+    }
+
+    .glass-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 1.25rem;
+      font-size: 1.25rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title i { color: var(--purple-light); }
+
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ---------- Controls ---------- */
+    .filter-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.35rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .search-box {
+      position: relative;
+      width: min(330px, 100%);
+    }
+
+    .search-box i {
+      position: absolute;
+      left: 0.95rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 0.67rem 1rem 0.67rem 2.55rem;
+      outline: none;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--input-bg);
+      color: var(--text);
+      font-size: 0.84rem;
+      transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+    }
+
+    .search-box input::placeholder { color: var(--muted); }
+
+    .search-box input:focus {
+      border-color: rgba(124, 58, 237, 0.56);
+      box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.09);
+    }
+
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .filter-btn {
+      padding: 0.52rem 0.95rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--panel-2);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 0.79rem;
+      font-weight: 650;
+      transition: transform var(--transition), color var(--transition), background var(--transition), border-color var(--transition);
+    }
+
+    .filter-btn:hover {
+      transform: translateY(-1px);
+      color: var(--text);
+      border-color: var(--border-strong);
+    }
+
+    .filter-btn.active {
+      border-color: transparent;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      box-shadow: 0 7px 22px rgba(109, 40, 217, 0.22);
+    }
+
+    /* ---------- Social cards ---------- */
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .social-card-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--panel-2);
+      text-align: center;
+      transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition);
+    }
+
+    .social-card-item:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-strong);
+      background: var(--panel-hover);
+      box-shadow: 0 14px 32px rgba(0,0,0,0.14);
+    }
+
+    .social-icon-wrapper {
+      width: 62px;
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      background: var(--panel-2);
+      cursor: pointer;
+      transition: transform var(--transition), border-color var(--transition), background var(--transition);
+    }
+
+    .social-card-item:hover .social-icon-wrapper {
+      transform: scale(1.06);
+      border-color: var(--border-strong);
+      background: var(--panel-hover);
+    }
+
+    .social-icon-wrapper img {
+      width: 35px;
+      height: 35px;
+      object-fit: contain;
+    }
+
+    .social-name {
+      font-size: 1rem;
+      font-weight: 750;
+    }
+
+    .social-handle {
+      margin: 0.2rem 0 0.85rem;
+      color: var(--purple-light);
+      font-size: 0.76rem;
+      font-weight: 650;
+      word-break: break-word;
+    }
+
+    .social-action-btns {
+      display: flex;
+      gap: 0.5rem;
+      width: 100%;
+      margin-top: auto;
+    }
+
+    .btn-action {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.52rem 0.65rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--panel-2);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.73rem;
+      font-weight: 700;
+      transition: transform var(--transition), background var(--transition), border-color var(--transition);
+    }
+
+    .btn-action:hover {
+      transform: translateY(-2px);
+      background: var(--panel-hover);
+      border-color: var(--border-strong);
+    }
+
+    .btn-primary-action {
+      border-color: transparent;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: #fff;
+    }
+
+    .btn-primary-action:hover {
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+    }
+
+    .social-hidden { display: none !important; }
+
+    .empty-state {
+      display: none;
+      padding: 2.5rem 1rem;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .empty-state.show { display: block; }
+
+    .empty-state i {
+      display: block;
+      margin-bottom: 0.7rem;
+      color: var(--purple-light);
+      font-size: 1.8rem;
+    }
+
+    /* ---------- Contact ---------- */
+    .direct-contact-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .direct-contact-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--panel-2);
+      transition: transform var(--transition), border-color var(--transition), background var(--transition);
+    }
+
+    .direct-contact-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-strong);
+      background: var(--panel-hover);
+    }
+
+    .direct-contact-icon {
+      color: var(--purple-light);
+      font-size: 1.5rem;
+    }
+
+    .direct-contact-title {
+      font-size: 0.98rem;
+      font-weight: 750;
+    }
+
+    .direct-contact-desc {
+      color: var(--muted);
+      font-size: 0.8rem;
+      word-break: break-word;
+    }
+
+    .direct-contact-btn {
+      width: 100%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      margin-top: auto;
+      padding: 0.58rem 0.75rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: #fff;
+      font-size: 0.76rem;
+      font-weight: 700;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .direct-contact-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 24px rgba(109, 40, 217, 0.24);
+    }
+
+    /* ---------- Modal ---------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      background: var(--overlay);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-box {
+      position: relative;
+      width: min(500px, 100%);
+      padding: 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--panel-solid);
+      box-shadow: var(--shadow);
+      text-align: center;
+      animation: modalIn 0.24s ease-out;
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.97) translateY(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 0.8rem;
+      right: 0.8rem;
+      width: 38px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel-2);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 1.25rem;
+    }
+
+    .modal-social-img {
+      width: 78px;
+      height: 78px;
+      margin: 0 auto 0.85rem;
+      padding: 10px;
+      object-fit: contain;
+      border: 2px solid var(--purple);
+      border-radius: 50%;
+      background: var(--panel-2);
+    }
+
+    .modal-box h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.15rem;
+    }
+
+    .modal-handle-tag {
+      display: inline-block;
+      margin-bottom: 0.9rem;
+      color: var(--purple-light);
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    .modal-box p {
+      margin-bottom: 1rem;
+      color: var(--muted);
+      font-size: 0.86rem;
+    }
+
+    .modal-qr-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.45rem;
+      margin-bottom: 1rem;
+      padding: 1rem;
+      border: 1px dashed var(--border);
+      border-radius: 14px;
+      background: var(--panel-2);
+    }
+
+    .modal-qr-placeholder i {
+      color: var(--purple-light);
+      font-size: 2.6rem;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.65rem;
+    }
+
+    /* ---------- Toast ---------- */
+    #toast {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 3000;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 700;
+      box-shadow: 0 14px 36px rgba(0,0,0,0.28);
+      opacity: 0;
+      transform: translateY(16px);
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    #toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ---------- Footer ---------- */
+    footer {
+      position: relative;
+      z-index: 2;
+      padding: 2.5rem 1rem 2rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.82rem;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.8rem;
+      margin-top: 0.6rem;
+    }
+
+    .footer-links a {
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover { color: var(--text); }
+
+    .footer-time {
+      margin-top: 1rem;
+      font-size: 0.72rem;
+      opacity: 0.72;
+    }
+
+    @media (max-width: 980px) {
+      .social-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 850px) {
+      .desktop-nav { display: none; }
+      .hamburger { display: inline-flex; }
+      .direct-contact-grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 700px) {
+      .stats-container { grid-template-columns: 1fr; }
+      .social-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .filter-wrapper { align-items: stretch; flex-direction: column; }
+      .search-box { width: 100%; }
+    }
+
+    @media (max-width: 650px) {
+      header { padding-inline: 1rem; }
+      main {
+        width: min(100% - 1rem, 1180px);
+        padding-top: 1.25rem;
+      }
+      .social-hero {
+        padding: 1.5rem;
+        border-radius: 18px;
+      }
+      .glass-card { padding: 1rem; }
+    }
+
+    @media (max-width: 430px) {
+      .social-grid { grid-template-columns: 1fr; }
+      .modal-actions { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="starsCanvas" aria-hidden="true"></canvas>
+  <canvas id="rippleCanvas" aria-hidden="true"></canvas>
+
+  <div class="page-shell">
+    <header>
+      <a href="index.html" class="brand">Bryan G. Ablao</a>
+
+      <div class="nav-right">
+        <nav class="desktop-nav" aria-label="Primary navigation">
+          <a href="index.html">About</a>
+          <a href="work.html">Experience</a>
+          <a href="projects.html">Projects</a>
+          <a href="achievement.html">Achievements</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="social.html" class="active" aria-current="page">Socials</a>
+        </nav>
+
+        <button id="themeToggle" class="header-action" type="button" aria-label="Switch theme" title="Switch theme">
+          <i id="themeIcon" class="fa-solid fa-moon"></i>
+        </button>
+
+        <button class="header-action hamburger" type="button" onclick="toggleMenu()" aria-label="Open navigation">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </header>
+
+    <div id="sidebarOverlay" onclick="closeMenu()"></div>
+
+    <nav id="sidebar" aria-label="Mobile navigation">
+      <ul>
+        <li><a href="index.html"><i class="fa-solid fa-user"></i> About Me</a></li>
+        <li><a href="work.html"><i class="fa-solid fa-briefcase"></i> Work Experience</a></li>
+        <li><a href="projects.html"><i class="fa-solid fa-diagram-project"></i> Projects</a></li>
+        <li><a href="achievement.html"><i class="fa-solid fa-trophy"></i> Achievements</a></li>
+        <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
+        <li><a href="social.html" class="active"><i class="fa-solid fa-share-nodes"></i> Social Medias</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section class="social-hero">
+        <div class="eyebrow"><i class="fa-solid fa-share-nodes"></i> Connect & Collaborate</div>
+        <h1>Find me across the platforms I use most.</h1>
+        <p>
+          Explore my digital presence, connect professionally, follow creative content,
+          or message me directly through the channels below.
+        </p>
+
+        <div class="stats-container">
+          <div class="stat-box">
+            <h3 id="activePlatforms">0</h3>
+            <p>Active Platforms</p>
+          </div>
+          <div class="stat-box">
+            <h3 id="averageResponse">&le; 1 hr</h3>
+            <p>Avg. Response</p>
+          </div>
+          <div class="stat-box">
+            <h3 id="connectedPlatforms">0%</h3>
+            <p>Profiles Connected</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="glass-card">
+        <h2 class="section-title"><i class="fa-solid fa-globe"></i> Social Platforms</h2>
+
+        <div class="filter-wrapper">
+          <label class="search-box" aria-label="Search social platforms">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="search" id="socialSearch" placeholder="Search platform or handle..." autocomplete="off">
+          </label>
+
+          <div class="filter-tabs">
+            <button class="filter-btn active" type="button" data-category="all">All</button>
+            <button class="filter-btn" type="button" data-category="pro">Professional</button>
+            <button class="filter-btn" type="button" data-category="video">Video & Content</button>
+            <button class="filter-btn" type="button" data-category="messaging">Messaging</button>
+            <button class="filter-btn" type="button" data-category="community">Community</button>
+          </div>
+        </div>
+
+        <div class="social-grid" id="socialGrid">
+          <article class="social-card-item"
+                   data-category="pro"
+                   data-name="linkedin"
+                   data-handle="@bryan-ablao"
+                   data-title="LinkedIn"
+                   data-icon="images/linkedin.png"
+                   data-link="https://www.linkedin.com/in/bryan-ablao-636497189/"
+                   data-description="Connect with me for professional updates, project collaborations, and career networking.">
+            <div class="social-icon-wrapper"><img src="images/linkedin.png" alt="LinkedIn" loading="lazy"></div>
+            <div class="social-name">LinkedIn</div>
+            <div class="social-handle">@bryan-ablao</div>
+            <div class="social-action-btns">
+              <button class="btn-action copy-handle" type="button"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.linkedin.com/in/bryan-ablao-636497189/" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </article>
+
+          <article class="social-card-item"
+                   data-category="video"
+                   data-name="youtube"
+                   data-handle="@bryvngtz"
+                   data-title="YouTube"
+                   data-icon="images/youtube.png"
+                   data-link="https://www.youtube.com/@bryvngtz"
+                   data-description="Subscribe to watch my latest video contents, creative edits, and tech showcases.">
+            <div class="social-icon-wrapper"><img src="images/youtube.png" alt="YouTube" loading="lazy"></div>
+            <div class="social-name">YouTube</div>
+            <div class="social-handle">@bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action copy-handle" type="button"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.youtube.com/@bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </article>
+
+          <article class="social-card-item"
+                   data-category="video"
+                   data-name="tiktok"
+                   data-handle="@bryvngtz"
+                   data-title="TikTok"
+                   data-icon="images/tik-tok.png"
+                   data-link="https://www.tiktok.com/@bryvngtz"
+                   data-description="Follow my short videos, creative highlights, and daily updates on TikTok.">
+            <div class="social-icon-wrapper"><img src="images/tik-tok.png" alt="TikTok" loading="lazy"></div>
+            <div class="social-name">TikTok</div>
+            <div class="social-handle">@bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action copy-handle" type="button"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.tiktok.com/@bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </article>
+
+          <article class="social-card-item"
+                   data-category="community"
+                   data-name="instagram"
+                   data-handle="@bryvngtz"
+                   data-title="Instagram"
+                   data-icon="images/instagram.png"
+                   data-link="https://www.instagram.com/bryvngtz/#"
+                   data-description="Check out my creative photography, stories, and personal milestones.">
+            <div class="social-icon-wrapper"><img src="images/instagram.png" alt="Instagram" loading="lazy"></div>
+            <div class="social-name">Instagram</div>
+            <div class="social-handle">@bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action copy-handle" type="button"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.instagram.com/bryvngtz/#" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </article>
+
+          <article class="social-card-item"
+                   data-category="messaging"
+                   data-name="telegram"
+                   data-handle="@bryvngtz"
+                   data-title="Telegram"
+                   data-icon="images/telegram.png"
+                   data-link="https://t.me/bryvngtz"
+                   data-description="Send me direct instant messages for quick queries or project inquiries on Telegram.">
+            <div class="social-icon-wrapper"><img src="images/telegram.png" alt="Telegram" loading="lazy"></div>
+            <div class="social-name">Telegram</div>
+            <div class="social-handle">@bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action copy-handle" type="button"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://t.me/bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </article>
+
+          <article class="social-card-item"
+                   data-category="community"
+                   data-name="discord"
+                   data-handle="bryvngtz"
+                   data-title="Discord"
+                   data-icon="images/discord.png"
+                   data-link="https://discord.com/channels/bryvngtz"
+                   data-description="Add me on Discord for tech discussions, gaming, and real-time voice calls.">
+            <div class="social-icon-wrapper"><img src="images/discord.png" alt="Discord" loading="lazy"></div>
+            <div class="social-name">Discord</div>
+            <div class="social-handle">bryvngtz</div>
+            <div class="social-action-btns">
+              <button class="btn-action copy-handle" type="button"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://discord.com/channels/bryvngtz" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </article>
+
+          <article class="social-card-item"
+                   data-category="community"
+                   data-name="snapchat"
+                   data-handle="@bryan_ablao20"
+                   data-title="Snapchat"
+                   data-icon="images/snapchat.png"
+                   data-link="https://www.snapchat.com/@bryan_ablao20"
+                   data-description="Add me on Snapchat to stay in touch through everyday snapshots.">
+            <div class="social-icon-wrapper"><img src="images/snapchat.png" alt="Snapchat" loading="lazy"></div>
+            <div class="social-name">Snapchat</div>
+            <div class="social-handle">@bryan_ablao20</div>
+            <div class="social-action-btns">
+              <button class="btn-action copy-handle" type="button"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.snapchat.com/@bryan_ablao20" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </article>
+
+          <article class="social-card-item"
+                   data-category="pro"
+                   data-name="facebook"
+                   data-handle="Bryan G. Ablao"
+                   data-title="Facebook"
+                   data-icon="images/facebook.png"
+                   data-link="https://www.facebook.com/profile.php?id=61578207118456#"
+                   data-description="Connect with my official personal page on Facebook.">
+            <div class="social-icon-wrapper"><img src="images/facebook.png" alt="Facebook" loading="lazy"></div>
+            <div class="social-name">Facebook</div>
+            <div class="social-handle">Bryan G. Ablao</div>
+            <div class="social-action-btns">
+              <button class="btn-action copy-handle" type="button"><i class="fa-regular fa-copy"></i> Copy</button>
+              <a href="https://www.facebook.com/profile.php?id=61578207118456#" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="empty-state" id="emptyState">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <strong>No matching social platforms found.</strong>
+          <div>Try another search term or category.</div>
+        </div>
+      </section>
+
+      <section class="glass-card">
+        <h2 class="section-title"><i class="fa-solid fa-envelope"></i> Get in Touch</h2>
+        <p style="color: var(--muted); font-size: 0.88rem; margin-bottom: 1.25rem;">
+          Have a proposal or want to collaborate? Connect directly through email or messaging platforms.
+        </p>
+
+        <div class="direct-contact-grid">
+          <div class="direct-contact-card">
+            <i class="fa-solid fa-envelope direct-contact-icon"></i>
+            <div class="direct-contact-title">Direct Email</div>
+            <div class="direct-contact-desc">ablaobryan4400@gmail.com</div>
+            <a href="mailto:ablaobryan4400@gmail.com" class="direct-contact-btn"><i class="fa-solid fa-paper-plane"></i> Send Email</a>
+          </div>
+
+          <div class="direct-contact-card">
+            <i class="fa-brands fa-telegram direct-contact-icon"></i>
+            <div class="direct-contact-title">Telegram Chat</div>
+            <div class="direct-contact-desc">@bryvngtz</div>
+            <a href="https://t.me/bryvngtz" target="_blank" rel="noopener" class="direct-contact-btn"><i class="fa-solid fa-comments"></i> Open Chat</a>
+          </div>
+
+          <div class="direct-contact-card">
+            <i class="fa-brands fa-linkedin direct-contact-icon"></i>
+            <div class="direct-contact-title">LinkedIn Network</div>
+            <div class="direct-contact-desc">Bryan G. Ablao</div>
+            <a href="https://www.linkedin.com/in/bryan-ablao-636497189/" target="_blank" rel="noopener" class="direct-contact-btn"><i class="fa-solid fa-user-plus"></i> Connect</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div>© 2025–2026 <strong>Accxs Creations</strong>. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="version.html">v0.0.9</a>
+        <span>·</span>
+        <a href="terms.html">Terms &amp; Privacy</a>
+      </div>
+      <div class="footer-time" id="phTimeDisplay">Philippine Standard Time — Loading...</div>
+    </footer>
+  </div>
+
+  <div class="modal-overlay" id="socialModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+      <button class="modal-close" type="button" onclick="closeSocialModal()" aria-label="Close social modal">&times;</button>
+      <img id="modalIcon" src="" alt="" class="modal-social-img">
+      <h3 id="modalTitle">Platform</h3>
+      <span id="modalHandle" class="modal-handle-tag">@handle</span>
+      <p id="modalDescription">Description goes here...</p>
+
+      <div class="modal-qr-placeholder">
+        <i class="fa-solid fa-qrcode"></i>
+        <span style="font-size: 0.78rem; color: var(--muted);">Instant Scan Link Active</span>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-action" type="button" onclick="copyModalHandle()"><i class="fa-regular fa-copy"></i> Copy Handle</button>
+        <a id="modalLink" href="#" target="_blank" rel="noopener" class="btn-action btn-primary-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open Platform</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"><i class="fa-solid fa-circle-check"></i> <span id="toastMsg">Handle copied to clipboard!</span></div>
+
+  <script>
+    /* ---------- Theme ---------- */
+    const themeToggle = document.getElementById("themeToggle");
+    const themeIcon = document.getElementById("themeIcon");
+
+    function getTheme() {
+      return document.documentElement.dataset.theme || "dark";
+    }
+
+    function refreshThemeIcon() {
+      const isLight = getTheme() === "light";
+      themeIcon.className = isLight ? "fa-solid fa-sun" : "fa-solid fa-moon";
+      themeToggle.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
+      themeToggle.setAttribute("title", isLight ? "Switch to dark mode" : "Switch to light mode");
+    }
+
+    function setTheme(theme) {
+      document.documentElement.dataset.theme = theme;
+      try {
+        localStorage.setItem("accxs-theme", theme);
+      } catch (error) {}
+      refreshThemeIcon();
+      generateStars();
+    }
+
+    themeToggle.addEventListener("click", () => {
+      setTheme(getTheme() === "dark" ? "light" : "dark");
+    });
+
+    refreshThemeIcon();
+
+    /* ---------- Navigation ---------- */
+    function toggleMenu() {
+      const sidebar = document.getElementById("sidebar");
+      const overlay = document.getElementById("sidebarOverlay");
+      const isOpen = sidebar.classList.toggle("open");
+      overlay.style.display = isOpen ? "block" : "none";
+    }
+
+    function closeMenu() {
+      document.getElementById("sidebar").classList.remove("open");
+      document.getElementById("sidebarOverlay").style.display = "none";
+    }
+
+    /* ---------- Reveal and counters ---------- */
+    const revealCards = document.querySelectorAll(".glass-card");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+
+        entry.target.classList.add("visible");
+
+        entry.target.querySelectorAll(".counter").forEach((counter) => {
+          if (counter.dataset.animated === "true") return;
+          counter.dataset.animated = "true";
+
+          const target = Number(counter.dataset.target || 0);
+          let value = 0;
+          const increment = Math.max(target / 35, 1);
+
+          function tick() {
+            value = Math.min(target, value + increment);
+            counter.textContent = Math.ceil(value) + (target === 100 ? "%" : "+");
+            if (value < target) requestAnimationFrame(tick);
+          }
+
+          tick();
+        });
+
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.08 });
+
+    revealCards.forEach((card) => observer.observe(card));
+
+    /* ---------- Social filter ---------- */
+    const socialCards = Array.from(document.querySelectorAll(".social-card-item"));
+
+    /* ---------- Dynamic social statistics ---------- */
+    const activePlatformsEl = document.getElementById("activePlatforms");
+    const averageResponseEl = document.getElementById("averageResponse");
+    const connectedPlatformsEl = document.getElementById("connectedPlatforms");
+
+    function animateStatNumber(element, target, suffix = "") {
+      if (!element) return;
+
+      const duration = 900;
+      const start = performance.now();
+
+      function update(now) {
+        const progress = Math.min((now - start) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(target * eased);
+        element.textContent = `${value}${suffix}`;
+
+        if (progress < 1) requestAnimationFrame(update);
+      }
+
+      requestAnimationFrame(update);
+    }
+
+    function updateSocialStats() {
+      const totalPlatforms = socialCards.length;
+
+      const connectedCount = socialCards.filter((card) => {
+        const link = (card.dataset.link || "").trim();
+        return link && link !== "#" && /^https?:\/\//i.test(link);
+      }).length;
+
+      const connectedPercent = totalPlatforms > 0
+        ? Math.round((connectedCount / totalPlatforms) * 100)
+        : 0;
+
+      animateStatNumber(activePlatformsEl, totalPlatforms);
+      animateStatNumber(connectedPlatformsEl, connectedPercent, "%");
+
+      if (averageResponseEl) {
+        averageResponseEl.innerHTML = "&le; 1 hr";
+      }
+    }
+
+    updateSocialStats();
+
+    const filterButtons = Array.from(document.querySelectorAll(".filter-btn"));
+    const searchInput = document.getElementById("socialSearch");
+    const emptyState = document.getElementById("emptyState");
+
+    let currentCategory = "all";
+
+    function filterSocials() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visibleCount = 0;
+
+      socialCards.forEach((card) => {
+        const category = card.dataset.category || "";
+        const name = (card.dataset.name || "").toLowerCase();
+        const handle = (card.dataset.handle || "").toLowerCase();
+
+        const matchesCategory = currentCategory === "all" || category === currentCategory;
+        const matchesSearch = name.includes(query) || handle.includes(query);
+        const show = matchesCategory && matchesSearch;
+
+        card.classList.toggle("social-hidden", !show);
+        if (show) visibleCount++;
+      });
+
+      emptyState.classList.toggle("show", visibleCount === 0);
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        currentCategory = button.dataset.category || "all";
+        filterButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+        filterSocials();
+      });
+    });
+
+    searchInput.addEventListener("input", filterSocials);
+
+    /* ---------- Modal & copy ---------- */
+    const socialModal = document.getElementById("socialModal");
+    let activeModalHandle = "";
+
+    function openSocialModalFromCard(card) {
+      document.getElementById("modalTitle").textContent = card.dataset.title || "";
+      document.getElementById("modalHandle").textContent = card.dataset.handle || "";
+      document.getElementById("modalIcon").src = card.dataset.icon || "";
+      document.getElementById("modalIcon").alt = card.dataset.title || "Social platform";
+      document.getElementById("modalDescription").textContent = card.dataset.description || "";
+      document.getElementById("modalLink").href = card.dataset.link || "#";
+
+      activeModalHandle = card.dataset.handle || "";
+      socialModal.classList.add("open");
+      document.body.classList.add("modal-open");
+    }
+
+    socialCards.forEach((card) => {
+      card.querySelector(".social-icon-wrapper").addEventListener("click", () => openSocialModalFromCard(card));
+
+      card.querySelector(".copy-handle").addEventListener("click", async (event) => {
+        event.stopPropagation();
+        await copyHandle(card.dataset.handle || "");
+      });
+    });
+
+    async function copyHandle(handle) {
+      try {
+        await navigator.clipboard.writeText(handle);
+        showToast(`Copied "${handle}" to clipboard!`);
+      } catch (error) {
+        showToast("Unable to copy automatically.");
+      }
+    }
+
+    function copyModalHandle() {
+      copyHandle(activeModalHandle);
+    }
+
+    function closeSocialModal() {
+      socialModal.classList.remove("open");
+      document.body.classList.remove("modal-open");
+    }
+
+    socialModal.addEventListener("click", (event) => {
+      if (event.target === socialModal) closeSocialModal();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        closeSocialModal();
+        closeMenu();
+      }
+    });
+
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      document.getElementById("toastMsg").textContent = message;
+      toast.classList.add("show");
+
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2200);
+    }
+
+    /* ---------- Philippine time ---------- */
+    function updatePhilippineTime() {
+      const now = new Date();
+      const formatter = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Manila",
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+      });
+
+      const el = document.getElementById("phTimeDisplay");
+      if (el) el.textContent = `Philippine Standard Time — ${formatter.format(now)}`;
+    }
+
+    updatePhilippineTime();
+    setInterval(updatePhilippineTime, 1000);
+
+    /* ---------- Starfield ---------- */
+    const starsCanvas = document.getElementById("starsCanvas");
+    const starsCtx = starsCanvas.getContext("2d");
+    let stars = [];
+    let meteor = null;
+    let meteorTimer = null;
+
+    function getStarColor(alpha) {
+      return getTheme() === "light"
+        ? `rgba(71, 85, 105, ${alpha * 0.48})`
+        : `rgba(255, 255, 255, ${alpha})`;
+    }
+
+    function resizeStarsCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      starsCanvas.width = Math.floor(window.innerWidth * dpr);
+      starsCanvas.height = Math.floor(window.innerHeight * dpr);
+      starsCanvas.style.width = `${window.innerWidth}px`;
+      starsCanvas.style.height = `${window.innerHeight}px`;
+      starsCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      generateStars();
+    }
+
+    function generateStars() {
+      stars = [];
+      const density = Math.floor((window.innerWidth * window.innerHeight) / 7000);
+
+      for (let i = 0; i < density; i++) {
+        stars.push({
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          alpha: Math.random() * 0.65 + 0.2,
+          radius: Math.random() * 1.05 + 0.35,
+          flicker: Math.random() * 0.013 + 0.004
+        });
+      }
+    }
+
+    function scheduleMeteor() {
+      clearTimeout(meteorTimer);
+      meteorTimer = setTimeout(spawnMeteor, Math.random() * 4500 + 3200);
+    }
+
+    function spawnMeteor() {
+      meteor = {
+        x: Math.random() * window.innerWidth,
+        y: -30,
+        vx: -(Math.random() * 3 + 2),
+        vy: Math.random() * 2 + 2.1,
+        alpha: 1
+      };
+    }
+
+    function drawMeteor() {
+      if (!meteor) return;
+
+      const tailX = meteor.x - meteor.vx * 16;
+      const tailY = meteor.y - meteor.vy * 16;
+      const grad = starsCtx.createLinearGradient(meteor.x, meteor.y, tailX, tailY);
+
+      if (getTheme() === "light") {
+        grad.addColorStop(0, `rgba(109,40,217,${meteor.alpha * 0.75})`);
+        grad.addColorStop(1, "rgba(109,40,217,0)");
+      } else {
+        grad.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
+        grad.addColorStop(1, "rgba(255,255,255,0)");
+      }
+
+      starsCtx.strokeStyle = grad;
+      starsCtx.lineWidth = 1.5;
+      starsCtx.beginPath();
+      starsCtx.moveTo(meteor.x, meteor.y);
+      starsCtx.lineTo(tailX, tailY);
+      starsCtx.stroke();
+    }
+
+    function animateStars() {
+      starsCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      stars.forEach((star) => {
+        star.alpha += star.flicker * (Math.random() < 0.5 ? -1 : 1);
+        star.alpha = Math.max(0.15, Math.min(0.88, star.alpha));
+
+        starsCtx.beginPath();
+        starsCtx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
+        starsCtx.fillStyle = getStarColor(star.alpha);
+        starsCtx.fill();
+      });
+
+      if (meteor) {
+        meteor.x += meteor.vx;
+        meteor.y += meteor.vy;
+        meteor.alpha -= 0.012;
+        drawMeteor();
+
+        if (meteor.alpha <= 0 || meteor.x < -80 || meteor.y > window.innerHeight + 80) {
+          meteor = null;
+          scheduleMeteor();
+        }
+      }
+
+      requestAnimationFrame(animateStars);
+    }
+
+    /* ---------- Ripple ---------- */
+    const rippleCanvas = document.getElementById("rippleCanvas");
+    const rippleCtx = rippleCanvas.getContext("2d");
+    let ripples = [];
+
+    function resizeRippleCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      rippleCanvas.width = Math.floor(window.innerWidth * dpr);
+      rippleCanvas.height = Math.floor(window.innerHeight * dpr);
+      rippleCanvas.style.width = `${window.innerWidth}px`;
+      rippleCanvas.style.height = `${window.innerHeight}px`;
+      rippleCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    window.addEventListener("mousemove", (event) => {
+      if (window.matchMedia("(pointer: coarse)").matches) return;
+      if (Math.random() > 0.22) return;
+
+      ripples.push({
+        x: event.clientX,
+        y: event.clientY,
+        radius: 0,
+        alpha: 0.20
+      });
+
+      if (ripples.length > 12) ripples.shift();
+    });
+
+    function animateRipples() {
+      rippleCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+      for (let i = ripples.length - 1; i >= 0; i--) {
+        const ripple = ripples[i];
+        ripple.radius += 1.15;
+        ripple.alpha -= 0.007;
+
+        if (ripple.alpha <= 0) {
+          ripples.splice(i, 1);
+          continue;
+        }
+
+        rippleCtx.beginPath();
+        rippleCtx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
+        rippleCtx.strokeStyle =
+          getTheme() === "light"
+            ? `rgba(109, 40, 217, ${ripple.alpha})`
+            : `rgba(167, 139, 250, ${ripple.alpha})`;
+        rippleCtx.lineWidth = 1;
+        rippleCtx.stroke();
+      }
+
+      requestAnimationFrame(animateRipples);
+    }
+
+    window.addEventListener("resize", () => {
+      resizeStarsCanvas();
+      resizeRippleCanvas();
+    });
+
+    resizeStarsCanvas();
+    resizeRippleCanvas();
+    animateStars();
+    animateRipples();
+    setTimeout(spawnMeteor, 1800);
+    filterSocials();
+  </script>
+</body>
+</html>
