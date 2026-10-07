@@ -348,30 +348,44 @@
 
     .hero-actions {
       display: flex;
+      align-items: center;
       flex-wrap: wrap;
-      gap: 0.7rem;
+      gap: 0.6rem;
       margin-top: 1.4rem;
     }
 
     .hero-btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.5rem;
-      padding: 0.62rem 0.95rem;
-      border-radius: 999px;
+      justify-content: center;
+      gap: 0.45rem;
+      min-height: 38px;
+      padding: 0.52rem 0.85rem;
       border: 1px solid var(--border);
+      border-radius: 10px;
       background: var(--panel-2);
       color: var(--text);
       cursor: pointer;
-      font-size: 0.8rem;
-      font-weight: 700;
-      transition: transform var(--transition), background var(--transition), border-color var(--transition);
+      white-space: nowrap;
+      font-size: 0.78rem;
+      font-weight: 650;
+      line-height: 1;
+      transition:
+        transform var(--transition),
+        background var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition);
+    }
+
+    .hero-btn i {
+      font-size: 0.75rem;
     }
 
     .hero-btn.primary {
       border-color: transparent;
       background: linear-gradient(135deg, var(--purple), var(--blue));
       color: #ffffff;
+      box-shadow: 0 6px 18px rgba(124, 58, 237, 0.18);
     }
 
     .hero-btn:hover {
@@ -381,7 +395,9 @@
     }
 
     .hero-btn.primary:hover {
+      border-color: transparent;
       background: linear-gradient(135deg, var(--purple), var(--blue));
+      box-shadow: 0 8px 22px rgba(124, 58, 237, 0.24);
     }
 
     .glass-card {
@@ -1043,248 +1059,74 @@
 
 .company-btn {
   position: relative;
-  isolation: isolate;
   overflow: hidden;
-
-  min-height: 52px;
-  padding: 0.55rem 0.75rem 0.55rem 0.6rem;
-
-  border: 1px solid rgba(96, 165, 250, 0.32);
-  border-radius: 16px;
-
+  border-color: rgba(124, 58, 237, 0.3);
   background:
-    linear-gradient(
-      135deg,
-      rgba(124, 58, 237, 0.18),
-      rgba(59, 130, 246, 0.16)
-    ),
+    linear-gradient(135deg, rgba(124, 58, 237, 0.13), rgba(59, 130, 246, 0.11)),
     var(--panel-2);
-
-  box-shadow:
-    0 8px 28px rgba(59, 130, 246, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.08);
-
-  transition:
-    transform 0.28s ease,
-    border-color 0.28s ease,
-    box-shadow 0.28s ease,
-    background 0.28s ease;
+  color: var(--text);
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.07);
 }
 
-
-/* Animated light sweep */
-.company-btn::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-
-  top: -50%;
-  left: -80%;
-
-  width: 55%;
-  height: 200%;
-
-  transform: rotate(20deg);
-
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.18),
-    transparent
-  );
-
-  transition: left 0.6s ease;
+.company-btn i {
+  color: var(--purple-light);
 }
 
-
-.company-btn:hover::before {
-  left: 130%;
-}
-
-
-/* Hover */
 .company-btn:hover {
-  transform: translateY(-3px);
-
-  border-color: rgba(167, 139, 250, 0.65);
-
+  border-color: rgba(167, 139, 250, 0.55);
   background:
-    linear-gradient(
-      135deg,
-      rgba(124, 58, 237, 0.28),
-      rgba(59, 130, 246, 0.23)
-    ),
+    linear-gradient(135deg, rgba(124, 58, 237, 0.20), rgba(59, 130, 246, 0.16)),
     var(--panel-hover);
-
-  box-shadow:
-    0 12px 32px rgba(124, 58, 237, 0.18),
-    0 5px 18px rgba(59, 130, 246, 0.15);
-}
-
-
-/* Company icon */
-.company-btn-icon {
-  width: 36px;
-  height: 36px;
-
-  flex-shrink: 0;
-
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 11px;
-
-  color: #ffffff;
-
-  background: linear-gradient(
-    135deg,
-    var(--purple),
-    var(--blue)
-  );
-
-  box-shadow:
-    0 5px 16px rgba(124, 58, 237, 0.3);
-}
-
-
-/* Two-line text */
-.company-btn-text {
-  display: flex;
-  flex-direction: column;
-
-  align-items: flex-start;
-
-  line-height: 1.15;
-}
-
-
-.company-btn-label {
-  color: var(--text);
-
-  font-size: 0.78rem;
-  font-weight: 750;
-}
-
-
-.company-btn-name {
-  margin-top: 3px;
-
-  color: var(--purple-light);
-
-  font-size: 0.64rem;
-  font-weight: 650;
-
-  letter-spacing: 0.02em;
-}
-
-
-/* External link arrow */
-.company-btn-arrow {
-  margin-left: 0.2rem;
-
-  color: var(--purple-light);
-
-  font-size: 0.72rem;
-
-  transition:
-    transform 0.28s ease,
-    color 0.28s ease;
-}
-
-
-.company-btn:hover .company-btn-arrow {
-  transform: translate(2px, -2px);
-  color: var(--text);
-}
-
-
-/* Icon animation */
-.company-btn:hover .company-btn-icon {
-  animation: companyIconPulse 0.7s ease;
-}
-
-
-@keyframes companyIconPulse {
-  0% {
-    transform: scale(1);
-  }
-
-  50% {
-    transform: scale(1.08);
-  }
-
-  100% {
-    transform: scale(1);
-  }
-}
-
-
-/* Light mode */
-html[data-theme="light"] .company-btn {
-  border-color: rgba(109, 40, 217, 0.2);
-
-  background:
-    linear-gradient(
-      135deg,
-      rgba(124, 58, 237, 0.08),
-      rgba(59, 130, 246, 0.07)
-    ),
-    rgba(255, 255, 255, 0.72);
-
-  box-shadow:
-    0 8px 25px rgba(15, 23, 42, 0.08);
-}
-
-
-html[data-theme="light"] .company-btn:hover {
-  border-color: rgba(109, 40, 217, 0.38);
-
-  box-shadow:
-    0 12px 30px rgba(109, 40, 217, 0.12);
-}
-
-
-/* Mobile */
-@media (max-width: 650px) {
-
-  .hero-actions {
-    align-items: stretch;
-  }
-
-  .company-btn {
-    flex: 1 1 100%;
-    justify-content: flex-start;
-  }
-
-  .company-btn-arrow {
-    margin-left: auto;
-  }
+  box-shadow: 0 8px 22px rgba(124, 58, 237, 0.13);
 }
 
 .footer-company-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  color: var(--text);
-  transition:
-    color 0.25s ease,
-    text-shadow 0.25s ease;
-}
-
-.footer-company-link i {
-  font-size: 0.62rem;
-  color: var(--purple-light);
-  transition: transform 0.25s ease;
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 
 .footer-company-link:hover {
   color: var(--purple-light);
-  text-shadow: 0 0 12px rgba(167, 139, 250, 0.3);
 }
 
-.footer-company-link:hover i {
-  transform: translate(2px, -2px);
+@media (max-width: 650px) {
+  .hero-actions {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .hero-btn {
+    min-height: 36px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 9px;
+    font-size: 0.75rem;
+  }
+
+  .company-btn {
+    grid-column: 1 / -1;
+    width: fit-content;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-actions {
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+
+  .hero-btn {
+    width: 100%;
+  }
+
+  .company-btn {
+    width: 100%;
+  }
 }
     
   </style>
@@ -1343,28 +1185,24 @@ html[data-theme="light"] .company-btn:hover {
 
 <div class="hero-actions">
   <button id="hireBtn" class="hero-btn primary" type="button">
-    <i class="fa-solid fa-briefcase"></i> Hire Me
+    <i class="fa-solid fa-briefcase"></i>
+    <span>Hire Me</span>
   </button>
 
-  <a href="https://bryangablao.github.io/Accxs-Creations/"
-     target="_blank"
-     rel="noopener noreferrer"
-     class="hero-btn company-btn"
-     aria-label="Visit Accxs Creations company website">
-    <span class="company-btn-icon">
-      <i class="fa-solid fa-building"></i>
-    </span>
-
-    <span class="company-btn-text">
-      <span class="company-btn-label">Visit Company Website</span>
-      <span class="company-btn-name">Accxs Creations</span>
-    </span>
-
-    <i class="fa-solid fa-arrow-up-right-from-square company-btn-arrow"></i>
+  <a href="donate.html" class="hero-btn">
+    <i class="fa-solid fa-heart"></i>
+    <span>Donate</span>
   </a>
 
-  <a href="donate.html" class="hero-btn">
-    <i class="fa-solid fa-heart"></i> Donate
+  <a
+    href="https://bryangablao.github.io/Accxs-Creations/"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="hero-btn company-btn"
+    aria-label="Visit Accxs Creations company website"
+  >
+    <i class="fa-solid fa-building"></i>
+    <span>Visit Company Website</span>
   </a>
 </div>
       </section>
@@ -1587,11 +1425,8 @@ html[data-theme="light"] .company-btn:hover {
     target="_blank"
     rel="noopener noreferrer"
     class="footer-company-link"
-    aria-label="Visit Accxs Creations official website"
-  >
-    <strong>Accxs Creations</strong>
-    <i class="fa-solid fa-arrow-up-right-from-square"></i>
-  </a>.
+    aria-label="Visit Accxs Creations website"
+  >Accxs Creations</a>.
   All rights reserved.
 </div>
         <div class="footer-bottom-links">
