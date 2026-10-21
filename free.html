@@ -552,26 +552,94 @@
        CMD CARD  (terminal look, floating notes, particles)
        ========================================================= */
     .cmd-card {
-      /* Local dark palette so the card stays "terminal dark" in light theme too */
-      --text: #f3f4f6;
-      --muted: #a3acba;
+      /* DARK theme palette (terminal green on charcoal) */
+      --card-bg: #0b1210;
+      --card-bg-2: #112219;
+      --grid: rgba(52, 211, 153, 0.07);
+      --card-line: rgba(52, 211, 153, 0.30);
+      --text: #eafbf3;
+      --muted: #9db3a8;
       --purple-light: #a78bfa;
       --green: #34d399;
       --border: rgba(255, 255, 255, 0.10);
       --border-strong: rgba(167, 139, 250, 0.38);
+      --bar-bg: rgba(255, 255, 255, 0.045);
+      --scan: rgba(255, 255, 255, 0.022);
+      --preview-bg: #050b08;
+      --preview-text: #34d399;
+      --preview-out: #c4b5fd;
+      --preview-prompt: #8fa39a;
+      --preview-tag: rgba(255, 255, 255, 0.28);
+      --chip-bg: rgba(255, 255, 255, 0.06);
+      --chip-text: #c4b5fd;
+      --amber: #fbbf24;
+      --amber-sub: #d6b25a;
+      --amber-bg: rgba(251, 191, 36, 0.08);
+      --amber-line: rgba(251, 191, 36, 0.32);
+      --warn: #fca5a5;
+      --soft-btn-bg: rgba(167, 139, 250, 0.08);
+      --soft-btn-text: #c4b5fd;
       --mono: "Cascadia Mono", Consolas, "Lucida Console", "Courier New", monospace;
       padding: 0;
       color: var(--text);
-      background: #120a2a linear-gradient(160deg, #1d1042 0%, #140b30 50%, #0a1c30 100%);
-      border-color: rgba(167, 139, 250, 0.30);
+      border-color: var(--card-line);
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
     }
 
+    /* Solid (fully opaque) background: base colour + grid lines + gradient */
+    .cmd-card,
     .cmd-card:hover {
-      background: #150c32 linear-gradient(160deg, #24134f 0%, #170d38 50%, #0c2138 100%);
-      border-color: rgba(167, 139, 250, 0.55);
-      box-shadow: 0 20px 44px rgba(76, 29, 149, 0.28);
+      background-color: var(--card-bg);
+      background-image:
+        linear-gradient(var(--grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid) 1px, transparent 1px),
+        linear-gradient(160deg, var(--card-bg-2) 0%, var(--card-bg) 65%);
+      background-size: 26px 26px, 26px 26px, 100% 100%;
+    }
+
+    .cmd-card:hover {
+      --grid: rgba(52, 211, 153, 0.13);
+      --card-bg-2: #163023;
+      border-color: rgba(52, 211, 153, 0.6);
+      box-shadow: 0 20px 44px rgba(5, 150, 105, 0.22);
+    }
+
+    /* LIGHT theme palette (mint paper, dark text) */
+    html[data-theme="light"] .cmd-card {
+      --card-bg: #f1f8f3;
+      --card-bg-2: #ffffff;
+      --grid: rgba(5, 150, 105, 0.10);
+      --card-line: rgba(5, 120, 85, 0.30);
+      --text: #12231b;
+      --muted: #465a50;
+      --purple-light: #6d28d9;
+      --green: #047857;
+      --border: rgba(15, 40, 30, 0.14);
+      --border-strong: rgba(109, 40, 217, 0.35);
+      --bar-bg: rgba(15, 40, 30, 0.07);
+      --scan: rgba(0, 0, 0, 0.022);
+      --preview-bg: #0f1f18;
+      --preview-text: #4ade80;
+      --preview-out: #d8b4fe;
+      --preview-prompt: #9db3a8;
+      --preview-tag: rgba(255, 255, 255, 0.35);
+      --chip-bg: rgba(109, 40, 217, 0.09);
+      --chip-text: #5b21b6;
+      --amber: #92400e;
+      --amber-sub: #a16207;
+      --amber-bg: rgba(245, 158, 11, 0.15);
+      --amber-line: rgba(180, 83, 9, 0.38);
+      --warn: #b91c1c;
+      --soft-btn-bg: rgba(109, 40, 217, 0.08);
+      --soft-btn-text: #5b21b6;
+    }
+
+    html[data-theme="light"] .cmd-card:hover {
+      --grid: rgba(5, 150, 105, 0.18);
+      --card-bg-2: #e3f3e9;
+      border-color: rgba(5, 120, 85, 0.6);
+      box-shadow: 0 20px 44px rgba(5, 120, 85, 0.18);
     }
 
     /* subtle CRT scanlines */
@@ -583,12 +651,11 @@
       pointer-events: none;
       background: repeating-linear-gradient(
         0deg,
-        rgba(255, 255, 255, 0.022) 0,
-        rgba(255, 255, 255, 0.022) 1px,
+        var(--scan) 0,
+        var(--scan) 1px,
         transparent 1px,
         transparent 3px
       );
-      mix-blend-mode: screen;
     }
 
     .note-bg {
@@ -625,7 +692,7 @@
       gap: 0.5rem;
       padding: 0.62rem 0.95rem;
       border-bottom: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.045);
+      background: var(--bar-bg, rgba(255, 255, 255, 0.045));
       color: var(--muted);
       font-family: var(--mono);
       font-size: 0.72rem;
@@ -672,16 +739,16 @@
       gap: 0.75rem;
       margin-bottom: 0.7rem;
       padding: 0.6rem 0.65rem 0.6rem 0.85rem;
-      border: 1px solid rgba(251, 191, 36, 0.30);
+      border: 1px solid var(--amber-line);
       border-radius: 12px;
-      background: rgba(251, 191, 36, 0.075);
-      color: #fbbf24;
+      background: var(--amber-bg);
+      color: var(--amber);
       font-size: 0.78rem;
       font-weight: 700;
     }
 
     .compat-text { display: flex; align-items: center; gap: 0.55rem; min-width: 0; }
-    .compat-text small { display: block; color: #d6b25a; font-size: 0.68rem; font-weight: 600; opacity: 0.9; }
+    .compat-text small { display: block; color: var(--amber-sub); font-size: 0.68rem; font-weight: 600; opacity: 0.9; }
 
     .help-btn {
       position: relative;
@@ -691,10 +758,10 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border: 1px solid rgba(251, 191, 36, 0.5);
+      border: 1px solid var(--amber);
       border-radius: 50%;
-      background: rgba(251, 191, 36, 0.14);
-      color: #fbbf24;
+      background: var(--amber-bg);
+      color: var(--amber);
       font-size: 0.95rem;
       font-weight: 800;
       cursor: pointer;
@@ -706,7 +773,7 @@
       position: absolute;
       inset: -1px;
       border-radius: 50%;
-      border: 1px solid rgba(251, 191, 36, 0.55);
+      border: 1px solid var(--amber);
       animation: helpPulse 2.2s ease-out infinite;
       pointer-events: none;
     }
@@ -716,7 +783,7 @@
       100% { transform: scale(1.75); opacity: 0; }
     }
 
-    .help-btn:hover { transform: scale(1.1); background: rgba(251, 191, 36, 0.26); }
+    .help-btn:hover { transform: scale(1.1); filter: brightness(1.15); }
 
     .compat-warning {
       display: none;
@@ -724,10 +791,10 @@
       gap: 0.55rem;
       margin-bottom: 0.7rem;
       padding: 0.6rem 0.85rem;
-      border: 1px solid rgba(248, 113, 113, 0.35);
+      border: 1px solid var(--warn);
       border-radius: 12px;
-      background: rgba(248, 113, 113, 0.08);
-      color: #fca5a5;
+      background: rgba(248, 113, 113, 0.10);
+      color: var(--warn);
       font-size: 0.74rem;
       font-weight: 600;
       line-height: 1.5;
@@ -747,8 +814,8 @@
       padding: 0.8rem 0.9rem;
       border: 1px solid var(--border);
       border-radius: 12px;
-      background: #04060a;
-      color: var(--green);
+      background: var(--preview-bg);
+      color: var(--preview-text);
       font-family: var(--mono);
       font-size: 0.76rem;
       line-height: 1.65;
@@ -760,14 +827,15 @@
       position: absolute;
       top: 0.4rem;
       right: 0.6rem;
-      color: rgba(255, 255, 255, 0.28);
+      color: var(--preview-tag);
       font-size: 0.62rem;
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    .term-preview .out { color: #c4b5fd; }
-    .term-preview .prompt { color: #9ca3af; }
+    .term-preview .out { color: var(--preview-out); }
+    .term-preview .prompt { color: var(--preview-prompt); }
+    .term-preview .cursor { background: var(--preview-text); }
 
     .cursor {
       display: inline-block;
@@ -817,8 +885,8 @@
       padding: 0.08rem 0.4rem;
       border: 1px solid var(--border);
       border-radius: 6px;
-      background: rgba(255, 255, 255, 0.06);
-      color: #c4b5fd;
+      background: var(--chip-bg);
+      color: var(--chip-text);
       font-family: var(--mono);
       font-size: 0.78rem;
     }
@@ -832,7 +900,7 @@
       padding: 0.35rem 0.7rem;
       border: 1px solid var(--border);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--chip-bg);
       color: var(--purple-light);
       font-size: 0.76rem;
       font-weight: 700;
@@ -856,8 +924,8 @@
       padding: 0.6rem 1rem;
       border: 1px solid var(--border-strong);
       border-radius: 14px;
-      background: rgba(167, 139, 250, 0.07);
-      color: #c4b5fd;
+      background: var(--soft-btn-bg);
+      color: var(--soft-btn-text);
       font-size: 0.78rem;
       font-weight: 700;
       cursor: pointer;
