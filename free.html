@@ -562,20 +562,14 @@
       --mono: "Cascadia Mono", Consolas, "Lucida Console", "Courier New", monospace;
       padding: 0;
       color: var(--text);
-      background:
-        radial-gradient(circle at 85% 0%, rgba(124, 58, 237, 0.20), transparent 45%),
-        radial-gradient(circle at 0% 100%, rgba(52, 211, 153, 0.09), transparent 45%),
-        linear-gradient(180deg, #0c0f18, #080a11);
+      background: #120a2a linear-gradient(160deg, #1d1042 0%, #140b30 50%, #0a1c30 100%);
       border-color: rgba(167, 139, 250, 0.30);
       cursor: pointer;
       -webkit-tap-highlight-color: transparent;
     }
 
     .cmd-card:hover {
-      background:
-        radial-gradient(circle at 85% 0%, rgba(124, 58, 237, 0.26), transparent 45%),
-        radial-gradient(circle at 0% 100%, rgba(52, 211, 153, 0.12), transparent 45%),
-        linear-gradient(180deg, #0c0f18, #080a11);
+      background: #150c32 linear-gradient(160deg, #24134f 0%, #170d38 50%, #0c2138 100%);
       border-color: rgba(167, 139, 250, 0.55);
       box-shadow: 0 20px 44px rgba(76, 29, 149, 0.28);
     }
@@ -747,7 +741,8 @@
     /* live terminal preview */
     .term-preview {
       position: relative;
-      min-height: 5.6rem;
+      height: 10.8rem;
+      flex-shrink: 0;
       margin: 0.35rem 0 1.05rem;
       padding: 0.8rem 0.9rem;
       border: 1px solid var(--border);
@@ -794,20 +789,16 @@
       transition: max-height 0.45s ease;
     }
 
-    .desc-collapsible::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 3.4rem;
-      background: linear-gradient(180deg, transparent, #090b12);
-      pointer-events: none;
-      transition: opacity 0.3s ease;
+    .desc-collapsible {
+      -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+      mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
     }
 
-    .desc-collapsible.expanded::after,
-    .desc-collapsible.no-clamp::after { opacity: 0; }
+    .desc-collapsible.expanded,
+    .desc-collapsible.no-clamp {
+      -webkit-mask-image: none;
+      mask-image: none;
+    }
 
     .desc-collapsible.no-clamp { max-height: none; }
 
