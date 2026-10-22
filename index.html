@@ -1119,6 +1119,7 @@
       display: flex;
       align-items: flex-end;
       gap: 0.65rem;
+      pointer-events: none;
     }
 
     .music-launcher,
@@ -1147,6 +1148,7 @@
       border-radius: 50%;
       box-shadow: var(--shadow);
       font-size: 1rem;
+      pointer-events: auto;
     }
 
     .music-launcher.active {
@@ -1246,7 +1248,7 @@
 
   </style>
 </head>
-<body>
+<body id="top">
   <canvas id="starsCanvas" aria-hidden="true"></canvas>
   <canvas id="rippleCanvas" aria-hidden="true"></canvas>
 
