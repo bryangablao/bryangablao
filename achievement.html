@@ -1045,6 +1045,8 @@
       display: flex;
       align-items: flex-end;
       gap: 0.65rem;
+      /* Let clicks pass through the invisible player wrapper to footer links. */
+      pointer-events: none;
     }
 
     .music-launcher,
@@ -1064,6 +1066,8 @@
     }
 
     .music-launcher {
+      /* The visible launcher remains clickable even though its wrapper is click-through. */
+      pointer-events: auto;
       width: 48px;
       height: 48px;
       display: inline-flex;
@@ -1498,6 +1502,7 @@
     </button>
 
     <audio id="backgroundMusic" preload="metadata"></audio>
+  </div>
 
   <script>
     /* ---------- Theme ---------- */
