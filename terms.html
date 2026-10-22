@@ -13,6 +13,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
+
+  <div class="music-player" id="musicPlayer" aria-label="Background music controls">
+    <button id="musicToggle" class="music-toggle" type="button" aria-label="Turn music on or off" title="Music On/Off">
+      <i class="fa-solid fa-volume-xmark"></i>
+    </button>
+    <button id="musicPrev" type="button" aria-label="Previous track" title="Previous">
+      <i class="fa-solid fa-backward-step"></i>
+    </button>
+    <button id="musicPlayPause" type="button" aria-label="Play or pause music" title="Play/Pause">
+      <i class="fa-solid fa-play"></i>
+    </button>
+    <button id="musicNext" type="button" aria-label="Next track" title="Next">
+      <i class="fa-solid fa-forward-step"></i>
+    </button>
+    <div class="music-track-label" id="musicTrackLabel">Music Off</div>
+    <audio id="backgroundMusic" preload="metadata"></audio>
+  </div>
+
   <script>
     (function () {
       try {
@@ -735,6 +753,62 @@
   border-radius: 3px;
 }
 
+
+/* ---------- Shared Background Music Player ---------- */
+.music-player {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 2500;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.55rem;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--panel-solid);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.music-player button {
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: var(--panel-2);
+  color: var(--text);
+  cursor: pointer;
+  transition: transform var(--transition), background var(--transition), border-color var(--transition);
+}
+.music-player button:hover {
+  transform: translateY(-2px);
+  background: var(--panel-hover);
+  border-color: var(--border-strong);
+}
+.music-player .music-toggle.active {
+  color: #fff;
+  border-color: transparent;
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+}
+.music-track-label {
+  max-width: 190px;
+  padding: 0 0.35rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+@media (max-width: 650px) {
+  .music-player { right: 10px; bottom: 10px; }
+  .music-track-label { display: none; }
+}
+
 </style>
 </head>
 
@@ -1260,6 +1334,176 @@
     animateStars();
     animateRipples();
     setTimeout(spawnMeteor, 1800);
+
+    /* ---------- Shared Background Music ---------- */
+    const MUSIC_STATE_KEY = "accxs-music-state-v1";
+    const MUSIC_FILES_KEY = "accxs-music-files-v1";
+    const musicAudio = document.getElementById("backgroundMusic");
+    const musicToggle = document.getElementById("musicToggle");
+    const musicPlayPause = document.getElementById("musicPlayPause");
+    const musicPrev = document.getElementById("musicPrev");
+    const musicNext = document.getElementById("musicNext");
+    const musicTrackLabel = document.getElementById("musicTrackLabel");
+
+    let musicFiles = [];
+    let musicIndex = 0;
+    let musicEnabled = false;
+    let musicShouldPlay = false;
+
+    function readMusicState() {
+      try {
+        return JSON.parse(localStorage.getItem(MUSIC_STATE_KEY) || "{}");
+      } catch (error) {
+        return {};
+      }
+    }
+
+    function saveMusicState() {
+      if (!musicAudio) return;
+      const state = {
+        enabled: musicEnabled,
+        shouldPlay: musicShouldPlay && !musicAudio.paused,
+        index: musicIndex,
+        currentTime: Number.isFinite(musicAudio.currentTime) ? musicAudio.currentTime : 0,
+        savedAt: Date.now()
+      };
+      try { localStorage.setItem(MUSIC_STATE_KEY, JSON.stringify(state)); } catch (error) {}
+    }
+
+    function cleanTrackName(path) {
+      const file = decodeURIComponent(path.split("/").pop() || path);
+      return file.replace(/\.[^.]+$/, "").replace(/[_-]+/g, " ");
+    }
+
+    function refreshMusicUi() {
+      if (!musicAudio) return;
+      musicToggle.classList.toggle("active", musicEnabled);
+      musicToggle.innerHTML = `<i class="fa-solid ${musicEnabled ? "fa-volume-high" : "fa-volume-xmark"}"></i>`;
+      musicPlayPause.innerHTML = `<i class="fa-solid ${musicAudio.paused ? "fa-play" : "fa-pause"}"></i>`;
+      musicTrackLabel.textContent = musicEnabled && musicFiles.length
+        ? cleanTrackName(musicFiles[musicIndex])
+        : "Music Off";
+    }
+
+    async function discoverMusicFiles() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(MUSIC_FILES_KEY) || "[]");
+        if (Array.isArray(saved) && saved.length) return saved;
+      } catch (error) {}
+
+      const repoMatch = location.hostname.endsWith("github.io")
+        ? location.pathname.split("/").filter(Boolean)[0]
+        : null;
+      if (!repoMatch) return [];
+
+      const owner = location.hostname.split(".")[0];
+      const api = `https://api.github.com/repos/${owner}/${repoMatch}/contents/mp4`;
+      try {
+        const response = await fetch(api, { headers: { "Accept": "application/vnd.github+json" } });
+        if (!response.ok) return [];
+        const data = await response.json();
+        const allowed = /\.(mp3|mp4|m4a|aac|ogg|wav|webm)$/i;
+        const files = data
+          .filter(item => item.type === "file" && allowed.test(item.name))
+          .map(item => `mp4/${encodeURIComponent(item.name)}`);
+        try { localStorage.setItem(MUSIC_FILES_KEY, JSON.stringify(files)); } catch (error) {}
+        return files;
+      } catch (error) {
+        return [];
+      }
+    }
+
+    function setMusicTrack(index, resumeTime = 0, autoplay = false) {
+      if (!musicFiles.length || !musicAudio) return;
+      musicIndex = (index + musicFiles.length) % musicFiles.length;
+      musicAudio.src = musicFiles[musicIndex];
+      musicAudio.load();
+      musicAudio.addEventListener("loadedmetadata", () => {
+        const safeTime = Math.max(0, Math.min(resumeTime, Math.max(0, (musicAudio.duration || resumeTime) - 0.25)));
+        if (safeTime > 0) musicAudio.currentTime = safeTime;
+        if (autoplay && musicEnabled) {
+          musicAudio.play().then(() => {
+            musicShouldPlay = true;
+            refreshMusicUi();
+          }).catch(() => {
+            musicShouldPlay = true;
+            refreshMusicUi();
+          });
+        } else {
+          refreshMusicUi();
+        }
+      }, { once: true });
+      refreshMusicUi();
+    }
+
+    async function initSharedMusic() {
+      if (!musicAudio) return;
+      musicAudio.volume = 0.35;
+      musicFiles = await discoverMusicFiles();
+      const state = readMusicState();
+      musicEnabled = Boolean(state.enabled);
+      musicShouldPlay = Boolean(state.shouldPlay);
+      musicIndex = Number.isInteger(state.index) ? state.index : 0;
+
+      if (!musicFiles.length) {
+        musicTrackLabel.textContent = "No music files found";
+        return;
+      }
+
+      const elapsed = state.savedAt && musicShouldPlay ? Math.max(0, (Date.now() - state.savedAt) / 1000) : 0;
+      const resumeTime = Math.max(0, Number(state.currentTime || 0) + elapsed);
+      setMusicTrack(musicIndex, resumeTime, musicEnabled && musicShouldPlay);
+    }
+
+    musicToggle?.addEventListener("click", async () => {
+      musicEnabled = !musicEnabled;
+      if (!musicEnabled) {
+        musicAudio.pause();
+        musicShouldPlay = false;
+      } else if (musicFiles.length) {
+        try { await musicAudio.play(); musicShouldPlay = true; } catch (error) {}
+      }
+      saveMusicState();
+      refreshMusicUi();
+    });
+
+    musicPlayPause?.addEventListener("click", async () => {
+      if (!musicFiles.length) return;
+      if (!musicEnabled) musicEnabled = true;
+      if (musicAudio.paused) {
+        try { await musicAudio.play(); musicShouldPlay = true; } catch (error) {}
+      } else {
+        musicAudio.pause();
+        musicShouldPlay = false;
+      }
+      saveMusicState();
+      refreshMusicUi();
+    });
+
+    musicPrev?.addEventListener("click", () => {
+      if (!musicFiles.length) return;
+      setMusicTrack(musicIndex - 1, 0, musicEnabled);
+      musicShouldPlay = musicEnabled;
+      saveMusicState();
+    });
+
+    musicNext?.addEventListener("click", () => {
+      if (!musicFiles.length) return;
+      setMusicTrack(musicIndex + 1, 0, musicEnabled);
+      musicShouldPlay = musicEnabled;
+      saveMusicState();
+    });
+
+    musicAudio?.addEventListener("play", () => { musicShouldPlay = true; saveMusicState(); refreshMusicUi(); });
+    musicAudio?.addEventListener("pause", () => { saveMusicState(); refreshMusicUi(); });
+    musicAudio?.addEventListener("timeupdate", () => { if (Math.floor(musicAudio.currentTime) % 2 === 0) saveMusicState(); });
+    musicAudio?.addEventListener("ended", () => { setMusicTrack(musicIndex + 1, 0, musicEnabled); });
+    window.addEventListener("pagehide", saveMusicState);
+    window.addEventListener("beforeunload", saveMusicState);
+    document.addEventListener("visibilitychange", () => { if (document.hidden) saveMusicState(); });
+
+    initSharedMusic();
+
   </script>
 </body>
 </html>
