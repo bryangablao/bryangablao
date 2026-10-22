@@ -2011,10 +2011,10 @@
     animateRipples();
     setTimeout(spawnMeteor, 1800);
 
-
-    /* ---------- Background Music Playlist ---------- */
+    /* ---------- Shared Background Music Playlist ---------- */
     const musicFolder = "mp4";
     const musicSupportedExtensions = ["mp3", "mp4", "m4a", "aac", "ogg", "wav", "webm"];
+    const musicStateKey = "accxs-music-state";
 
     const musicAudio = document.getElementById("backgroundMusic");
     const musicLauncher = document.getElementById("musicLauncher");
@@ -2031,6 +2031,8 @@
     let musicTracks = [];
     let musicCurrentIndex = 0;
     let musicEnabled = false;
+    let musicLastSavedSecond = -1;
+    let musicRestoreState = null;
 
     musicAudio.volume = 0.35;
 
@@ -2040,6 +2042,49 @@
         .replace(/[_-]+/g, " ")
         .replace(/\s+/g, " ")
         .trim();
+    }
+
+    function musicReadState() {
+      try {
+        const raw = localStorage.getItem(musicStateKey);
+        return raw ? JSON.parse(raw) : null;
+      } catch (error) {
+        return null;
+      }
+    }
+
+    function musicSaveState(playingOverride) {
+      if (!musicTracks.length) return;
+
+      const track = musicTracks[musicCurrentIndex];
+      const state = {
+        track: track ? track.name : null,
+        currentTime: Number.isFinite(musicAudio.currentTime) ? musicAudio.currentTime : 0,
+        enabled: musicEnabled,
+        playing: typeof playingOverride === "boolean"
+          ? playingOverride
+          : musicEnabled && !musicAudio.paused && !musicAudio.ended,
+        volume: musicAudio.volume,
+        updatedAt: Date.now()
+      };
+
+      try {
+        localStorage.setItem(musicStateKey, JSON.stringify(state));
+        if (track) localStorage.setItem("accxs-music-track", track.name);
+      } catch (error) {}
+    }
+
+    function musicSetEnabledUI(enabled) {
+      musicEnabled = enabled;
+      musicPowerBtn.classList.toggle("music-enabled", enabled);
+      musicPowerIcon.className = enabled ? "fa-solid fa-volume-high" : "fa-solid fa-volume-xmark";
+      musicPowerBtn.setAttribute("aria-label", enabled ? "Turn music off" : "Turn music on");
+      musicLauncher.classList.toggle("active", enabled);
+    }
+
+    function musicSetPlayUI(playing) {
+      musicPlayIcon.className = playing ? "fa-solid fa-pause" : "fa-solid fa-play";
+      musicPlayBtn.setAttribute("aria-label", playing ? "Pause music" : "Play music");
     }
 
     function musicGetGitHubRepository() {
@@ -2105,17 +2150,42 @@
           return;
         }
 
-        const savedTrackName = (() => {
-          try { return localStorage.getItem("accxs-music-track"); } catch (error) { return null; }
-        })();
+        musicRestoreState = musicReadState();
 
-        if (savedTrackName) {
-          const savedIndex = musicTracks.findIndex(track => track.name === savedTrackName);
+        if (musicRestoreState && musicRestoreState.track) {
+          const savedIndex = musicTracks.findIndex(track => track.name === musicRestoreState.track);
           if (savedIndex >= 0) musicCurrentIndex = savedIndex;
+        } else {
+          try {
+            const savedTrackName = localStorage.getItem("accxs-music-track");
+            const savedIndex = musicTracks.findIndex(track => track.name === savedTrackName);
+            if (savedIndex >= 0) musicCurrentIndex = savedIndex;
+          } catch (error) {}
         }
 
-        musicLoadTrack(musicCurrentIndex);
-        musicStatus.textContent = `${musicTracks.length} track${musicTracks.length === 1 ? "" : "s"} ready. Music is off.`;
+        if (musicRestoreState && Number.isFinite(Number(musicRestoreState.volume))) {
+          musicAudio.volume = Math.max(0, Math.min(1, Number(musicRestoreState.volume)));
+        }
+
+        const restoreTime = musicRestoreState && Number.isFinite(Number(musicRestoreState.currentTime))
+          ? Math.max(0, Number(musicRestoreState.currentTime))
+          : 0;
+
+        const shouldResume = Boolean(
+          musicRestoreState &&
+          musicRestoreState.enabled &&
+          musicRestoreState.playing
+        );
+
+        musicSetEnabledUI(Boolean(musicRestoreState && musicRestoreState.enabled));
+        musicLoadTrack(musicCurrentIndex, restoreTime, shouldResume);
+
+        if (!shouldResume) {
+          musicSetPlayUI(false);
+          musicStatus.textContent = musicEnabled
+            ? "Music paused."
+            : `${musicTracks.length} track${musicTracks.length === 1 ? "" : "s"} ready. Music is off.`;
+        }
       } catch (error) {
         console.error("Music playlist could not be loaded:", error);
         musicTrackName.textContent = "Playlist unavailable";
@@ -2123,73 +2193,100 @@
       }
     }
 
-    function musicLoadTrack(index) {
+    function musicLoadTrack(index, startTime = 0, autoResume = false) {
       if (!musicTracks.length) return;
 
       musicCurrentIndex = (index + musicTracks.length) % musicTracks.length;
       const track = musicTracks[musicCurrentIndex];
 
       musicAudio.src = track.url;
-      musicAudio.load();
       musicTrackName.textContent = musicPrettyName(track.name) || track.name;
       musicTrackName.title = track.name;
 
       try { localStorage.setItem("accxs-music-track", track.name); } catch (error) {}
+
+      const restorePosition = () => {
+        let targetTime = Math.max(0, Number(startTime) || 0);
+
+        if (
+          autoResume &&
+          musicRestoreState &&
+          Number.isFinite(Number(musicRestoreState.updatedAt))
+        ) {
+          const elapsed = Math.max(0, (Date.now() - Number(musicRestoreState.updatedAt)) / 1000);
+          targetTime += elapsed;
+        }
+
+        if (Number.isFinite(musicAudio.duration) && musicAudio.duration > 0) {
+          targetTime = Math.min(targetTime, Math.max(0, musicAudio.duration - 0.25));
+        }
+
+        try { musicAudio.currentTime = targetTime; } catch (error) {}
+
+        if (autoResume) {
+          musicPlay(true);
+        } else {
+          musicSaveState(false);
+        }
+      };
+
+      musicAudio.addEventListener("loadedmetadata", restorePosition, { once: true });
+      musicAudio.load();
     }
 
-    async function musicPlay() {
+    async function musicPlay(isRestore = false) {
       if (!musicTracks.length) {
         musicStatus.textContent = "No playable music is available yet.";
         return;
       }
 
-      musicEnabled = true;
-      musicPowerBtn.classList.add("music-enabled");
-      musicPowerIcon.className = "fa-solid fa-volume-high";
-      musicPowerBtn.setAttribute("aria-label", "Turn music off");
-      musicLauncher.classList.add("active");
+      musicSetEnabledUI(true);
 
       try {
         await musicAudio.play();
-        musicPlayIcon.className = "fa-solid fa-pause";
-        musicPlayBtn.setAttribute("aria-label", "Pause music");
-        musicStatus.textContent = `Playing ${musicCurrentIndex + 1} of ${musicTracks.length}`;
+        musicSetPlayUI(true);
+        musicStatus.textContent = isRestore
+          ? `Continuing ${musicCurrentIndex + 1} of ${musicTracks.length}`
+          : `Playing ${musicCurrentIndex + 1} of ${musicTracks.length}`;
+        musicSaveState(true);
       } catch (error) {
-        musicPlayIcon.className = "fa-solid fa-play";
-        musicPlayBtn.setAttribute("aria-label", "Play music");
-        musicStatus.textContent = "Press Play to allow music in your browser.";
+        musicSetPlayUI(false);
+        musicStatus.textContent = isRestore
+          ? "Music is ready. Press Play if your browser blocked automatic resume."
+          : "Press Play to allow music in your browser.";
+        musicSaveState(false);
       }
     }
 
     function musicPause() {
       musicAudio.pause();
-      musicPlayIcon.className = "fa-solid fa-play";
-      musicPlayBtn.setAttribute("aria-label", "Play music");
+      musicSetPlayUI(false);
       musicStatus.textContent = musicEnabled ? "Music paused." : "Music is off.";
+      musicSaveState(false);
     }
 
     function musicTurnOff() {
       musicEnabled = false;
-      musicPause();
-      musicPowerBtn.classList.remove("music-enabled");
-      musicPowerIcon.className = "fa-solid fa-volume-xmark";
-      musicPowerBtn.setAttribute("aria-label", "Turn music on");
-      musicLauncher.classList.remove("active");
+      musicAudio.pause();
+      musicSetEnabledUI(false);
+      musicSetPlayUI(false);
       musicStatus.textContent = "Music is off.";
+      musicSaveState(false);
     }
 
     async function musicChangeTrack(direction) {
       if (!musicTracks.length) return;
 
       const wasPlaying = musicEnabled && !musicAudio.paused;
-      musicLoadTrack(musicCurrentIndex + direction);
+      musicRestoreState = null;
+      musicLoadTrack(musicCurrentIndex + direction, 0, false);
 
       if (wasPlaying) {
-        await musicPlay();
+        musicAudio.addEventListener("canplay", () => musicPlay(), { once: true });
       } else {
-        musicPlayIcon.className = "fa-solid fa-play";
-        musicPlayBtn.setAttribute("aria-label", "Play music");
+        musicSetPlayUI(false);
         musicStatus.textContent = musicEnabled ? "Track selected. Music paused." : "Music is off.";
+        musicSaveState(false);
       }
     }
 
@@ -2213,15 +2310,36 @@
 
     musicAudio.addEventListener("ended", () => {
       if (!musicEnabled || !musicTracks.length) return;
-      musicLoadTrack(musicCurrentIndex + 1);
-      musicPlay();
+      musicRestoreState = null;
+      musicLoadTrack(musicCurrentIndex + 1, 0, false);
+      musicAudio.addEventListener("canplay", () => musicPlay(), { once: true });
     });
 
     musicAudio.addEventListener("error", () => {
       if (!musicTracks.length) return;
       musicStatus.textContent = "This track could not be played. Trying the next track...";
-      musicLoadTrack(musicCurrentIndex + 1);
-      if (musicEnabled) musicPlay();
+      musicRestoreState = null;
+      musicLoadTrack(musicCurrentIndex + 1, 0, false);
+      if (musicEnabled) {
+        musicAudio.addEventListener("canplay", () => musicPlay(), { once: true });
+      }
+    });
+
+    musicAudio.addEventListener("timeupdate", () => {
+      const second = Math.floor(musicAudio.currentTime || 0);
+      if (second === musicLastSavedSecond) return;
+      musicLastSavedSecond = second;
+      musicSaveState();
+    });
+
+    window.addEventListener("pagehide", () => {
+      musicSaveState(musicEnabled && !musicAudio.paused && !musicAudio.ended);
+    });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "hidden") {
+        musicSaveState(musicEnabled && !musicAudio.paused && !musicAudio.ended);
+      }
     });
 
     musicDiscoverTracks();
