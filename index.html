@@ -1,2351 +1,656 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Personal portfolio of Bryan G. Ablao">
-  <meta name="color-scheme" content="dark light">
-  <title>About Me | Bryan G. Ablao</title>
-  <link rel="icon" type="image/png" href="images/AblaoClan.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-  <script>
-    (function () {
-      try {
-        const savedTheme = localStorage.getItem("accxs-theme");
-        const systemLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches;
-        document.documentElement.dataset.theme = savedTheme || (systemLight ? "light" : "dark");
-      } catch (error) {
-        document.documentElement.dataset.theme = "dark";
-      }
-    })();
-  </script>
-
-  <style>
-    :root {
-      --bg: #080a10;
-      --panel: rgba(17, 20, 31, 0.72);
-      --panel-2: rgba(255, 255, 255, 0.035);
-      --border: rgba(255, 255, 255, 0.09);
-      --text: #f3f4f6;
-      --muted: #9ca3af;
-      --purple: #7c3aed;
-      --purple-light: #a78bfa;
-      --blue: #3b82f6;
-      --shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
-      --radius: 18px;
-      --header-bg: rgba(8, 10, 16, 0.82);
-      --panel-solid: #10131d;
-      --sidebar-bg: #0b0d14;
-      --glow-purple: rgba(124, 58, 237, 0.18);
-      --glow-blue: rgba(59, 130, 246, 0.15);
-      --panel-hover: rgba(255, 255, 255, 0.075);
-      --border-strong: rgba(167, 139, 250, 0.32);
-      --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    html[data-theme="light"] {
-      --bg: #f5f7fb;
-      --panel: rgba(255, 255, 255, 0.82);
-      --panel-2: rgba(15, 23, 42, 0.035);
-      --border: rgba(15, 23, 42, 0.10);
-      --text: #111827;
-      --muted: #64748b;
-      --purple: #6d28d9;
-      --purple-light: #7c3aed;
-      --blue: #2563eb;
-      --shadow: 0 18px 55px rgba(15, 23, 42, 0.12);
-      --header-bg: rgba(248, 250, 252, 0.84);
-      --panel-solid: #ffffff;
-      --sidebar-bg: #ffffff;
-      --glow-purple: rgba(124, 58, 237, 0.09);
-      --glow-blue: rgba(59, 130, 246, 0.08);
-      --panel-hover: rgba(109, 40, 217, 0.075);
-      --border-strong: rgba(109, 40, 217, 0.28);
-      --transition: 0.28s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      min-height: 100vh;
-      overflow-x: hidden;
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 10% 10%, var(--glow-purple), transparent 30%),
-        radial-gradient(circle at 90% 85%, var(--glow-blue), transparent 30%),
-        var(--bg);
-      line-height: 1.6;
-      transition: background-color 0.28s ease, color 0.28s ease;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    button,
-    input,
-    textarea {
-      font: inherit;
-    }
-
-    #starsCanvas,
-    #rippleCanvas {
-      position: fixed;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    #starsCanvas { z-index: 0; }
-    #rippleCanvas { z-index: 1; }
-
-    .page-shell {
-      position: relative;
-      z-index: 2;
-    }
-
-    /* ---------- Header ---------- */
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      width: 100%;
-      padding: 1rem 5%;
-      background: var(--header-bg);
-      border-bottom: 1px solid var(--border);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      transition: background var(--transition), border-color var(--transition);
-    }
-
-    .brand {
-      flex-shrink: 0;
-      font-size: 1.2rem;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      background: linear-gradient(135deg, var(--text), var(--purple-light));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-    }
-
-    .desktop-nav {
-      display: flex;
-      align-items: center;
-      gap: 1.35rem;
-    }
-
-    .desktop-nav a {
-      position: relative;
-      color: var(--muted);
-      font-size: 0.88rem;
-      font-weight: 550;
-      transition: color var(--transition);
-    }
-
-    .desktop-nav a:hover,
-    .desktop-nav a.active {
-      color: var(--text);
-    }
-
-    .desktop-nav a.active::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -7px;
-      width: 100%;
-      height: 2px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, var(--purple), var(--blue));
-    }
-
-    .header-action {
-      width: 40px;
-      height: 40px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--panel-2);
-      color: var(--text);
-      cursor: pointer;
-      transition: transform var(--transition), background var(--transition), border-color var(--transition);
-    }
-
-    .header-action:hover {
-      transform: translateY(-2px);
-      background: var(--panel-hover);
-      border-color: var(--border-strong);
-    }
-
-    .hamburger {
-      display: none;
-    }
-
-    /* ---------- Sidebar ---------- */
-    #sidebarOverlay {
-      position: fixed;
-      inset: 0;
-      z-index: 999;
-      display: none;
-      background: rgba(0, 0, 0, 0.48);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-    }
-
-    #sidebar {
-      position: fixed;
-      top: 0;
-      right: -310px;
-      z-index: 1000;
-      width: min(310px, 86vw);
-      height: 100vh;
-      padding: 5.6rem 1.4rem 2rem;
-      background: var(--panel-solid);
-      border-left: 1px solid var(--border);
-      box-shadow: var(--shadow);
-      transition: right var(--transition);
-    }
-
-    #sidebar.open {
-      right: 0;
-    }
-
-    #sidebar ul {
-      list-style: none;
-      display: grid;
-      gap: 0.5rem;
-    }
-
-    #sidebar a {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.85rem 1rem;
-      border-radius: 12px;
-      color: var(--muted);
-      font-size: 0.95rem;
-      font-weight: 600;
-      transition: color var(--transition), background var(--transition);
-    }
-
-    #sidebar a:hover,
-    #sidebar a.active {
-      color: var(--text);
-      background: var(--panel-hover);
-    }
-
-    main {
-      width: min(1100px, calc(100% - 2rem));
-      margin: 0 auto;
-      padding: 3rem 0;
-      display: grid;
-      gap: 2rem;
-    }
-
-    .glass-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      padding: 2rem;
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease, transform 0.7s ease, border-color 0.25s ease;
-    }
-
-    .glass-card.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .glass-card:hover {
-      border-color: rgba(167, 139, 250, 0.25);
-    }
-
-    .profile-layout {
-      display: grid;
-      grid-template-columns: 230px 1fr;
-      gap: 2.25rem;
-      align-items: center;
-    }
-
-    .profile-avatar-wrapper {
-      width: 190px;
-      height: 190px;
-      margin: 0 auto;
-      padding: 4px;
-      border-radius: 50%;
-      cursor: pointer;
-      background: linear-gradient(135deg, var(--purple), var(--blue));
-      box-shadow: 0 0 36px rgba(124, 58, 237, 0.35);
-      transition: 0.35s ease;
-    }
-
-    .profile-avatar-wrapper:hover {
-      transform: scale(1.04) rotate(2deg);
-      box-shadow: 0 0 52px rgba(124, 58, 237, 0.52);
-    }
-
-    .profile-avatar-wrapper img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-      background: #111827;
-    }
-
-
-    /* Developer code stream around profile */
-    .developer-profile-column {
-      position: relative;
-      width: 230px;
-      min-height: 510px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 18px;
-      overflow: visible;
-      align-self: center;
-    }
-
-    .developer-profile-column::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 58px;
-      bottom: 58px;
-      width: 1px;
-      transform: translateX(-50%);
-      background: linear-gradient(to bottom, transparent, rgba(167,139,250,.13), rgba(59,130,246,.18), rgba(167,139,250,.13), transparent);
-      z-index: -1;
-    }
-
-    .code-stream {
-      width: 100%;
-      position: relative;
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-      font-size: 10px;
-      line-height: 1.65;
-      letter-spacing: .02em;
-      pointer-events: none;
-      opacity: .76;
-      filter: drop-shadow(0 0 7px rgba(124,58,237,.12));
-      text-align: left;
-    }
-
-    .code-line {
-      white-space: nowrap;
-      opacity: 0;
-      transform: translateY(5px);
-      animation: codeLineReveal 6s ease-in-out infinite;
-    }
-
-    .code-line.delay-1 { animation-delay: .35s; }
-    .code-line.delay-2 { animation-delay: .7s; }
-    .code-line.delay-3 { animation-delay: 1.05s; }
-    .code-line.delay-4 { animation-delay: 1.4s; }
-    .code-indent { padding-left: 12px; }
-
-    @keyframes codeLineReveal {
-      0% { opacity: 0; transform: translateY(6px); }
-      12%, 72% { opacity: .78; transform: translateY(0); }
-      90%, 100% { opacity: 0; transform: translateY(-4px); }
-    }
-
-    .code-tag { color: var(--purple-light); }
-    .code-purple { color: #a78bfa; }
-    .code-blue { color: #60a5fa; }
-    .code-green, .status-success { color: #34d399; }
-    .code-string { color: #93c5fd; }
-    .code-text { color: var(--muted); }
-    .code-muted { color: rgba(156,163,175,.62); }
-    .terminal-symbol { color: var(--purple-light); font-weight: 700; }
-
-    .profile-tech-wrapper {
-      width: 224px;
-      height: 224px;
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .profile-tech-wrapper .profile-avatar-wrapper {
-      position: relative;
-      z-index: 5;
-      margin: 0;
-    }
-
-    .profile-orbit {
-      position: absolute;
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .orbit-one {
-      width: 205px;
-      height: 205px;
-      border: 1px solid rgba(167,139,250,.23);
-      animation: orbitRotate 14s linear infinite;
-    }
-
-    .orbit-one::before {
-      content: "";
-      position: absolute;
-      width: 5px;
-      height: 5px;
-      left: 50%;
-      top: -3px;
-      transform: translateX(-50%);
-      border-radius: 50%;
-      background: var(--purple-light);
-      box-shadow: 0 0 5px var(--purple-light), 0 0 12px rgba(167,139,250,.7);
-    }
-
-    .orbit-two {
-      width: 221px;
-      height: 221px;
-      border: 1px dashed rgba(59,130,246,.18);
-      animation: orbitRotateReverse 20s linear infinite;
-    }
-
-    .orbit-two::after {
-      content: "";
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      left: 10%;
-      top: 28%;
-      border-radius: 50%;
-      background: var(--blue);
-      box-shadow: 0 0 6px var(--blue), 0 0 15px rgba(59,130,246,.7);
-    }
-
-    @keyframes orbitRotate { from { transform: rotate(0); } to { transform: rotate(360deg); } }
-    @keyframes orbitRotateReverse { from { transform: rotate(360deg); } to { transform: rotate(0); } }
-
-    .tech-dot {
-      position: absolute;
-      width: 4px;
-      height: 4px;
-      border-radius: 50%;
-      z-index: 3;
-      background: var(--purple-light);
-      box-shadow: 0 0 5px currentColor, 0 0 12px currentColor;
-      animation: techPulse 2.8s ease-in-out infinite;
-    }
-
-    .tech-dot-1 { top: 10px; left: 38px; }
-    .tech-dot-2 { right: 6px; top: 112px; background: var(--blue); animation-delay: .8s; }
-    .tech-dot-3 { bottom: 9px; left: 62px; animation-delay: 1.5s; }
-
-    @keyframes techPulse {
-      0%, 100% { opacity: .25; transform: scale(.7); }
-      50% { opacity: 1; transform: scale(1.4); }
-    }
-
-    .terminal-active {
-      margin-top: 4px;
-      opacity: 1;
-      animation: none;
-      min-height: 17px;
-    }
-
-    #developerTerminalText { color: #93c5fd; }
-
-    .terminal-cursor {
-      display: inline-block;
-      width: 6px;
-      height: 11px;
-      margin-left: 2px;
-      vertical-align: -1px;
-      background: var(--purple-light);
-      box-shadow: 0 0 8px rgba(167,139,250,.6);
-      animation: terminalBlink .85s step-end infinite;
-    }
-
-    @keyframes terminalBlink {
-      0%, 50% { opacity: 1; }
-      51%, 100% { opacity: 0; }
-    }
-
-    html[data-theme="light"] .code-muted { color: rgba(71,85,105,.65); }
-    html[data-theme="light"] .code-text { color: #64748b; }
-
-    .profile-title {
-      font-size: clamp(2rem, 5vw, 2.7rem);
-      line-height: 1.05;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.04em;
-    }
-
-    .subtitle {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      flex-wrap: wrap;
-      margin-bottom: 1rem;
-      color: var(--purple-light);
-      font-weight: 600;
-    }
-
-    .typing-text {
-      min-height: 1.4em;
-      border-right: 2px solid var(--purple-light);
-      padding-right: 3px;
-      animation: blink 0.8s step-end infinite;
-    }
-
-    @keyframes blink {
-      50% { border-color: transparent; }
-    }
-
-    .profile-bio {
-      color: var(--muted);
-      margin-bottom: 1.35rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.35rem;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-      border: 1px solid transparent;
-      border-radius: 12px;
-      padding: 0.72rem 1.15rem;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      transition: 0.25s ease;
-    }
-
-    .btn-primary {
-      color: white;
-      background: linear-gradient(135deg, var(--purple), var(--blue));
-      box-shadow: 0 8px 24px rgba(124, 58, 237, 0.25);
-    }
-
-    .btn-secondary {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.05);
-      border-color: var(--border);
-    }
-
-    .btn-primary:hover,
-    .btn-secondary:hover {
-      transform: translateY(-2px);
-    }
-
-    .stats-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.9rem;
-      margin: 1.4rem 0;
-    }
-
-    .stat-box {
-      text-align: center;
-      padding: 1rem;
-      background: var(--panel-2);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-    }
-
-    .stat-box h3 {
-      color: var(--purple-light);
-      font-size: 1.7rem;
-    }
-
-    .stat-box p {
-      color: var(--muted);
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-      gap: 1rem;
-      padding-top: 1.2rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .info-item span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 0.2rem;
-    }
-
-    .info-item a:hover { color: var(--purple-light); }
-
-    .section-title {
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
-      margin-bottom: 1.25rem;
-      font-size: 1.45rem;
-    }
-
-    .section-title i { color: var(--purple-light); }
-
-    .section-title::after {
-      content: "";
-      flex: 1;
-      height: 1px;
-      background: var(--border);
-    }
-
-    .filter-tabs {
-      display: flex;
-      gap: 0.65rem;
-      flex-wrap: wrap;
-      margin-bottom: 1.2rem;
-    }
-
-    .filter-btn {
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: var(--panel-2);
-      color: var(--muted);
-      padding: 0.45rem 0.95rem;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-
-    .filter-btn:hover,
-    .filter-btn.active {
-      color: white;
-      background: var(--purple);
-      border-color: var(--purple);
-    }
-
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1rem;
-    }
-
-    .skill-item {
-      padding: 1rem;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: var(--panel-2);
-    }
-
-    .skill-info {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 0.55rem;
-      font-size: 0.9rem;
-    }
-
-    .skill-bar {
-      height: 8px;
-      overflow: hidden;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.08);
-    }
-
-    .skill-progress {
-      width: 0;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--purple), var(--blue));
-      transition: width 1.4s cubic-bezier(.16,.84,.44,1);
-    }
-
-    .two-column {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-
-    .family-group + .family-group { margin-top: 1.5rem; }
-
-    .family-label {
-      margin-bottom: 0.8rem;
-      color: var(--muted);
-      font-size: 0.76rem;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .family-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    .family-card,
-    .value-card {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: var(--panel-2);
-      transition: 0.25s ease;
-    }
-
-    .family-card {
-      padding: 1rem;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .family-card:hover,
-    .value-card:hover {
-      transform: translateY(-4px);
-      border-color: rgba(167, 139, 250, 0.38);
-    }
-
-    .family-card img {
-      width: 82px;
-      height: 82px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid var(--border);
-      margin-bottom: 0.65rem;
-    }
-
-    .family-card p,
-    .value-card p,
-    .timeline-desc {
-      color: var(--muted);
-      font-size: 0.85rem;
-    }
-
-    .value-card {
-      padding: 1.1rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .value-card h4 {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--purple-light);
-      margin-bottom: 0.35rem;
-    }
-
-    .timeline {
-      position: relative;
-      padding-left: 1.6rem;
-    }
-
-    .timeline::before {
-      content: "";
-      position: absolute;
-      left: 0.25rem;
-      top: 0.25rem;
-      bottom: 0.25rem;
-      width: 2px;
-      background: linear-gradient(var(--purple), var(--blue));
-    }
-
-    .timeline-item {
-      position: relative;
-      padding-left: 1rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .timeline-item:last-child { margin-bottom: 0; }
-
-    .timeline-item::before {
-      content: "";
-      position: absolute;
-      left: -1.72rem;
-      top: 0.35rem;
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: var(--purple);
-      box-shadow: 0 0 12px rgba(124, 58, 237, 0.8);
-    }
-
-    .timeline-date {
-      color: var(--purple-light);
-      font-size: 0.8rem;
-      font-weight: 700;
-      margin-bottom: 0.2rem;
-    }
-
-    .modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      background: rgba(0, 0, 0, 0.72);
-      backdrop-filter: blur(8px);
-    }
-
-    .modal-box {
-      position: relative;
-      width: min(520px, 100%);
-      max-height: 90vh;
-      overflow-y: auto;
-      padding: 2rem;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      background: var(--panel-solid);
-      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.55);
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 0.85rem;
-      right: 1rem;
-      border: 0;
-      background: transparent;
-      color: var(--muted);
-      font-size: 1.65rem;
-      cursor: pointer;
-    }
-
-    .modal-box h3 {
-      text-align: center;
-      margin-bottom: 0.8rem;
-    }
-
-    .modal-box > p {
-      color: var(--muted);
-      text-align: center;
-    }
-
-    .modal-profile-img {
-      display: block;
-      width: 120px;
-      height: 120px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 2px solid var(--purple);
-      margin: 0 auto 1rem;
-    }
-
-    .contact-stack {
-      display: grid;
-      gap: 0.8rem;
-      margin-top: 1.25rem;
-    }
-
-    /* ---------- Professional Footer ---------- */
-    footer {
-      position: relative;
-      z-index: 2;
-      color: var(--muted);
-      margin-top: 1rem;
-      border-top: 1px solid var(--border);
-      background:
-        linear-gradient(180deg, transparent, rgba(124, 58, 237, 0.035)),
-        var(--header-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-    }
-
-    .footer-container {
-      width: min(1180px, calc(100% - 2rem));
-      margin: 0 auto;
-      padding: 3rem 0 2rem;
-      display: grid;
-      grid-template-columns: 1.45fr 0.85fr 1fr 1.1fr;
-      gap: 2.25rem;
-      align-items: start;
-    }
-
-    .footer-brand {
-      max-width: 360px;
-    }
-
-    .footer-logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.7rem;
-      margin-bottom: 0.9rem;
-      color: var(--text);
-      font-size: 1.08rem;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .footer-logo-mark {
-      width: 38px;
-      height: 38px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border: 1px solid rgba(167, 139, 250, 0.32);
-      border-radius: 12px;
-      color: #fff;
-      background: linear-gradient(135deg, var(--purple), var(--blue));
-      box-shadow: 0 8px 22px rgba(124, 58, 237, 0.2);
-    }
-
-    .footer-brand p {
-      max-width: 340px;
-      font-size: 0.86rem;
-      line-height: 1.75;
-    }
-
-    .footer-heading {
-      margin-bottom: 0.9rem;
-      color: var(--text);
-      font-size: 0.82rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .footer-nav,
-    .footer-contact,
-    .footer-status-list {
-      list-style: none;
-      display: grid;
-      gap: 0.65rem;
-    }
-
-    .footer-nav a,
-    .footer-contact a {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.84rem;
-      transition: color 0.2s ease, transform 0.2s ease;
-    }
-
-    .footer-nav a:hover,
-    .footer-contact a:hover {
-      color: var(--purple-light);
-      transform: translateX(3px);
-    }
-
-    .footer-contact li,
-    .footer-status-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      font-size: 0.84rem;
-      line-height: 1.55;
-    }
-
-    .footer-contact i,
-    .footer-status-list i {
-      width: 16px;
-      margin-top: 0.2rem;
-      color: var(--purple-light);
-      text-align: center;
-      flex-shrink: 0;
-    }
-
-    .footer-status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      width: fit-content;
-      margin-bottom: 0.9rem;
-      padding: 0.42rem 0.72rem;
-      border: 1px solid rgba(52, 211, 153, 0.22);
-      border-radius: 999px;
-      color: #34d399;
-      background: rgba(52, 211, 153, 0.06);
-      font-size: 0.73rem;
-      font-weight: 700;
-    }
-
-    .footer-status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #34d399;
-      box-shadow: 0 0 10px rgba(52, 211, 153, 0.8);
-      animation: footerStatusPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes footerStatusPulse {
-      0%, 100% { opacity: 0.55; transform: scale(0.9); }
-      50% { opacity: 1; transform: scale(1.15); }
-    }
-
-    .footer-time {
-      font-size: 0.76rem;
-      line-height: 1.55;
-    }
-
-    .footer-bottom {
-      width: min(1180px, calc(100% - 2rem));
-      margin: 0 auto;
-      padding: 1.15rem 0 1.6rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      border-top: 1px solid var(--border);
-      font-size: 0.76rem;
-    }
-
-    .footer-bottom-links {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
-    .footer-bottom-links a {
-      transition: color 0.2s ease;
-    }
-
-    .footer-bottom-links a:hover {
-      color: var(--purple-light);
-    }
-
-    html[data-theme="light"] footer {
-      background:
-        linear-gradient(180deg, transparent, rgba(109, 40, 217, 0.025)),
-        rgba(255, 255, 255, 0.72);
-    }
-
-    body.modal-open { overflow: hidden; }
-
-    @media (max-width: 850px) {
-      .desktop-nav { display: none; }
-      .hamburger { display: inline-flex; }
-      .profile-layout,
-      .two-column { grid-template-columns: 1fr; }
-      .profile-layout { text-align: center; }
-      .subtitle,
-      .hero-actions { justify-content: center; }
-      .developer-profile-column { width: min(280px, 100%); min-height: auto; margin-bottom: 12px; }
-      .code-stream { width: 230px; font-size: 9px; }
-      .footer-container { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 650px) {
-      header {
-        padding-inline: 1rem;
-      }
-    }
-
-    @media (max-width: 580px) {
-      .glass-card { padding: 1.25rem; }
-      .stats-container { grid-template-columns: 1fr; }
-      .family-grid { grid-template-columns: 1fr 1fr; }
-      .profile-avatar-wrapper { width: 155px; height: 155px; }
-      .developer-profile-column { width: 210px; }
-      .profile-tech-wrapper { width: 180px; height: 180px; }
-      .orbit-one { width: 169px; height: 169px; }
-      .orbit-two { width: 180px; height: 180px; }
-      .code-stream { width: 205px; font-size: 8px; }
-      .footer-container {
-        grid-template-columns: 1fr;
-        gap: 1.7rem;
-        padding-top: 2.2rem;
-      }
-      .footer-brand { max-width: none; }
-      .footer-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      .code-line, .profile-orbit, .tech-dot, .terminal-cursor { animation: none !important; }
-      .code-line { opacity: .65; transform: none; }
-    }
-
-.footer-company-link {
-  color: inherit;
-  font: inherit;
-  font-weight: inherit;
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-.footer-company-link:hover,
-.footer-company-link:focus-visible {
-  color: var(--purple-light);
-}
-    
-
-
-    /* ---------- Background Music Player ---------- */
-    .music-player {
-      position: fixed;
-      right: 1.2rem;
-      bottom: 1.2rem;
-      z-index: 1500;
-      display: flex;
-      align-items: flex-end;
-      gap: 0.65rem;
-      pointer-events: none;
-    }
-
-    .music-launcher,
-    .music-control {
-      border: 1px solid var(--border);
-      color: var(--text);
-      background: var(--panel-solid);
-      cursor: pointer;
-      transition: transform var(--transition), background var(--transition), border-color var(--transition);
-    }
-
-    .music-launcher:hover,
-    .music-control:hover {
-      transform: translateY(-2px);
-      background: var(--panel-hover);
-      border-color: var(--border-strong);
-    }
-
-    .music-launcher {
-      width: 48px;
-      height: 48px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      border-radius: 50%;
-      box-shadow: var(--shadow);
-      font-size: 1rem;
-      pointer-events: auto;
-    }
-
-    .music-launcher.active {
-      color: #fff;
-      background: linear-gradient(135deg, var(--purple), var(--blue));
-      border-color: transparent;
-      box-shadow: 0 8px 28px rgba(124, 58, 237, 0.34);
-    }
-
-    .music-panel {
-      width: min(330px, calc(100vw - 5.8rem));
-      padding: 0.85rem;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      background: var(--panel-solid);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(10px) scale(0.97);
-      transform-origin: right bottom;
-      pointer-events: none;
-      transition: opacity var(--transition), transform var(--transition), visibility var(--transition);
-    }
-
-    .music-panel.open {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0) scale(1);
-      pointer-events: auto;
-    }
-
-    .music-label {
-      display: block;
-      margin-bottom: 0.15rem;
-      color: var(--purple-light);
-      font-size: 0.66rem;
-      font-weight: 800;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-    }
-
-    .music-track-name {
-      display: block;
-      width: 100%;
-      overflow: hidden;
-      color: var(--text);
-      font-size: 0.82rem;
-      font-weight: 650;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .music-controls {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.45rem;
-      margin-top: 0.75rem;
-    }
-
-    .music-control {
-      min-width: 0;
-      height: 38px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-      font-size: 0.82rem;
-    }
-
-    .music-control.music-enabled {
-      color: #34d399;
-      border-color: rgba(52, 211, 153, 0.32);
-      background: rgba(52, 211, 153, 0.08);
-    }
-
-    .music-status {
-      min-height: 1.25em;
-      margin-top: 0.55rem;
-      color: var(--muted);
-      font-size: 0.68rem;
-      line-height: 1.35;
-    }
-
-    @media (max-width: 580px) {
-      .music-player {
-        right: 0.85rem;
-        bottom: 0.85rem;
-      }
-
-      .music-launcher {
-        width: 44px;
-        height: 44px;
-      }
-    }
-
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Personal portfolio of Bryan G. Ablao">
+<meta name="color-scheme" content="dark light">
+<title>Bryan G. Ablao</title>
+<link rel="icon" type="image/png" href="images/AblaoClan.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<script>
+(function(){try{var t=localStorage.getItem("accxs-theme"),l=matchMedia("(prefers-color-scheme: light)").matches;document.documentElement.dataset.theme=t||(l?"light":"dark")}catch(e){document.documentElement.dataset.theme="dark"}})();
+</script>
+<style>
+:root{--bg:#080a10;--panel:rgba(17,20,31,.74);--solid:#11141f;--p2:rgba(255,255,255,.04);--hov:rgba(255,255,255,.075);--bd:rgba(255,255,255,.1);--bds:rgba(167,139,250,.32);--tx:#f3f4f6;--mu:#9ca3af;--pu:#7c3aed;--pl:#a78bfa;--bl:#3b82f6;--hb:rgba(8,10,16,.82);--ov:rgba(3,5,10,.88);--sh:0 18px 60px rgba(0,0,0,.3);--r:18px;--t:.28s cubic-bezier(.4,0,.2,1);--g1:rgba(124,58,237,.18);--g2:rgba(59,130,246,.14);--in:rgba(255,255,255,.045)}
+html[data-theme=light]{--bg:#f5f7fb;--panel:rgba(255,255,255,.8);--solid:#fff;--p2:rgba(15,23,42,.035);--hov:rgba(109,40,217,.075);--bd:rgba(15,23,42,.1);--bds:rgba(109,40,217,.28);--tx:#111827;--mu:#64748b;--pu:#6d28d9;--pl:#7c3aed;--bl:#2563eb;--hb:rgba(248,250,252,.84);--ov:rgba(15,23,42,.82);--sh:0 18px 55px rgba(15,23,42,.12);--g1:rgba(124,58,237,.09);--g2:rgba(59,130,246,.08);--in:rgba(255,255,255,.74)}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{min-height:100vh;overflow-x:hidden;font-family:Inter,system-ui,sans-serif;color:var(--tx);background:radial-gradient(circle at 8% 8%,var(--g1),transparent 30%),radial-gradient(circle at 92% 82%,var(--g2),transparent 30%),var(--bg);line-height:1.6;transition:background-color var(--t),color var(--t)}
+body.mo-open{overflow:hidden}
+a{color:inherit;text-decoration:none}button,input{font:inherit;color:inherit}img{max-width:100%;display:block}
+#stars,#ripple{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}#stars{z-index:0}#ripple{z-index:1}
+.shell{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column}
+header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 5%;background:var(--hb);border-bottom:1px solid var(--bd);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+.brand{font-size:1.2rem;font-weight:800;letter-spacing:-.03em;background:linear-gradient(135deg,var(--tx),var(--pl));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.nr{display:flex;align-items:center;gap:.85rem}.dn{display:flex;gap:1.35rem}
+.dn a{position:relative;color:var(--mu);font-size:.88rem;font-weight:550;transition:color var(--t)}
+.dn a:hover,.dn a.active{color:var(--tx)}
+.dn a.active::after{content:"";position:absolute;left:0;bottom:-7px;width:100%;height:2px;border-radius:9px;background:linear-gradient(90deg,var(--pu),var(--bl))}
+.ha{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--bd);border-radius:12px;background:var(--p2);cursor:pointer;transition:var(--t)}
+.ha:hover{transform:translateY(-2px);background:var(--hov);border-color:var(--bds)}.hb{display:none}
+#so{position:fixed;inset:0;z-index:999;display:none;background:rgba(0,0,0,.48);backdrop-filter:blur(4px)}
+#sb{position:fixed;top:0;right:-310px;z-index:1000;width:min(310px,86vw);height:100vh;padding:5.6rem 1.4rem 2rem;background:var(--solid);border-left:1px solid var(--bd);box-shadow:var(--sh);transition:right var(--t)}
+#sb.open{right:0}#sb ul{list-style:none;display:grid;gap:.5rem}
+#sb a{display:flex;align-items:center;gap:.75rem;padding:.85rem 1rem;border-radius:12px;color:var(--mu);font-weight:600}
+#sb a:hover,#sb a.active{color:var(--tx);background:var(--hov)}
+main{flex:1;width:min(1180px,calc(100% - 2rem));margin:0 auto;padding:3rem 0 3.5rem}
+.page{display:none}.page.on{display:block;animation:pi .4s ease}
+@keyframes pi{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.hero,.card{border:1px solid var(--bd);background:var(--panel);box-shadow:var(--sh);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.hero{position:relative;overflow:hidden;margin-bottom:1.5rem;padding:2.35rem;border-radius:24px;background:linear-gradient(135deg,rgba(124,58,237,.13),rgba(59,130,246,.07)),var(--panel)}
+.hero::after{content:"";position:absolute;right:-70px;top:-100px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(167,139,250,.22),transparent 68%);pointer-events:none}
+.ey{display:inline-flex;gap:.55rem;margin-bottom:.8rem;color:var(--pl);font-size:.76rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+.hero h1{max-width:760px;font-size:clamp(2rem,5vw,3.2rem);line-height:1.08;letter-spacing:-.045em}
+.hero p{max-width:740px;margin-top:.85rem;color:var(--mu)}
+.card{margin-bottom:1.5rem;padding:1.5rem;border-radius:var(--r)}
+h2.st{display:flex;align-items:center;gap:.7rem;margin-bottom:1.25rem;font-size:1.25rem;letter-spacing:-.02em}
+h2.st i{color:var(--pl)}h2.st::after{content:"";flex:1;height:1px;background:var(--bd)}
+.mu{color:var(--mu);font-size:.85rem}
+.pills{display:flex;flex-wrap:wrap;gap:.65rem;margin-top:1.3rem}
+.pill{display:inline-flex;align-items:center;gap:.45rem;padding:.5rem .75rem;border:1px solid var(--bd);border-radius:99px;background:var(--p2);color:var(--mu);font-size:.76rem;font-weight:700}.pill i{color:var(--pl)}
+.btn,.bs{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;padding:.65rem 1.1rem;border:1px solid transparent;border-radius:12px;font-weight:600;font-size:.85rem;cursor:pointer;transition:var(--t)}
+.btn{color:#fff;background:linear-gradient(135deg,var(--pu),var(--bl));box-shadow:0 8px 24px rgba(124,58,237,.25)}
+.bs{background:var(--p2);border-color:var(--bd)}.btn:hover,.bs:hover{transform:translateY(-2px)}.bs:hover{border-color:var(--bds)}
+.row{display:flex;gap:.7rem;flex-wrap:wrap}
+.grid{display:grid;gap:1rem}.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.box{padding:1.1rem;border:1px solid var(--bd);border-radius:14px;background:var(--p2);transition:var(--t)}
+.box:hover{transform:translateY(-3px);background:var(--hov);border-color:var(--bds)}
+.box h3,.box h4{font-size:.98rem;margin-bottom:.3rem}
+.stat{text-align:center;padding:1rem;border:1px solid var(--bd);border-radius:14px;background:var(--p2)}
+.stat h3{color:var(--pl);font-size:1.7rem}.stat p{color:var(--mu);font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;margin:0}
+.bar{height:7px;overflow:hidden;border-radius:9px;background:rgba(127,127,127,.18);margin-top:.5rem}
+.bar i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--pu),var(--bl));transition:width 1.3s cubic-bezier(.16,.84,.44,1)}
+.sk{display:flex;justify-content:space-between;font-size:.9rem}.sk b{color:var(--pl)}
+.fb{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:1.3rem;padding-bottom:1.2rem;border-bottom:1px solid var(--bd)}
+.tabs{display:flex;flex-wrap:wrap;gap:.5rem}
+.tab{padding:.5rem .95rem;border:1px solid var(--bd);border-radius:99px;background:var(--p2);color:var(--mu);cursor:pointer;font-size:.79rem;font-weight:650;transition:var(--t)}
+.tab:hover{color:var(--tx);border-color:var(--bds)}.tab.active{color:#fff;border-color:transparent;background:linear-gradient(135deg,var(--pu),var(--bl))}
+.sbx{position:relative;width:min(320px,100%)}.sbx i{position:absolute;left:.95rem;top:50%;transform:translateY(-50%);color:var(--mu);pointer-events:none}
+.sbx input{width:100%;padding:.65rem 1rem .65rem 2.5rem;outline:none;border:1px solid var(--bd);border-radius:99px;background:var(--in);font-size:.84rem}
+.sbx input:focus{border-color:rgba(124,58,237,.56);box-shadow:0 0 0 4px rgba(124,58,237,.09)}
+.ic{display:inline-flex;align-items:center;justify-content:center;vertical-align:-.125em}.ic svg{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.hid{display:none!important}.em{display:none;padding:2rem;text-align:center;color:var(--mu)}.em.show{display:block}
+.tag{display:inline-block;padding:.2rem .55rem;border:1px solid rgba(124,58,237,.24);border-radius:99px;background:rgba(124,58,237,.1);color:var(--pl);font-size:.66rem;font-weight:800;text-transform:uppercase}
+.fi{cursor:pointer}
+/* about */
+.prof{display:grid;grid-template-columns:230px 1fr;gap:2.25rem;align-items:center}
+.av{width:190px;height:190px;margin:0 auto;padding:4px;border-radius:50%;cursor:pointer;background:linear-gradient(135deg,var(--pu),var(--bl));box-shadow:0 0 36px rgba(124,58,237,.35);transition:.35s}
+.av:hover{transform:scale(1.04) rotate(2deg)}.av img{width:100%;height:100%;object-fit:cover;border-radius:50%;background:#111827}
+.code{font:10px/1.7 Consolas,Menlo,monospace;color:var(--mu);text-align:center;margin:1rem 0}.code b{color:var(--pl)}
+.ty{border-right:2px solid var(--pl);padding-right:3px;animation:bk .8s step-end infinite}@keyframes bk{50%{border-color:transparent}}
+.sub{display:flex;gap:.45rem;flex-wrap:wrap;margin:.4rem 0 1rem;color:var(--pl);font-weight:600}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem;padding-top:1.2rem;border-top:1px solid var(--bd);margin-top:1.3rem}
+.info span{display:block;color:var(--mu);font-size:.72rem;text-transform:uppercase}
+.fam{text-align:center;cursor:pointer}.fam img{width:76px;height:76px;object-fit:cover;border-radius:50%;border:2px solid var(--bd);margin:0 auto .5rem}
+.tl{position:relative;padding-left:1.6rem}.tl::before{content:"";position:absolute;left:.25rem;top:.25rem;bottom:.25rem;width:2px;background:linear-gradient(var(--pu),var(--bl))}
+.tl>div{position:relative;margin-bottom:1.4rem}.tl>div::before{content:"";position:absolute;left:-1.72rem;top:.4rem;width:11px;height:11px;border-radius:50%;background:var(--pu);box-shadow:0 0 12px rgba(124,58,237,.8)}
+.tl small{color:var(--pl);font-weight:700}
+/* gallery / projects / social / achievements */
+.gal{grid-template-columns:repeat(4,1fr)}.gal .fi{position:relative;min-height:200px;overflow:hidden;border:1px solid var(--bd);border-radius:15px}
+.gal .fi img{width:100%;height:100%;min-height:200px;object-fit:cover;transition:transform .5s}.gal .fi:hover img{transform:scale(1.05)}
+.gal .fi:nth-child(5n+1){grid-column:span 2}
+.cap{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1rem;color:#fff;background:linear-gradient(180deg,transparent 30%,rgba(4,5,10,.9));opacity:0;transition:var(--t)}.fi:hover .cap{opacity:1}
+.pc img{aspect-ratio:16/10;object-fit:cover;border:1px solid var(--bd);border-radius:12px;margin-bottom:.8rem}
+.pc{display:flex;flex-direction:column}.pc p{flex:1;margin-bottom:.8rem}
+.chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.8rem}.chip{padding:.2rem .5rem;border:1px solid var(--bd);border-radius:99px;font-size:.68rem;color:var(--mu)}
+.sc{text-align:center}.sc img{width:56px;height:56px;margin:0 auto .6rem;padding:10px;border:1px solid var(--bd);border-radius:50%;cursor:pointer}
+.sc .h{color:var(--pl);font-size:.78rem;margin-bottom:.8rem}
+.ac{display:grid;grid-template-columns:200px 1fr;gap:1.2rem;align-items:center}.ac img{aspect-ratio:4/3;object-fit:cover;border-radius:12px;border:1px solid var(--bd)}
+.job{display:flex;align-items:center;gap:1rem;cursor:pointer}.job img{width:56px;height:56px;object-fit:contain;padding:5px;border-radius:12px;background:#fff}
+.job strong{color:var(--pl);font-size:.72rem;text-transform:uppercase}
+.qr{text-align:center}.qr img{width:160px;height:160px;margin:.6rem auto;padding:6px;border-radius:13px;background:#fff;cursor:pointer;object-fit:contain}
+.cb{padding:.5rem .8rem;border:1px solid var(--bd);border-radius:99px;background:var(--p2);cursor:pointer;font-size:.76rem;font-weight:700}
+.faq{border:1px solid var(--bd);border-radius:14px;background:var(--p2);margin-bottom:.7rem}
+.faq button{width:100%;display:flex;justify-content:space-between;padding:1rem;border:0;background:none;cursor:pointer;text-align:left;font-weight:700;font-size:.9rem}
+.faq div{max-height:0;overflow:hidden;padding:0 1rem;color:var(--mu);font-size:.86rem;transition:.35s}.faq.open div{max-height:300px;padding:0 1rem 1rem}
+.pol p{margin-bottom:1rem;color:var(--mu);font-size:.91rem}
+.vc{margin-bottom:1rem}.vc ul{padding-left:1.15rem;color:var(--mu);font-size:.84rem}.vc li::marker{color:var(--pl)}
+.vh{display:flex;justify-content:space-between;margin-bottom:.6rem;padding-bottom:.6rem;border-bottom:1px solid var(--bd)}.vh b{color:var(--pl)}
+.cmd{border-color:rgba(52,211,153,.3)}.cmd code{color:var(--pl);font-family:Consolas,monospace}
+/* modal */
+.mo{position:fixed;inset:0;z-index:2000;display:none;align-items:center;justify-content:center;padding:1rem;background:var(--ov);backdrop-filter:blur(14px)}.mo.open{display:flex}
+.mb{position:relative;width:min(560px,100%);max-height:90vh;overflow-y:auto;padding:1.4rem;border:1px solid var(--bd);border-radius:18px;background:var(--solid);box-shadow:var(--sh);animation:pi .25s}
+.mb h3{margin-bottom:.7rem;padding-right:2.5rem}.mb p{color:var(--mu);font-size:.86rem;margin-bottom:.9rem}.mb ul{color:var(--mu);font-size:.84rem;margin:0 0 1rem 1.2rem}
+.mx{position:absolute;top:.8rem;right:.8rem;width:36px;height:36px;border:1px solid var(--bd);border-radius:12px;background:var(--p2);cursor:pointer;font-size:1.2rem}
+.mimg{width:100%;max-height:340px;object-fit:contain;border-radius:14px;margin-bottom:1rem;background:#000}
+.mimg.round{width:110px;height:110px;object-fit:cover;border-radius:50%;margin:0 auto 1rem;border:2px solid var(--pu)}
+.nv{position:absolute;top:40%;width:40px;height:40px;border-radius:50%;border:1px solid var(--bd);background:rgba(15,23,42,.6);color:#fff;cursor:pointer}
+#tst{position:fixed;right:1rem;bottom:5rem;z-index:3000;padding:.7rem 1rem;border-radius:99px;background:linear-gradient(135deg,var(--pu),var(--bl));color:#fff;font-size:.8rem;font-weight:700;opacity:0;transform:translateY(14px);pointer-events:none;transition:.25s}#tst.show{opacity:1;transform:none}
+/* footer */
+footer{position:relative;z-index:2;color:var(--mu);border-top:1px solid var(--bd);background:linear-gradient(180deg,transparent,rgba(124,58,237,.035)),var(--hb);backdrop-filter:blur(16px)}
+.fc{width:min(1180px,calc(100% - 2rem));margin:0 auto;padding:3rem 0 2rem;display:grid;grid-template-columns:1.45fr .85fr 1fr 1.1fr;gap:2.25rem}
+.fl{display:inline-flex;align-items:center;gap:.7rem;margin-bottom:.9rem;color:var(--tx);font-size:1.08rem;font-weight:800}
+.fm{width:38px;height:38px;display:inline-flex;align-items:center;justify-content:center;border-radius:12px;color:#fff;background:linear-gradient(135deg,var(--pu),var(--bl))}
+.fc p,.fc li{font-size:.84rem}.fh{margin-bottom:.9rem;color:var(--tx);font-size:.82rem;text-transform:uppercase;letter-spacing:.08em}
+.fc ul{list-style:none;display:grid;gap:.65rem}.fc li{display:flex;gap:.6rem}.fc li i{width:16px;margin-top:.25rem;color:var(--pl);text-align:center}
+.fc a:hover,.fb2 a:hover{color:var(--pl)}
+.ok{display:inline-flex;align-items:center;gap:.5rem;margin-bottom:.9rem;padding:.4rem .7rem;border:1px solid rgba(52,211,153,.22);border-radius:99px;color:#34d399;background:rgba(52,211,153,.06);font-size:.73rem;font-weight:700}
+.ok i{width:7px;height:7px;border-radius:50%;background:#34d399;box-shadow:0 0 10px #34d399;animation:pl 2s infinite}@keyframes pl{50%{opacity:.4}}
+.fb2{width:min(1180px,calc(100% - 2rem));margin:0 auto;padding:1.1rem 0 1.6rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;border-top:1px solid var(--bd);font-size:.76rem}
+/* music */
+.mp{position:fixed;right:1.2rem;bottom:1.2rem;z-index:1500;display:flex;align-items:flex-end;gap:.65rem;pointer-events:none}
+.ml,.mc{border:1px solid var(--bd);background:var(--solid);cursor:pointer;pointer-events:auto;transition:var(--t)}
+.ml{width:48px;height:48px;border-radius:50%;box-shadow:var(--sh)}.ml.active{color:#fff;background:linear-gradient(135deg,var(--pu),var(--bl));border-color:transparent}
+.mpn{width:min(330px,calc(100vw - 5.8rem));padding:.85rem;border:1px solid var(--bd);border-radius:16px;background:var(--solid);box-shadow:var(--sh);opacity:0;visibility:hidden;transform:translateY(10px);transition:var(--t)}
+.mpn.open{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+.mpn small{display:block;color:var(--pl);font-weight:800;text-transform:uppercase;font-size:.66rem}
+#mt{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:.82rem;font-weight:650}
+.mcs{display:grid;grid-template-columns:repeat(4,1fr);gap:.45rem;margin-top:.7rem}.mc{height:38px;border-radius:10px}.mc.on{color:#34d399}
+#ms{margin-top:.5rem;color:var(--mu);font-size:.68rem}
+@media(max-width:980px){.gal,.g4{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:850px){.dn{display:none}.hb{display:inline-flex}.prof,.g2,.g3,.ac{grid-template-columns:1fr}.prof{text-align:center}.sub,.row{justify-content:center}.gal,.g4{grid-template-columns:repeat(2,1fr)}.gal .fi:nth-child(5n+1){grid-column:span 1}.fc{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){header{padding-inline:1rem}main{width:calc(100% - 1rem);padding-top:1.25rem}.hero{padding:1.5rem}.card{padding:1rem}.fc{grid-template-columns:1fr}.g4{grid-template-columns:1fr}.gal{grid-template-columns:1fr 1fr}.mp{right:.85rem;bottom:.85rem}}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
 </head>
 <body id="top">
-  <canvas id="starsCanvas" aria-hidden="true"></canvas>
-  <canvas id="rippleCanvas" aria-hidden="true"></canvas>
-
-  <div class="page-shell">
-    <header>
-      <a href="index.html" class="brand">Bryan G. Ablao</a>
-
-      <div class="nav-right">
-        <nav class="desktop-nav" aria-label="Primary navigation">
-          <a href="index.html" class="active" aria-current="page">About</a>
-          <a href="work.html">Experience</a>
-          <a href="projects.html">Projects</a>
-          <a href="achievement.html">Achievements</a>
-          <a href="gallery.html">Gallery</a>
-          <a href="social.html">Socials</a>
-        </nav>
-
-        <button id="themeToggle" class="header-action" type="button" aria-label="Switch theme" title="Switch theme">
-          <i id="themeIcon" class="fa-solid fa-moon"></i>
-        </button>
-
-        <button class="header-action hamburger" type="button" onclick="toggleMenu()" aria-label="Open navigation">
-          <i class="fa-solid fa-bars"></i>
-        </button>
-      </div>
-    </header>
-
-    <div id="sidebarOverlay" onclick="closeMenu()"></div>
-
-    <nav id="sidebar" aria-label="Mobile navigation">
-      <ul>
-        <li><a href="index.html" class="active"><i class="fa-solid fa-user"></i> About Me</a></li>
-        <li><a href="work.html"><i class="fa-solid fa-briefcase"></i> Work Experience</a></li>
-        <li><a href="projects.html"><i class="fa-solid fa-diagram-project"></i> Projects</a></li>
-        <li><a href="achievement.html"><i class="fa-solid fa-trophy"></i> Achievements</a></li>
-        <li><a href="gallery.html"><i class="fa-solid fa-images"></i> Gallery</a></li>
-        <li><a href="social.html"><i class="fa-solid fa-share-nodes"></i> Social Medias</a></li>
-      </ul>
+<canvas id="stars" aria-hidden="true"></canvas><canvas id="ripple" aria-hidden="true"></canvas>
+<div class="shell">
+<header>
+  <a href="#about" class="brand">Bryan G. Ablao</a>
+  <div class="nr">
+    <nav class="dn" aria-label="Primary">
+      <a href="#about" data-p="about">About</a><a href="#work" data-p="work">Experience</a><a href="#projects" data-p="projects">Projects</a><a href="#achievement" data-p="achievement">Achievements</a><a href="#gallery" data-p="gallery">Gallery</a><a href="#social" data-p="social">Socials</a>
     </nav>
+    <button id="th" class="ha" type="button" aria-label="Switch theme"><span id="thi" style="display:flex"></span></button>
+    <button class="ha hb" type="button" onclick="menu()" aria-label="Open navigation"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+  </div>
+</header>
+<div id="so" onclick="menu(0)"></div>
+<nav id="sb" aria-label="Mobile"><ul>
+  <li><a href="#about" data-p="about"><i class="fa-solid fa-user"></i> About Me</a></li>
+  <li><a href="#work" data-p="work"><i class="fa-solid fa-briefcase"></i> Work Experience</a></li>
+  <li><a href="#projects" data-p="projects"><i class="fa-solid fa-diagram-project"></i> Projects</a></li>
+  <li><a href="#achievement" data-p="achievement"><i class="fa-solid fa-trophy"></i> Achievements</a></li>
+  <li><a href="#gallery" data-p="gallery"><i class="fa-solid fa-images"></i> Gallery</a></li>
+  <li><a href="#social" data-p="social"><i class="fa-solid fa-share-nodes"></i> Social Medias</a></li>
+  <li><a href="#free" data-p="free"><i class="fa-solid fa-box-open"></i> Free Apps</a></li>
+  <li><a href="#donate" data-p="donate"><i class="fa-solid fa-heart"></i> Donate</a></li>
+</ul></nav>
 
-    <main>
-      <section class="glass-card">
-        <div class="profile-layout">
-          <div class="developer-profile-column">
-            <div class="code-stream code-stream-top" aria-hidden="true">
-              <div class="code-line"><span class="code-tag">&lt;developer&gt;</span></div>
-              <div class="code-line delay-1"><span class="code-purple">const</span><span class="code-text"> creativity </span><span class="code-blue">=</span><span class="code-green"> true</span><span class="code-muted">;</span></div>
-              <div class="code-line delay-2"><span class="code-purple">function</span><span class="code-blue"> innovate</span><span class="code-muted">() {</span></div>
-              <div class="code-line delay-3 code-indent"><span class="code-purple">return</span><span class="code-string"> "Build. Create. Improve."</span><span class="code-muted">;</span></div>
-              <div class="code-line delay-4"><span class="code-muted">}</span></div>
-            </div>
+<main>
+<!-- ABOUT -->
+<section class="page" id="p-about">
+ <div class="card"><div class="prof">
+  <div>
+   <div class="code" aria-hidden="true"><b>&lt;developer&gt;</b><br>const creativity = true;<br>return "Build. Create. Improve.";</div>
+   <div class="av" data-open="m-bryan" title="Open biography"><img src="images/Bryan.jpg" alt="Bryan G. Ablao"></div>
+   <div class="code" aria-hidden="true">&gt; npm run build<br>&gt; system.ready()</div>
+  </div>
+  <div>
+   <h1 style="font-size:clamp(2rem,5vw,2.7rem);letter-spacing:-.04em;line-height:1.05">Bryan G. Ablao</h1>
+   <div class="sub"><span>I am a</span><span class="ty" id="ty"></span></div>
+   <p class="mu" style="font-size:.95rem;margin-bottom:1.3rem">A dedicated individual guided by responsibility, creativity, and perseverance. Focused on continuous personal and professional growth, leveraging faith and determination to build meaningful connections and high-value solutions.</p>
+   <div class="row"><button class="btn" data-open="m-contact"><i class="fa-solid fa-paper-plane"></i> Quick Connect</button><a class="bs" href="#projects"><i class="fa-solid fa-folder-open"></i> View Projects</a></div>
+   <div class="grid g3" style="margin-top:1.3rem">
+    <div class="stat"><h3 class="ct" data-t="11" data-s="+">0</h3><p>Years Experience</p></div>
+    <div class="stat"><h3 class="ct" data-t="4" data-s="">0</h3><p>Projects Crafted</p></div>
+    <div class="stat"><h3 class="ct" data-t="100" data-s="%">0</h3><p>Commitment</p></div>
+   </div>
+   <div class="info">
+    <div><span><i class="fa-solid fa-location-dot"></i> Location</span><a href="https://maps.app.goo.gl/3qxbihk6F5TMQauo8" target="_blank" rel="noopener">Davao City, Philippines</a></div>
+    <div><span><i class="fa-solid fa-envelope"></i> Email</span><a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a></div>
+    <div><span><i class="fa-solid fa-phone"></i> Mobile</span><a href="tel:09928760990">09928760990</a></div>
+    <div><span><i class="fa-solid fa-flag"></i> Citizenship</span>Filipino</div>
+   </div>
+  </div>
+ </div></div>
 
-            <div class="profile-tech-wrapper">
-              <div class="profile-orbit orbit-one"></div>
-              <div class="profile-orbit orbit-two"></div>
+ <div class="card fx">
+  <h2 class="st"><i class="fa-solid fa-laptop-code"></i> Core Expertise &amp; Skills</h2>
+  <div class="fb"><div class="tabs"><button class="tab active" data-f="all">All</button><button class="tab" data-f="dev">Development</button><button class="tab" data-f="design">Design</button><button class="tab" data-f="soft">Soft Skills</button></div></div>
+  <div class="grid g2">
+   <div class="box fi" data-c="dev"><div class="sk"><span>Frontend Development</span><b>88%</b></div><div class="bar"><i data-w="88%"></i></div></div>
+   <div class="box fi" data-c="design"><div class="sk"><span>UI/UX &amp; Creative Design</span><b>82%</b></div><div class="bar"><i data-w="82%"></i></div></div>
+   <div class="box fi" data-c="soft"><div class="sk"><span>Problem Solving &amp; Strategy</span><b>90%</b></div><div class="bar"><i data-w="90%"></i></div></div>
+   <div class="box fi" data-c="soft"><div class="sk"><span>Adaptability &amp; Continuous Growth</span><b>95%</b></div><div class="bar"><i data-w="95%"></i></div></div>
+  </div>
+ </div>
 
-              <div class="profile-avatar-wrapper" onclick="openModal('modalBryan')" title="Open biography">
-                <img src="images/Bryan.jpg" alt="Bryan G. Ablao">
-              </div>
+ <div class="card"><div class="grid g2" style="gap:2rem">
+  <div>
+   <h2 class="st"><i class="fa-solid fa-people-roof"></i> Family Background</h2>
+   <p class="mu" style="margin-bottom:.6rem">PARENTS</p>
+   <div class="grid g2" style="margin-bottom:1.2rem">
+    <div class="box fam" data-open="m-father"><img src="images/father.png" alt="Evaristo C. Ablao"><h4>Evaristo C. Ablao</h4><p class="mu">Father</p></div>
+    <div class="box fam" data-open="m-mother"><img src="images/mother.png" alt="Annalie G. Ablao"><h4>Annalie G. Ablao</h4><p class="mu">Mother</p></div>
+   </div>
+   <p class="mu" style="margin-bottom:.6rem">SIBLINGS</p>
+   <div class="grid g2">
+    <div class="box fam" data-open="m-kenneth"><img src="images/Kenneth.jpg" alt="Kenneth G. Ablao"><h4>Kenneth G. Ablao</h4><p class="mu">Brother</p></div>
+    <div class="box fam" data-open="m-riz"><img src="images/RizEvan.jpg" alt="Riz Evan G. Ablao"><h4>Riz Evan G. Ablao</h4><p class="mu">Brother</p></div>
+   </div>
+  </div>
+  <div>
+   <h2 class="st"><i class="fa-solid fa-compass"></i> Guiding Principles</h2>
+   <div class="box" style="margin-bottom:.8rem"><h4 style="color:var(--pl)"><i class="fa-solid fa-cross"></i> Faith &amp; Integrity</h4><p class="mu">Grounding every action and decision in strong ethical principles, guided by faith and authenticity.</p></div>
+   <div class="box" style="margin-bottom:.8rem"><h4 style="color:var(--pl)"><i class="fa-solid fa-mountain"></i> Resilience &amp; Perseverance</h4><p class="mu">Embracing challenges as opportunities to grow while remaining determined and optimistic.</p></div>
+   <div class="box" style="margin-bottom:.8rem"><h4 style="color:var(--pl)"><i class="fa-solid fa-brain"></i> Continuous Learning</h4><p class="mu">Constantly expanding skills, knowledge, and perspectives to create stronger solutions.</p></div>
+   <div class="box"><h4 style="color:var(--pl)"><i class="fa-solid fa-heart"></i> Family &amp; Community</h4><p class="mu">Valuing strong bonds, mutual support, and meaningful contributions to the people around me.</p></div>
+  </div>
+ </div></div>
 
-              <span class="tech-dot tech-dot-1"></span>
-              <span class="tech-dot tech-dot-2"></span>
-              <span class="tech-dot tech-dot-3"></span>
-            </div>
+ <div class="card">
+  <h2 class="st"><i class="fa-solid fa-timeline"></i> Life &amp; Career Journey</h2>
+  <div class="tl">
+   <div><small>2025 – Present</small><h3>Founding &amp; Building Accxs Creations</h3><p class="mu">Leading digital innovation and designing cohesive interactive web solutions.</p></div>
+   <div><small>2023 – 2024</small><h3>Expanding Technical Mastery</h3><p class="mu">Deepening expertise in front-end aesthetics, user experience, and interactive interfaces.</p></div>
+   <div><small>Early Milestones</small><h3>Personal Foundation &amp; Character Growth</h3><p class="mu">Developing the values of perseverance, family strength, responsibility, and proactive problem solving.</p></div>
+  </div>
+ </div>
+</section>
 
-            <div class="code-stream code-stream-bottom" aria-hidden="true">
-              <div class="code-line delay-2"><span class="terminal-symbol">&gt;</span><span class="code-text"> npm run build</span></div>
-              <div class="code-line delay-3"><span class="terminal-symbol">&gt;</span><span class="code-text"> compiling portfolio...</span></div>
-              <div class="code-line delay-4"><span class="terminal-symbol">&gt;</span><span class="status-success"> system.ready()</span></div>
-              <div class="code-line terminal-active"><span class="terminal-symbol">&gt;</span><span class="code-text"> </span><span id="developerTerminalText"></span><span class="terminal-cursor"></span></div>
-            </div>
-          </div>
+<!-- WORK -->
+<section class="page" id="p-work">
+ <div class="hero"><div class="ey"><i class="fa-solid fa-briefcase"></i> Professional Background</div><h1>Work Experience &amp; Core Expertise</h1><p>A career spanning customer service, AI data operations, logistics, production, administrative encoding, and fast-paced service environments.</p>
+  <div class="pills"><span class="pill"><i class="fa-solid fa-headset"></i> Customer Experience</span><span class="pill"><i class="fa-solid fa-database"></i> Data &amp; Encoding</span><span class="pill"><i class="fa-solid fa-gears"></i> Production Operations</span></div></div>
+ <div class="card"><h2 class="st"><i class="fa-solid fa-sliders"></i> Core Competencies</h2><div class="grid g2">
+  <div class="box"><div class="sk"><span>Data Entry &amp; Encoding</span><b>98%</b></div><div class="bar"><i data-w="98%"></i></div><p class="mu" style="margin-top:.5rem">High-speed verification, inventory logs, and structured database encoding.</p></div>
+  <div class="box"><div class="sk"><span>Customer Experience (BPO)</span><b>92%</b></div><div class="bar"><i data-w="92%"></i></div><p class="mu" style="margin-top:.5rem">International client communications, dispute resolution, and SLA adherence.</p></div>
+  <div class="box"><div class="sk"><span>AI Data Operations &amp; Annotation</span><b>90%</b></div><div class="bar"><i data-w="90%"></i></div><p class="mu" style="margin-top:.5rem">Bounding box, computer vision annotation, and dataset tagging for ML models.</p></div>
+  <div class="box"><div class="sk"><span>Production Quality Control</span><b>95%</b></div><div class="bar"><i data-w="95%"></i></div><p class="mu" style="margin-top:.5rem">Print workflow management, quality assurance, and high-volume output precision.</p></div>
+ </div></div>
+ <div class="card fx"><h2 class="st"><i class="fa-solid fa-briefcase"></i> Professional Experience</h2>
+  <div class="fb"><label class="sbx"><i class="fa-solid fa-magnifying-glass"></i><input class="fs" type="search" placeholder="Search roles, companies, or skills..."></label>
+   <div class="tabs"><button class="tab active" data-f="all">All</button><button class="tab" data-f="cs">Customer Service</button><button class="tab" data-f="de">Data / Encoding</button><button class="tab" data-f="pr">Production</button></div></div>
+  <div class="grid">
+   <div class="box job fi" data-c="cs" data-t="call center agent sixeleven image annotation customer relations" data-open="m-six"><img src="images/sixeleven.jpg" alt="SixEleven"><div><strong>January 2025 – Present</strong><h4>Call Center Agent at SixEleven</h4><div class="chips"><span class="chip">Customer Relations</span><span class="chip">AI Annotation</span><span class="chip">Communication</span></div></div></div>
+   <div class="box job fi" data-c="de" data-t="encoder gmall warehouse buhangin inventory data entry" data-open="m-gm"><img src="images/gaisano.png" alt="GMALL"><div><strong>February 2023 – January 2024</strong><h4>Encoder at GMALL Warehouse Buhangin</h4><div class="chips"><span class="chip">Data Entry</span><span class="chip">Inventory Management</span><span class="chip">Documentation</span></div></div></div>
+   <div class="box job fi" data-c="pr" data-t="production staff kc arc prints quality control workflow" data-open="m-kc"><img src="images/kcarc.jpg" alt="KC &amp; Arc Prints"><div><strong>May 2018 – January 2023</strong><h4>Production Staff at KC &amp; Arc Prints</h4><div class="chips"><span class="chip">Print Operations</span><span class="chip">Quality Control</span><span class="chip">Workflow Management</span></div></div></div>
+   <div class="box job fi" data-c="de" data-t="encoder realty options davao property listings client records" data-open="m-roi"><img src="images/roi.png" alt="Realty Options"><div><strong>December 2017 – March 2018</strong><h4>Encoder at Realty Options Davao</h4><div class="chips"><span class="chip">Property Encoding</span><span class="chip">Client Records</span><span class="chip">Admin Support</span></div></div></div>
+   <div class="box job fi" data-c="cs" data-t="service crew chowking spmc customer support teamwork" data-open="m-ck"><img src="images/chowking.png" alt="Chowking"><div><strong>January 2016 – March 2017</strong><h4>Service Crew at Chowking SPMC</h4><div class="chips"><span class="chip">Customer Support</span><span class="chip">Fast-Paced Operations</span><span class="chip">Teamwork</span></div></div></div>
+  </div>
+  <div class="em"><i class="fa-solid fa-briefcase"></i> No matching experience found.</div>
+  <div class="row" style="justify-content:center;margin-top:1.2rem"><a class="btn" href="https://docs.google.com/document/d/1D6ctG7avpsDXUfDHHmcRa1D-0EluG0N2iJEqMt7oPs8/edit?usp=sharing" target="_blank" rel="noopener"><i class="fa-solid fa-file-arrow-down"></i> View / Download Resume</a></div>
+ </div>
+ <div class="card"><h2 class="st"><i class="fa-solid fa-award"></i> Key Impact &amp; Milestones</h2><div class="grid g2">
+  <div class="box"><span class="tag">Customer &amp; AI Ops</span><h4 style="margin-top:.5rem">High SLA Compliance</h4><p class="mu">Consistently delivered swift issue resolutions while processing complex image annotation tasks for ML databases.</p></div>
+  <div class="box"><span class="tag">Logistics &amp; Data</span><h4 style="margin-top:.5rem">Inventory Tracking</h4><p class="mu">Managed high-volume warehouse entry logs at GMALL Buhangin with near-zero error ratios.</p></div>
+  <div class="box"><span class="tag">Long-term Tenure</span><h4 style="margin-top:.5rem">5-Year Production Service</h4><p class="mu">Demonstrated steady commitment and leadership over 5 years overseeing print production at KC &amp; Arc Prints.</p></div>
+  <div class="box"><span class="tag">Adaptability</span><h4 style="margin-top:.5rem">Multi-Industry Transition</h4><p class="mu">Transitioned skills across food service, print media, real estate data, logistics, and tech BPO.</p></div>
+ </div></div>
+</section>
 
-          <div>
-            <h1 class="profile-title">Bryan G. Ablao</h1>
-            <div class="subtitle">
-              <span>I am a</span>
-              <span class="typing-text" id="typingText"></span>
-            </div>
+<!-- PROJECTS -->
+<section class="page" id="p-projects">
+ <div class="hero"><div class="ey"><i class="fa-solid fa-rocket"></i> Projects Showcase</div><h1>Interactive builds, experiments, and digital experiences.</h1><p>Explore mini-games, web applications, community platforms, and custom portfolio projects built with a focus on interaction, usability, and creative front-end design.</p>
+  <div class="row" style="margin-top:1.3rem"><button class="btn" data-open="m-hire"><i class="fa-solid fa-briefcase"></i> Hire Me</button><a class="bs" href="#donate"><i class="fa-solid fa-heart"></i> Donate</a><a class="bs" href="https://bryangablao.github.io/Accxs-Creations/" target="_blank" rel="noopener"><i class="fa-solid fa-building"></i> Visit Company Website</a></div></div>
+ <div class="card fx"><h2 class="st"><i class="fa-solid fa-layer-group"></i> Featured Projects</h2>
+  <div class="fb"><label class="sbx"><i class="fa-solid fa-magnifying-glass"></i><input class="fs" type="search" placeholder="Search projects by title or tech..."></label>
+   <div class="tabs"><button class="tab active" data-f="all">All</button><button class="tab" data-f="games">Games</button><button class="tab" data-f="web">Web Apps</button><button class="tab" data-f="portfolio">Portfolios</button></div></div>
+  <div class="grid g2">
+   <article class="box pc fi" data-c="games" data-t="g-games sudoku snake flappy bird javascript canvas"><img src="images/Gallery/project/GGAMES.jfif" alt="G-GAMES" loading="lazy"><h3>G-GAMES</h3><p class="mu">An interactive single-player mini-games lobby featuring Sudoku, Snake, Flappy Bird, and custom arcade titles.</p><div class="chips"><span class="chip">JavaScript</span><span class="chip">HTML5 Canvas</span><span class="chip">CSS3</span></div><a class="btn" href="https://bryangablao.github.io/G-GAMES/" target="_blank" rel="noopener"><i class="fa-solid fa-play"></i> Play Now</a></article>
+   <article class="box pc fi" data-c="portfolio" data-t="kent vince masagnegra portfolio html css ui ux"><img src="images/Gallery/project/kentlogo.png" alt="Kent portfolio" loading="lazy"><h3>Kent Vince S. Masagnegra</h3><p class="mu">A personal portfolio presenting web development projects, ICT learning experiences, and interactive digital creations.</p><div class="chips"><span class="chip">HTML/CSS</span><span class="chip">UI/UX</span><span class="chip">Responsive</span></div><a class="btn" href="https://ict2026.github.io/kentvincemasanegra/" target="_blank" rel="noopener"><i class="fa-solid fa-globe"></i> Visit Site</a></article>
+   <article class="box pc fi" data-c="web" data-t="chatph social media platform web app real-time community"><img src="images/Gallery/project/ChatPH.png" alt="ChatPH" loading="lazy"><h3>ChatPH</h3><p class="mu">An online community platform bringing Filipinos together to communicate, share experiences, and stay connected.</p><div class="chips"><span class="chip">Web App</span><span class="chip">Real-time</span><span class="chip">Community</span></div><a class="btn" href="https://bryangablao.github.io/ChatPH/" target="_blank" rel="noopener"><i class="fa-solid fa-comments"></i> Launch</a></article>
+   <article class="box pc fi" data-c="games" data-t="emoji legends mythic realms rpg game javascript canvas"><img src="images/Gallery/project/EmojiLegends.jfif" alt="Emoji Legends" loading="lazy"><h3>Emoji Legends: Mythic Realms</h3><p class="mu">Control powerful emoji heroes to clear relentless waves of dark monsters and defeat mythic bosses with magic.</p><div class="chips"><span class="chip">JavaScript</span><span class="chip">Game Loop</span><span class="chip">Graphics</span></div><a class="btn" href="https://bryangablao.github.io/EmojiLegends/" target="_blank" rel="noopener"><i class="fa-solid fa-gamepad"></i> Play RPG</a></article>
+  </div>
+  <div class="em"><i class="fa-solid fa-folder-open"></i> No matching projects found.</div>
+ </div>
+</section>
 
-            <p class="profile-bio">
-              A dedicated individual guided by responsibility, creativity, and perseverance. Focused on continuous personal and professional growth, leveraging faith and determination to build meaningful connections and high-value solutions.
-            </p>
+<!-- ACHIEVEMENTS -->
+<section class="page" id="p-achievement">
+ <div class="hero"><div class="ey"><i class="fa-solid fa-trophy"></i> Key Accomplishments</div><h1>Career Milestones &amp; Honors</h1><p>An interactive timeline highlighting professional excellence, operational recognition, and competitive sports achievements.</p>
+  <div class="grid g3" style="margin-top:1.3rem"><div class="stat"><h3 class="ct" data-t="2" data-s="">0</h3><p>Top Agent Monthly Awards</p></div><div class="stat"><h3 class="ct" data-t="1" data-s="">0</h3><p>Sports Titles Won</p></div><div class="stat"><h3 class="ct" data-t="100" data-s="%">0</h3><p>Commitment &amp; Focus</p></div></div></div>
+ <div class="card fx">
+  <div class="fb"><div class="tabs"><button class="tab active" data-f="all">All</button><button class="tab" data-f="performance">Performance</button><button class="tab" data-f="sports">Sports</button></div><label class="sbx"><i class="fa-solid fa-magnifying-glass"></i><input class="fs" type="search" placeholder="Search achievements..."></label></div>
+  <div class="grid">
+   <article class="box ac fi dm" data-c="performance" data-t="top agent of the month jul 2026" data-img="images/Gallery/Achievement/a3.png" data-h="Certificate of Achievement – Top Agent of the Month" data-d="Recognized as Top Call Center Agent of the Month for July 2026 under OM Willy Cluster for sustained customer satisfaction and consistent high target output."><img src="images/Gallery/Achievement/a3.png" alt="Top Agent Jul 2026" loading="lazy"><div><span class="tag">Performance</span> <span class="mu">Jul 2026</span><h3>Top Agent of the Month (Jul 2026)</h3><p class="mu">Recognized as Top Call Center Agent for sustained high-quality metrics and operational commitment.</p></div></article>
+   <article class="box ac fi dm" data-c="sports" data-t="sportsfest 2025 chess award" data-img="images/Gallery/Achievement/a1.jpg" data-h="Certificate of Award – SIXELEVEN Sportsfest 2025" data-d="Awarded for outstanding performance in the Chess Tournament, representing skill, strategy, and dedication during the company’s annual Sportsfest."><img src="images/Gallery/Achievement/a1.jpg" alt="Sportsfest 2025" loading="lazy"><div><span class="tag">Sports</span> <span class="mu">2025</span><h3>Certificate of Award – SIXELEVEN Sportsfest 2025</h3><p class="mu">Awarded for outstanding performance in the Chess Tournament, representing skill, strategy, and sportsmanship.</p></div></article>
+   <article class="box ac fi dm" data-c="performance" data-t="top agent of the month nov 2025" data-img="images/Gallery/Achievement/a2.png" data-h="Certificate of Achievement – Top Agent of the Month" data-d="Recognized as Top Call Center Agent of the Month for November 2025 under OM Willy Cluster for exceptional performance and dedication to KPI excellence."><img src="images/Gallery/Achievement/a2.png" alt="Top Agent Nov 2025" loading="lazy"><div><span class="tag">Performance</span> <span class="mu">Nov 2025</span><h3>Top Agent of the Month (Nov 2025)</h3><p class="mu">Recognized as Top Call Center Agent under OM Willy Cluster for exceptional efficiency and KPI excellence.</p></div></article>
+  </div>
+  <div class="em"><i class="fa-solid fa-award"></i> No matching achievements found.</div>
+ </div>
+ <div class="card"><h2 class="st"><i class="fa-solid fa-award"></i> Core Strengths Demonstrated</h2><div class="pills" style="margin:0"><span class="pill"><i class="fa-solid fa-chess"></i> Strategic Thinking</span><span class="pill"><i class="fa-solid fa-chart-line"></i> KPI Optimization</span><span class="pill"><i class="fa-solid fa-bullseye"></i> Goal Attainment</span><span class="pill"><i class="fa-solid fa-handshake"></i> Customer Satisfaction</span><span class="pill"><i class="fa-solid fa-bolt"></i> Problem Solving</span><span class="pill"><i class="fa-solid fa-users"></i> Team Leadership</span></div></div>
+</section>
 
-            <div class="hero-actions">
-              <button class="btn-primary" type="button" onclick="openModal('modalContact')">
-                <i class="fa-solid fa-paper-plane"></i> Quick Connect
-              </button>
-              <a class="btn-secondary" href="projects.html">
-                <i class="fa-solid fa-folder-open"></i> View Projects
-              </a>
-            </div>
+<!-- GALLERY -->
+<section class="page" id="p-gallery">
+ <div class="hero"><div class="ey"><i class="fa-solid fa-camera-retro"></i> Personal Collection</div><h1>Moments, milestones, and memories.</h1><p>A visual collection of personal moments, family memories, work experiences, friendships, and milestones gathered along the journey.</p></div>
+ <div class="card fx"><div class="fb"><div class="tabs"><button class="tab active" data-f="all">All</button><button class="tab" data-f="me">Personal</button><button class="tab" data-f="family">Family</button><button class="tab" data-f="friends">Work &amp; Friends</button><button class="tab" data-f="others">Others</button></div><label class="sbx"><i class="fa-solid fa-magnifying-glass"></i><input class="fs" type="search" placeholder="Search gallery..."></label></div>
+  <div class="grid gal" id="gal"></div>
+  <div class="em"><i class="fa-regular fa-images"></i> No matching photos found.</div></div>
+</section>
 
-            <div class="stats-container">
-              <div class="stat-box">
-                <h3 class="counter" data-target="11" data-suffix="+">0</h3>
-                <p>Years Experience</p>
-              </div>
-              <div class="stat-box">
-                <h3 class="counter" data-target="4" data-suffix="">0</h3>
-                <p>Projects Crafted</p>
-              </div>
-              <div class="stat-box">
-                <h3 class="counter" data-target="100" data-suffix="%">0</h3>
-                <p>Commitment</p>
-              </div>
-            </div>
+<!-- SOCIAL -->
+<section class="page" id="p-social">
+ <div class="hero"><div class="ey"><i class="fa-solid fa-share-nodes"></i> Connect &amp; Collaborate</div><h1>Find me across the platforms I use most.</h1><p>Explore my digital presence, connect professionally, follow creative content, or message me directly.</p>
+  <div class="grid g3" style="margin-top:1.3rem"><div class="stat"><h3>8</h3><p>Active Platforms</p></div><div class="stat"><h3>&le; 1 hr</h3><p>Avg. Response</p></div><div class="stat"><h3>100%</h3><p>Profiles Connected</p></div></div></div>
+ <div class="card fx"><h2 class="st"><i class="fa-solid fa-globe"></i> Social Platforms</h2>
+  <div class="fb"><label class="sbx"><i class="fa-solid fa-magnifying-glass"></i><input class="fs" type="search" placeholder="Search platform or handle..."></label><div class="tabs"><button class="tab active" data-f="all">All</button><button class="tab" data-f="pro">Professional</button><button class="tab" data-f="video">Video &amp; Content</button><button class="tab" data-f="messaging">Messaging</button><button class="tab" data-f="community">Community</button></div></div>
+  <div class="grid g4" id="soc"></div><div class="em"><i class="fa-solid fa-magnifying-glass"></i> No matching platforms found.</div></div>
+ <div class="card"><h2 class="st"><i class="fa-solid fa-envelope"></i> Get in Touch</h2><div class="grid g3">
+  <div class="box"><h4><i class="fa-solid fa-envelope" style="color:var(--pl)"></i> Direct Email</h4><p class="mu" style="margin:.4rem 0 .8rem">ablaobryan4400@gmail.com</p><a class="btn" href="mailto:ablaobryan4400@gmail.com">Send Email</a></div>
+  <div class="box"><h4><i class="fa-brands fa-telegram" style="color:var(--pl)"></i> Telegram Chat</h4><p class="mu" style="margin:.4rem 0 .8rem">@bryvngtz</p><a class="btn" href="https://t.me/bryvngtz" target="_blank" rel="noopener">Open Chat</a></div>
+  <div class="box"><h4><i class="fa-brands fa-linkedin" style="color:var(--pl)"></i> LinkedIn Network</h4><p class="mu" style="margin:.4rem 0 .8rem">Bryan G. Ablao</p><a class="btn" href="https://www.linkedin.com/in/bryan-ablao-636497189/" target="_blank" rel="noopener">Connect</a></div>
+ </div></div>
+</section>
 
-            <div class="info-grid">
-              <div class="info-item">
-                <span><i class="fa-solid fa-location-dot"></i> Location</span>
-                <a href="https://maps.app.goo.gl/3qxbihk6F5TMQauo8" target="_blank" rel="noopener noreferrer">Davao City, Philippines</a>
-              </div>
-              <div class="info-item">
-                <span><i class="fa-solid fa-envelope"></i> Email</span>
-                <a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a>
-              </div>
-              <div class="info-item">
-                <span><i class="fa-solid fa-phone"></i> Mobile</span>
-                <a href="tel:09928760990">09928760990</a>
-              </div>
-              <div class="info-item">
-                <span><i class="fa-solid fa-flag"></i> Citizenship</span>
-                <p>Filipino</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+<!-- DONATE -->
+<section class="page" id="p-donate">
+ <div class="hero"><div class="ey"><i class="fa-solid fa-heart"></i> Support My Work</div><h1>Help keep the projects growing.</h1><p>Scan any QR code below or use the available payment channels to support hosting, open-source development, experiments, and future digital projects. Every contribution is appreciated.</p></div>
+ <div class="card"><h2 class="st"><i class="fa-solid fa-hand-holding-heart"></i> Your Support Makes an Impact</h2>
+  <div class="grid g2" style="margin-bottom:1.5rem"><div class="box"><h3 style="color:var(--pl)"><i class="fa-solid fa-server"></i> Infrastructure &amp; Hosting</h3><p class="mu">Keeps developer tools, live web apps, demos, and portfolio projects online.</p></div><div class="box"><h3 style="color:var(--pl)"><i class="fa-solid fa-code-branch"></i> Open Source &amp; R&amp;D</h3><p class="mu">Supports new features, experiments, scripts, and community-focused projects.</p></div></div>
+  <h2 class="st"><i class="fa-solid fa-qrcode"></i> Donation Channels</h2>
+  <div class="grid g4">
+   <div class="box qr"><b style="color:var(--pl)">GCASH</b><p class="mu">Name: Bryan A.</p><img src="images/GCASH QR.jpg" alt="GCash QR" data-zoom><button class="cb" data-copy="09928760990"><i class="fa-regular fa-copy"></i> Copy Details</button></div>
+   <div class="box qr"><b style="color:var(--pl)">MAYA</b><p class="mu">Name: Bryan A.</p><img src="images/MAYA QR.jpg" alt="Maya QR" data-zoom><button class="cb" data-copy="09928760990"><i class="fa-regular fa-copy"></i> Copy Details</button></div>
+   <div class="box qr"><b style="color:var(--pl)">AUB</b><p class="mu">Bank Transfer</p><img src="images/AUB QR.jpg" alt="AUB QR" data-zoom><button class="cb" data-copy="AUB Account Details"><i class="fa-regular fa-copy"></i> Copy Details</button></div>
+   <div class="box qr"><b style="color:var(--pl)">CEBUANA</b><p class="mu">Remittance / Cash</p><img src="images/Cebuana.png" alt="Cebuana QR" data-zoom><button class="cb" data-copy="Cebuana Info"><i class="fa-regular fa-copy"></i> Copy Details</button></div>
+  </div></div>
+</section>
 
-      <section class="glass-card">
-        <h2 class="section-title"><i class="fa-solid fa-laptop-code"></i> Core Expertise & Skills</h2>
+<!-- FREE APPS -->
+<section class="page" id="p-free">
+ <div class="hero"><div class="ey"><i class="fa-solid fa-box-open"></i> Free Downloads</div><h1>Free Apps &amp; Useful Little Tools</h1><p>A collection of lightweight apps, scripts, and utilities you can download and use for free.</p>
+  <div class="pills"><span class="pill"><i class="fa-solid fa-gift"></i> 100% Free</span><span class="pill"><i class="fa-solid fa-download"></i> Direct Downloads</span><span class="pill"><i class="fa-solid fa-code"></i> Lightweight Utilities</span></div></div>
+ <div class="card"><h2 class="st"><i class="fa-solid fa-table-cells"></i> Available Apps</h2>
+  <article class="box cmd" style="max-width:640px">
+   <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:.8rem"><span style="font-size:1.8rem">🎧</span><span class="ok"><i></i> Free App</span></div>
+   <h3 style="font-size:1.2rem">cmd.bat | Your Secret Music Player</h3>
+   <p style="color:var(--pl);font-weight:700;margin:.4rem 0 .9rem">Looks like a command prompt. Works like a music player. 🤫</p>
+   <div class="row" style="justify-content:space-between;align-items:center;padding:.6rem .85rem;border:1px solid rgba(251,191,36,.4);border-radius:12px;background:rgba(251,191,36,.08);color:#d6a31c;font-size:.78rem;font-weight:700;margin-bottom:.8rem"><span><i class="fa-solid fa-laptop"></i> Works on PC &amp; laptop only (Windows)</span><button class="cb" data-open="m-cmd" aria-label="Show music commands">?</button></div>
+   <div id="cw" class="mu" style="display:none;color:#f87171;margin-bottom:.8rem"><i class="fa-solid fa-triangle-exclamation"></i> You don't seem to be on a Windows PC. This .bat app won't run on phones, tablets, Mac, or Linux.</div>
+   <p class="mu">Enjoy your favorite music with a discreet command-line interface: play songs, pause, skip tracks, adjust volume, and check what's playing through simple commands. Just type a song name &mdash; anything that isn't a command is searched as a song. Turn on <code>stealth on</code> to show a fake “not recognized” message after you type a song.</p>
+   <div class="grid g2" style="margin:1rem 0;gap:.5rem;font-size:.8rem" class="mu"><span><i class="fa-solid fa-play" style="color:var(--pl)"></i> Play &amp; pause</span><span><i class="fa-solid fa-forward-step" style="color:var(--pl)"></i> Skip tracks</span><span><i class="fa-solid fa-volume-high" style="color:var(--pl)"></i> Adjust volume</span><span><i class="fa-solid fa-user-secret" style="color:var(--pl)"></i> Stealth mode</span></div>
+   <a class="btn" style="width:100%" href="free/cmd.bat" download="cmd.bat" data-toast="Download started: cmd.bat"><i class="fa-solid fa-download"></i> CLICK HERE TO DOWNLOAD THE APP</a>
+   <button class="bs" style="width:100%;margin-top:.6rem" data-open="m-cmd"><i class="fa-solid fa-terminal"></i> View all commands</button>
+  </article></div>
+</section>
 
-        <div class="filter-tabs">
-          <button class="filter-btn active" type="button" onclick="filterSkills('all', this)">All</button>
-          <button class="filter-btn" type="button" onclick="filterSkills('dev', this)">Development</button>
-          <button class="filter-btn" type="button" onclick="filterSkills('design', this)">Design</button>
-          <button class="filter-btn" type="button" onclick="filterSkills('soft', this)">Soft Skills</button>
-        </div>
+<!-- TERMS -->
+<section class="page" id="p-terms">
+ <div class="hero"><div class="ey"><i class="fa-solid fa-shield-halved"></i> Site Policies</div><h1>Terms &amp; Privacy</h1><p>Usage terms and privacy commitments for this website, including how content, contact information, donations, and external links are handled.</p></div>
+ <div class="card pol"><h2 class="st"><i class="fa-solid fa-file-lines"></i> Terms of Use</h2>
+  <p>By accessing this site, you agree that all content is provided for informational, portfolio, and demonstration purposes. The site showcases my profile, achievements, projects, galleries, and social links in a static format.</p>
+  <p>Visitors may use publicly shared contact information, QR codes, and social links for legitimate purposes such as professional inquiries, collaborations, commissions, or hiring requests. Communication should remain respectful and ethical.</p>
+  <p>Donations and custom web development requests are voluntary. Financial transactions are processed through trusted third-party providers; no financial data is stored on this website.</p>
+  <p>All content is provided “as-is” without warranty. I cannot guarantee absolute completeness, timeliness, or reliability.</p>
+  <p>You may not misuse, modify, or redistribute the site content for unauthorized commercial purposes. Layout, visuals, images, and written content are the intellectual property of the creator.</p>
+  <p>Do not engage in harassment, spamming, or malicious activity. I may update content at any time without prior notice.</p></div>
+ <div class="card pol"><h2 class="st"><i class="fa-solid fa-lock"></i> Privacy Policy</h2>
+  <p>This website does not track or collect personal data, and has no user accounts. All pages are static and viewable without registration.</p>
+  <p>No cookies, analytics, or tracking scripts monitor visitors. Minimal scripts are used only for ambient visuals, theme preference, and background music state saved locally in your browser.</p>
+  <p>If you contact me by email, phone, or external platforms, your information is used solely to respond to your inquiry.</p>
+  <p>Payments are processed via external gateways. This site never stores sensitive financial or card information.</p>
+  <p>External links operate under their own privacy policies. I am not responsible for third-party sites.</p></div>
+ <div class="card"><h2 class="st"><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions</h2>
+  <div class="faq"><button><span>What information is shared on this website?</span><span>+</span></button><div>My portfolio, achievements, projects, galleries, public contact info, and social channels. Sensitive personal information is never published.</div></div>
+  <div class="faq"><button><span>Can I contact you directly for projects or work?</span><span>+</span></button><div>Yes. Use the email, phone number, or social channels for web development commissions, hiring, or collaboration.</div></div>
+  <div class="faq"><button><span>Can I donate or hire you to build a website?</span><span>+</span></button><div>Absolutely. Donations and service requests are welcome, and payments are handled through secure third-party services.</div></div>
+  <div class="faq"><button><span>Is my personal data or location tracked?</span><span>+</span></button><div>No. There are no tracking cookies, analytics, or background data collection tools on this website.</div></div>
+  <div class="faq"><button><span>Is the information guaranteed to be accurate?</span><span>+</span></button><div>Information is provided “as-is” and may be updated or revised over time.</div></div>
+ </div>
+</section>
 
-        <div class="skills-grid">
-          <div class="skill-item" data-category="dev">
-            <div class="skill-info"><span>Frontend Development</span><span>88%</span></div>
-            <div class="skill-bar"><div class="skill-progress" data-progress="88%"></div></div>
-          </div>
-          <div class="skill-item" data-category="design">
-            <div class="skill-info"><span>UI/UX & Creative Design</span><span>82%</span></div>
-            <div class="skill-bar"><div class="skill-progress" data-progress="82%"></div></div>
-          </div>
-          <div class="skill-item" data-category="soft">
-            <div class="skill-info"><span>Problem Solving & Strategy</span><span>90%</span></div>
-            <div class="skill-bar"><div class="skill-progress" data-progress="90%"></div></div>
-          </div>
-          <div class="skill-item" data-category="soft">
-            <div class="skill-info"><span>Adaptability & Continuous Growth</span><span>95%</span></div>
-            <div class="skill-bar"><div class="skill-progress" data-progress="95%"></div></div>
-          </div>
-        </div>
-      </section>
+<!-- VERSION -->
+<section class="page" id="p-version">
+ <div class="hero"><div class="ey"><i class="fa-solid fa-code-branch"></i> Release Notes</div><h1>Version History</h1><p>Changelog and release notes for the portfolio website.</p><div class="pills"><span class="pill"><i class="fa-solid fa-tag"></i> Current Version: v0.0.9</span><span class="pill"><i class="fa-solid fa-clock-rotate-left"></i> 10 Releases Logged</span></div></div>
+ <div class="card"><h2 class="st"><i class="fa-solid fa-list-check"></i> Changelog</h2>
+  <div class="vc box"><div class="vh"><b>v0.0.9 · Current</b><span class="mu">October 2026</span></div><ul><li>Unified header and footer across all pages.</li><li>Added persistent Dark and Light Mode.</li><li>Added Philippine Standard Time to the footer.</li><li>Modern slide-out mobile sidebar.</li><li>Starfield, meteor, and ripple effects adapt to both themes.</li><li>Improved responsive layouts and visual consistency.</li><li>Combined every page into one file.</li></ul></div>
+  <div class="vc box"><div class="vh"><b>v0.0.8</b><span class="mu">December 2025</span></div><ul><li>Finalized animations: stars, ripple, gradient background.</li><li>Full-screen version history with scrollable content.</li><li>Hover animations and glowing effects on version cards.</li></ul></div>
+  <div class="vc box"><div class="vh"><b>v0.0.7</b><span class="mu">November 2025</span></div><ul><li>Layout refined for smaller screens.</li><li>Modal interactions improved.</li></ul></div>
+  <div class="vc box"><div class="vh"><b>v0.0.6</b><span class="mu">November 2025</span></div><ul><li>Starfield and meteor animations added.</li><li>Canvas performance optimized.</li></ul></div>
+  <div class="vc box"><div class="vh"><b>v0.0.5</b><span class="mu">October 2025</span></div><ul><li>Ripple effect on mouse movement added.</li><li>Smooth animations for interactive elements.</li></ul></div>
+  <div class="vc box"><div class="vh"><b>v0.0.4</b><span class="mu">September 2025</span></div><ul><li>Header and sidebar navigation implemented.</li><li>Responsive adjustments for mobile and tablet.</li></ul></div>
+  <div class="vc box"><div class="vh"><b>v0.0.3</b><span class="mu">August 2025</span></div><ul><li>Modals for family members and profile images.</li><li>Shadows and rounded borders added.</li></ul></div>
+  <div class="vc box"><div class="vh"><b>v0.0.2</b><span class="mu">July 2025</span></div><ul><li>Enhanced typography, spacing, alignment.</li><li>Basic JS navigation added.</li></ul></div>
+  <div class="vc box"><div class="vh"><b>v0.0.1</b><span class="mu">June 2025</span></div><ul><li>Basic CSS styling and typography.</li><li>Family section layout introduced.</li></ul></div>
+  <div class="vc box"><div class="vh"><b>v0.0.0</b><span class="mu">June 2025</span></div><ul><li>Initial site creation with basic HTML structure.</li><li>First public release, mostly text content.</li></ul></div>
+ </div>
+</section>
+</main>
 
-      <section class="glass-card">
-        <div class="two-column">
-          <div>
-            <h2 class="section-title"><i class="fa-solid fa-people-roof"></i> Family Background</h2>
-
-            <div class="family-group">
-              <div class="family-label">Parents</div>
-              <div class="family-grid">
-                <div class="family-card" onclick="openModal('modalFather')">
-                  <img src="images/father.png" alt="Evaristo C. Ablao">
-                  <h4>Evaristo C. Ablao</h4>
-                  <p>Father</p>
-                </div>
-                <div class="family-card" onclick="openModal('modalMother')">
-                  <img src="images/mother.png" alt="Annalie G. Ablao">
-                  <h4>Annalie G. Ablao</h4>
-                  <p>Mother</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="family-group">
-              <div class="family-label">Siblings</div>
-              <div class="family-grid">
-                <div class="family-card" onclick="openModal('modalKenneth')">
-                  <img src="images/Kenneth.jpg" alt="Kenneth G. Ablao">
-                  <h4>Kenneth G. Ablao</h4>
-                  <p>Brother</p>
-                </div>
-                <div class="family-card" onclick="openModal('modalRizEvan')">
-                  <img src="images/RizEvan.jpg" alt="Riz Evan G. Ablao">
-                  <h4>Riz Evan G. Ablao</h4>
-                  <p>Brother</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h2 class="section-title"><i class="fa-solid fa-compass"></i> Guiding Principles</h2>
-
-            <div class="value-card">
-              <h4><i class="fa-solid fa-cross"></i> Faith & Integrity</h4>
-              <p>Grounding every action and decision in strong ethical principles, guided by faith and authenticity.</p>
-            </div>
-            <div class="value-card">
-              <h4><i class="fa-solid fa-mountain"></i> Resilience & Perseverance</h4>
-              <p>Embracing challenges as opportunities to grow while remaining determined and optimistic.</p>
-            </div>
-            <div class="value-card">
-              <h4><i class="fa-solid fa-brain"></i> Continuous Learning</h4>
-              <p>Constantly expanding skills, knowledge, and perspectives to create stronger solutions.</p>
-            </div>
-            <div class="value-card">
-              <h4><i class="fa-solid fa-heart"></i> Family & Community</h4>
-              <p>Valuing strong bonds, mutual support, and meaningful contributions to the people around me.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="glass-card">
-        <h2 class="section-title"><i class="fa-solid fa-timeline"></i> Life & Career Journey</h2>
-        <div class="timeline">
-          <div class="timeline-item">
-            <div class="timeline-date">2025 – Present</div>
-            <h3>Founding & Building Accxs Creations</h3>
-            <p class="timeline-desc">Leading digital innovation and designing cohesive interactive web solutions.</p>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-date">2023 – 2024</div>
-            <h3>Expanding Technical Mastery</h3>
-            <p class="timeline-desc">Deepening expertise in front-end aesthetics, user experience, and interactive interfaces.</p>
-          </div>
-          <div class="timeline-item">
-            <div class="timeline-date">Early Milestones</div>
-            <h3>Personal Foundation & Character Growth</h3>
-            <p class="timeline-desc">Developing the values of perseverance, family strength, responsibility, and proactive problem solving.</p>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      <div class="footer-container">
-        <div class="footer-brand">
-          <a href="index.html" class="footer-logo" aria-label="Accxs Creations home">
-            <span class="footer-logo-mark"><i class="fa-solid fa-code"></i></span>
-            <span>Accxs Creations</span>
-          </a>
-          <p>
-            Building thoughtful digital experiences through creativity, clean design,
-            practical problem solving, and continuous learning.
-          </p>
-        </div>
-
-        <div>
-          <h3 class="footer-heading">Explore</h3>
-          <ul class="footer-nav">
-            <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> About</a></li>
-            <li><a href="work.html"><i class="fa-solid fa-chevron-right"></i> Experience</a></li>
-            <li><a href="projects.html"><i class="fa-solid fa-chevron-right"></i> Projects</a></li>
-            <li><a href="achievement.html"><i class="fa-solid fa-chevron-right"></i> Achievements</a></li>
-            <li><a href="gallery.html"><i class="fa-solid fa-chevron-right"></i> Gallery</a></li>
-            <li><a href="social.html"><i class="fa-solid fa-chevron-right"></i> Socials</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 class="footer-heading">Contact</h3>
-          <ul class="footer-contact">
-            <li>
-              <i class="fa-solid fa-envelope"></i>
-              <a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a>
-            </li>
-            <li>
-              <i class="fa-solid fa-phone"></i>
-              <a href="tel:09928760990">09928760990</a>
-            </li>
-            <li>
-              <i class="fa-solid fa-location-dot"></i>
-              <a href="https://maps.app.goo.gl/3qxbihk6F5TMQauo8" target="_blank" rel="noopener noreferrer">
-                Davao City, Philippines
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <h3 class="footer-heading">Website</h3>
-          <div class="footer-status-badge">
-            <span class="footer-status-dot"></span>
-            Portfolio Online
-          </div>
-          <ul class="footer-status-list">
-            <li>
-              <i class="fa-solid fa-clock"></i>
-              <span class="footer-time" id="phTimeDisplay">Philippine Standard Time — Loading...</span>
-            </li>
-            <li>
-              <i class="fa-solid fa-code-branch"></i>
-              <span>Current version: <a href="version.html">v0.0.9</a></span>
-            </li>
-            <li>
-              <i class="fa-solid fa-circle-half-stroke"></i>
-              <span>Dark and light theme supported</span>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-<div>
-  © 2025–2026
-  <a
-    href="https://bryangablao.github.io/Accxs-Creations/"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="footer-company-link"
-    aria-label="Visit Accxs Creations website"
-  >Accxs Creations</a>. All rights reserved.
+<footer>
+ <div class="fc">
+  <div><a href="https://bryangablao.github.io/Accxs-Creations/" target="_blank" rel="noopener" class="fl"><span class="fm"><i class="fa-solid fa-code"></i></span> Accxs Creations</a><p>Building thoughtful digital experiences through creativity, clean design, practical problem solving, and continuous learning.</p></div>
+  <div><h3 class="fh">Explore</h3><ul>
+   <li><a href="#about"><i class="fa-solid fa-chevron-right"></i> About</a></li><li><a href="#work"><i class="fa-solid fa-chevron-right"></i> Experience</a></li><li><a href="#projects"><i class="fa-solid fa-chevron-right"></i> Projects</a></li><li><a href="#achievement"><i class="fa-solid fa-chevron-right"></i> Achievements</a></li><li><a href="#gallery"><i class="fa-solid fa-chevron-right"></i> Gallery</a></li><li><a href="#social"><i class="fa-solid fa-chevron-right"></i> Socials</a></li></ul></div>
+  <div><h3 class="fh">Contact</h3><ul>
+   <li><i class="fa-solid fa-envelope"></i><a href="mailto:ablaobryan4400@gmail.com">ablaobryan4400@gmail.com</a></li><li><i class="fa-solid fa-phone"></i><a href="tel:09928760990">09928760990</a></li><li><i class="fa-solid fa-location-dot"></i><a href="https://maps.app.goo.gl/3qxbihk6F5TMQauo8" target="_blank" rel="noopener">Davao City, Philippines</a></li></ul></div>
+  <div><h3 class="fh">Website</h3><div class="ok"><i></i> Portfolio Online</div><ul>
+   <li><i class="fa-solid fa-clock"></i><span id="ph" style="font-size:.76rem">Philippine Standard Time — Loading...</span></li><li><i class="fa-solid fa-code-branch"></i><span>Current version: <a href="#version">v0.0.9</a></span></li><li><i class="fa-solid fa-circle-half-stroke"></i><span>Dark and light theme supported</span></li></ul></div>
+ </div>
+ <div class="fb2"><div>© 2025–2026 <a href="https://bryangablao.github.io/Accxs-Creations/" target="_blank" rel="noopener">Accxs Creations</a>. All rights reserved.</div>
+  <div class="row" style="gap:.75rem"><a href="#terms">Terms &amp; Privacy</a><span>·</span><a href="#version">Version History</a><span>·</span><a href="#free">Free Apps</a><span>·</span><a href="#donate">Donate</a><span>·</span><a href="#top" onclick="scrollTo({top:0,behavior:'smooth'});return false">Back to Top</a></div></div>
+</footer>
 </div>
-        <div class="footer-bottom-links">
-          <a href="terms.html">Terms & Privacy</a>
-          <span>·</span>
-          <a href="version.html">Version History</a>
-          <span>·</span>
-          <a href="#top" onclick="window.scrollTo({ top: 0, behavior: 'smooth' }); return false;">Back to Top</a>
-        </div>
-      </div>
-    </footer>
-  </div>
 
-
-
-  <!-- Background Music Player -->
-  <div class="music-player" id="musicPlayer">
-    <div class="music-panel" id="musicPanel" aria-label="Background music controls">
-      <span class="music-label">Background Music</span>
-      <span class="music-track-name" id="musicTrackName">Loading playlist...</span>
-
-      <div class="music-controls">
-        <button class="music-control" id="musicPowerBtn" type="button" aria-label="Turn music on" title="Music On/Off">
-          <i id="musicPowerIcon" class="fa-solid fa-volume-xmark"></i>
-        </button>
-        <button class="music-control" id="musicPrevBtn" type="button" aria-label="Previous track" title="Previous">
-          <i class="fa-solid fa-backward-step"></i>
-        </button>
-        <button class="music-control" id="musicPlayBtn" type="button" aria-label="Play music" title="Play/Pause">
-          <i id="musicPlayIcon" class="fa-solid fa-play"></i>
-        </button>
-        <button class="music-control" id="musicNextBtn" type="button" aria-label="Next track" title="Next">
-          <i class="fa-solid fa-forward-step"></i>
-        </button>
-      </div>
-
-      <div class="music-status" id="musicStatus">Music is off.</div>
-    </div>
-
-    <button class="music-launcher" id="musicLauncher" type="button" aria-label="Open music player" title="Music Player">
-      <i class="fa-solid fa-music"></i>
-    </button>
-
-    <audio id="backgroundMusic" preload="metadata"></audio>
-  </div>
-
-
-  <div class="modal-overlay" id="modalContact">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeModal('modalContact')" aria-label="Close">&times;</button>
-      <h3>Get In Touch</h3>
-      <p>Feel free to reach out directly through email or phone.</p>
-      <div class="contact-stack">
-        <a href="mailto:ablaobryan4400@gmail.com" class="btn-primary"><i class="fa-solid fa-envelope"></i> Send Email</a>
-        <a href="tel:09928760990" class="btn-secondary"><i class="fa-solid fa-phone"></i> Call Mobile</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="modalBryan">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeModal('modalBryan')" aria-label="Close">&times;</button>
-      <img src="images/Bryan.jpg" alt="Bryan G. Ablao" class="modal-profile-img">
-      <h3>Bryan G. Ablao</h3>
-      <p>I am a dedicated and passionate individual with a strong sense of responsibility, creativity, and perseverance. I continuously strive to grow personally and professionally while valuing integrity, hard work, faith, and meaningful relationships.</p>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="modalFather">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeModal('modalFather')" aria-label="Close">&times;</button>
-      <img src="images/father.png" alt="Evaristo C. Ablao" class="modal-profile-img">
-      <h3>Evaristo C. Ablao</h3>
-      <p>He was a pillar of strength and guidance for our family, remembered for integrity, responsibility, and dedication to his loved ones.</p>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="modalMother">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeModal('modalMother')" aria-label="Close">&times;</button>
-      <img src="images/mother.png" alt="Annalie G. Ablao" class="modal-profile-img">
-      <h3>Annalie G. Ablao</h3>
-      <p>My mother has been the unwavering foundation of our family, demonstrating strength, resilience, compassion, and devotion while guiding us through life and faith.</p>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="modalKenneth">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeModal('modalKenneth')" aria-label="Close">&times;</button>
-      <img src="images/Kenneth.jpg" alt="Kenneth G. Ablao" class="modal-profile-img">
-      <h3>Kenneth G. Ablao</h3>
-      <p>Kenneth is a loving and responsible family member who values family deeply and remains ready to support the people around him.</p>
-    </div>
-  </div>
-
-  <div class="modal-overlay" id="modalRizEvan">
-    <div class="modal-box">
-      <button class="modal-close" type="button" onclick="closeModal('modalRizEvan')" aria-label="Close">&times;</button>
-      <img src="images/RizEvan.jpg" alt="Riz Evan G. Ablao" class="modal-profile-img">
-      <h3>Riz Evan G. Ablao</h3>
-      <p>Riz Evan is known for his vibrant humor and caring nature, bringing warmth, laughter, and support to the family.</p>
-    </div>
-  </div>
-
-  <script>
-    "use strict";
-
-    const themeToggle = document.getElementById("themeToggle");
-    const themeIcon = document.getElementById("themeIcon");
-
-    function getTheme() {
-      return document.documentElement.dataset.theme || "dark";
-    }
-
-    function refreshThemeIcon() {
-      const isLight = getTheme() === "light";
-      themeIcon.className = isLight ? "fa-solid fa-sun" : "fa-solid fa-moon";
-      themeToggle.setAttribute("aria-label", isLight ? "Switch to dark mode" : "Switch to light mode");
-      themeToggle.setAttribute("title", isLight ? "Switch to dark mode" : "Switch to light mode");
-    }
-
-    function setTheme(theme) {
-      document.documentElement.dataset.theme = theme;
-      try { localStorage.setItem("accxs-theme", theme); } catch (error) {}
-      refreshThemeIcon();
-    }
-
-    themeToggle.addEventListener("click", () => {
-      setTheme(getTheme() === "dark" ? "light" : "dark");
-    });
-
-    refreshThemeIcon();
-
-    function updatePhilippineTime() {
-      const now = new Date();
-      const formatter = new Intl.DateTimeFormat("en-US", {
-        timeZone: "Asia/Manila",
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        hour: "numeric",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true
-      });
-
-      const el = document.getElementById("phTimeDisplay");
-      if (el) el.textContent = `Philippine Standard Time — ${formatter.format(now)}`;
-    }
-
-    updatePhilippineTime();
-    setInterval(updatePhilippineTime, 1000);
-
-    function filterSkills(category, button) {
-      document.querySelectorAll(".filter-btn").forEach(btn => btn.classList.remove("active"));
-      if (button) button.classList.add("active");
-
-      document.querySelectorAll(".skill-item").forEach(item => {
-        const match = category === "all" || item.dataset.category === category;
-        item.style.display = match ? "block" : "none";
-      });
-    }
-
-    const words = ["Creative Designer", "Web Innovator", "Problem Solver", "Tech Enthusiast"];
-    let wordIndex = 0;
-    let charIndex = 0;
-    let deleting = false;
-
-    function typeEffect() {
-      const el = document.getElementById("typingText");
-      if (!el) return;
-
-      const current = words[wordIndex];
-      charIndex += deleting ? -1 : 1;
-      el.textContent = current.slice(0, charIndex);
-
-      if (!deleting && charIndex === current.length) {
-        deleting = true;
-        setTimeout(typeEffect, 1400);
-        return;
-      }
-
-      if (deleting && charIndex === 0) {
-        deleting = false;
-        wordIndex = (wordIndex + 1) % words.length;
-      }
-
-      setTimeout(typeEffect, deleting ? 55 : 95);
-    }
-
-    document.addEventListener("DOMContentLoaded", typeEffect);
-
-    const developerCommands = [
-      "create --experience",
-      "build --ideas",
-      "design --future",
-      "solve --problems",
-      "innovate --always"
-    ];
-    let developerCommandIndex = 0;
-    let developerCharIndex = 0;
-    let developerDeleting = false;
-
-    function developerTerminalEffect() {
-      const terminal = document.getElementById("developerTerminalText");
-      if (!terminal) return;
-
-      const command = developerCommands[developerCommandIndex];
-      developerCharIndex += developerDeleting ? -1 : 1;
-      terminal.textContent = command.slice(0, developerCharIndex);
-
-      if (!developerDeleting && developerCharIndex === command.length) {
-        developerDeleting = true;
-        setTimeout(developerTerminalEffect, 1800);
-        return;
-      }
-
-      if (developerDeleting && developerCharIndex === 0) {
-        developerDeleting = false;
-        developerCommandIndex = (developerCommandIndex + 1) % developerCommands.length;
-        setTimeout(developerTerminalEffect, 450);
-        return;
-      }
-
-      setTimeout(developerTerminalEffect, developerDeleting ? 35 : 75);
-    }
-
-    document.addEventListener("DOMContentLoaded", developerTerminalEffect);
-
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (!entry.isIntersecting) return;
-
-        entry.target.classList.add("visible");
-
-        entry.target.querySelectorAll(".skill-progress").forEach(bar => {
-          bar.style.width = bar.dataset.progress || "0%";
-        });
-
-        entry.target.querySelectorAll(".counter").forEach(counter => {
-          if (counter.dataset.animated === "true") return;
-          counter.dataset.animated = "true";
-
-          const target = Number(counter.dataset.target || 0);
-          const suffix = counter.dataset.suffix || "";
-          let current = 0;
-          const steps = 40;
-          const increment = target / steps;
-
-          const tick = () => {
-            current += increment;
-            if (current >= target) {
-              counter.textContent = `${target}${suffix}`;
-              return;
-            }
-            counter.textContent = `${Math.ceil(current)}${suffix}`;
-            requestAnimationFrame(tick);
-          };
-
-          tick();
-        });
-      });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll(".glass-card").forEach(card => observer.observe(card));
-
-    function toggleMenu() {
-      const sidebar = document.getElementById("sidebar");
-      const overlay = document.getElementById("sidebarOverlay");
-      const open = sidebar.classList.toggle("open");
-      overlay.style.display = open ? "block" : "none";
-    }
-
-    function closeMenu() {
-      document.getElementById("sidebar").classList.remove("open");
-      document.getElementById("sidebarOverlay").style.display = "none";
-    }
-
-    function openModal(id) {
-      const modal = document.getElementById(id);
-      if (!modal) return;
-      modal.style.display = "flex";
-      document.body.classList.add("modal-open");
-    }
-
-    function closeModal(id) {
-      const modal = document.getElementById(id);
-      if (!modal) return;
-      modal.style.display = "none";
-
-      const anyOpen = [...document.querySelectorAll(".modal-overlay")]
-        .some(item => item.style.display === "flex");
-
-      if (!anyOpen) document.body.classList.remove("modal-open");
-    }
-
-    document.querySelectorAll(".modal-overlay").forEach(modal => {
-      modal.addEventListener("click", event => {
-        if (event.target === modal) closeModal(modal.id);
-      });
-    });
-
-    document.addEventListener("keydown", event => {
-      if (event.key !== "Escape") return;
-      document.querySelectorAll(".modal-overlay").forEach(modal => {
-        if (modal.style.display === "flex") closeModal(modal.id);
-      });
-      closeMenu();
-    });
-
-    const starsCanvas = document.getElementById("starsCanvas");
-    const starsCtx = starsCanvas.getContext("2d");
-    let stars = [];
-    let meteor = null;
-
-    function resizeStars() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      starsCanvas.width = Math.floor(window.innerWidth * dpr);
-      starsCanvas.height = Math.floor(window.innerHeight * dpr);
-      starsCanvas.style.width = `${window.innerWidth}px`;
-      starsCanvas.style.height = `${window.innerHeight}px`;
-      starsCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      const count = Math.max(70, Math.floor((window.innerWidth * window.innerHeight) / 9000));
-      stars = Array.from({ length: count }, () => ({
-        x: Math.random() * window.innerWidth,
-        y: Math.random() * window.innerHeight,
-        r: Math.random() * 1.3 + 0.3,
-        a: Math.random() * 0.65 + 0.2,
-        s: Math.random() * 0.015 + 0.004
-      }));
-    }
-
-    function spawnMeteor() {
-      meteor = {
-        x: Math.random() * window.innerWidth,
-        y: -30,
-        vx: -(Math.random() * 3 + 2),
-        vy: Math.random() * 2 + 2.5,
-        alpha: 1
-      };
-    }
-
-    function animateStars() {
-      starsCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-      for (const star of stars) {
-        star.a += (Math.random() < 0.5 ? -1 : 1) * star.s;
-        star.a = Math.max(0.15, Math.min(0.9, star.a));
-        starsCtx.beginPath();
-        starsCtx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
-        starsCtx.fillStyle = getTheme() === "light" ? `rgba(71,85,105,${star.a * 0.48})` : `rgba(255,255,255,${star.a})`;
-        starsCtx.fill();
-      }
-
-      if (meteor) {
-        meteor.x += meteor.vx;
-        meteor.y += meteor.vy;
-        meteor.alpha -= 0.012;
-
-        const gradient = starsCtx.createLinearGradient(
-          meteor.x,
-          meteor.y,
-          meteor.x - meteor.vx * 16,
-          meteor.y - meteor.vy * 16
-        );
-        if (getTheme() === "light") {
-          gradient.addColorStop(0, `rgba(109,40,217,${meteor.alpha * 0.75})`);
-          gradient.addColorStop(1, "rgba(109,40,217,0)");
-        } else {
-          gradient.addColorStop(0, `rgba(255,255,255,${meteor.alpha})`);
-          gradient.addColorStop(1, "rgba(255,255,255,0)");
-        }
-
-        starsCtx.strokeStyle = gradient;
-        starsCtx.lineWidth = 1.5;
-        starsCtx.beginPath();
-        starsCtx.moveTo(meteor.x, meteor.y);
-        starsCtx.lineTo(meteor.x - meteor.vx * 16, meteor.y - meteor.vy * 16);
-        starsCtx.stroke();
-
-        if (meteor.alpha <= 0 || meteor.x < -80 || meteor.y > window.innerHeight + 80) {
-          meteor = null;
-          setTimeout(spawnMeteor, Math.random() * 5000 + 3000);
-        }
-      }
-
-      requestAnimationFrame(animateStars);
-    }
-
-    const rippleCanvas = document.getElementById("rippleCanvas");
-    const rippleCtx = rippleCanvas.getContext("2d");
-    const ripples = [];
-
-    function resizeRipples() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      rippleCanvas.width = Math.floor(window.innerWidth * dpr);
-      rippleCanvas.height = Math.floor(window.innerHeight * dpr);
-      rippleCanvas.style.width = `${window.innerWidth}px`;
-      rippleCanvas.style.height = `${window.innerHeight}px`;
-      rippleCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
-
-    window.addEventListener("mousemove", event => {
-      if (Math.random() > 0.25) return;
-      ripples.push({ x: event.clientX, y: event.clientY, radius: 0, alpha: 0.22 });
-      if (ripples.length > 18) ripples.shift();
-    });
-
-    function animateRipples() {
-      rippleCtx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-      for (let i = ripples.length - 1; i >= 0; i--) {
-        const ripple = ripples[i];
-        ripple.radius += 1.25;
-        ripple.alpha -= 0.007;
-
-        if (ripple.alpha <= 0) {
-          ripples.splice(i, 1);
-          continue;
-        }
-
-        rippleCtx.beginPath();
-        rippleCtx.arc(ripple.x, ripple.y, ripple.radius, 0, Math.PI * 2);
-        rippleCtx.strokeStyle = getTheme() === "light" ? `rgba(109,40,217,${ripple.alpha})` : `rgba(167,139,250,${ripple.alpha})`;
-        rippleCtx.lineWidth = 1;
-        rippleCtx.stroke();
-      }
-
-      requestAnimationFrame(animateRipples);
-    }
-
-    window.addEventListener("resize", () => {
-      resizeStars();
-      resizeRipples();
-    });
-
-    resizeStars();
-    resizeRipples();
-    animateStars();
-    animateRipples();
-    setTimeout(spawnMeteor, 1800);
-
-    /* ---------- Shared Background Music Playlist ---------- */
-    const musicFolder = "mp4";
-    const musicSupportedExtensions = ["mp3", "mp4", "m4a", "aac", "ogg", "wav", "webm"];
-    const musicStateKey = "accxs-music-state";
-
-    const musicAudio = document.getElementById("backgroundMusic");
-    const musicLauncher = document.getElementById("musicLauncher");
-    const musicPanel = document.getElementById("musicPanel");
-    const musicPowerBtn = document.getElementById("musicPowerBtn");
-    const musicPowerIcon = document.getElementById("musicPowerIcon");
-    const musicPrevBtn = document.getElementById("musicPrevBtn");
-    const musicPlayBtn = document.getElementById("musicPlayBtn");
-    const musicPlayIcon = document.getElementById("musicPlayIcon");
-    const musicNextBtn = document.getElementById("musicNextBtn");
-    const musicTrackName = document.getElementById("musicTrackName");
-    const musicStatus = document.getElementById("musicStatus");
-
-    let musicTracks = [];
-    let musicCurrentIndex = 0;
-    let musicEnabled = false;
-    let musicLastSavedSecond = -1;
-    let musicRestoreState = null;
-
-    musicAudio.volume = 0.35;
-
-    function musicPrettyName(filename) {
-      return filename
-        .replace(/\.[^.]+$/, "")
-        .replace(/[_-]+/g, " ")
-        .replace(/\s+/g, " ")
-        .trim();
-    }
-
-    function musicReadState() {
-      try {
-        const raw = localStorage.getItem(musicStateKey);
-        return raw ? JSON.parse(raw) : null;
-      } catch (error) {
-        return null;
-      }
-    }
-
-    function musicSaveState(playingOverride) {
-      if (!musicTracks.length) return;
-
-      const track = musicTracks[musicCurrentIndex];
-      const state = {
-        track: track ? track.name : null,
-        currentTime: Number.isFinite(musicAudio.currentTime) ? musicAudio.currentTime : 0,
-        enabled: musicEnabled,
-        playing: typeof playingOverride === "boolean"
-          ? playingOverride
-          : musicEnabled && !musicAudio.paused && !musicAudio.ended,
-        volume: musicAudio.volume,
-        updatedAt: Date.now()
-      };
-
-      try {
-        localStorage.setItem(musicStateKey, JSON.stringify(state));
-        if (track) localStorage.setItem("accxs-music-track", track.name);
-      } catch (error) {}
-    }
-
-    function musicSetEnabledUI(enabled) {
-      musicEnabled = enabled;
-      musicPowerBtn.classList.toggle("music-enabled", enabled);
-      musicPowerIcon.className = enabled ? "fa-solid fa-volume-high" : "fa-solid fa-volume-xmark";
-      musicPowerBtn.setAttribute("aria-label", enabled ? "Turn music off" : "Turn music on");
-      musicLauncher.classList.toggle("active", enabled);
-    }
-
-    function musicSetPlayUI(playing) {
-      musicPlayIcon.className = playing ? "fa-solid fa-pause" : "fa-solid fa-play";
-      musicPlayBtn.setAttribute("aria-label", playing ? "Pause music" : "Play music");
-    }
-
-    function musicGetGitHubRepository() {
-      const host = window.location.hostname.toLowerCase();
-
-      if (host.endsWith(".github.io")) {
-        const owner = host.split(".")[0];
-        const pathParts = window.location.pathname.split("/").filter(Boolean);
-        const repo = pathParts[0] || `${owner}.github.io`;
-        return { owner, repo };
-      }
-
-      const githubPageLink = document.querySelector('a[href*=".github.io/"]');
-      if (githubPageLink) {
-        try {
-          const url = new URL(githubPageLink.href);
-          const owner = url.hostname.split(".")[0];
-          const pathParts = url.pathname.split("/").filter(Boolean);
-          const repo = pathParts[0] || `${owner}.github.io`;
-          if (owner && repo) return { owner, repo };
-        } catch (error) {}
-      }
-
-      return null;
-    }
-
-    async function musicDiscoverTracks() {
-      const repoInfo = musicGetGitHubRepository();
-
-      if (!repoInfo) {
-        musicTrackName.textContent = "Playlist unavailable";
-        musicStatus.textContent = `Could not detect the GitHub repository for the ${musicFolder} folder.`;
-        return;
-      }
-
-      const apiUrl = `https://api.github.com/repos/${encodeURIComponent(repoInfo.owner)}/${encodeURIComponent(repoInfo.repo)}/contents/${encodeURIComponent(musicFolder)}`;
-
-      try {
-        const response = await fetch(apiUrl, {
-          headers: { Accept: "application/vnd.github+json" }
-        });
-
-        if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
-
-        const files = await response.json();
-        if (!Array.isArray(files)) throw new Error("Music folder response was not a file list");
-
-        musicTracks = files
-          .filter(item => {
-            if (item.type !== "file") return false;
-            const extension = item.name.includes(".") ? item.name.split(".").pop().toLowerCase() : "";
-            return musicSupportedExtensions.includes(extension);
-          })
-          .sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: "base" }))
-          .map(item => ({
-            name: item.name,
-            url: item.download_url
-          }));
-
-        if (!musicTracks.length) {
-          musicTrackName.textContent = "No music found";
-          musicStatus.textContent = `Add supported audio files inside the ${musicFolder} folder.`;
-          return;
-        }
-
-        musicRestoreState = musicReadState();
-
-        if (musicRestoreState && musicRestoreState.track) {
-          const savedIndex = musicTracks.findIndex(track => track.name === musicRestoreState.track);
-          if (savedIndex >= 0) musicCurrentIndex = savedIndex;
-        } else {
-          try {
-            const savedTrackName = localStorage.getItem("accxs-music-track");
-            const savedIndex = musicTracks.findIndex(track => track.name === savedTrackName);
-            if (savedIndex >= 0) musicCurrentIndex = savedIndex;
-          } catch (error) {}
-        }
-
-        if (musicRestoreState && Number.isFinite(Number(musicRestoreState.volume))) {
-          musicAudio.volume = Math.max(0, Math.min(1, Number(musicRestoreState.volume)));
-        }
-
-        const restoreTime = musicRestoreState && Number.isFinite(Number(musicRestoreState.currentTime))
-          ? Math.max(0, Number(musicRestoreState.currentTime))
-          : 0;
-
-        const shouldResume = Boolean(
-          musicRestoreState &&
-          musicRestoreState.enabled &&
-          musicRestoreState.playing
-        );
-
-        musicSetEnabledUI(Boolean(musicRestoreState && musicRestoreState.enabled));
-        musicLoadTrack(musicCurrentIndex, restoreTime, shouldResume);
-
-        if (!shouldResume) {
-          musicSetPlayUI(false);
-          musicStatus.textContent = musicEnabled
-            ? "Music paused."
-            : `${musicTracks.length} track${musicTracks.length === 1 ? "" : "s"} ready. Music is off.`;
-        }
-      } catch (error) {
-        console.error("Music playlist could not be loaded:", error);
-        musicTrackName.textContent = "Playlist unavailable";
-        musicStatus.textContent = `Unable to read the ${musicFolder} folder from GitHub.`;
-      }
-    }
-
-    function musicLoadTrack(index, startTime = 0, autoResume = false) {
-      if (!musicTracks.length) return;
-
-      musicCurrentIndex = (index + musicTracks.length) % musicTracks.length;
-      const track = musicTracks[musicCurrentIndex];
-
-      musicAudio.src = track.url;
-      musicTrackName.textContent = musicPrettyName(track.name) || track.name;
-      musicTrackName.title = track.name;
-
-      try { localStorage.setItem("accxs-music-track", track.name); } catch (error) {}
-
-      const restorePosition = () => {
-        let targetTime = Math.max(0, Number(startTime) || 0);
-
-        if (
-          autoResume &&
-          musicRestoreState &&
-          Number.isFinite(Number(musicRestoreState.updatedAt))
-        ) {
-          const elapsed = Math.max(0, (Date.now() - Number(musicRestoreState.updatedAt)) / 1000);
-          targetTime += elapsed;
-        }
-
-        if (Number.isFinite(musicAudio.duration) && musicAudio.duration > 0) {
-          targetTime = Math.min(targetTime, Math.max(0, musicAudio.duration - 0.25));
-        }
-
-        try { musicAudio.currentTime = targetTime; } catch (error) {}
-
-        if (autoResume) {
-          musicPlay(true);
-        } else {
-          musicSaveState(false);
-        }
-      };
-
-      musicAudio.addEventListener("loadedmetadata", restorePosition, { once: true });
-      musicAudio.load();
-    }
-
-    async function musicPlay(isRestore = false) {
-      if (!musicTracks.length) {
-        musicStatus.textContent = "No playable music is available yet.";
-        return;
-      }
-
-      musicSetEnabledUI(true);
-
-      try {
-        await musicAudio.play();
-        musicSetPlayUI(true);
-        musicStatus.textContent = isRestore
-          ? `Continuing ${musicCurrentIndex + 1} of ${musicTracks.length}`
-          : `Playing ${musicCurrentIndex + 1} of ${musicTracks.length}`;
-        musicSaveState(true);
-      } catch (error) {
-        musicSetPlayUI(false);
-        musicStatus.textContent = isRestore
-          ? "Music is ready. Press Play if your browser blocked automatic resume."
-          : "Press Play to allow music in your browser.";
-        musicSaveState(false);
-      }
-    }
-
-    function musicPause() {
-      musicAudio.pause();
-      musicSetPlayUI(false);
-      musicStatus.textContent = musicEnabled ? "Music paused." : "Music is off.";
-      musicSaveState(false);
-    }
-
-    function musicTurnOff() {
-      musicEnabled = false;
-      musicAudio.pause();
-      musicSetEnabledUI(false);
-      musicSetPlayUI(false);
-      musicStatus.textContent = "Music is off.";
-      musicSaveState(false);
-    }
-
-    async function musicChangeTrack(direction) {
-      if (!musicTracks.length) return;
-
-      const wasPlaying = musicEnabled && !musicAudio.paused;
-      musicRestoreState = null;
-      musicLoadTrack(musicCurrentIndex + direction, 0, false);
-
-      if (wasPlaying) {
-        musicAudio.addEventListener("canplay", () => musicPlay(), { once: true });
-      } else {
-        musicSetPlayUI(false);
-        musicStatus.textContent = musicEnabled ? "Track selected. Music paused." : "Music is off.";
-        musicSaveState(false);
-      }
-    }
-
-    musicLauncher.addEventListener("click", () => {
-      const isOpen = musicPanel.classList.toggle("open");
-      musicLauncher.setAttribute("aria-label", isOpen ? "Close music player" : "Open music player");
-    });
-
-    musicPowerBtn.addEventListener("click", () => {
-      if (musicEnabled) musicTurnOff();
-      else musicPlay();
-    });
-
-    musicPlayBtn.addEventListener("click", () => {
-      if (musicAudio.paused) musicPlay();
-      else musicPause();
-    });
-
-    musicPrevBtn.addEventListener("click", () => musicChangeTrack(-1));
-    musicNextBtn.addEventListener("click", () => musicChangeTrack(1));
-
-    musicAudio.addEventListener("ended", () => {
-      if (!musicEnabled || !musicTracks.length) return;
-      musicRestoreState = null;
-      musicLoadTrack(musicCurrentIndex + 1, 0, false);
-      musicAudio.addEventListener("canplay", () => musicPlay(), { once: true });
-    });
-
-    musicAudio.addEventListener("error", () => {
-      if (!musicTracks.length) return;
-      musicStatus.textContent = "This track could not be played. Trying the next track...";
-      musicRestoreState = null;
-      musicLoadTrack(musicCurrentIndex + 1, 0, false);
-      if (musicEnabled) {
-        musicAudio.addEventListener("canplay", () => musicPlay(), { once: true });
-      }
-    });
-
-    musicAudio.addEventListener("timeupdate", () => {
-      const second = Math.floor(musicAudio.currentTime || 0);
-      if (second === musicLastSavedSecond) return;
-      musicLastSavedSecond = second;
-      musicSaveState();
-    });
-
-    window.addEventListener("pagehide", () => {
-      musicSaveState(musicEnabled && !musicAudio.paused && !musicAudio.ended);
-    });
-
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "hidden") {
-        musicSaveState(musicEnabled && !musicAudio.paused && !musicAudio.ended);
-      }
-    });
-
-    musicDiscoverTracks();
-
-  </script>
+<!-- Music -->
+<div class="mp"><div class="mpn" id="mpn"><small>Background Music</small><span id="mt">Loading playlist...</span>
+ <div class="mcs"><button class="mc" id="mpw" aria-label="Music on/off"><i class="fa-solid fa-volume-xmark"></i></button><button class="mc" id="mpv" aria-label="Previous"><i class="fa-solid fa-backward-step"></i></button><button class="mc" id="mpl" aria-label="Play/Pause"><i class="fa-solid fa-play"></i></button><button class="mc" id="mnx" aria-label="Next"><i class="fa-solid fa-forward-step"></i></button></div>
+ <div id="ms">Music is off.</div></div>
+ <button class="ml" id="ml" aria-label="Music player"><i class="fa-solid fa-music"></i></button><audio id="au" preload="metadata"></audio></div>
+<div id="tst"></div>
+
+<!-- Modals -->
+<div class="mo" id="m-contact"><div class="mb"><button class="mx" data-close>&times;</button><h3>Get In Touch</h3><p>Feel free to reach out directly through email or phone.</p><div class="grid"><a class="btn" href="mailto:ablaobryan4400@gmail.com"><i class="fa-solid fa-envelope"></i> Send Email</a><a class="bs" href="tel:09928760990"><i class="fa-solid fa-phone"></i> Call Mobile</a></div></div></div>
+<div class="mo" id="m-bryan"><div class="mb" style="text-align:center"><button class="mx" data-close>&times;</button><img class="mimg round" src="images/Bryan.jpg" alt=""><h3>Bryan G. Ablao</h3><p>A dedicated and passionate individual with a strong sense of responsibility, creativity, and perseverance, who strives to grow personally and professionally while valuing integrity, hard work, faith, and meaningful relationships.</p></div></div>
+<div class="mo" id="m-father"><div class="mb" style="text-align:center"><button class="mx" data-close>&times;</button><img class="mimg round" src="images/father.png" alt=""><h3>Evaristo C. Ablao</h3><p>A pillar of strength and guidance for our family, remembered for integrity, responsibility, and dedication to his loved ones.</p></div></div>
+<div class="mo" id="m-mother"><div class="mb" style="text-align:center"><button class="mx" data-close>&times;</button><img class="mimg round" src="images/mother.png" alt=""><h3>Annalie G. Ablao</h3><p>The unwavering foundation of our family, demonstrating strength, resilience, compassion, and devotion while guiding us through life and faith.</p></div></div>
+<div class="mo" id="m-kenneth"><div class="mb" style="text-align:center"><button class="mx" data-close>&times;</button><img class="mimg round" src="images/Kenneth.jpg" alt=""><h3>Kenneth G. Ablao</h3><p>A loving and responsible family member who values family deeply and remains ready to support the people around him.</p></div></div>
+<div class="mo" id="m-riz"><div class="mb" style="text-align:center"><button class="mx" data-close>&times;</button><img class="mimg round" src="images/RizEvan.jpg" alt=""><h3>Riz Evan G. Ablao</h3><p>Known for his vibrant humor and caring nature, bringing warmth, laughter, and support to the family.</p></div></div>
+<div class="mo" id="m-six"><div class="mb"><button class="mx" data-close>&times;</button><h3>SixEleven Global Services and Solutions, Inc.</h3><p><b>Role:</b> Call Center Agent · <b>Duration:</b> January 2025 – Present</p><p>I manage multiple international customer accounts, assisting with inquiries, complaints, and dispute resolutions. I also perform image annotation tasks for AI and data projects.</p><ul><li>Managed international client communications and issue resolutions.</li><li>Handled computer vision image annotation for machine learning models.</li><li>Developed agility under tight SLAs and dynamic targets.</li></ul><a class="bs" href="https://maps.app.goo.gl/3xffddqAL3Xn2S859" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></div></div>
+<div class="mo" id="m-gm"><div class="mb"><button class="mx" data-close>&times;</button><h3>GMALL Warehouse Buhangin</h3><p><b>Role:</b> Encoder · <b>Duration:</b> February 2023 – January 2024</p><p>Responsible for accurate data entry and inventory tracking. Ensured proper documentation for shipments, organized warehouse records, and helped improve workflow efficiency.</p><ul><li>High-accuracy stock entry and item classification.</li><li>Verified inbound and outbound shipments with logistics teams.</li></ul><a class="bs" href="https://maps.app.goo.gl/B7fbC6V7SYD3RsYy8" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></div></div>
+<div class="mo" id="m-kc"><div class="mb"><button class="mx" data-close>&times;</button><h3>KC &amp; Arc Prints</h3><p><b>Role:</b> Production Staff · <b>Duration:</b> May 2018 – January 2023</p><p>Managed production workflows including print operations, materials preparation, quality checks, and client order coordination over 5 years.</p><ul><li>Raw material prep, machine setup, and output verification.</li><li>Maintained high client satisfaction through strict detail checks.</li></ul><a class="bs" href="https://maps.app.goo.gl/H8oP5s56qDN1BKzL8" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></div></div>
+<div class="mo" id="m-roi"><div class="mb"><button class="mx" data-close>&times;</button><h3>Realty Options Davao</h3><p><b>Role:</b> Encoder · <b>Duration:</b> December 2017 – March 2018</p><p>Encoded property listings, managed client information, and assisted with administrative tasks while collaborating with sales agents.</p><ul><li>Cataloged property specifications and database records.</li><li>Supported agent inquiries and documentation.</li></ul><a class="bs" href="https://maps.app.goo.gl/ZAY8vKNGkYhv6RcB6" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></div></div>
+<div class="mo" id="m-ck"><div class="mb"><button class="mx" data-close>&times;</button><h3>Chowking SPMC</h3><p><b>Role:</b> Service Crew · <b>Duration:</b> January 2016 – March 2017</p><p>Delivered customer service, prepared and served food orders, and maintained cleanliness in a fast-paced environment.</p><ul><li>Efficiency in high-pressure service periods.</li><li>Built customer engagement and teamwork skills.</li></ul><a class="bs" href="https://maps.app.goo.gl/pTixTy5dMrUbBKCeA" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></div></div>
+<div class="mo" id="m-hire"><div class="mb"><button class="mx" data-close>&times;</button><h3><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--pl)"></i> Website Creation Service</h3><p>Want your own customized website? We create sites tailored to your needs, live within <b>1–2 weeks</b>.</p><ul><li>Pay a normal service fee directly for creation and customization.</li><li>Already have a domain or Google link? We'll connect your website to it.</li></ul><p><i class="fa-solid fa-phone" style="color:var(--pl)"></i> <a href="tel:+639928760990" style="color:var(--pl)">+63 992 876 0990</a> (Dito)<br><i class="fa-solid fa-envelope" style="color:var(--pl)"></i> <a href="mailto:ablaobryan4400@gmail.com" style="color:var(--pl)">ablaobryan4400@gmail.com</a></p></div></div>
+<div class="mo" id="m-cmd"><div class="mb"><button class="mx" data-close>&times;</button><h3>cmd.bat — music commands</h3><p>Anything else you type is searched as a song.</p>
+ <div class="grid" style="gap:.5rem">
+  <div class="box"><code>play &lt;song&gt;</code> <span class="mu">force a search</span></div><div class="box"><code>pause</code> <span class="mu">pause / resume</span></div><div class="box"><code>next, prev</code> <span class="mu">skip</span></div><div class="box"><code>vol &lt;0-100&gt;</code> <span class="mu">volume</span></div><div class="box"><code>np</code> <span class="mu">what is playing now</span></div><div class="box"><code>stealth on|off</code> <span class="mu">fake 'not recognized' message</span></div><div class="box"><code>cls</code> <span class="mu">clear screen</span></div><div class="box"><code>exit</code> <span class="mu">close</span></div></div></div></div>
+<div class="mo" id="dm"><div class="mb" style="width:min(680px,100%)"><button class="mx" data-close>&times;</button><img class="mimg" id="dmi" alt=""><h3 id="dmh"></h3><p id="dmd"></p><div class="row" style="align-items:center"><span class="mu" id="dmc"></span><a class="btn" id="dml" download style="margin-left:auto"><i class="fa-solid fa-download"></i> Download</a></div><button class="nv" id="dpv" style="left:.6rem"><i class="fa-solid fa-chevron-left"></i></button><button class="nv" id="dnx" style="right:.6rem"><i class="fa-solid fa-chevron-right"></i></button></div></div>
+
+<script>
+"use strict";
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const theme=()=>document.documentElement.dataset.theme||"dark";
+function toast(m){const t=$("#tst");t.textContent=m;t.classList.add("show");clearTimeout(toast.k);toast.k=setTimeout(()=>t.classList.remove("show"),2200)}
+async function copy(t){try{await navigator.clipboard.writeText(t);toast("Copied: "+t)}catch(e){toast("Unable to copy automatically.")}}
+
+/* theme */
+function icon(){const l=theme()==="light",a='width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"';$("#thi").innerHTML=l?`<svg ${a}><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>`:`<svg ${a}><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>`}
+$("#th").onclick=()=>{const n=theme()==="dark"?"light":"dark";document.documentElement.dataset.theme=n;try{localStorage.setItem("accxs-theme",n)}catch(e){}icon();genStars()};icon();
+
+/* menu */
+function menu(o){const s=$("#sb"),v=o===undefined?!s.classList.contains("open"):!!o;s.classList.toggle("open",v);$("#so").style.display=v?"block":"none"}
+
+/* modals */
+function openM(id){const m=$("#"+id);if(!m)return;m.classList.add("open");document.body.classList.add("mo-open")}
+function closeM(m){m.classList.remove("open");if(!$(".mo.open"))document.body.classList.remove("mo-open")}
+document.addEventListener("click",e=>{
+  const o=e.target.closest("[data-open]");if(o){openM(o.dataset.open);return}
+  if(e.target.closest("[data-close]")){closeM(e.target.closest(".mo"));return}
+  if(e.target.classList.contains("mo")){closeM(e.target);return}
+  const c=e.target.closest("[data-copy]");if(c){copy(c.dataset.copy);return}
+  const z=e.target.closest("[data-zoom]");if(z){showDm({img:z.src,h:z.alt,d:"",dl:0});return}
+  const t=e.target.closest("[data-toast]");if(t)toast(t.dataset.toast);
+  const q=e.target.closest(".faq button");if(q){const f=q.parentElement,w=f.classList.contains("open");$$(".faq").forEach(x=>x.classList.remove("open"));if(!w)f.classList.add("open")}
+  const dm=e.target.closest(".dm");if(dm)showDm({img:dm.dataset.img,h:dm.dataset.h,d:dm.dataset.d,dl:0});
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){$$(".mo.open").forEach(closeM);menu(0)}
+  if($("#dm").classList.contains("open")&&gal.nav){if(e.key==="ArrowLeft")navG(-1);if(e.key==="ArrowRight")navG(1)}
+});
+const gal={list:[],i:0,nav:0};
+function showDm(o){$("#dmi").src=o.img;$("#dmi").alt=o.h;$("#dmh").textContent=o.h;$("#dmd").textContent=o.d;$("#dmc").textContent=o.c||"";
+  const l=$("#dml");l.style.display=o.dl?"":"none";if(o.dl){l.href=o.img;l.setAttribute("download",o.img.split("/").pop())}
+  $("#dpv").style.display=$("#dnx").style.display=o.nav?"":"none";gal.nav=!!o.nav;openM("dm")}
+function navG(d){gal.i=(gal.i+d+gal.list.length)%gal.list.length;const it=gal.list[gal.i];showDm({img:it.dataset.img,h:it.dataset.t2,d:"",c:`Image ${gal.i+1} of ${gal.list.length}`,dl:1,nav:1})}
+$("#dpv").onclick=()=>navG(-1);$("#dnx").onclick=()=>navG(1);
+
+/* data-driven pages */
+const G=[["wpm.PNG","WPM Achievement","others"],["Gallery/Family/528945808_595295430326990_2495007725531082246_n.jpg","Family Celebration","family"],["Gallery/Me/527920139_3290240134465747_6607549781087499359_n.jpg","Personal Portrait","me"],["Gallery/Me/530849010_637411352735664_9029550789082022234_n.jpg","Casual Snapshot","me"],["Gallery/Me/Me.jpg","Profile Photo","me"],["Gallery/Family/family.png","Family Gathering","family"],["Gallery/Family/family1.jpg","Family Memories","family"],["ME1.jpg","Bryan Profile","me"],["sbi1.jfif","Team SBI Event 1","friends"],["sbi2026.jpg","SBI 2026 Milestone","friends"],["sbimen.jfif","SBI Men's Team","friends"],["Gallery/Friends/sbiall.jfif","SBI Team Photo","friends"]];
+const GL={me:"Personal",family:"Family",friends:"Work & Friends",others:"Others"};
+$("#gal").innerHTML=G.map(g=>`<article class="fi" tabindex="0" data-c="${g[2]}" data-t="${g[1].toLowerCase()}" data-t2="${g[1]}" data-img="images/${g[0]}"><img src="images/${g[0]}" alt="${g[1]}" loading="lazy"><div class="cap"><b>${g[1]}</b><span class="tag" style="width:fit-content">${GL[g[2]]}</span></div></article>`).join("");
+$("#gal").addEventListener("click",e=>{const it=e.target.closest(".fi");if(!it)return;gal.list=$$(".fi:not(.hid)",$("#gal"));gal.i=gal.list.indexOf(it);navG(0)});
+const S=[["LinkedIn","@bryan-ablao","pro","linkedin.png","https://www.linkedin.com/in/bryan-ablao-636497189/","Professional updates, collaborations, and career networking."],["YouTube","@bryvngtz","video","youtube.png","https://www.youtube.com/@bryvngtz","Video content, creative edits, and tech showcases."],["TikTok","@bryvngtz","video","tik-tok.png","https://www.tiktok.com/@bryvngtz","Short videos, creative highlights, and daily updates."],["Instagram","@bryvngtz","community","instagram.png","https://www.instagram.com/bryvngtz/#","Photography, stories, and personal milestones."],["Telegram","@bryvngtz","messaging","telegram.png","https://t.me/bryvngtz","Direct messages for quick queries or project inquiries."],["Discord","bryvngtz","community","discord.png","https://discord.com/channels/bryvngtz","Tech discussions, gaming, and voice calls."],["Snapchat","@bryan_ablao20","community","snapchat.png","https://www.snapchat.com/@bryan_ablao20","Everyday snapshots."],["Facebook","Bryan G. Ablao","pro","facebook.png","https://www.facebook.com/profile.php?id=61578207118456#","My official personal page on Facebook."]];
+$("#soc").innerHTML=S.map(s=>`<article class="box sc fi" data-c="${s[2]}" data-t="${(s[0]+" "+s[1]).toLowerCase()}"><img src="images/${s[3]}" alt="${s[0]}" loading="lazy" data-open="m-soc" data-i="${s[0]}"><b>${s[0]}</b><div class="h">${s[1]}</div><div class="row" style="flex-wrap:nowrap;justify-content:center"><button class="cb" data-copy="${s[1]}"><i class="fa-regular fa-copy"></i> Copy</button><a class="cb" style="color:#fff;background:linear-gradient(135deg,var(--pu),var(--bl));border-color:transparent" href="${s[4]}" target="_blank" rel="noopener"><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit</a></div></article>`).join("");
+document.body.insertAdjacentHTML("beforeend",`<div class="mo" id="m-soc"><div class="mb" style="text-align:center"><button class="mx" data-close>&times;</button><img class="mimg round" id="si" alt=""><h3 id="sh"></h3><span class="mu" id="sd2" style="color:var(--pl)"></span><p id="sp" style="margin-top:.6rem"></p><div class="row" style="justify-content:center"><button class="cb" id="sc"><i class="fa-regular fa-copy"></i> Copy Handle</button><a class="cb" id="sl" target="_blank" rel="noopener">Open Platform</a></div></div></div>`);
+$("#soc").addEventListener("click",e=>{const i=e.target.closest("img[data-i]");if(!i)return;const s=S.find(x=>x[0]===i.dataset.i);$("#si").src="images/"+s[3];$("#sh").textContent=s[0];$("#sd2").textContent=s[1];$("#sp").textContent=s[5];$("#sl").href=s[4];$("#sc").onclick=()=>copy(s[1])});
+
+/* filters: search + tabs inside each .fx */
+$$(".fx").forEach(fx=>{
+  let cat="all";const items=$$(".fi",fx),inp=$(".fs",fx),em=$(".em",fx);
+  const run=()=>{const q=inp?inp.value.trim().toLowerCase():"";let n=0;items.forEach(i=>{const ok=(cat==="all"||i.dataset.c===cat)&&(!q||(i.dataset.t||i.textContent).toLowerCase().includes(q));i.classList.toggle("hid",!ok);if(ok)n++});if(em)em.classList.toggle("show",n===0)};
+  $$(".tab",fx).forEach(b=>b.onclick=()=>{cat=b.dataset.f;$$(".tab",fx).forEach(x=>x.classList.remove("active"));b.classList.add("active");run()});
+  if(inp)inp.oninput=run;
+});
+
+/* typing + counters + bars */
+const W=["Creative Designer","Web Innovator","Problem Solver","Tech Enthusiast"];let wi=0,ci=0,del=0;
+(function tp(){const el=$("#ty"),w=W[wi];ci+=del?-1:1;el.textContent=w.slice(0,ci);if(!del&&ci===w.length){del=1;return setTimeout(tp,1400)}if(del&&ci===0){del=0;wi=(wi+1)%W.length}setTimeout(tp,del?55:95)})();
+function pageFx(p){
+  $$(".bar i",p).forEach(b=>{b.style.width="0";requestAnimationFrame(()=>requestAnimationFrame(()=>b.style.width=b.dataset.w))});
+  $$(".ct",p).forEach(c=>{const t=+c.dataset.t,s=c.dataset.s,st=performance.now();(function k(n){const r=Math.min((n-st)/1100,1);c.textContent=Math.round(t*r)+s;if(r<1)requestAnimationFrame(k)})(st)});
+}
+
+/* router */
+const PAGES=["about","work","projects","achievement","gallery","social","donate","free","terms","version"];
+function route(h){h=typeof h==="string"?h:(location.hash||"#about").slice(1);const id=PAGES.includes(h)?h:"about";
+  $$(".page").forEach(p=>p.classList.toggle("on",p.id==="p-"+id));
+  $$("[data-p]").forEach(a=>a.classList.toggle("active",a.dataset.p===id));
+  const p=$("#p-"+id);pageFx(p);menu(0);scrollTo(0,0);
+  const T={about:"About Me",work:"Work Experience",projects:"Projects",achievement:"Achievements",gallery:"Gallery",social:"Social Media",donate:"Donate",free:"Free Apps",terms:"Terms & Privacy",version:"Version History"};
+  document.title=T[id]+" | Bryan G. Ablao";}
+addEventListener("hashchange",route);route();
+document.addEventListener("click",e=>{const a=e.target.closest('a[href^="#"]');if(!a)return;const id=a.getAttribute("href").slice(1);if(!PAGES.includes(id))return;e.preventDefault();try{history.replaceState(null,"","#"+id)}catch(x){}route(id)});
+if(!/Windows/i.test(navigator.userAgent)||/Mobile|Android|iPhone|iPad/i.test(navigator.userAgent))$("#cw").style.display="block";
+
+/* PH time */
+function tick(){$("#ph").textContent="Philippine Standard Time — "+new Intl.DateTimeFormat("en-US",{timeZone:"Asia/Manila",weekday:"long",year:"numeric",month:"long",day:"numeric",hour:"numeric",minute:"2-digit",second:"2-digit",hour12:true}).format(new Date())}
+tick();setInterval(tick,1000);
+
+/* starfield + meteor */
+const sc=$("#stars"),sx=sc.getContext("2d");let stars=[],met=null;
+function genStars(){stars=Array.from({length:Math.floor(innerWidth*innerHeight/7000)},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,a:Math.random()*.65+.2,r:Math.random()*1.05+.35,f:Math.random()*.013+.004}))}
+function sizeC(c,x){const d=Math.min(devicePixelRatio||1,2);c.width=innerWidth*d;c.height=innerHeight*d;c.style.width=innerWidth+"px";c.style.height=innerHeight+"px";x.setTransform(d,0,0,d,0,0)}
+function meteor(){met={x:Math.random()*innerWidth,y:-30,vx:-(Math.random()*3+2),vy:Math.random()*2+2.1,a:1}}
+function animS(){sx.clearRect(0,0,innerWidth,innerHeight);const L=theme()==="light";
+  stars.forEach(s=>{s.a=Math.max(.15,Math.min(.88,s.a+s.f*(Math.random()<.5?-1:1)));sx.beginPath();sx.arc(s.x,s.y,s.r,0,6.283);sx.fillStyle=L?`rgba(71,85,105,${s.a*.48})`:`rgba(255,255,255,${s.a})`;sx.fill()});
+  if(met){met.x+=met.vx;met.y+=met.vy;met.a-=.012;const tx=met.x-met.vx*16,ty=met.y-met.vy*16,g=sx.createLinearGradient(met.x,met.y,tx,ty),c=L?"109,40,217":"255,255,255";g.addColorStop(0,`rgba(${c},${met.a})`);g.addColorStop(1,`rgba(${c},0)`);sx.strokeStyle=g;sx.lineWidth=1.5;sx.beginPath();sx.moveTo(met.x,met.y);sx.lineTo(tx,ty);sx.stroke();
+    if(met.a<=0||met.x<-80||met.y>innerHeight+80){met=null;setTimeout(meteor,Math.random()*4500+3200)}}
+  requestAnimationFrame(animS)}
+/* ripple */
+const rc=$("#ripple"),rx=rc.getContext("2d");let rp=[];
+addEventListener("mousemove",e=>{if(matchMedia("(pointer: coarse)").matches||Math.random()>.22)return;rp.push({x:e.clientX,y:e.clientY,r:0,a:.2});if(rp.length>12)rp.shift()});
+function animR(){rx.clearRect(0,0,innerWidth,innerHeight);for(let i=rp.length-1;i>=0;i--){const p=rp[i];p.r+=1.15;p.a-=.007;if(p.a<=0){rp.splice(i,1);continue}rx.beginPath();rx.arc(p.x,p.y,p.r,0,6.283);rx.strokeStyle=theme()==="light"?`rgba(109,40,217,${p.a})`:`rgba(167,139,250,${p.a})`;rx.stroke()}requestAnimationFrame(animR)}
+function resize(){sizeC(sc,sx);sizeC(rc,rx);genStars()}
+addEventListener("resize",resize);resize();animS();animR();setTimeout(meteor,1800);
+
+/* background music (reads the "mp4" folder of your GitHub repo) */
+const FOLDER="mp4",EXT=["mp3","mp4","m4a","aac","ogg","wav","webm"],KEY="accxs-music-state";
+const au=$("#au"),mt=$("#mt"),ms=$("#ms");let tr=[],ix=0,on=0,rs=null;au.volume=.35;
+const rd=()=>{try{return JSON.parse(localStorage.getItem(KEY))}catch(e){return null}};
+function sv(p){if(!tr.length)return;try{localStorage.setItem(KEY,JSON.stringify({track:tr[ix].name,currentTime:au.currentTime||0,enabled:on,playing:typeof p==="boolean"?p:on&&!au.paused&&!au.ended,volume:au.volume,updatedAt:Date.now()}))}catch(e){}}
+function ui(pl){$("#mpw").classList.toggle("on",!!on);setIc($("#mpw i"),on?"volume-high":"volume-xmark");$("#ml").classList.toggle("active",!!on);setIc($("#mpl i"),pl?"pause":"play")}
+function repo(){const h=location.hostname.toLowerCase();if(h.endsWith(".github.io")){const o=h.split(".")[0];return{o,r:location.pathname.split("/").filter(Boolean)[0]||o+".github.io"}}const a=$('a[href*=".github.io/"]');if(a){try{const u=new URL(a.href),o=u.hostname.split(".")[0];return{o,r:u.pathname.split("/").filter(Boolean)[0]||o+".github.io"}}catch(e){}}return null}
+async function disc(){const r=repo();if(!r){mt.textContent="Playlist unavailable";ms.textContent="Could not detect the GitHub repository.";return}
+  try{const res=await fetch(`https://api.github.com/repos/${r.o}/${r.r}/contents/${FOLDER}`,{headers:{Accept:"application/vnd.github+json"}});if(!res.ok)throw 0;const f=await res.json();
+    tr=f.filter(i=>i.type==="file"&&EXT.includes(i.name.split(".").pop().toLowerCase())).sort((a,b)=>a.name.localeCompare(b.name,undefined,{numeric:true})).map(i=>({name:i.name,url:i.download_url}));
+    if(!tr.length){mt.textContent="No music found";ms.textContent=`Add audio files inside the ${FOLDER} folder.`;return}
+    rs=rd();if(rs&&rs.track){const k=tr.findIndex(t=>t.name===rs.track);if(k>=0)ix=k}
+    if(rs&&isFinite(+rs.volume))au.volume=Math.max(0,Math.min(1,+rs.volume));
+    const resume=!!(rs&&rs.enabled&&rs.playing);on=!!(rs&&rs.enabled);ui(0);load(ix,rs?+rs.currentTime||0:0,resume);
+    if(!resume)ms.textContent=on?"Music paused.":`${tr.length} track${tr.length>1?"s":""} ready. Music is off.`}
+  catch(e){mt.textContent="Playlist unavailable";ms.textContent=`Unable to read the ${FOLDER} folder from GitHub.`}}
+function load(i,t=0,auto=0){if(!tr.length)return;ix=(i+tr.length)%tr.length;const k=tr[ix];au.src=k.url;mt.textContent=k.name.replace(/\.[^.]+$/,"").replace(/[_-]+/g," ").trim();
+  au.addEventListener("loadedmetadata",()=>{let x=t;if(auto&&rs&&isFinite(+rs.updatedAt))x+=Math.max(0,(Date.now()-rs.updatedAt)/1000);if(au.duration>0)x=Math.min(x,au.duration-.25);try{au.currentTime=x}catch(e){}auto?play(1):sv(false)},{once:true});au.load()}
+async function play(r){if(!tr.length){ms.textContent="No playable music is available yet.";return}on=1;try{await au.play();ui(1);ms.textContent=`${r?"Continuing":"Playing"} ${ix+1} of ${tr.length}`;sv(true)}catch(e){ui(0);ms.textContent=r?"Press Play if your browser blocked auto-resume.":"Press Play to allow music.";sv(false)}}
+function pause(){au.pause();ui(0);ms.textContent=on?"Music paused.":"Music is off.";sv(false)}
+function chg(d){if(!tr.length)return;const was=on&&!au.paused;rs=null;load(ix+d,0,0);if(was)au.addEventListener("canplay",()=>play(),{once:true});else{ui(0);sv(false)}}
+$("#ml").onclick=()=>$("#mpn").classList.toggle("open");
+$("#mpw").onclick=()=>{if(on){on=0;au.pause();ui(0);ms.textContent="Music is off.";sv(false)}else play()};
+$("#mpl").onclick=()=>au.paused?play():pause();$("#mpv").onclick=()=>chg(-1);$("#mnx").onclick=()=>chg(1);
+au.addEventListener("ended",()=>{if(!on)return;rs=null;load(ix+1);au.addEventListener("canplay",()=>play(),{once:true})});
+au.addEventListener("error",()=>{if(!tr.length)return;ms.textContent="Track failed. Trying next...";rs=null;load(ix+1);if(on)au.addEventListener("canplay",()=>play(),{once:true})});
+let ls=-1;au.addEventListener("timeupdate",()=>{const s=Math.floor(au.currentTime||0);if(s!==ls){ls=s;sv()}});
+addEventListener("pagehide",()=>sv(on&&!au.paused&&!au.ended));
+document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="hidden")sv(on&&!au.paused&&!au.ended)});
+/* inline SVG icons: replaces every Font Awesome <i> so no icon depends on a web font */
+const IC={
+user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+briefcase:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/>',
+"diagram-project":'<rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="3" width="6" height="6" rx="1"/><rect x="9" y="15" width="6" height="6" rx="1"/><path d="M6 9v3h12V9M12 12v3"/>',
+trophy:'<path d="M8 4h8v6a4 4 0 0 1-8 0zM8 6H4v2a3 3 0 0 0 4 3M16 6h4v2a3 3 0 0 1-4 3M12 14v4M8 21h8M10 18h4"/>',
+images:'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="M21 16l-5-5-8 8"/>',
+"share-nodes":'<circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.2 11l7.6-4M8.2 13l7.6 4"/>',
+"box-open":'<path d="M3 8l9-5 9 5v8l-9 5-9-5zM3 8l9 5 9-5M12 13v8"/>',
+heart:'<path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.5A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z"/>',
+code:'<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/>',
+"chevron-right":'<path d="M9 6l6 6-6 6"/>',"chevron-left":'<path d="M15 6l-6 6 6 6"/>',
+envelope:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+phone:'<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>',
+"location-dot":'<path d="M12 21s7-6 7-11a7 7 0 0 0-14 0c0 5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+"code-branch":'<circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="8" r="2"/><path d="M6 7v10M18 10c0 5-12 2-12 7"/>',
+"circle-half-stroke":'<circle cx="12" cy="12" r="9"/><path d="M12 3v18a9 9 0 0 0 0-18z" fill="currentColor"/>',
+"paper-plane":'<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/>',telegram:'<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/>',
+"folder-open":'<path d="M3 18V6a1 1 0 0 1 1-1h5l2 2h8a1 1 0 0 1 1 1v2M3 18l3-8h17l-3 8z"/>',
+flag:'<path d="M5 21V4M5 4h12l-2 4 2 4H5"/>',
+laptop:'<rect x="4" y="5" width="16" height="11" rx="1"/><path d="M2 20h20"/>',
+"laptop-code":'<rect x="4" y="5" width="16" height="11" rx="1"/><path d="M2 20h20M10 9l-2 2 2 2M14 9l2 2-2 2"/>',
+"people-roof":'<path d="M3 11l9-7 9 7"/><circle cx="9" cy="14" r="2"/><circle cx="15" cy="14" r="2"/><path d="M5 21c0-3 2-4 4-4s4 1 4 4M11 21c0-3 2-4 4-4s4 1 4 4"/>',
+compass:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/>',
+cross:'<path d="M10 3h4v6h6v4h-6v8h-4v-8H4V9h6z"/>',
+mountain:'<path d="M3 20l6-11 4 6 3-4 5 9z"/>',
+brain:'<path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 3 5 3 3 0 0 0 5 1V5a3 3 0 0 0-3-1zM15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-3 5 3 3 0 0 1-5 1"/>',
+timeline:'<path d="M4 12h16M7 12V6M12 12v6M17 12V6"/><circle cx="7" cy="5" r="1"/><circle cx="12" cy="19" r="1"/><circle cx="17" cy="5" r="1"/>',
+headset:'<path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="6" rx="1"/><rect x="17" y="14" width="4" height="6" rx="1"/>',
+database:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
+gears:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>',
+sliders:'<path d="M4 6h10M18 6h2M4 12h2M10 12h10M4 18h12"/><circle cx="16" cy="6" r="2"/><circle cx="8" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
+"magnifying-glass":'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
+"file-arrow-down":'<path d="M6 3h8l5 5v13H6zM14 3v5h5M12 11v6M9 14l3 3 3-3"/>',
+award:'<circle cx="12" cy="9" r="6"/><path d="M8.5 14L7 21l5-3 5 3-1.5-7"/>',
+rocket:'<path d="M9 15l-1-1c0-6 5-11 12-11 0 7-5 12-11 12zM9 15l-2-2M5 19c0-3 1-4 3-4l-3 4zM15 9h.01"/>',
+building:'<rect x="5" y="3" width="14" height="18" rx="1"/><path d="M9 7h2M13 7h2M9 11h2M13 11h2M10 21v-4h4v4"/>',
+"layer-group":'<path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5"/>',
+play:'<path d="M7 4l13 8-13 8z" fill="currentColor"/>',
+globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+comments:'<path d="M4 5h16v10H10l-4 4v-4H4z"/>',
+gamepad:'<rect x="2" y="7" width="20" height="10" rx="5"/><path d="M7 10v4M5 12h4M16 11h.01M18 13h.01"/>',
+"camera-retro":'<rect x="3" y="7" width="18" height="13" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 7l1.5-3h5L16 7"/>',
+chess:'<path d="M8 21h8M9 21c0-4 1-6 1-8-2-1-3-3-1-6 1-2 5-2 6 0 1 2 0 4-1 5v9"/>',
+"chart-line":'<path d="M3 3v18h18M7 15l4-5 3 3 5-7"/>',
+bullseye:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1" fill="currentColor"/>',
+handshake:'<path d="M2 11l5-4 4 2 4-2 5 4-8 8-3-2-3 1zM9 14l3 2"/>',
+bolt:'<path d="M13 2L5 14h6l-1 8 8-12h-6z"/>',
+users:'<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M16 4.5a3.5 3.5 0 0 1 0 7M18 14c2.5.7 4 2.5 4 6"/>',
+qrcode:'<rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3M21 14v7h-4M14 21h.01"/>',
+"hand-holding-heart":'<path d="M12 11s-4-2.5-4-5a2.5 2.5 0 0 1 4-1.5A2.5 2.5 0 0 1 16 6c0 2.5-4 5-4 5zM3 16h4l4 2h5l5-3"/>',
+server:'<rect x="3" y="4" width="18" height="6" rx="1"/><rect x="3" y="14" width="18" height="6" rx="1"/><path d="M7 7h.01M7 17h.01"/>',
+gift:'<rect x="3" y="9" width="18" height="12" rx="1"/><path d="M12 9v12M3 13h18M12 9c-4 0-5-5-2-5 2 0 2 3 2 5zM12 9c4 0 5-5 2-5-2 0-2 3-2 5z"/>',
+download:'<path d="M12 3v12M7 10l5 5 5-5M4 20h16"/>',
+"table-cells":'<rect x="3" y="3" width="18" height="18" rx="1"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/>',
+"triangle-exclamation":'<path d="M12 3l10 18H2zM12 10v5M12 18h.01"/>',
+"forward-step":'<path d="M6 5l9 7-9 7zM18 5v14"/>',"backward-step":'<path d="M18 5l-9 7 9 7zM6 5v14"/>',
+"volume-high":'<path d="M4 9h4l5-4v14l-5-4H4zM16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/>',
+"volume-xmark":'<path d="M4 9h4l5-4v14l-5-4H4zM17 9l5 6M22 9l-5 6"/>',
+"user-secret":'<path d="M4 10h16M7 10l1-5h8l1 5M7 14h4M13 14h4M6 20c0-3 3-4 6-4s6 1 6 4"/>',
+terminal:'<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9l3 3-3 3M13 15h4"/>',
+"shield-halved":'<path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6zM12 3v18"/>',
+"file-lines":'<path d="M6 3h8l5 5v13H6zM14 3v5h5M9 13h6M9 17h6"/>',
+lock:'<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+"circle-question":'<circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7M12 17h.01"/>',
+"list-check":'<path d="M4 6l2 2 3-3M4 14l2 2 3-3M12 7h9M12 15h9"/>',
+tag:'<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1"/>',
+"clock-rotate-left":'<path d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5M12 8v5l3 2"/>',
+"wand-magic-sparkles":'<path d="M4 20L16 8M14 6l4 4M7 3v3M5.5 4.5h3M19 14v3M17.5 15.5h3"/>',
+"arrow-up-right-from-square":'<path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/>',
+pause:'<path d="M8 5v14M16 5v14"/>',
+music:'<path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/>',
+copy:'<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/>',
+linkedin:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7h.01M12 17v-7M12 13c0-3 5-3 5 0v4"/>',
+"circle-check":'<circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/>'};
+function setIc(el,n){if(!el)return;el.className="ic";el.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true">'+(IC[n]||'<circle cx="12" cy="12" r="3"/>')+'</svg>'}
+function swapIcons(){$$('i[class*="fa-"]').forEach(el=>{const m=el.className.match(/fa-(?!solid|regular|brands)([a-z-]+)/);setIc(el,m?m[1]:"")})}
+swapIcons();
+disc();
+</script>
 </body>
 </html>
