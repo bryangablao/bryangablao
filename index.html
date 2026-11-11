@@ -369,6 +369,17 @@ html[data-theme=light] .code .c0{color:#1d4fa8}html[data-theme=light] .code .c1{
 .pol li i{color:var(--pl);margin-right:.35rem}
 .pol li a{color:var(--pl)}
 .pol p{line-height:1.7}.pol li b{color:var(--tx)}
+
+/* ===== v8: FAQ plus icon rotates when opened/closed ===== */
+.faq button>span:last-child{flex:none;display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;font-size:1.25rem;line-height:1;color:var(--pl);transition:transform .35s cubic-bezier(.4,0,.2,1)}
+.faq.open button>span:last-child{transform:rotate(135deg)}
+
+/* ===== v9: sliding nav underline ===== */
+.dn{position:relative}
+.dn a.active::after{display:none}
+.dn .ind{position:absolute;left:0;bottom:-7px;height:2px;width:0;border-radius:9px;background:linear-gradient(90deg,var(--pu),var(--bl));pointer-events:none;opacity:0;transition:transform .55s cubic-bezier(.65,0,.25,1),width .55s cubic-bezier(.65,0,.25,1),opacity .3s}
+.dn .ind.noanim{transition:none}
+@media(prefers-reduced-motion:reduce){.dn .ind{transition:none}}
 </style>
 </head>
 <body id="top">
@@ -740,15 +751,23 @@ function pageFx(p){
   $$(".ct",p).forEach(c=>{const t=+c.dataset.t,s=c.dataset.s,st=performance.now();(function k(n){const r=Math.min((n-st)/1100,1);c.textContent=Math.round(t*r)+s;if(r<1)requestAnimationFrame(k)})(st)});
 }
 
+/* sliding nav underline */
+function moveInd(first){const n=$(".dn");if(!n)return;let i=n.querySelector(".ind");if(!i){i=document.createElement("span");i.className="ind";i.setAttribute("aria-hidden","true");n.appendChild(i)}
+  const a=n.querySelector("a.active");if(!a||!a.offsetWidth){i.style.opacity=0;return}
+  if(first===true)i.classList.add("noanim");
+  i.style.width=a.offsetWidth+"px";i.style.transform="translateX("+a.offsetLeft+"px)";i.style.opacity=1;
+  if(first===true)requestAnimationFrame(()=>requestAnimationFrame(()=>i.classList.remove("noanim")))}
+addEventListener("resize",()=>moveInd(true));if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>moveInd(true));
 /* router */
 const PAGES=["about","work","projects","achievement","gallery","social","donate","free","terms","version"];
 function route(h){h=typeof h==="string"?h:(location.hash||"#about").slice(1);const id=PAGES.includes(h)?h:"about";
   $$(".page").forEach(p=>p.classList.toggle("on",p.id==="p-"+id));
   $$("[data-p]").forEach(a=>a.classList.toggle("active",a.dataset.p===id));
+  moveInd();
   const p=$("#p-"+id);pageFx(p);menu(0);scrollTo(0,0);$("#top").scrollIntoView();
   const T={about:"About Me",work:"Work Experience",projects:"Projects",achievement:"Achievements",gallery:"Gallery",social:"Social Media",donate:"Donate",free:"Free Apps",terms:"Terms & Privacy",version:"Version History"};
   document.title=T[id]+" | Bryan G. Ablao";}
-addEventListener("hashchange",route);route();
+addEventListener("hashchange",route);route();moveInd(true);
 document.addEventListener("click",e=>{if(e.target.closest("[data-top]")){e.preventDefault();scrollTo(0,0);$("#top").scrollIntoView({behavior:"smooth",block:"start"});return}const a=e.target.closest('a[href^="#"]');if(!a)return;const id=a.getAttribute("href").slice(1);if(!PAGES.includes(id))return;e.preventDefault();try{history.replaceState(null,"","#"+id)}catch(x){}route(id)});
 if(!/Windows/i.test(navigator.userAgent)||/Mobile|Android|iPhone|iPad/i.test(navigator.userAgent))$("#cw").style.display="block";
 
