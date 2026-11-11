@@ -24,7 +24,7 @@ body.mo-open{overflow:hidden}
 a{color:inherit;text-decoration:none}button,input{font:inherit;color:inherit}img{max-width:100%;display:block}
 #stars,#ripple{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}#stars{z-index:0}#ripple{z-index:1}
 .shell{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column}
-header{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 5%;background:var(--hb);border-bottom:1px solid var(--bd);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+header{position:-webkit-sticky;position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 5%;background:var(--hb);border-bottom:1px solid var(--bd);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
 .brand{display:inline-flex;align-items:center;gap:.6rem;font-size:1.2rem;font-weight:800;letter-spacing:-.03em;background:linear-gradient(135deg,var(--tx),var(--pl));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .nr{display:flex;align-items:center;gap:.85rem}.dn{display:flex;gap:1.35rem}
 .dn a{position:relative;color:var(--mu);font-size:.88rem;font-weight:550;transition:color var(--t)}
@@ -204,6 +204,103 @@ footer{position:relative;z-index:2;color:var(--mu);border-top:1px solid var(--bd
 @media(max-width:850px){.dn{display:none}.hb{display:inline-flex}.prof,.g2,.g3,.ac{grid-template-columns:1fr}.prof{text-align:center}.sub,.row{justify-content:center}.gal,.g4{grid-template-columns:repeat(2,1fr)}.gal .fi:nth-child(5n+1){grid-column:span 1}.fc{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){header{padding-inline:1rem}main{width:calc(100% - 1rem);padding-top:1.25rem}.hero{padding:1.5rem}.card{padding:1rem}.fc{grid-template-columns:1fr}.g4{grid-template-columns:1fr}.gal{grid-template-columns:1fr 1fr}.mp{right:.85rem;bottom:.85rem}}
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+/* ===== v2 fixes: light-mode stats, monochrome tech marquee, theme blending, mobile fit ===== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{max-width:100%}
+img,svg,video,canvas{max-width:100%}
+.grid>*,.prof>*,.info>*,.fc>*{min-width:0}
+.card,.hero,.box,.stat{min-width:0;max-width:100%}
+
+/* 1) Stats (Years Experience / Projects Crafted / Commitment) readable in day mode */
+html[data-theme=light] .stat{background:linear-gradient(145deg,#ffffff,#eaf1fd);border-color:rgba(12,57,129,.22);box-shadow:0 8px 24px rgba(12,57,129,.10)}
+html[data-theme=light] .stat:hover{box-shadow:0 14px 32px rgba(37,99,235,.18)}
+html[data-theme=light] .stat h3{background:linear-gradient(135deg,#0C3981,#2563eb);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+html[data-theme=light] .stat p{color:#334155;font-weight:600}
+html[data-theme=light] .stat>.ic,html[data-theme=light] .stat>i{color:#1d4fa8}
+html[data-theme=dark] .stat p{color:#c9d6f2}
+.stat>i{display:block;font-size:1.4rem;color:var(--pl);margin-bottom:.2rem}
+
+/* 2) Tech treadmill: logo + text, monochrome, follows theme */
+.mq .mi{background:transparent;border:1px solid var(--bd);color:var(--tx);padding:.45rem .9rem;transition:var(--t)}
+.mq .mi img{width:24px;height:24px;padding:0;border-radius:0;background:none;object-fit:contain;transition:var(--t);
+  filter:brightness(0);opacity:.88}                                   /* day mode: brand colors -> black */
+html[data-theme=dark] .mq .mi{color:var(--mu)}
+html[data-theme=dark] .mq .mi img{filter:brightness(0) invert(1);opacity:.55}   /* night mode: blends into dark background */
+html[data-theme=dark] .mq .mi:hover img{opacity:.95}
+html[data-theme=dark] .mq .mi:hover{color:var(--tx)}
+.mq .mi:hover{border-color:var(--bds)}
+
+/* 3) Light-mode fixes for hardcoded dark-theme colors */
+html[data-theme=light] .nm{background:linear-gradient(90deg,#0C3981,#2563eb 60%,#1d4fa8);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+html[data-theme=light] .code .k{color:#1d4fa8}html[data-theme=light] .code .v{color:#111827}
+html[data-theme=light] .code .s{color:#047857}html[data-theme=light] .code .o{color:#a21caf}
+html[data-theme=light] .code .g{color:#b45309}html[data-theme=light] .code .m{color:#64748b}html[data-theme=light] .code .t{color:#0369a1}
+html[data-theme=light] .hero{background:linear-gradient(135deg,rgba(37,99,235,.08),rgba(59,130,246,.04)),var(--panel)}
+html[data-theme=light] .rel div{background:linear-gradient(160deg,#fff,#eaf1fd)}
+html[data-theme=light] .tools .chip,html[data-theme=light] .hi{background:rgba(37,99,235,.08)}
+html[data-theme=light] .pn{color:rgba(12,57,129,.14)}
+html[data-theme=light] .ok{color:#047857;border-color:rgba(4,120,87,.28);background:rgba(4,120,87,.07)}
+html[data-theme=light] .ok i{background:#059669;box-shadow:0 0 8px #059669}
+html[data-theme=light] .fam p,html[data-theme=light] .rel span{background:rgba(37,99,235,.1)}
+html[data-theme=light] .av img{background:#e2e8f0}
+html[data-theme=light] footer{background:linear-gradient(180deg,transparent,rgba(37,99,235,.04)),var(--hb)}
+html[data-theme=light] .bar{background:rgba(15,23,42,.1)}
+/* dark mode: soften white tiles so they blend into the theme */
+html[data-theme=dark] .job img{background:rgba(255,255,255,.92)}
+html[data-theme=dark] .mimg{background:rgba(255,255,255,.04)}
+
+/* 4) Responsive: everything fits the screen, no zoom-out needed */
+@media(max-width:850px){
+  .prof .grid.g3{grid-template-columns:repeat(3,minmax(0,1fr));gap:.6rem}
+  .prof .stat{padding:.7rem .35rem}
+  .prof .stat h3{font-size:1.45rem}
+  .prof .stat p{font-size:.6rem;letter-spacing:.02em;line-height:1.25}
+  .prof .stat>i{font-size:1.1rem}
+  .row .btn,.row .bs{flex:1 1 150px}
+}
+@media(max-width:600px){
+  .hero{padding:1.25rem;border-radius:18px}
+  .hero::after{width:180px;height:180px;right:-60px;top:-70px}
+  .card{padding:.95rem;border-radius:16px}
+  h2.st{font-size:1.05rem}
+  .nm{font-size:clamp(1.8rem,9vw,2.4rem)}
+  .info{grid-template-columns:1fr}
+  .fb{flex-direction:column;align-items:stretch}.sbx{width:100%}
+  .tabs{gap:.4rem}.tab{padding:.45rem .8rem}
+  .vh{flex-wrap:wrap;gap:.2rem}
+  .fb2{flex-direction:column;align-items:flex-start}
+  .gal,.g4{grid-template-columns:1fr 1fr}
+  .mq .mi{padding:.35rem .7rem;font-size:.76rem}.mq .mi img{width:20px;height:20px}
+  .mb{padding:1.1rem;max-height:88vh}
+  .mpn{width:min(300px,calc(100vw - 5.2rem))}
+  .rel{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
+}
+@media(max-width:380px){
+  header{padding-inline:.75rem}.brand{font-size:1rem}.brand img{height:28px}
+  .prof .stat h3{font-size:1.25rem}.prof .stat p{font-size:.55rem}
+  .gal,.g4{grid-template-columns:1fr}
+  .btn,.bs{width:100%}
+}
+
+/* ===== v3 ===== */
+/* footer socials: no container, monochrome brand icons that follow the theme */
+.soc-f{gap:1.1rem}
+.soc-f a{width:auto;height:auto;border:0;border-radius:0;background:none;font-size:1.4rem;line-height:1;color:var(--tx);opacity:.9;transition:var(--t)}
+html[data-theme=dark] .soc-f a{color:var(--mu);opacity:.8}
+.soc-f a:hover{transform:translateY(-2px);opacity:1;color:var(--pl)}
+/* treadmill: no containers, translucent text/logos */
+.mq .mi{border:0;background:none;padding:.4rem .8rem;margin-right:.6rem;opacity:.72}
+.mq .mi:hover{opacity:1}
+.mt{animation-duration:48s}
+/* hire modal */
+.mb .hh{margin:1rem 0 .45rem;color:var(--pl);font-size:.74rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase}
+.mb ol{color:var(--mu);font-size:.84rem;margin:0 0 1rem 1.2rem}
+.mb li{margin-bottom:.3rem}.mb li b{color:var(--tx)}
+/* version page paragraph alignment */
+#p-version .hero p{max-width:880px;text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto}
+/* sky backdrop for day mode */
+html[data-theme=light] body{background:radial-gradient(circle at 8% 8%,var(--g1),transparent 30%),radial-gradient(circle at 92% 82%,var(--g2),transparent 30%),linear-gradient(180deg,#d6e6fb 0%,#eaf2fc 45%,#f5f7fb 100%) fixed}
+html[data-theme=dark] body{background:radial-gradient(circle at 8% 8%,var(--g1),transparent 30%),radial-gradient(circle at 92% 82%,var(--g2),transparent 30%),linear-gradient(180deg,#00010a,#000) fixed}
 </style>
 </head>
 <body id="top">
@@ -261,7 +358,7 @@ footer{position:relative;z-index:2;color:var(--mu);border-top:1px solid var(--bd
 
  <div class="card fx">
   <h2 class="st"><i class="fa-solid fa-laptop-code"></i> Core Expertise &amp; Skills</h2>
-  <div class="mq" aria-label="Tools and technologies"><div class="mt"><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="" onerror="this.style.display='none'">HTML5</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="" onerror="this.style.display='none'">CSS3</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="" onerror="this.style.display='none'">JavaScript</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="" onerror="this.style.display='none'">Git</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="" onerror="this.style.display='none'">GitHub</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="" onerror="this.style.display='none'">VS Code</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="" onerror="this.style.display='none'">HTML5</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="" onerror="this.style.display='none'">CSS3</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="" onerror="this.style.display='none'">JavaScript</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="" onerror="this.style.display='none'">Git</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="" onerror="this.style.display='none'">GitHub</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="" onerror="this.style.display='none'">VS Code</span></div></div>
+  <div class="mq" aria-label="Tools and technologies"><div class="mt"><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="" onerror="this.style.display='none'">HTML5</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="" onerror="this.style.display='none'">CSS3</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="" onerror="this.style.display='none'">JavaScript</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="" onerror="this.style.display='none'">Git</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="" onerror="this.style.display='none'">GitHub</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="" onerror="this.style.display='none'">VS Code</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="" onerror="this.style.display='none'">HTML5</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="" onerror="this.style.display='none'">CSS3</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="" onerror="this.style.display='none'">JavaScript</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="" onerror="this.style.display='none'">Git</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="" onerror="this.style.display='none'">GitHub</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="" onerror="this.style.display='none'">VS Code</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="" onerror="this.style.display='none'">HTML5</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="" onerror="this.style.display='none'">CSS3</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="" onerror="this.style.display='none'">JavaScript</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="" onerror="this.style.display='none'">Git</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="" onerror="this.style.display='none'">GitHub</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="" onerror="this.style.display='none'">VS Code</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="" onerror="this.style.display='none'">HTML5</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="" onerror="this.style.display='none'">CSS3</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="" onerror="this.style.display='none'">JavaScript</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg" alt="" onerror="this.style.display='none'">Git</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="" onerror="this.style.display='none'">GitHub</span><span class="mi"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="" onerror="this.style.display='none'">VS Code</span></div></div>
   <div class="fb"><div class="tabs"><button class="tab active" data-f="all">All</button><button class="tab" data-f="dev">Development</button><button class="tab" data-f="design">Design</button><button class="tab" data-f="soft">Soft Skills</button></div></div>
   <div class="grid g2">
    <div class="box fi skc" data-c="dev"><div class="skh"><span class="skic"><i class="fa-solid fa-code"></i></span><div><div class="sk"><span>Frontend Development</span><b>88%</b></div><small class="lv">Advanced</small></div></div><div class="bar"><i data-w="88%"></i></div><div class="chips"><span class="chip">HTML5</span><span class="chip">CSS3</span><span class="chip">JavaScript</span></div></div>
@@ -468,7 +565,7 @@ footer{position:relative;z-index:2;color:var(--mu);border-top:1px solid var(--bd
 
 <footer>
  <div class="fc">
-  <div><a href="#about" class="fl"><img src="images/blogo.png" alt="" style="height:38px;width:auto"> My Portfolio</a><p>The personal portfolio of Bryan G. Ablao &mdash; work experience, projects, achievements, gallery, and ways to get in touch, all in one place. Built and maintained under <a href="https://bryangablao.github.io/Accxs-Creations/" target="_blank" rel="noopener">Accxs Creations</a> with a focus on clean design, practical problem solving, and continuous learning.</p><div class="soc-f"><a href="https://www.facebook.com/bryvngtz/" target="_blank" rel="noopener" aria-label="Facebook"><img src="https://www.google.com/s2/favicons?domain=facebook.com&sz=128" onerror="this.onerror=null;this.src='https://icons.duckduckgo.com/ip3/facebook.com.ico'" alt="Facebook"></a><a href="https://www.instagram.com/bryvngtz/#" target="_blank" rel="noopener" aria-label="Instagram"><img src="https://www.google.com/s2/favicons?domain=instagram.com&sz=128" onerror="this.onerror=null;this.src='https://icons.duckduckgo.com/ip3/instagram.com.ico'" alt="Instagram"></a><a href="https://www.linkedin.com/in/bryangutierrezablao/" target="_blank" rel="noopener" aria-label="LinkedIn"><img src="https://www.google.com/s2/favicons?domain=linkedin.com&sz=128" onerror="this.onerror=null;this.src='https://icons.duckduckgo.com/ip3/linkedin.com.ico'" alt="LinkedIn"></a></div></div>
+  <div><a href="#about" class="fl"><img src="images/blogo.png" alt="" style="height:38px;width:auto"> My Portfolio</a><p>The personal portfolio of Bryan G. Ablao &mdash; work experience, projects, achievements, gallery, and ways to get in touch, all in one place. Built and maintained under <a href="https://bryangablao.github.io/Accxs-Creations/" target="_blank" rel="noopener">Accxs Creations</a> with a focus on clean design, practical problem solving, and continuous learning.</p><div class="soc-f"><a href="https://www.facebook.com/bryvngtz/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="https://www.instagram.com/bryvngtz/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="https://www.linkedin.com/in/bryangutierrezablao/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a></div></div>
   <div><h3 class="fh">Explore</h3><ul>
    <li><a href="#about"><i class="fa-solid fa-chevron-right"></i> About</a></li><li><a href="#work"><i class="fa-solid fa-chevron-right"></i> Experience</a></li><li><a href="#projects"><i class="fa-solid fa-chevron-right"></i> Projects</a></li><li><a href="#achievement"><i class="fa-solid fa-chevron-right"></i> Achievements</a></li><li><a href="#gallery"><i class="fa-solid fa-chevron-right"></i> Gallery</a></li><li><a href="#social"><i class="fa-solid fa-chevron-right"></i> Socials</a></li></ul></div>
   <div><h3 class="fh">Contact</h3><ul>
@@ -500,7 +597,14 @@ footer{position:relative;z-index:2;color:var(--mu);border-top:1px solid var(--bd
 <div class="mo" id="m-kc"><div class="mb"><button class="mx" data-close>&times;</button><h3>KC &amp; Arc Prints</h3><p><b>Role:</b> Production Staff · <b>Duration:</b> May 2018 – January 2023</p><p>Managed production workflows including print operations, materials preparation, quality checks, and client order coordination over 5 years.</p><ul><li>Raw material prep, machine setup, and output verification.</li><li>Maintained high client satisfaction through strict detail checks.</li></ul><a class="bs" href="https://maps.app.goo.gl/H8oP5s56qDN1BKzL8" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></div></div>
 <div class="mo" id="m-roi"><div class="mb"><button class="mx" data-close>&times;</button><h3>Realty Options Davao</h3><p><b>Role:</b> Encoder · <b>Duration:</b> December 2017 – March 2018</p><p>Encoded property listings, managed client information, and assisted with administrative tasks while collaborating with sales agents.</p><ul><li>Cataloged property specifications and database records.</li><li>Supported agent inquiries and documentation.</li></ul><a class="bs" href="https://maps.app.goo.gl/ZAY8vKNGkYhv6RcB6" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></div></div>
 <div class="mo" id="m-ck"><div class="mb"><button class="mx" data-close>&times;</button><h3>Chowking SPMC</h3><p><b>Role:</b> Service Crew · <b>Duration:</b> January 2016 – March 2017</p><p>Delivered customer service, prepared and served food orders, and maintained cleanliness in a fast-paced environment.</p><ul><li>Efficiency in high-pressure service periods.</li><li>Built customer engagement and teamwork skills.</li></ul><a class="bs" href="https://maps.app.goo.gl/pTixTy5dMrUbBKCeA" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i> View on Google Maps</a></div></div>
-<div class="mo" id="m-hire"><div class="mb"><button class="mx" data-close>&times;</button><h3><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--pl)"></i> Website Creation Service</h3><p>Want your own customized website? We create sites tailored to your needs, live within <b>1–2 weeks</b>.</p><ul><li>Pay a normal service fee directly for creation and customization.</li><li>Already have a domain or Google link? We'll connect your website to it.</li></ul><p><i class="fa-solid fa-phone" style="color:var(--pl)"></i> <a href="tel:+639928760990" style="color:var(--pl)">+63 992 876 0990</a> (Dito)<br><i class="fa-solid fa-envelope" style="color:var(--pl)"></i> <a href="mailto:ablaobryan4400@gmail.com" style="color:var(--pl)">ablaobryan4400@gmail.com</a></p></div></div>
+<div class="mo" id="m-hire"><div class="mb"><button class="mx" data-close>&times;</button><h3><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--pl)"></i> Website Creation Service</h3><p>Want your own customized website? We create sites tailored to your needs, live within <b>1–2 weeks</b>.</p>
+<h4 class="hh">What you get</h4><ul><li><b>Custom design</b> – layout, colors and typography built around you or your business, not a generic template.</li><li><b>Fully responsive</b> – fits phones, tablets and desktops without any zooming.</li><li><b>Light &amp; Dark mode</b> – an optional day/night theme switch like this portfolio.</li><li><b>Clean, fast code</b> – plain HTML, CSS and JavaScript that is easy to maintain and quick to load.</li><li><b>Interactive extras</b> – animations, galleries, search and filters, contact buttons, social links and more when you need them.</li><li><b>Ready to share</b> – page title, description and favicon set up for a clean preview.</li></ul>
+<h4 class="hh">Great for</h4><ul><li>Personal portfolios and profile pages</li><li>Small business and service pages</li><li>School, organization and event pages</li><li>Invitations, link pages and landing pages</li></ul>
+<h4 class="hh">How it works</h4><ol><li><b>Message me</b> – tell me what kind of site you want and share any references.</li><li><b>Plan &amp; quote</b> – we agree on the pages, features and service fee before work starts.</li><li><b>Design &amp; build</b> – I build it and share progress so you can give feedback.</li><li><b>Revisions</b> – adjustments to polish layout, text and colors.</li><li><b>Launch</b> – your site goes live, typically within 1–2 weeks.</li></ol>
+<h4 class="hh">What I need from you</h4><ul><li>Your name or brand and the pages you want</li><li>Text content, photos and logo (or tell me what to write)</li><li>Preferred colors or sample websites you like</li><li>Your domain or Google link, if you already have one</li></ul>
+<h4 class="hh">Domain &amp; payment</h4><ul><li>Already have a domain or Google link? We'll connect your website to it.</li><li>No domain yet? Ask me and I'll explain your options.</li><li>Pay a normal service fee directly for creation and customization – the amount is agreed with you first.</li></ul>
+<p class="mu" style="margin-top:.4rem"><i class="fa-solid fa-circle-info" style="color:var(--pl)"></i> Timeline depends on the size of the site; larger or special features may take longer.</p>
+<p><i class="fa-solid fa-phone" style="color:var(--pl)"></i> <a href="tel:+639928760990" style="color:var(--pl)">+63 992 876 0990</a> (Dito)<br><i class="fa-solid fa-envelope" style="color:var(--pl)"></i> <a href="mailto:ablaobryan4400@gmail.com" style="color:var(--pl)">ablaobryan4400@gmail.com</a></p></div></div>
 <div class="mo" id="m-cmd"><div class="mb"><button class="mx" data-close>&times;</button><h3>cmd.bat — music commands</h3><p>Anything else you type is searched as a song.</p>
  <div class="grid" style="gap:.5rem">
   <div class="box"><code>play &lt;song&gt;</code> <span class="mu">force a search</span></div><div class="box"><code>pause</code> <span class="mu">pause / resume</span></div><div class="box"><code>next, prev</code> <span class="mu">skip</span></div><div class="box"><code>vol &lt;0-100&gt;</code> <span class="mu">volume</span></div><div class="box"><code>np</code> <span class="mu">what is playing now</span></div><div class="box"><code>stealth on|off</code> <span class="mu">fake 'not recognized' message</span></div><div class="box"><code>cls</code> <span class="mu">clear screen</span></div><div class="box"><code>exit</code> <span class="mu">close</span></div></div></div></div>
@@ -587,21 +691,56 @@ function tick(){$("#ph").textContent="Philippine Standard Time — "+new Intl.Da
 tick();setInterval(tick,1000);
 
 /* starfield + meteor */
-const sc=$("#stars"),sx=sc.getContext("2d");let stars=[],met=null;
-function genStars(){stars=Array.from({length:Math.floor(innerWidth*innerHeight/7000)},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,a:Math.random()*.65+.2,r:Math.random()*1.05+.35,f:Math.random()*.013+.004}))}
+const sc=$("#stars"),sx=sc.getContext("2d");let stars=[],mets=[],clouds=[],fogs=[];
+function genStars(){
+  const n=Math.floor(innerWidth*innerHeight/5200),C=["255,255,255","255,255,255","200,222,255","255,238,205"];
+  stars=Array.from({length:n},()=>{const big=Math.random()<.07;return{x:Math.random()*innerWidth,y:Math.random()*innerHeight,a:Math.random()*.4+.55,r:big?Math.random()*.9+1.5:Math.random()*1.1+.5,f:Math.random()*1.6+.5,p:Math.random()*6.283,c:C[Math.floor(Math.random()*C.length)],big}});
+  const W=innerWidth,H=innerHeight,k=Math.max(.55,Math.min(1.2,W/1100));
+  const shapes=[[[0,0,34],[38,-12,28],[70,2,32],[26,10,30],[56,12,28]],[[0,0,30],[34,-16,36],[72,-4,30],[102,6,24],[44,10,32]]];
+  clouds=Array.from({length:7},(_,i)=>({x:Math.random()*(W+300)-150,y:H*(.06+Math.random()*.5),s:k*(.7+Math.random()*.9),v:6+Math.random()*12,sh:shapes[i%2],a:.55+Math.random()*.3}));
+  fogs=Array.from({length:4},(_,i)=>({x:Math.random()*W,y:H*(.55+i*.12),v:3+Math.random()*5,sc:5+Math.random()*3,r:Math.max(120,W*.14)}));
+}
 function sizeC(c,x){const d=Math.min(devicePixelRatio||1,2);c.width=innerWidth*d;c.height=innerHeight*d;c.style.width=innerWidth+"px";c.style.height=innerHeight+"px";x.setTransform(d,0,0,d,0,0)}
-function meteor(){met={x:Math.random()*innerWidth,y:-30,vx:-(Math.random()*3+2),vy:Math.random()*2+2.1,a:1}}
-function animS(){sx.clearRect(0,0,innerWidth,innerHeight);const L=theme()==="light";
-  stars.forEach(s=>{s.a=Math.max(.15,Math.min(.88,s.a+s.f*(Math.random()<.5?-1:1)));sx.beginPath();sx.arc(s.x,s.y,s.r,0,6.283);sx.fillStyle=L?`rgba(71,85,105,${s.a*.48})`:`rgba(255,255,255,${s.a})`;sx.fill()});
-  if(met){met.x+=met.vx;met.y+=met.vy;met.a-=.012;const tx=met.x-met.vx*16,ty=met.y-met.vy*16,g=sx.createLinearGradient(met.x,met.y,tx,ty),c=L?"12,57,129":"255,255,255";g.addColorStop(0,`rgba(${c},${met.a})`);g.addColorStop(1,`rgba(${c},0)`);sx.strokeStyle=g;sx.lineWidth=1.5;sx.beginPath();sx.moveTo(met.x,met.y);sx.lineTo(tx,ty);sx.stroke();
-    if(met.a<=0||met.x<-80||met.y>innerHeight+80){met=null;setTimeout(meteor,Math.random()*4500+3200)}}
-  requestAnimationFrame(animS)}
+function meteor(){const W=innerWidth,H=innerHeight,sp=Math.random()*4+7,an=Math.PI*(.72+Math.random()*.12);mets.push({x:W*(.25+Math.random()*.85),y:-20+Math.random()*H*.3,vx:Math.cos(an)*sp,vy:-Math.sin(an)*sp*-1*.55+Math.random()*1.5,a:1,len:18+Math.random()*10})}
+const RM=matchMedia("(prefers-reduced-motion: reduce)").matches;let lastT=0,nextMet=2;
+function puff(x,y,r,col){const g=sx.createRadialGradient(x,y,r*.15,x,y,r);g.addColorStop(0,`rgba(${col},1)`);g.addColorStop(1,`rgba(${col},0)`);sx.fillStyle=g;sx.beginPath();sx.arc(x,y,r,0,6.283);sx.fill()}
+function night(t,dt){
+  stars.forEach(s=>{const tw=RM?1:.55+.45*Math.sin(t*s.f+s.p),al=Math.min(1,s.a*tw+.08);
+    if(s.big){const g=sx.createRadialGradient(s.x,s.y,0,s.x,s.y,s.r*6);g.addColorStop(0,`rgba(${s.c},${al*.55})`);g.addColorStop(1,`rgba(${s.c},0)`);sx.fillStyle=g;sx.beginPath();sx.arc(s.x,s.y,s.r*6,0,6.283);sx.fill();
+      sx.strokeStyle=`rgba(${s.c},${al*.6})`;sx.lineWidth=.8;const L=s.r*5*tw;sx.beginPath();sx.moveTo(s.x-L,s.y);sx.lineTo(s.x+L,s.y);sx.moveTo(s.x,s.y-L);sx.lineTo(s.x,s.y+L);sx.stroke()}
+    sx.beginPath();sx.arc(s.x,s.y,s.r,0,6.283);sx.fillStyle=`rgba(${s.c},${al})`;sx.fill()});
+  if(!RM&&t>nextMet){meteor();if(Math.random()<.3)setTimeout(meteor,350);nextMet=t+1.6+Math.random()*3}
+  for(let i=mets.length-1;i>=0;i--){const m=mets[i];m.x+=m.vx*dt*60;m.y+=m.vy*dt*60;m.a-=.011*dt*60;
+    const tx=m.x-m.vx*m.len,ty=m.y-m.vy*m.len,g=sx.createLinearGradient(m.x,m.y,tx,ty);g.addColorStop(0,`rgba(255,255,255,${m.a})`);g.addColorStop(.25,`rgba(170,205,255,${m.a*.55})`);g.addColorStop(1,"rgba(120,170,255,0)");
+    sx.strokeStyle=g;sx.lineWidth=2;sx.lineCap="round";sx.beginPath();sx.moveTo(m.x,m.y);sx.lineTo(tx,ty);sx.stroke();
+    const h=sx.createRadialGradient(m.x,m.y,0,m.x,m.y,7);h.addColorStop(0,`rgba(255,255,255,${m.a})`);h.addColorStop(1,"rgba(255,255,255,0)");sx.fillStyle=h;sx.beginPath();sx.arc(m.x,m.y,7,0,6.283);sx.fill();
+    if(m.a<=0||m.x<-120||m.y>innerHeight+120)mets.splice(i,1)}
+}
+function day(t,dt){
+  const W=innerWidth,H=innerHeight,R=Math.max(30,Math.min(W,H)*.055),cx=W>700?W*.86:W*.78,cy=H*.13+R*.6;
+  /* sun glow + beams */
+  let g=sx.createRadialGradient(cx,cy,R*.5,cx,cy,R*7);g.addColorStop(0,"rgba(255,214,102,.5)");g.addColorStop(.35,"rgba(255,226,140,.16)");g.addColorStop(1,"rgba(255,226,140,0)");sx.fillStyle=g;sx.beginPath();sx.arc(cx,cy,R*7,0,6.283);sx.fill();
+  sx.save();sx.translate(cx,cy);
+  for(let i=0;i<3;i++){const an=2.2+i*.42+Math.sin(t*.25+i)*.07,L=Math.max(W,H)*1.1,w=.16;sx.save();sx.rotate(an);const bg=sx.createLinearGradient(0,0,L,0);bg.addColorStop(0,"rgba(255,236,170,.2)");bg.addColorStop(1,"rgba(255,236,170,0)");sx.fillStyle=bg;sx.beginPath();sx.moveTo(0,0);sx.lineTo(L,-L*w);sx.lineTo(L,L*w);sx.closePath();sx.fill();sx.restore()}
+  sx.rotate(RM?0:t*.1);
+  for(let i=0;i<18;i++){const l=R*(2.1+.5*Math.sin(t*1.3+i*1.7)),w=R*.1;sx.fillStyle="rgba(255,200,60,.28)";sx.beginPath();sx.moveTo(R*1.25,-w);sx.lineTo(l,0);sx.lineTo(R*1.25,w);sx.closePath();sx.fill();sx.rotate(6.283/18)}
+  sx.restore();
+  g=sx.createRadialGradient(cx-R*.25,cy-R*.25,R*.1,cx,cy,R);g.addColorStop(0,"#fff6c4");g.addColorStop(.6,"#ffd45a");g.addColorStop(1,"#ffb62e");sx.fillStyle=g;sx.beginPath();sx.arc(cx,cy,R,0,6.283);sx.fill();
+  /* fog */
+  fogs.forEach(f=>{if(!RM){f.x+=f.v*dt;if(f.x-f.r*f.sc>W)f.x=-f.r*f.sc}
+    sx.save();sx.translate(f.x,f.y);sx.scale(f.sc,1);const fg=sx.createRadialGradient(0,0,0,0,0,f.r);fg.addColorStop(0,"rgba(190,205,228,.28)");fg.addColorStop(1,"rgba(190,205,228,0)");sx.fillStyle=fg;sx.beginPath();sx.arc(0,0,f.r,0,6.283);sx.fill();sx.restore()});
+  /* clouds */
+  clouds.forEach(c=>{if(!RM){c.x+=c.v*dt;if(c.x>W+60)c.x=-160*c.s}
+    sx.globalAlpha=c.a;c.sh.forEach(p=>puff(c.x+p[0]*c.s,c.y+p[1]*c.s+9*c.s,p[2]*c.s,"150,170,200"));c.sh.forEach(p=>puff(c.x+p[0]*c.s,c.y+p[1]*c.s,p[2]*c.s,"255,255,255"));sx.globalAlpha=1})
+}
+function animS(t){t=(t||0)*.001;const dt=Math.min(.05,t-lastT||.016);lastT=t;sx.clearRect(0,0,innerWidth,innerHeight);
+  if(theme()==="light")day(t,dt);else night(t,dt);requestAnimationFrame(animS)}
 /* ripple */
 const rc=$("#ripple"),rx=rc.getContext("2d");let rp=[];
 addEventListener("mousemove",e=>{if(matchMedia("(pointer: coarse)").matches||Math.random()>.22)return;rp.push({x:e.clientX,y:e.clientY,r:0,a:.2});if(rp.length>12)rp.shift()});
 function animR(){rx.clearRect(0,0,innerWidth,innerHeight);for(let i=rp.length-1;i>=0;i--){const p=rp[i];p.r+=1.15;p.a-=.007;if(p.a<=0){rp.splice(i,1);continue}rx.beginPath();rx.arc(p.x,p.y,p.r,0,6.283);rx.strokeStyle=theme()==="light"?`rgba(12,57,129,${p.a})`:`rgba(138,184,255,${p.a})`;rx.stroke()}requestAnimationFrame(animR)}
 function resize(){sizeC(sc,sx);sizeC(rc,rx);genStars()}
-addEventListener("resize",resize);resize();animS();animR();setTimeout(meteor,1800);
+addEventListener("resize",resize);resize();requestAnimationFrame(animS);animR();
 
 /* background music (reads the "mp4" folder of your GitHub repo) */
 const FOLDER="mp4",EXT=["mp3","mp4","m4a","aac","ogg","wav","webm"],KEY="accxs-music-state";
