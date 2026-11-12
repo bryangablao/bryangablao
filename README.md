@@ -139,7 +139,18 @@ Works in current versions of Chrome, Edge, Firefox, Safari, and mobile browsers.
 ## Website Creation Service
 Need your own customized website? Sites are built to your needs and typically go live within 1–2 weeks. Get in touch using the details above to discuss scope and fees.
 
+## 🏢 About Accxs-Creations
+ 
+This website was created with **Accxs-Creations**, a company that creates websites. Accxs-Creations designs and builds modern, easy-to-use websites and web apps, from personal portfolios to games, streaming sites, and social apps.
+ 
+## 👤 Author
+ 
+**Bryan Gutierrez Ablao**
+GitHub: [@bryangablao](https://github.com/bryangablao)
+ 
 ---
 
 ## License & Copyright
 © Bryan G. Ablao. All rights reserved. The design, layout, code, logo, photos, and written content are the intellectual property of the creator. Brand names and logos shown belong to their respective owners. Do not copy, redistribute, or use the content for commercial purposes without written permission.
+ 
+⭐ If you like this portfolio, consider giving the repository a star!
