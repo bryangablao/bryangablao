@@ -125,35 +125,36 @@ The site sets **no cookies** and uses **no analytics or tracking**. It keeps two
 Resources loaded from other providers (Google Fonts, cdnjs, jsDelivr, GitHub) receive standard request data such as IP address, as with any website. See the **Terms & Privacy** page for the full policy.
 
 ---
- 
+
 ## Browser Support
 Works in current versions of Chrome, Edge, Firefox, Safari, and mobile browsers. Some features (such as `mask-image`, `backdrop-filter`, and thin scrollbars) degrade gracefully in older browsers.
- 
+
 ---
- 
+
 ## Contact
 - **Email:** ablaobryan4400@gmail.com
 - **Phone:** +63 992 876 0990 (Dito)
 - **Location:** Davao City, Philippines
+
 ## Website Creation Service
 Need your own customized website? Sites are built to your needs and typically go live within 1–2 weeks. Get in touch using the details above to discuss scope and fees.
- 
+
 ---
- 
+
 ## 🏢 About Accxs-Creations
- 
+
 This website was created with **Accxs-Creations**, a company that creates websites. Accxs-Creations designs and builds modern, easy-to-use websites and web apps, from personal portfolios to games, streaming sites, and social apps.
- 
+
 ## 👤 Author
- 
+
 **Bryan Gutierrez Ablao**
 GitHub: [@bryangablao](https://github.com/bryangablao)
- 
+
 ---
- 
+
 ## License & Copyright
 © Bryan G. Ablao. All rights reserved. The design, layout, code, logo, photos, and written content are the intellectual property of the creator. Brand names and logos shown belong to their respective owners. Do not copy, redistribute, or use the content for commercial purposes without written permission.
- 
+
 ---
- 
+
 ⭐ If you like this portfolio, consider giving the repository a star!
